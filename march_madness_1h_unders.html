@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>March Madness 2026 — First Half Under Rankings</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d1117;
+    color: #e6edf3;
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 48px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #111820 0%, #0d1117 100%);
+    border-bottom: 2px solid #f0a500;
+    padding: 28px 40px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .header-left { display: flex; align-items: center; gap: 20px; }
+  .header-logo {
+    width: 56px; height: 56px;
+    border: 3px solid #f0a500;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .header-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 42px; font-weight: 900;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    color: #ffffff;
+  }
+  .header-sub {
+    font-size: 14px; color: #8b949e;
+    margin-top: 4px; letter-spacing: 0.04em;
+  }
+  .header-sub span { color: #f0a500; }
+
+  .header-badge {
+    border: 2px solid #2ea043;
+    border-radius: 6px;
+    padding: 12px 18px;
+    text-align: center;
+    background: rgba(46,160,67,0.08);
+    flex-shrink: 0;
+  }
+  .badge-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: #2ea043; margin-bottom: 4px;
+  }
+  .badge-stat {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 800; color: #ffffff; line-height: 1;
+  }
+  .badge-note { font-size: 11px; color: #8b949e; margin-top: 3px; }
+
+  /* ── COLUMN HEADERS ── */
+  .col-headers {
+    display: grid;
+    grid-template-columns: 60px 1fr 110px 140px 110px 90px 1fr 130px 90px;
+    gap: 0;
+    padding: 10px 40px;
+    background: #161b22;
+    border-bottom: 1px solid #21262d;
+  }
+  .col-h {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #484f58;
+  }
+
+  /* ── ROWS ── */
+  .rows { padding: 0 24px; }
+
+  .row {
+    display: grid;
+    grid-template-columns: 60px 1fr 110px 140px 110px 90px 1fr 130px 90px;
+    align-items: center;
+    gap: 0;
+    padding: 14px 16px;
+    border-bottom: 1px solid #161b22;
+    transition: background 0.15s;
+  }
+  .row:hover { background: rgba(255,255,255,0.03); }
+
+  .row.tier1 { border-left: 3px solid #f0a500; }
+  .row.tier2 { border-left: 3px solid #388bfd; }
+  .row.tier3 { border-left: 3px solid #484f58; }
+
+  /* Rank circle */
+  .rank-circle {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 800;
+  }
+  .rank-t1 { background: #f0a500; color: #0d1117; }
+  .rank-t2 { background: #388bfd; color: #ffffff; }
+  .rank-t3 { background: #21262d; color: #8b949e; border: 1px solid #30363d; }
+
+  /* Matchup */
+  .matchup-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px; font-weight: 700; color: #e6edf3;
+    margin-bottom: 3px; letter-spacing: 0.01em;
+  }
+  .matchup-factors {
+    font-size: 11px; color: #6e7681; line-height: 1.4;
+  }
+  .matchup-factors .edge {
+    color: #2ea043; font-size: 10px; display: block; margin-top: 2px;
+  }
+
+  /* 1H Total pill */
+  .total-pill {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: #f0a500; color: #0d1117;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 800;
+    padding: 5px 12px; border-radius: 3px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Best line */
+  .best-line {
+    font-size: 13px; font-weight: 600; color: #e6edf3;
+  }
+
+  /* Full game */
+  .full-gm { font-size: 13px; color: #8b949e; }
+
+  /* Ratio */
+  .ratio {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700;
+  }
+  .ratio.green { color: #2ea043; }
+  .ratio.red   { color: #f85149; }
+
+  /* Stars */
+  .stars { display: flex; gap: 3px; align-items: center; }
+  .star { font-size: 16px; }
+  .star.filled { color: #f0a500; }
+  .star.empty  { color: #21262d; }
+
+  /* Tier badge */
+  .tier-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    padding: 4px 10px; border-radius: 3px;
+  }
+  .tier-badge.t1 { background: rgba(240,165,0,0.15); color: #f0a500; border: 1px solid rgba(240,165,0,0.4); }
+  .tier-badge.t2 { background: rgba(56,139,253,0.15); color: #388bfd; border: 1px solid rgba(56,139,253,0.4); }
+  .tier-badge.t3 { background: rgba(72,79,88,0.2);    color: #8b949e; border: 1px solid #30363d; }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex; gap: 28px; flex-wrap: wrap;
+    padding: 16px 40px;
+    background: #161b22;
+    border-top: 1px solid #21262d;
+    margin-top: 8px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; color: #6e7681;
+  }
+  .legend-dot {
+    width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    font-size: 11px; color: #484f58;
+    padding: 20px 40px 0;
+    font-style: italic;
+  }
+
+  @media (max-width: 900px) {
+    .col-headers { display: none; }
+    .row {
+      grid-template-columns: 48px 1fr auto;
+      grid-template-rows: auto auto;
+      gap: 6px;
+      padding: 14px 12px;
+    }
+    .row > *:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)) { display: none; }
+    .header { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    @page { size: landscape; margin: 0.4in; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">⛹</div>
+    <div>
+      <div class="header-title">MARCH MADNESS 2026</div>
+      <div class="header-sub">First Half Under Rankings &nbsp;·&nbsp; <span>Round of 64</span></div>
+    </div>
+  </div>
+  <div class="header-badge">
+    <div class="badge-label">Historical Edge</div>
+    <div class="badge-stat">1H Under hits 55–67%</div>
+    <div class="badge-note">on totals 150+ (last 6 tourneys)</div>
+  </div>
+</div>
+
+<!-- COLUMN HEADERS -->
+<div class="col-headers">
+  <div class="col-h">RK</div>
+  <div class="col-h">Matchup / Key Factors</div>
+  <div class="col-h">1H Total</div>
+  <div class="col-h">Best Line</div>
+  <div class="col-h">Full GM</div>
+  <div class="col-h">Ratio</div>
+  <div class="col-h"></div>
+  <div class="col-h">Rating</div>
+  <div class="col-h">Tier</div>
+</div>
+
+<!-- ROWS -->
+<div class="rows">
+
+  <!-- 1 -->
+  <div class="row tier1">
+    <div><div class="rank-circle rank-t1">1</div></div>
+    <div>
+      <div class="matchup-name">Georgia vs. Saint Louis</div>
+      <div class="matchup-factors">Highest total in tourney history + both teams cooling</div>
+    </div>
+    <div><span class="total-pill">U 80.5</span></div>
+    <div><span class="best-line">Bovada -110</span></div>
+    <div><span class="full-gm">169.5</span></div>
+    <div><span class="ratio green">47.5%</span></div>
+    <div></div>
+    <div class="stars">
+      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+    </div>
+    <div><span class="tier-badge t1">TIER 1</span></div>
+  </div>
+
+  <!-- 2 -->
+  <div class="row tier1">
+    <div><div class="rank-circle rank-t1">2</div></div>
+    <div>
+      <div class="matchup-name">Hofstra vs. Alabama</div>
+      <div class="matchup-factors">Hofstra's 25-year drought from national stage + Alabama instability</div>
+    </div>
+    <div><span class="total-pill">U 75.5</span></div>
+    <div><span class="best-line">Bovada -110</span></div>
+    <div><span class="full-gm">159.5</span></div>
+    <div><span class="ratio green">47.3%</span></div>
+    <div></div>
+    <div class="stars">
+      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span>
+    </div>
+    <div><span class="tier-badge t1">TIER 1</span></div>
+  </div>
+
+  <!-- 3 -->
+  <div class="row tier1">
+    <div><div class="rank-circle rank-t1">3</div></div>
+    <div>
+      <div class="matchup-name">Santa Clara vs. Kentucky</div>
+      <div class="matchup-factors">Santa Clara 30-year absence — grab extra half-point vs. other sportsbooks
+        <span class="edge">⚡ Grab extra half-point vs. other sportsbooks</span>
+      </div>
+    </div>
+    <div><span class="total-pill">U 75.5</span></div>
+    <div><span class="best-line">DraftKings -105</span></div>
+    <div><span class="full-gm">160.5</span></div>
+    <div><span class="ratio green">47.4%</span></div>
+    <div></div>
+    <div class="stars">
+      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span>
+    </div>
+    <div><span class="tier-badge t1">TIER 1</span></div>
+  </div>
+
+  <!-- 4 -->
+  <div class="row tier1">
+    <div><div class="rank-circle rank-t1">4</div></div>
+    <div>
+      <div class="matchup-name">Iowa vs. Clemson</div>
+      <div class="matchup-factors">BOTH teams rank top-5 slowest tempo in all of D1 basketball</div>
+    </div>
+    <div><span class="total-pill">U 61</span></div>
+    <div><span class="best-line">Pinnacle -111</span></div>
+    <div><span class="full-gm">129.5</span></div>
+    <div><span class="ratio green">47.1%</span></div>
+    <div></div>
+    <div class="stars">
+      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span>
+    </div>
+    <div><span class="tier-badge t1">TIER 1</span></div>
+  </div>
+
+  <!-- 5 -->
+  <div class="row tier1">
+    <div><div class="rank-circle rank-t1">5</div></div>
+    <div>
+      <div class="matchup-name">Hawaii vs. Arkansas</div>
+      <div class="matchup-factors">Hawaii's 10-year absence + interior-dominant style controls pace</div>
+    </div>
+    <div><span class="total-pill">U 76.5</span></div>
+    <div><span class="best-line">Any -110</span></div>
+    <div><span class="full-gm">160.5</span></div>
+    <div><span class="ratio green">47.7%</span></div>
+    <div></div>
+    <div class="stars">
+      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span>
+    </div>
+    <div><span class="tier-badge t1">TIER 1</span></div>
+  </div>
+
+  <!-- 6 -->
+  <div class="row tier2">
+    <div><div class="rank-circle rank-t2">6</div></div>
+    <div>
+      <div class="matchup-name">Queens vs. Purdue</div>
+      <div class="matchup-factors">Queens' first-ever D1 tourney game + Purdue #1 offense controls pace</div>
+    </div>
+    <div><span class="total-pill">U 78.5</span></div>
+    <div><span class="best-line">Bovada -110</span></div>
+    <div><span class="full-gm">163.5</span></div>
+    <div><span class="ratio red">48.0%</span></div>
+    <div></div>
+    <div class="stars">
+      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span>
+    </div>
+    <div><span class="tier-badge t2">TIER 2</span></div>
+  </div>
+
+  <!-- 7 -->
+  <div class="row tier2">
+    <div><div class="rank-circle rank-t2">7</div></div>
+    <div>
+      <div class="matchup-name">NDSU vs. Michigan State</div>
+      <div class="matchup-factors">Izzo's #13 defense + NDSU outmatched — DK extra half-point
+        <span class="edge">⚡ Grab extra half-point vs. other sportsbooks</span>
+      </div>
+    </div>
+    <div><span class="total-pill">U 67.5</span></div>
+    <div><span class="best-line">DraftKings -115</span></div>
+    <div><span class="full-gm">143.5</span></div>
+    <div><span class="ratio green">47.4%</span></div>
+    <div></div>
+    <div class="stars">
+      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span>
+    </div>
+    <div><span class="tier-badge t2">TIER 2</span></div>
+  </div>
+
+  <!-- 8 -->
+  <div class="row tier2">
+    <div><div class="rank-circle rank-t2">8</div></div>
+    <div>
+      <div class="matchup-name">Furman vs. UConn</div>
+      <div class="matchup-factors">UConn elite D + SoCon program overwhelmed on national stage</div>
+    </div>
+    <div><span class="total-pill">U 64.5</span></div>
+    <div><span class="best-line">Pinnacle -111</span></div>
+    <div><span class="full-gm">137.5</span></div>
+    <div><span class="ratio red">46.9%</span></div>
+    <div></div>
+    <div class="stars">
+      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span>
+    </div>
+    <div><span class="tier-badge t2">TIER 2</span></div>
+  </div>
+
+  <!-- 9 -->
+  <div class="row tier3">
+    <div><div class="rank-circle rank-t3">9</div></div>
+    <div>
+      <div class="matchup-name">McNeese vs. Vanderbilt</div>
+      <div class="matchup-factors">Right at 150 historical trigger + Vanderbilt SEC tournament fatigue</div>
+    </div>
+    <div><span class="total-pill">U 71</span></div>
+    <div><span class="best-line">Any -111</span></div>
+    <div><span class="full-gm">150.5</span></div>
+    <div><span class="ratio green">47.2%</span></div>
+    <div></div>
+    <div class="stars">
+      <span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span><span class="star empty">★</span>
+    </div>
+    <div><span class="tier-badge t3">TIER 3</span></div>
+  </div>
+
+  <!-- 10 -->
+  <div class="row tier3">
+    <div><div class="rank-circle rank-t3">10</div></div>
+    <div>
+      <div class="matchup-name">Idaho vs. Houston</div>
+      <div class="matchup-factors">Houston elite defense — value already priced in by market</div>
+    </div>
+    <div><span class="total-pill">U 64</span></div>
+    <div><span class="best-line">Bovada</span></div>
+    <div><span class="full-gm">136.5</span></div>
+    <div><span class="ratio red">46.9%</span></div>
+    <div></div>
+    <div class="stars">
+      <span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span><span class="star empty">★</span>
+    </div>
+    <div><span class="tier-badge t3">TIER 3</span></div>
+  </div>
+
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#f0a500;"></div>
+    TIER 1: 4+ factors aligning (strongest plays)
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#388bfd;"></div>
+    TIER 2: 3 factors aligning (solid plays)
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#484f58;"></div>
+    TIER 3: situational / fade-in value
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#2ea043;"></div>
+    ⚡ = Half-point line edge at noted book
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#2ea043; opacity:0.5;"></div>
+    Ratio ≤47.5% = under-priced (green = more edge)
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Based on historical NCAA Tournament trends, KenPom tempo data &amp; sharp line movement analysis
+</div>
+
+</body>
+</html>
