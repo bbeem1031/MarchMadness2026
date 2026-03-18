@@ -30,6 +30,7 @@
 | File | Description |
 |------|-------------|
 | [`2026_NCAA_Bracket_Picks_FINAL.pdf`](2026_NCAA_Bracket_Picks_FINAL.pdf) | **Final bracket picks for all 67 games.** A/B/C confidence ratings. Final Four projections. Champion pick: Michigan. Rule 16 (West of Mississippi hard fade) applied throughout. Injury-adjusted, line movement incorporated. |
+| [`2026_NCAA_Bracket_Picks_AGGRESSIVE.pdf`](2026_NCAA_Bracket_Picks_AGGRESSIVE.pdf) | **Aggressive/maximum upset bracket — all 67 games.** 12 first-round upsets, ~18 total. Pushes every data-supported upset deeper. Northern Iowa over St. Johns, McNeese over Vanderbilt, Arkansas over Gonzaga in Sweet 16, Alabama faded early (Rule 17 outside trapezoid). Same champion: Michigan. |
 | [`2026_March_Madness_Betting_Picks.pdf`](2026_March_Madness_Betting_Picks.pdf) | **Betting guide — spreads, totals, first-half markets.** 5 Tier-A plays. Opening vs. current lines. Sharp reverse line movement flags. Games to avoid. |
 | [`march_madness_1h_unders.html`](march_madness_1h_unders.html) | **Interactive totals & first-half unders tool.** Filterable by UNDER/OVER/1H/rating. Injury-adjusted scoring projections. Pace data from Barttorvik. |
 
