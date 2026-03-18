@@ -33,10 +33,13 @@
 | North Carolina vs VCU | NC -2.5 | VCU fav trend | **RLM** | 🔄 Wilson injury flipping the market |
 
 ### 🏆 2026 Final Four Projections
+
+> **⛔ RULE 16 — HARD FADE:** No team west of the Mississippi River has won the championship in 20+ years (last: Florida 2006; last Pacific/Mountain school: UCLA 1995). Arizona, Gonzaga, BYU, and all other western schools are **eliminated from championship contention**. Apply as an automatic tiebreaker in any close late-round matchup — take the eastern school.
+
 - **East:** Duke (+300) — best team, injuries absorbed by depth
 - **South:** Houston (+900) — Final Four veterans, Flemings elite, sharp steam confirms
-- **Midwest:** Iowa State (+1100) — #1 nationally last 10 games, best value play
-- **West:** Arizona (+425) — healthiest 1-seed, most analytically stable, **CHAMPION PICK**
+- **Midwest:** **Michigan (+325) 🏆 CHAMPION** — #1 defense, veteran roster (Exp 1.95), East of Mississippi, defeats Duke 71-68 in Indianapolis (Big Ten country)
+- **West:** Arizona (+425) — analytically excellent, advances to Final Four. **⛔ Rule 16: loses to Michigan in semis.**
 
 ---
 
@@ -238,6 +241,7 @@ After the most chalk tournament ever in 2025, expect regression toward the 13-15
 - ✅ Screen every 5-8 seed for BARTHAG <0.85
 - ✅ Fade favorites on 1,000+ mile trips
 - ✅ East Coast team playing in the West = upset pick
+- 🆕 ✅ **NEVER pick a team west of the Mississippi as champion (Rule 16 — 20+ year drought)**
 
 ### STRONGLY CONSIDER
 - 🟡 Fade 6-seeds as "safe" picks

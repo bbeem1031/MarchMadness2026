@@ -29,7 +29,7 @@
 
 | File | Description |
 |------|-------------|
-| [`2026_NCAA_Bracket_Picks_FINAL.pdf`](2026_NCAA_Bracket_Picks_FINAL.pdf) | **Final bracket picks for all 32 first-round games.** A/B/C confidence ratings. Final Four projections. Champion pick: Arizona. Injury-adjusted, line movement incorporated. |
+| [`2026_NCAA_Bracket_Picks_FINAL.pdf`](2026_NCAA_Bracket_Picks_FINAL.pdf) | **Final bracket picks for all 67 games.** A/B/C confidence ratings. Final Four projections. Champion pick: Michigan. Rule 16 (West of Mississippi hard fade) applied throughout. Injury-adjusted, line movement incorporated. |
 | [`2026_March_Madness_Betting_Picks.pdf`](2026_March_Madness_Betting_Picks.pdf) | **Betting guide — spreads, totals, first-half markets.** 5 Tier-A plays. Opening vs. current lines. Sharp reverse line movement flags. Games to avoid. |
 | [`march_madness_1h_unders.html`](march_madness_1h_unders.html) | **Interactive totals & first-half unders tool.** Filterable by UNDER/OVER/1H/rating. Injury-adjusted scoring projections. Pace data from Barttorvik. |
 
@@ -54,7 +54,7 @@
 1. **South Florida +5.5** — Brown OUT, 6-seed -20.3 PASE, at-large 11-seed 64.1% win rate, SFU 5-0 last 10
 2. **VCU +2.5 or ML** — Wilson OUT season, VCU 5-0 last 10, A-10 champs, 16-of-17 run
 3. **Texas +2.5** — Saunders ACL, BYU 2-4 post-injury, Big 12 -15.9 PASE
-4. **Arizona -31.5** — Healthiest #1 seed, 5-0 last 10, most stable title path
+4. **Arizona -31.5** — Healthiest #1 seed, 5-0 last 10, most stable title path *(Rule 16: cannot be champion but dominates early rounds)*
 5. **Utah State -2.5** — 4-point sharp market flip from Villanova, analytics confirm USU
 
 ## 📈 Sharp Line Moves to Track
@@ -66,14 +66,16 @@
 
 ## 🏆 Final Four & Champion
 
-| Region | Pick | Odds |
-|--------|------|------|
-| East | Duke | +300 |
-| South | Houston | +900 |
-| Midwest | Iowa State | +1100 |
-| West | **Arizona 🏆** | **+425** |
+> **⛔ Rule 16 — Hard Fade:** No team west of the Mississippi has won the championship in 20+ years. Arizona, Gonzaga, BYU and all western schools are eliminated from championship contention regardless of analytics.
 
-**Champion: Arizona** — Healthiest #1 seed. Best frontcourt. No 3-pt reliance. Analytically superior to Duke given injury uncertainty. Tommy Lloyd has built the most complete and stable roster in the tournament.
+| Region | Pick | Odds | Note |
+|--------|------|------|------|
+| East | Duke | +300 | |
+| South | Houston | +900 | |
+| Midwest | **Michigan 🏆** | **+325** | **CHAMPION** |
+| West | Arizona | +425 | ⛔ Rule 16 — Final Four exit |
+
+**Champion: Michigan** — #1 defense in the country, veteran roster (Exp 1.95), East of Mississippi, defeats Arizona in Final Four via Rule 16 tiebreaker (0.980 vs 0.978 BARTHAG — coin flip resolved by the 20+ year western drought), then beats Duke 71-68 in Indianapolis.
 
 ---
 
@@ -84,6 +86,7 @@
 | **Barttorvik 2026** | Full-season Barthag, AdjOE/DE, Four Factors, Last10, Last30 trends |
 | **Warren Nolan NET** | NET rankings, Q1/Q2 records, SOS, conference records |
 | **Historical (2008-2025)** | 1,147 team-seasons across 17 tournaments (2020 excluded) |
+| **Rule 16 (NEW)** | West of Mississippi championship drought — 20+ years, added March 18, 2026 |
 | **Injury Reports** | RotoWire, NBC Sports, The Athletic, College Sports Network |
 | **Line Data** | BetMGM, FanDuel, DraftKings — opening vs. current as of March 18, 2026 |
 | **Sharp Signals** | Action Network, VSiN, Yahoo Sports expert analysis |
