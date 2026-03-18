@@ -32,7 +32,24 @@
 | Duke vs Siena | -25.5 | -29.5 | **+4.0** | 📢 Public money — stretched despite injuries |
 | North Carolina vs VCU | NC -2.5 | VCU fav trend | **RLM** | 🔄 Wilson injury flipping the market |
 
-### 🏆 2026 Final Four Projections
+### 🔺 Rule 17 — Trapezoid of Excellence (Championship Filter)
+
+**Created by Ryan Hammer (@ryanhammer09).** Plots Adjusted Net Rating vs Adjusted Tempo. Nearly every champion over 20 years falls inside a trapezoid-shaped zone of elite efficiency + balanced pace. Teams at extreme tempo ends are vulnerable over 6 games.
+
+**2026 Outside the Trapezoid (cannot win championship):**
+
+| Team | Net Rtg | Pace | Issue |
+|------|---------|------|-------|
+| Alabama | 26.7 | 73.1 | Too fast — right edge/outside |
+| Northern Iowa | 11.1 | 62.2 | Too slow + too low |
+| South Florida | 15.4 | 71.4 | Below net rating floor |
+| VCU | 16.2 | 68.7 | Just below floor |
+
+**2026 Championship-tier (inside trapezoid, Net Rating 28+):** Duke, Michigan, Arizona ⛔Rule 16, Florida, Illinois, Purdue, Houston, Iowa State, UConn
+
+**Michigan's case:** Net Rating 36.6, Pace 71.2 — top cluster of trapezoid, East of Mississippi ✅, Rule 16 compliant ✅
+
+
 
 > **⛔ RULE 16 — HARD FADE:** No team west of the Mississippi River has won the championship in 20+ years (last: Florida 2006; last Pacific/Mountain school: UCLA 1995). Arizona, Gonzaga, BYU, and all other western schools are **eliminated from championship contention**. Apply as an automatic tiebreaker in any close late-round matchup — take the eastern school.
 
@@ -255,7 +272,7 @@ After the most chalk tournament ever in 2025, expect regression toward the 13-15
 - 💡 12-seed wins = defense first (KADJ D)
 - 💡 11-seed wins = NET/ELO first (resume)
 - 💡 California & Ohio host upsets more
-- 💡 MVC / CAA mid-majors run deep
+- 🆕 💡 **Trapezoid of Excellence: only pick Final Four teams from inside the trapezoid (Rule 17 — Ryan Hammer)**
 
 ---
 

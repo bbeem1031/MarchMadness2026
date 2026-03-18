@@ -39,7 +39,7 @@
 |------|-------------|
 | [`2026_Upset_Analysis_Deep_Dive.pdf`](2026_Upset_Analysis_Deep_Dive.pdf) | **Deep dive analytical report.** Historical PASE/BARTHAG framework applied to 2026 bracket. Injury upset alerts. Line movement signals. Conference PASE rankings. Historical upset totals. |
 | [`UPSET_INTELLIGENCE.md`](UPSET_INTELLIGENCE.md) | **Full upset trend database** — seed matchup frequencies, PASE by seed, travel effects, conference analysis, team metrics for 11/12-seed winners, historical totals. Plus 2026 live addendum. |
-| [`BRACKET_RULES.md`](BRACKET_RULES.md) | **The 15 rules for filling out a bracket** — derived from 17 tournaments of data. MANDATORY, STRONGLY RECOMMENDED, and ADVISORY tiers. Static historical reference. |
+| [`BRACKET_RULES.md`](BRACKET_RULES.md) | **The 17 rules for filling out a bracket.** MANDATORY, STRONGLY RECOMMENDED, and ADVISORY tiers. Includes Rule 16 (West of Mississippi hard fade) and Rule 17 (Trapezoid of Excellence championship filter by Ryan Hammer @ryanhammer09). |
 
 ### 🌐 Hub
 
@@ -87,6 +87,7 @@
 | **Warren Nolan NET** | NET rankings, Q1/Q2 records, SOS, conference records |
 | **Historical (2008-2025)** | 1,147 team-seasons across 17 tournaments (2020 excluded) |
 | **Rule 16 (NEW)** | West of Mississippi championship drought — 20+ years, added March 18, 2026 |
+| **Rule 17 (NEW)** | Trapezoid of Excellence by Ryan Hammer (@ryanhammer09) — championship filter using Net Rating vs Pace |
 | **Injury Reports** | RotoWire, NBC Sports, The Athletic, College Sports Network |
 | **Line Data** | BetMGM, FanDuel, DraftKings — opening vs. current as of March 18, 2026 |
 | **Sharp Signals** | Action Network, VSiN, Yahoo Sports expert analysis |

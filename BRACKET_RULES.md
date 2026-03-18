@@ -173,5 +173,57 @@ No team headquartered west of the Mississippi River has won the NCAA Championshi
 
 ---
 
+---
+
+## 🆕 ADVISORY RULE (Rule 17) — Added March 18, 2026
+
+### 17 — Use the Trapezoid of Excellence as your championship and Final Four filter
+
+**Created by:** Ryan Hammer (@ryanhammer09) using KenPom data
+
+The Trapezoid of Excellence plots every tournament team on a graph of **Adjusted Net Rating (y-axis)** vs **Adjusted Tempo/Pace (x-axis)**. Nearly every national champion over the past 20 years falls within a specific zone shaped like a trapezoid, representing elite efficiency combined with **balanced, adaptable pace**.
+
+**The core insight:** Teams at the extreme ends of the tempo spectrum — playing either extremely slow or extremely fast — are vulnerable over a 6-game championship run because they cannot adapt to different opponent styles. The trapezoid identifies teams with both the efficiency AND tempo flexibility to win six straight against varied competition.
+
+**How to apply:**
+1. Only pick teams **inside the trapezoid** to reach the Final Four
+2. For the championship, focus on the top cluster: Net Rating **28+**, pace **63–72**
+3. If two teams are analytically close, prefer the one more centrally located
+4. Being inside the trapezoid is **necessary but not sufficient** — Rule 16 (West fade) still eliminates Arizona even though they're inside it
+5. Teams just outside the trapezoid can win first-round upsets — but fade them for deep runs
+
+**2026 Trapezoid Boundaries (Barttorvik Adj Net Rating vs Adj Tempo):**
+- Net Rating floor: ~+18 points
+- Pace range: ~63–72 adjusted tempo
+- Shape widens at top (elite teams tolerate slightly extreme pace), narrows toward bottom
+
+**2026 Teams INSIDE — Championship Eligible:**
+
+| Tier | Teams | Net Rtg | Pace |
+|------|-------|---------|------|
+| 🏆 Elite (28+) | Duke, Michigan, Arizona⛔, Florida, Illinois, Purdue, Houston, Iowa State, UConn | 28–37 | 63–71 |
+| ✅ Contender (20–28) | Vanderbilt, Texas Tech, MSU, Virginia, Arkansas, Gonzaga, Tennessee, Louisville, St. Johns, Wisconsin, Nebraska, Ohio State, Kansas, UCLA, Iowa, Saint Marys, UNC, Santa Clara, Utah State, BYU, Kentucky | 20–28 | 63–72 |
+| ⚠️ Borderline (18–20) | Miami FL, Clemson, Georgia, NC State, Villanova, Texas A&M | 18–20 | 64–72 |
+
+**2026 Teams OUTSIDE — Cannot Win Championship:**
+
+| Team | Net Rtg | Pace | Reason |
+|------|---------|------|--------|
+| Alabama | 26.7 | **73.1** | Too fast — right edge/outside |
+| Northern Iowa | 11.1 | **62.2** | Too slow AND too low net rating |
+| South Florida | 15.4 | 71.4 | Below net rating floor |
+| VCU | 16.2 | 68.7 | Just below net rating floor |
+| Akron | 11.8 | 70.3 | Below net rating floor |
+
+**Key 2026 Implications:**
+- **Alabama ⚠️** — outside the trapezoid (too fast at 73.1). Combined with Big 12 PASE concerns, this is a meaningful additional fade signal for deep rounds
+- **Northern Iowa** — outside confirms our chalk pick; don't let their MVC pedigree fool you into a deep run pick
+- **Michigan's championship case is strengthened** — inside trapezoid, top cluster, elite net rating (36.6), balanced pace (71.2), East of Mississippi ✅
+
+> **Rule type:** ADVISORY — use as Final Four and championship filter after all hard rules applied. Credit: Ryan Hammer (@ryanhammer09)
+
+---
+
 *Data: KenPom · Barttorvik · ESPN/538 · EvanMiya · TeamRankings · AP Poll Archive · 2008–2025 (2020 excluded)*  
-*Rule 16 based on 20+ year historical championship record. Added March 18, 2026.*
+*Rule 16: West of Mississippi championship drought — 20+ years. Added March 18, 2026.*  
+*Rule 17: Trapezoid of Excellence created by Ryan Hammer (@ryanhammer09). Applied March 18, 2026.*
