@@ -3,688 +3,349 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 March Madness Analytics</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>2026 March Madness Intelligence Hub</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;700&display=swap');
   :root {
-    --bg: #0a0e14;
-    --surface: #111620;
-    --border: rgba(255,255,255,0.07);
-    --border-hover: rgba(255,255,255,0.15);
-    --orange: #e8502a;
-    --orange-dim: rgba(232,80,42,0.12);
-    --gold: #f0a500;
-    --gold-dim: rgba(240,165,0,0.1);
-    --green: #2a9d6e;
-    --green-dim: rgba(42,157,110,0.1);
-    --blue: #3b82f6;
-    --blue-dim: rgba(59,130,246,0.1);
-    --text: #f0f4f8;
-    --muted: #5a6478;
-    --sub: #8892a4;
+    --navy:#0f1923; --red:#e8502a; --orange:#dc6f1a; --gold:#f0a500;
+    --green:#2a7a4b; --slate:#94a3b8; --light:#f0f4f8; --white:#ffffff;
+    --card:#1a2535; --border:rgba(255,255,255,0.08); --text:#f1f5f9;
   }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  /* HERO */
+  .hero{padding:56px 40px 40px;border-bottom:1px solid var(--border);background:linear-gradient(160deg,#0a1520 0%,#0f1923 60%,#0d1f30 100%);position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(232,80,42,0.07) 0%,transparent 60%);pointer-events:none;}
+  .eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--red);margin-bottom:14px;text-transform:uppercase;}
+  .hero h1{font-family:'DM Serif Display',serif;font-size:52px;line-height:1.05;letter-spacing:-1px;margin-bottom:10px;max-width:700px;}
+  .hero h1 em{color:var(--red);font-style:normal;}
+  .hero .lead{font-size:15px;color:var(--slate);max-width:560px;line-height:1.7;margin-bottom:28px;}
+  .hero-meta{display:flex;gap:24px;flex-wrap:wrap;}
+  .meta-pill{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--slate);border:1px solid rgba(255,255,255,0.1);padding:5px 12px;border-radius:2px;}
 
-  html { scroll-behavior: smooth; }
+  /* INJURY ALERT */
+  .alert-bar{background:linear-gradient(90deg,#450a0a,#7f1d1d);border-top:2px solid var(--red);padding:14px 40px;font-size:12px;color:#fef3c7;line-height:1.6;}
+  .alert-bar strong{color:#fca5a5;}
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  /* KPI ROW */
+  .kpi-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);}
+  .kpi-cell{background:var(--navy);padding:20px 24px;}
+  .kpi-num{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:var(--red);line-height:1;}
+  .kpi-num.g{color:var(--green);}
+  .kpi-num.o{color:var(--orange);}
+  .kpi-num.s{color:var(--slate);}
+  .kpi-txt{font-size:10px;color:var(--slate);margin-top:6px;letter-spacing:0.5px;line-height:1.4;}
 
-  /* ── GRID BACKGROUND ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 48px 48px;
-    pointer-events: none;
-    z-index: 0;
-  }
+  /* MAIN GRID */
+  .main{padding:40px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:20px;}
+  .grid-full{margin-bottom:20px;}
 
-  /* ── HERO GLOW ── */
-  .glow {
-    position: fixed;
-    top: -200px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 800px;
-    height: 500px;
-    background: radial-gradient(ellipse, rgba(232,80,42,0.12) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
+  /* FILE CARDS */
+  .file-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,transform .15s;}
+  .file-card:hover{border-color:rgba(255,255,255,0.2);transform:translateY(-2px);}
+  .file-card.highlight{border-color:rgba(232,80,42,0.4);background:linear-gradient(135deg,#1a2535,#1a1a10);}
+  .file-icon{font-size:28px;}
+  .file-type{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--slate);text-transform:uppercase;}
+  .file-title{font-size:17px;font-weight:700;color:var(--text);line-height:1.3;}
+  .file-desc{font-size:12px;color:var(--slate);line-height:1.65;flex:1;}
+  .file-link{display:inline-flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:10px;color:var(--red);text-decoration:none;letter-spacing:1px;margin-top:4px;transition:color .15s;}
+  .file-link:hover{color:#ff7a5a;}
+  .tags-row{display:flex;gap:6px;flex-wrap:wrap;}
+  .ftag{font-family:'Space Mono',monospace;font-size:8px;padding:2px 7px;border-radius:2px;letter-spacing:0.5px;font-weight:700;}
+  .ftag-red{background:var(--red);color:white;}
+  .ftag-green{background:var(--green);color:white;}
+  .ftag-orange{background:var(--orange);color:white;}
+  .ftag-navy{background:#1e2d3d;color:var(--slate);}
+  .ftag-gold{background:var(--gold);color:var(--navy);}
 
-  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+  /* UPSET ALERTS TABLE */
+  .alerts-box{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .alerts-box h3{padding:16px 20px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--red);background:rgba(232,80,42,0.08);border-bottom:1px solid var(--border);}
+  .alert-row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center;}
+  .alert-row:last-child{border-bottom:none;}
+  .alert-row.crit{background:rgba(232,80,42,0.06);}
+  .alert-row.high{background:rgba(220,111,26,0.04);}
+  .alert-matchup{font-size:13px;font-weight:700;margin-bottom:4px;}
+  .alert-note{font-size:11px;color:var(--slate);line-height:1.5;}
+  .alert-badge{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;padding:4px 10px;border-radius:3px;white-space:nowrap;}
+  .badge-crit{background:var(--red);color:white;}
+  .badge-high{background:var(--orange);color:white;}
+  .badge-mod{background:#1e2d3d;color:var(--slate);}
 
-  /* ── NAV ── */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    border-bottom: 1px solid var(--border);
-    background: rgba(10,14,20,0.85);
-    backdrop-filter: blur(12px);
-  }
-  .nav-inner {
-    display: flex; align-items: center; justify-content: space-between;
-    height: 56px; max-width: 1060px; margin: 0 auto; padding: 0 28px;
-  }
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px; letter-spacing: 0.08em;
-    color: var(--text);
-    text-decoration: none;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .nav-logo span { color: var(--orange); }
-  .nav-links { display: flex; gap: 24px; }
-  .nav-links a {
-    font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--muted);
-    text-decoration: none; transition: color 0.15s;
-  }
-  .nav-links a:hover { color: var(--text); }
-  .nav-badge {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px; padding: 3px 10px;
-    background: var(--orange-dim); color: var(--orange);
-    border: 1px solid rgba(232,80,42,0.3);
-    border-radius: 2px; letter-spacing: 0.06em;
-  }
+  /* LINE MOVEMENT */
+  .lm-box{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .lm-box h3{padding:16px 20px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:#60a5fa;background:rgba(96,165,250,0.06);border-bottom:1px solid var(--border);}
+  .lm-row{display:grid;grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;gap:8px;padding:12px 20px;border-bottom:1px solid var(--border);align-items:center;font-size:12px;}
+  .lm-row:last-child{border-bottom:none;}
+  .lm-hdr{background:rgba(255,255,255,0.03);font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);letter-spacing:1px;}
+  .lm-game{font-weight:600;}
+  .lm-curr{font-family:'Space Mono',monospace;font-weight:700;}
+  .lm-move{font-family:'Space Mono',monospace;font-weight:700;}
+  .up{color:var(--red);}
+  .down{color:var(--green);}
+  .flip{color:var(--gold);}
+  .lm-sig{font-size:11px;}
 
-  /* ── HERO ── */
-  .hero {
-    padding: 100px 0 80px;
-    text-align: center;
-  }
-  .hero-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--orange); margin-bottom: 24px;
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-  }
-  .hero-eyebrow::before, .hero-eyebrow::after {
-    content: ''; flex: 1; max-width: 60px; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--orange));
-  }
-  .hero-eyebrow::after { transform: scaleX(-1); }
-  .hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(64px, 10vw, 112px);
-    line-height: 0.92; letter-spacing: 0.02em;
-    margin-bottom: 28px;
-  }
-  .hero h1 em { color: var(--orange); font-style: normal; }
-  .hero-sub {
-    font-size: 16px; color: var(--sub); line-height: 1.7;
-    max-width: 560px; margin: 0 auto 48px;
-  }
-  .hero-stats {
-    display: flex; justify-content: center; gap: 0;
-    border: 1px solid var(--border);
-    border-radius: 6px; overflow: hidden;
-    max-width: 600px; margin: 0 auto 56px;
-  }
-  .hero-stat {
-    flex: 1; padding: 20px 16px; border-right: 1px solid var(--border);
-    text-align: center;
-  }
-  .hero-stat:last-child { border-right: none; }
-  .hero-stat-val {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 32px; color: var(--orange); line-height: 1;
-    margin-bottom: 4px;
-  }
-  .hero-stat-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--muted);
-  }
-  .hero-champ {
-    display: inline-flex; align-items: center; gap: 12px;
-    border: 1px solid rgba(240,165,0,0.25);
-    background: var(--gold-dim);
-    border-radius: 4px; padding: 12px 24px;
-    font-size: 13px; color: var(--gold);
-  }
-  .hero-champ strong { font-weight: 500; }
+  /* DATA SOURCES */
+  .sources{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;}
+  .sources h3{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--slate);margin-bottom:16px;}
+  .sources-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .source-item{font-size:12px;color:#64748b;padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:4px;border:1px solid rgba(255,255,255,0.05);}
+  .source-item strong{color:var(--slate);display:block;margin-bottom:2px;font-size:11px;}
 
-  /* ── SECTION LABELS ── */
-  .section { padding: 64px 0; }
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--orange); margin-bottom: 32px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .section-label::after {
-    content: ''; flex: 1; height: 1px;
-    background: linear-gradient(90deg, var(--border), transparent);
-  }
+  footer{padding:24px 40px;border-top:1px solid var(--border);font-family:'Space Mono',monospace;font-size:10px;color:#334155;line-height:1.8;}
 
-  /* ── TOOL CARDS ── */
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 16px;
-  }
-  .tool-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 28px;
-    text-decoration: none;
-    color: inherit;
-    display: flex; flex-direction: column; gap: 14px;
-    transition: border-color 0.2s, transform 0.2s;
-    cursor: pointer;
-  }
-  .tool-card:hover {
-    border-color: var(--border-hover);
-    transform: translateY(-2px);
-  }
-  .tool-card.featured {
-    grid-column: 1 / -1;
-    flex-direction: row; align-items: center; gap: 32px;
-    border-color: rgba(232,80,42,0.25);
-    background: linear-gradient(135deg, #111620 0%, #140e0a 100%);
-  }
-  .tool-icon {
-    font-size: 28px; line-height: 1;
-    width: 52px; height: 52px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 10px; flex-shrink: 0;
-  }
-  .tool-body { flex: 1; }
-  .tool-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
-    padding: 2px 8px; border-radius: 2px; display: inline-block;
-    margin-bottom: 8px;
-  }
-  .tag-orange { background: var(--orange-dim); color: var(--orange); }
-  .tag-gold   { background: var(--gold-dim);   color: var(--gold);   }
-  .tag-green  { background: var(--green-dim);  color: var(--green);  }
-  .tag-blue   { background: var(--blue-dim);   color: var(--blue);   }
-  .tool-card h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px; letter-spacing: 0.04em; line-height: 1;
-    margin-bottom: 6px;
-  }
-  .tool-card p {
-    font-size: 13px; color: var(--sub); line-height: 1.65;
-  }
-  .tool-action {
-    margin-top: auto;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px; letter-spacing: 0.08em;
-    color: var(--muted); display: flex; align-items: center; gap: 6px;
-    transition: color 0.15s;
-  }
-  .tool-card:hover .tool-action { color: var(--text); }
-  .tool-action::after { content: '→'; transition: transform 0.15s; }
-  .tool-card:hover .tool-action::after { transform: translateX(4px); }
-
-  /* ── PICKS TABLE ── */
-  .picks-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-  .region-block {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  .region-header {
-    padding: 12px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; gap: 10px;
-  }
-  .region-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px; letter-spacing: 0.06em;
-  }
-  .region-seed {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px; color: var(--muted);
-  }
-  .pick-row {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-    font-size: 13px;
-  }
-  .pick-row:last-child { border-bottom: none; }
-  .pick-seeds { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); min-width: 52px; }
-  .pick-teams { flex: 1; padding: 0 12px; }
-  .pick-winner { font-weight: 500; }
-  .pick-loser  { color: var(--muted); }
-  .pick-type {
-    font-family: 'DM Mono', monospace; font-size: 9px;
-    letter-spacing: 0.08em; padding: 2px 7px; border-radius: 2px;
-  }
-  .pt-chalk  { background: rgba(90,100,120,0.2); color: var(--muted); }
-  .pt-upset  { background: var(--orange-dim); color: var(--orange); }
-  .pt-lock   { background: var(--gold-dim); color: var(--gold); }
-  .pt-lean   { background: var(--green-dim); color: var(--green); }
-
-  /* ── METHODOLOGY ── */
-  .rules-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-  .rule-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 20px;
-  }
-  .rule-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 40px; line-height: 1; color: rgba(255,255,255,0.06);
-    margin-bottom: 8px;
-  }
-  .rule-priority {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .rule-card h4 { font-size: 13px; font-weight: 500; margin-bottom: 6px; line-height: 1.35; }
-  .rule-card p  { font-size: 12px; color: var(--sub); line-height: 1.55; }
-  .rule-stat {
-    margin-top: 10px; padding-top: 10px;
-    border-top: 1px solid var(--border);
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-  }
-
-  /* ── DOWNLOAD SECTION ── */
-  .dl-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 12px;
-  }
-  .dl-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 18px 20px;
-    display: flex; align-items: center; gap: 14px;
-    text-decoration: none; color: inherit;
-    transition: border-color 0.15s;
-  }
-  .dl-card:hover { border-color: var(--border-hover); }
-  .dl-icon {
-    width: 36px; height: 36px; border-radius: 6px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-  }
-  .dl-info { flex: 1; min-width: 0; }
-  .dl-name { font-size: 13px; font-weight: 500; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .dl-meta { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); }
-  .dl-arrow { color: var(--muted); font-size: 14px; transition: transform 0.15s; }
-  .dl-card:hover .dl-arrow { transform: translateX(3px); }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 40px 0;
-    margin-top: 40px;
-  }
-  .footer-inner {
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 16px;
-    max-width: 1060px; margin: 0 auto; padding: 0 28px;
-  }
-  .footer-left { font-size: 12px; color: var(--muted); line-height: 1.7; }
-  .footer-links { display: flex; gap: 20px; }
-  .footer-links a {
-    font-family: 'DM Mono', monospace; font-size: 11px;
-    color: var(--muted); text-decoration: none; letter-spacing: 0.06em;
-    transition: color 0.15s;
-  }
-  .footer-links a:hover { color: var(--text); }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .hero > * { animation: fadeUp 0.6s ease both; }
-  .hero > *:nth-child(1) { animation-delay: 0.05s; }
-  .hero > *:nth-child(2) { animation-delay: 0.12s; }
-  .hero > *:nth-child(3) { animation-delay: 0.2s; }
-  .hero > *:nth-child(4) { animation-delay: 0.28s; }
-  .hero > *:nth-child(5) { animation-delay: 0.36s; }
-
-  @media (max-width: 720px) {
-    .picks-grid { grid-template-columns: 1fr; }
-    .rules-grid { grid-template-columns: 1fr; }
-    .tool-card.featured { flex-direction: column; }
-    .hero-stats { flex-wrap: wrap; }
-    .hero-stat { min-width: 140px; }
+  @media(max-width:900px){
+    .grid,.grid-3{grid-template-columns:1fr;}
+    .kpi-strip{grid-template-columns:repeat(3,1fr);}
+    .hero h1{font-size:36px;}
+    .main{padding:20px;}
   }
 </style>
 </head>
 <body>
 
-<div class="glow"></div>
-
-<nav>
-  <div class="nav-inner">
-    <a class="nav-logo" href="#"><span>◆</span> MARCH MADNESS <span>2026</span></a>
-    <div class="nav-links">
-      <a href="#tools">Tools</a>
-      <a href="#picks">Picks</a>
-      <a href="#method">Method</a>
-      <a href="#files">Files</a>
-    </div>
-    <div class="nav-badge">V3 · FINAL</div>
+<div class="hero">
+  <div class="eyebrow">▶ Intelligence Report · 2026 NCAA Tournament · Updated March 18, 2026</div>
+  <h1>March Madness<br><em>Intelligence Hub</em></h1>
+  <p class="lead">Data-driven bracket picks, betting analysis, and upset intelligence for the 2026 NCAA Tournament. Built on Barttorvik 2026, Warren Nolan NET, 17 years of historical PASE/BARTHAG data, real-time injury intelligence, and sharp line movement tracking.</p>
+  <div class="hero-meta">
+    <span class="meta-pill">1,147 TEAM-SEASONS</span>
+    <span class="meta-pill">38 DATA SOURCES</span>
+    <span class="meta-pill">BARTTORVIK 2026</span>
+    <span class="meta-pill">WARREN NOLAN NET</span>
+    <span class="meta-pill">LAST-10 / LAST-30 TRENDS</span>
+    <span class="meta-pill">INJURY-ADJUSTED</span>
   </div>
-</nav>
+</div>
 
-<div class="wrap">
+<div class="alert-bar">
+  <strong>⚠ CRITICAL INJURIES AFFECTING PICKS:</strong> Mikel Brown Jr. (Louisville) RULED OUT R1+R2 · Caleb Wilson (UNC) OUT FOR SEASON · Braden Huff (Gonzaga) OUT R1 · Caleb Foster (Duke) OUT · Richie Saunders (BYU) OUT FOR SEASON · JT Toppin (Texas Tech) OUT FOR SEASON · All picks incorporate these absences.
+</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-eyebrow">Data-Driven · 2008–2025 · 1,147 Team-Seasons</div>
-    <h1>2026 MARCH<br><em>MADNESS</em><br>ANALYTICS</h1>
-    <p class="hero-sub">Barttorvik BARTHAG model, Last-10 momentum signals, 15 data rules, first-round betting picks, and printable wall cards for all 68 teams.</p>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-val">68</div>
-        <div class="hero-stat-label">Teams Analyzed</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-val">15</div>
-        <div class="hero-stat-label">Data Rules</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-val">32</div>
-        <div class="hero-stat-label">Betting Picks</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-val">17yr</div>
-        <div class="hero-stat-label">History</div>
-      </div>
-    </div>
-    <div class="hero-champ">
-      🏆 &nbsp;<strong>Predicted Champion:</strong>&nbsp; Michigan Wolverines &nbsp;·&nbsp; defeats Duke 71–68
-    </div>
-  </section>
+<div class="kpi-strip">
+  <div class="kpi-cell"><div class="kpi-num">5</div><div class="kpi-txt">Tier A Plays<br>Highest Conviction</div></div>
+  <div class="kpi-cell"><div class="kpi-num o">4</div><div class="kpi-txt">Sharp Line Moves<br>Identified</div></div>
+  <div class="kpi-cell"><div class="kpi-num g">Arizona</div><div class="kpi-txt">Champion Pick<br>+425 Title Odds</div></div>
+  <div class="kpi-cell"><div class="kpi-num" style="color:var(--gold)">13.5</div><div class="kpi-txt">Expected Upsets<br>Long-run Average</div></div>
+  <div class="kpi-cell"><div class="kpi-num s">6</div><div class="kpi-txt">Key Injuries<br>Confirmed Out</div></div>
+  <div class="kpi-cell"><div class="kpi-num" style="color:#60a5fa">4</div><div class="kpi-txt">Files<br>In This Repo</div></div>
+</div>
 
-  <!-- TOOLS -->
-  <section class="section" id="tools">
-    <div class="section-label">Interactive Tools</div>
-    <div class="tools-grid">
+<div class="main">
 
-      <a class="tool-card featured" href="https://bbeem1031.github.io/MarchMadness2026/UPSET_INTELLIGENCE.md" target="_blank">
-        <div class="tool-icon" style="background:var(--orange-dim); font-size:32px;">📊</div>
-        <div class="tool-body">
-          <div class="tool-tag tag-orange">Featured Dashboard</div>
-          <h3>Upset Intelligence Report</h3>
-          <p>Complete upset analysis across 17 tournaments — seed matchup trends, travel and location effects, conference PASE, team metrics and predictors, and historical upset totals by year. All data in readable tables.</p>
+  <!-- TOP ALERTS + LINE MOVEMENT -->
+  <div class="grid">
+    <div class="alerts-box">
+      <h3>▶ UPSET ALERTS — INJURY-DRIVEN</h3>
+      <div class="alert-row crit">
+        <div>
+          <div class="alert-matchup">🔴 South Florida (+5.5) vs Louisville (#6)</div>
+          <div class="alert-note">Mikel Brown Jr. RULED OUT R1+R2. 18.2 PPG gone. 6-seed worst PASE (-20.3). At-large 11-seed 64.1% win rate. South Florida 5-0 last 10.</div>
         </div>
-        <div class="tool-action">Open Report</div>
-      </a>
-
-      <a class="tool-card" href="https://bbeem1031.github.io/MarchMadness2026/BRACKET_RULES.md" target="_blank">
-        <div class="tool-icon" style="background:var(--gold-dim);">📋</div>
-        <div class="tool-body">
-          <div class="tool-tag tag-gold">Reference</div>
-          <h3>The 15 Bracket Rules</h3>
-          <p>All 15 data-driven rules with full explanations, key stats, and supporting tables. Covers seed matchups, BARTHAG thresholds, travel effects, conference PASE, and Cinderella floors.</p>
+        <span class="alert-badge badge-crit">TAKE SFU</span>
+      </div>
+      <div class="alert-row crit">
+        <div>
+          <div class="alert-matchup">🔴 VCU (+2.5) vs North Carolina (#6)</div>
+          <div class="alert-note">Caleb Wilson OUT season (surgery). UNC 0-2 without him. VCU 16-of-17, A-10 champs, 5-0 last 10. Line moving hard toward VCU.</div>
         </div>
-        <div class="tool-action">Open Rules</div>
-      </a>
-
-      <a class="tool-card" href="https://bbeem1031.github.io/MarchMadness2026/march_madness_1h_unders.html" target="_blank">
-        <div class="tool-icon" style="background:var(--gold-dim);">📉</div>
-        <div class="tool-body">
-          <div class="tool-tag tag-gold">Betting</div>
-          <h3>First Half Under Rankings</h3>
-          <p>Top 10 first-half under plays for the Round of 64. Ranked by tier with 1H totals, best lines, full game totals, historical ratio, and star ratings. 1H Unders hit 55–67% on totals 150+ in the last 6 tournaments.</p>
+        <span class="alert-badge badge-crit">TAKE VCU</span>
+      </div>
+      <div class="alert-row high">
+        <div>
+          <div class="alert-matchup">🟠 Texas (+2.5) vs BYU (#6)</div>
+          <div class="alert-note">Richie Saunders ACL — BYU went 2-4 post-injury. Texas is at-large 11-seed. Big 12 worst PASE (-15.9).</div>
         </div>
-        <div class="tool-action">Open Rankings</div>
-      </a>
-      <a class="tool-card" href="https://bbeem1031.github.io/MarchMadness2026/ncaa_2026_wall_cards.html" target="_blank">
-        <div class="tool-body">
-          <div class="tool-tag tag-green">Print-Ready</div>
-          <h3>2×6 Wall Cards</h3>
-          <p>All 68 team cards ready to print, cut, and laminate for your bracket wall. Loads ESPN logos live. Auto-scales font so every name fits. Sort by seed. Ctrl+P to print at 100% scale on Letter paper.</p>
+        <span class="alert-badge badge-high">TAKE TEX</span>
+      </div>
+      <div class="alert-row high">
+        <div>
+          <div class="alert-matchup">🟠 Akron (+7.5) vs Texas Tech (#5)</div>
+          <div class="alert-note">JT Toppin OUT season. Tech 0-3 last 10. Akron defensive MAC champ (29-5). Classic 12-seed profile.</div>
         </div>
-        <div class="tool-action">Open Wall Cards</div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- PICKS -->
-  <section class="section" id="picks">
-    <div class="section-label">V3 First Round Picks — Momentum Updated</div>
-    <div class="picks-grid">
-
-      <!-- EAST -->
-      <div class="region-block">
-        <div class="region-header">
-          <div class="region-name">East</div>
-          <div class="region-seed">#1 Duke · Washington D.C.</div>
+        <span class="alert-badge badge-high">LEAN AKRON</span>
+      </div>
+      <div class="alert-row">
+        <div>
+          <div class="alert-matchup">⚡ Utah State vs Villanova (line flip)</div>
+          <div class="alert-note">Line flipped from VIL -1.5 to USU -2.5. Sharp bettors identified Utah State (28-6, MWC champs) as undervalued.</div>
         </div>
-        <div class="pick-row"><span class="pick-seeds">#1/#16</span><span class="pick-teams"><span class="pick-winner">Duke</span> over <span class="pick-loser">Siena</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#8/#9</span><span class="pick-teams"><span class="pick-winner">Ohio State</span> over <span class="pick-loser">TCU</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#5/#12</span><span class="pick-teams"><span class="pick-winner">St. John's</span> over <span class="pick-loser">Northern Iowa</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#4/#13</span><span class="pick-teams"><span class="pick-winner">Cal Baptist</span> over <span class="pick-loser">Kansas</span></span><span class="pick-type pt-upset">Upset ▲</span></div>
-        <div class="pick-row"><span class="pick-seeds">#6/#11</span><span class="pick-teams"><span class="pick-winner">South Florida</span> over <span class="pick-loser">Louisville</span></span><span class="pick-type pt-upset">Upset</span></div>
-        <div class="pick-row"><span class="pick-seeds">#3/#14</span><span class="pick-teams"><span class="pick-winner">Michigan St.</span> over <span class="pick-loser">N. Dakota St.</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#7/#10</span><span class="pick-teams"><span class="pick-winner">UCLA</span> over <span class="pick-loser">UCF</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#2/#15</span><span class="pick-teams"><span class="pick-winner">UConn</span> over <span class="pick-loser">Furman</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-      </div>
-
-      <!-- WEST -->
-      <div class="region-block">
-        <div class="region-header">
-          <div class="region-name">West</div>
-          <div class="region-seed">#1 Arizona · Sacramento, CA</div>
-        </div>
-        <div class="pick-row"><span class="pick-seeds">#1/#16</span><span class="pick-teams"><span class="pick-winner">Arizona</span> over <span class="pick-loser">LIU</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#8/#9</span><span class="pick-teams"><span class="pick-winner">Utah State</span> over <span class="pick-loser">Villanova</span></span><span class="pick-type pt-upset">Upset</span></div>
-        <div class="pick-row"><span class="pick-seeds">#5/#12</span><span class="pick-teams"><span class="pick-winner">Wisconsin</span> over <span class="pick-loser">High Point</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#4/#13</span><span class="pick-teams"><span class="pick-winner">Arkansas</span> over <span class="pick-loser">Hawaii</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#6/#11</span><span class="pick-teams"><span class="pick-winner">NC State</span> over <span class="pick-loser">BYU</span></span><span class="pick-type pt-upset">Upset</span></div>
-        <div class="pick-row"><span class="pick-seeds">#3/#14</span><span class="pick-teams"><span class="pick-winner">Gonzaga</span> over <span class="pick-loser">Kennesaw St.</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#7/#10</span><span class="pick-teams"><span class="pick-winner">Miami FL</span> over <span class="pick-loser">Missouri</span></span><span class="pick-type pt-upset">Upset ▲</span></div>
-        <div class="pick-row"><span class="pick-seeds">#2/#15</span><span class="pick-teams"><span class="pick-winner">Purdue</span> over <span class="pick-loser">Queens</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-      </div>
-
-      <!-- MIDWEST -->
-      <div class="region-block">
-        <div class="region-header">
-          <div class="region-name">Midwest</div>
-          <div class="region-seed">#1 Michigan · Indianapolis, IN</div>
-        </div>
-        <div class="pick-row"><span class="pick-seeds">#1/#16</span><span class="pick-teams"><span class="pick-winner">Michigan</span> over <span class="pick-loser">UMBC/Howard</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#8/#9</span><span class="pick-teams"><span class="pick-winner">Georgia</span> over <span class="pick-loser">Saint Louis</span></span><span class="pick-type pt-upset">Upset ▲</span></div>
-        <div class="pick-row"><span class="pick-seeds">#5/#12</span><span class="pick-teams"><span class="pick-winner">Texas Tech</span> over <span class="pick-loser">Akron</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#4/#13</span><span class="pick-teams"><span class="pick-winner">Alabama</span> over <span class="pick-loser">Hofstra</span></span><span class="pick-type pt-lean">Lean ▲</span></div>
-        <div class="pick-row"><span class="pick-seeds">#6/#11</span><span class="pick-teams"><span class="pick-winner">Tennessee</span> over <span class="pick-loser">SMU/Miami OH</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#3/#14</span><span class="pick-teams"><span class="pick-winner">Virginia</span> over <span class="pick-loser">Wright State</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#7/#10</span><span class="pick-teams"><span class="pick-winner">Santa Clara</span> over <span class="pick-loser">Kentucky</span></span><span class="pick-type pt-upset">Upset</span></div>
-        <div class="pick-row"><span class="pick-seeds">#2/#15</span><span class="pick-teams"><span class="pick-winner">Iowa State</span> over <span class="pick-loser">Tenn. State</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-      </div>
-
-      <!-- SOUTH -->
-      <div class="region-block">
-        <div class="region-header">
-          <div class="region-name">South</div>
-          <div class="region-seed">#1 Florida · Tampa, FL</div>
-        </div>
-        <div class="pick-row"><span class="pick-seeds">#1/#16</span><span class="pick-teams"><span class="pick-winner">Florida</span> over <span class="pick-loser">Pr. View/Lehigh</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#8/#9</span><span class="pick-teams"><span class="pick-winner">Iowa</span> over <span class="pick-loser">Clemson</span></span><span class="pick-type pt-lock">🔒 Lock</span></div>
-        <div class="pick-row"><span class="pick-seeds">#5/#12</span><span class="pick-teams"><span class="pick-winner">Vanderbilt</span> over <span class="pick-loser">McNeese</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#4/#13</span><span class="pick-teams"><span class="pick-winner">Troy</span> over <span class="pick-loser">Nebraska</span></span><span class="pick-type pt-upset">Upset ▲</span></div>
-        <div class="pick-row"><span class="pick-seeds">#6/#11</span><span class="pick-teams"><span class="pick-winner">VCU</span> over <span class="pick-loser">N. Carolina</span></span><span class="pick-type pt-upset">Upset</span></div>
-        <div class="pick-row"><span class="pick-seeds">#3/#14</span><span class="pick-teams"><span class="pick-winner">Illinois</span> over <span class="pick-loser">Penn</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-        <div class="pick-row"><span class="pick-seeds">#7/#10</span><span class="pick-teams"><span class="pick-winner">Saint Mary's</span> over <span class="pick-loser">Texas A&amp;M</span></span><span class="pick-type pt-chalk">Chalk ▲</span></div>
-        <div class="pick-row"><span class="pick-seeds">#2/#15</span><span class="pick-teams"><span class="pick-winner">Houston</span> over <span class="pick-loser">Idaho</span></span><span class="pick-type pt-chalk">Chalk</span></div>
-      </div>
-
-    </div>
-    <p style="font-size:11px;color:var(--muted);margin-top:14px;font-family:'DM Mono',monospace;">▲ = Changed from V2 based on Last-10 momentum · Lock = statistically superior team is the underdog</p>
-  </section>
-
-  <!-- METHODOLOGY -->
-  <section class="section" id="method">
-    <div class="section-label">Methodology — The 15 Rules</div>
-    <div class="rules-grid">
-      <div class="rule-card">
-        <div class="rule-num">01–05</div>
-        <div class="rule-priority" style="color:var(--orange);">● Mandatory</div>
-        <h4>Always pick an 11-seed, always pick a 12-seed</h4>
-        <p>11 vs 6 is the most common upset (33 times). At-large 11-seeds win 64.1%. 12 vs 5 is nearly a coinflip at 43.8%.</p>
-        <div class="rule-stat" style="color:var(--orange);">64.1% at-large 11-seed win rate</div>
-      </div>
-      <div class="rule-card">
-        <div class="rule-num">03</div>
-        <div class="rule-priority" style="color:var(--orange);">● Mandatory</div>
-        <h4>Screen seeds 5–8 for BARTHAG below 0.85</h4>
-        <p>Seeds 5–8 with BARTHAG under 0.85 lose 61.4% of first-round games. Your fastest single-metric upset filter.</p>
-        <div class="rule-stat" style="color:var(--orange);">61.4% upset rate in danger zone</div>
-      </div>
-      <div class="rule-card">
-        <div class="rule-num">04–05</div>
-        <div class="rule-priority" style="color:var(--orange);">● Mandatory</div>
-        <h4>Fade favorites traveling 1,000+ miles or crossing 2 time zones</h4>
-        <p>1,000mi trips: 38.5% loss rate (+14pts above baseline). 2 time zones crossed: 54.5% — more than double baseline.</p>
-        <div class="rule-stat" style="color:var(--orange);">54.5% fav loss rate, 2 TZ crossing</div>
-      </div>
-      <div class="rule-card">
-        <div class="rule-num">06</div>
-        <div class="rule-priority" style="color:var(--gold);">● Strong</div>
-        <h4>Never blindly pick a 6-seed to the Sweet 16</h4>
-        <p>The 6-seed has the worst PASE of any seed at -20.3. Only a 50% first-round win rate despite being treated as safe.</p>
-        <div class="rule-stat" style="color:var(--gold);">-20.3 PASE — worst of all seeds</div>
-      </div>
-      <div class="rule-card">
-        <div class="rule-num">07</div>
-        <div class="rule-priority" style="color:var(--gold);">● Strong</div>
-        <h4>Check if the underdog was AP Top 25 this season</h4>
-        <p>Seeds 9–13 that spent time in the AP Poll win 46.7% vs 28.3% for those never ranked. Biggest non-efficiency predictor.</p>
-        <div class="rule-stat" style="color:var(--gold);">+18.4pp win rate boost</div>
-      </div>
-      <div class="rule-card">
-        <div class="rule-num">08–09</div>
-        <div class="rule-priority" style="color:var(--gold);">● Strong</div>
-        <h4>Trust Big Ten & Pac-12 dogs · Fade Big 12 & MWC seeds</h4>
-        <p>Big Ten +4.5 PASE, Pac-12 +7.3 — chronically underseeded. Big 12 -15.9 PASE, MWC -15.6 — inflated by brand.</p>
-        <div class="rule-stat" style="color:var(--gold);">Big 12 -15.9 PASE — worst conference</div>
+        <span class="alert-badge badge-mod">SHARP FLIP</span>
       </div>
     </div>
-  </section>
 
-  <!-- FILES -->
-  <section class="section" id="files">
-    <div class="section-label">All Files</div>
-    <div class="dl-grid">
-      <a class="dl-card" href="https://bbeem1031.github.io/MarchMadness2026/2026_NCAA_Bracket_Picks_V3.pdf" target="_blank">
-        <div class="dl-icon" style="background:var(--orange-dim);">📄</div>
-        <div class="dl-info">
-          <div class="dl-name">Bracket Picks V3</div>
-          <div class="dl-meta">PDF · Momentum-updated · Final version</div>
-        </div>
-        <div class="dl-arrow">→</div>
-      </a>
-      <a class="dl-card" href="https://bbeem1031.github.io/MarchMadness2026/2026_NCAA_Bracket_Picks_FINAL.pdf" target="_blank">
-        <div class="dl-icon" style="background:var(--orange-dim);">📄</div>
-        <div class="dl-info">
-          <div class="dl-name">Bracket Picks V2</div>
-          <div class="dl-meta">PDF · Season BARTHAG model</div>
-        </div>
-        <div class="dl-arrow">→</div>
-      </a>
-      <a class="dl-card" href="https://bbeem1031.github.io/MarchMadness2026/2026_March_Madness_Betting_Picks.pdf" target="_blank">
-        <div class="dl-icon" style="background:var(--gold-dim);">💰</div>
-        <div class="dl-info">
-          <div class="dl-name">Betting Picks</div>
-          <div class="dl-meta">PDF · 32 games · ML / Spread / O-U</div>
-        </div>
-        <div class="dl-arrow">→</div>
-      </a>
-      <a class="dl-card" href="https://bbeem1031.github.io/MarchMadness2026/2026_Upset_Analysis_Deep_Dive.pdf" target="_blank">
-        <div class="dl-icon" style="background:var(--blue-dim);">🔍</div>
-        <div class="dl-info">
-          <div class="dl-name">Upset Analysis Deep Dive</div>
-          <div class="dl-meta">PDF · Last-10 momentum signals</div>
-        </div>
-        <div class="dl-arrow">→</div>
-      </a>
-      <a class="dl-card" href="https://bbeem1031.github.io/MarchMadness2026/march_madness_1h_unders.html" target="_blank">
-        <div class="dl-icon" style="background:var(--gold-dim);">📉</div>
-        <div class="dl-info">
-          <div class="dl-name">1H Under Rankings</div>
-          <div class="dl-meta">HTML · Top 10 first-half unders · Round of 64</div>
-        </div>
-        <div class="dl-arrow">→</div>
-      </a>
-      <a class="dl-card" href="https://bbeem1031.github.io/MarchMadness2026/ncaa_2026_wall_cards.html" target="_blank">
-        <div class="dl-icon" style="background:var(--green-dim);">🖨️</div>
-        <div class="dl-info">
-          <div class="dl-name">Wall Cards</div>
-          <div class="dl-meta">HTML · 68 teams · 2×6 print-ready</div>
-        </div>
-        <div class="dl-arrow">→</div>
-      </a>
-
-      <a class="dl-card" href="https://bbeem1031.github.io/MarchMadness2026/BRACKET_RULES.md" target="_blank">
-        <div class="dl-icon" style="background:rgba(255,255,255,0.05);">📋</div>
-        <div class="dl-info">
-          <div class="dl-name">BRACKET_RULES.md</div>
-          <div class="dl-meta">Markdown · All 15 rules, readable on GitHub</div>
-        </div>
-        <div class="dl-arrow">→</div>
-      </a>
-      <a class="dl-card" href="https://bbeem1031.github.io/MarchMadness2026/UPSET_INTELLIGENCE.md" target="_blank">
-        <div class="dl-icon" style="background:var(--orange-dim);">📊</div>
-        <div class="dl-info">
-          <div class="dl-name">UPSET_INTELLIGENCE.md</div>
-          <div class="dl-meta">Markdown · All upset data, readable on GitHub</div>
-        </div>
-        <div class="dl-arrow">→</div>
-      </a>
-      <a class="dl-card" href="https://bbeem1031.github.io/MarchMadness2026/README.md" target="_blank">
-        <div class="dl-icon" style="background:rgba(255,255,255,0.05);">📝</div>
-        <div class="dl-info">
-          <div class="dl-name">README.md</div>
-          <div class="dl-meta">Markdown · Full documentation</div>
-        </div>
-        <div class="dl-arrow">→</div>
-      </a>
+    <div class="lm-box">
+      <h3>▶ SHARP LINE MOVEMENT TRACKER</h3>
+      <div class="lm-row lm-hdr">
+        <span>GAME</span><span>OPEN</span><span>CURRENT</span><span>MOVE</span><span>SIGNAL</span>
+      </div>
+      <div class="lm-row">
+        <span class="lm-game">Houston vs Idaho</span>
+        <span>-19.5</span>
+        <span class="lm-curr">-23.5</span>
+        <span class="lm-move up">+4.0</span>
+        <span class="lm-sig">🔥 Steam — sharp money on HOU</span>
+      </div>
+      <div class="lm-row">
+        <span class="lm-game">Louisville vs S. Florida</span>
+        <span>-6.5</span>
+        <span class="lm-curr">-5.5</span>
+        <span class="lm-move down">-1.0</span>
+        <span class="lm-sig">🔄 RLM — injury-driven sharp fade</span>
+      </div>
+      <div class="lm-row">
+        <span class="lm-game">Utah St vs Villanova</span>
+        <span>VIL -1.5</span>
+        <span class="lm-curr">USU -2.5</span>
+        <span class="lm-move flip">FLIP</span>
+        <span class="lm-sig">🔄 4pt flip — market agrees</span>
+      </div>
+      <div class="lm-row">
+        <span class="lm-game">Iowa State vs T.State</span>
+        <span>-23.5</span>
+        <span class="lm-curr">-25.5</span>
+        <span class="lm-move up">+2.0</span>
+        <span class="lm-sig">🔥 Steam — ISU #1 nationally L10</span>
+      </div>
+      <div class="lm-row">
+        <span class="lm-game">Duke vs Siena</span>
+        <span>-25.5</span>
+        <span class="lm-curr">-29.5</span>
+        <span class="lm-move up">+4.0</span>
+        <span class="lm-sig">📢 Public — inflated despite injuries</span>
+      </div>
+      <div class="lm-row">
+        <span class="lm-game">North Carolina vs VCU</span>
+        <span>NC -2.5</span>
+        <span class="lm-curr">VCU fav</span>
+        <span class="lm-move down">RLM</span>
+        <span class="lm-sig">🔄 Wilson news flipping this fast</span>
+      </div>
+      <div class="lm-row">
+        <span class="lm-game">Illinois vs Penn</span>
+        <span>-21.5</span>
+        <span class="lm-curr">-24.5</span>
+        <span class="lm-move up">+3.0</span>
+        <span class="lm-sig">⚠️ Caution — Ivy 10-4 ATS L14</span>
+      </div>
+      <div class="lm-row">
+        <span class="lm-game">Arizona vs LIU</span>
+        <span>-29.5</span>
+        <span class="lm-curr">-31.5</span>
+        <span class="lm-move up">+2.0</span>
+        <span class="lm-sig">📢 Public — but Arizona legit</span>
+      </div>
     </div>
-  </section>
+  </div>
+
+  <!-- FILE DIRECTORY -->
+  <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--slate);margin-bottom:14px;text-transform:uppercase;">▶ Repository Files</div>
+
+  <div class="grid">
+    <a href="2026_NCAA_Bracket_Picks_FINAL.pdf" class="file-card highlight" style="text-decoration:none;color:inherit;">
+      <div class="file-icon">🏆</div>
+      <div class="file-type">PDF · Bracket Picks</div>
+      <div class="file-title">2026 NCAA Bracket Picks — Final</div>
+      <div class="tags-row">
+        <span class="ftag ftag-red">FINAL VERSION</span>
+        <span class="ftag ftag-gold">INJURY-ADJUSTED</span>
+        <span class="ftag ftag-green">ALL 32 GAMES</span>
+      </div>
+      <div class="file-desc">Complete first-round picks for all 32 games across all four regions. Includes Final Four projections and championship pick (Arizona). Incorporates Barttorvik 2026 Barthag data, Warren Nolan NET rankings, Last10 trends, sharp line movement, and full injury intelligence. A/B/C confidence ratings on every pick.</div>
+      <span class="file-link">↗ OPEN PDF</span>
+    </a>
+
+    <a href="2026_March_Madness_Betting_Picks.pdf" class="file-card" style="text-decoration:none;color:inherit;">
+      <div class="file-icon">📊</div>
+      <div class="file-type">PDF · Betting Picks</div>
+      <div class="file-title">2026 Betting Picks — Spreads, Totals & Sharp Plays</div>
+      <div class="tags-row">
+        <span class="ftag ftag-red">5 TIER-A PLAYS</span>
+        <span class="ftag ftag-orange">LINE MOVEMENT</span>
+        <span class="ftag ftag-navy">UNDERS ANALYSIS</span>
+      </div>
+      <div class="file-desc">Tier A/B/C betting plays across spreads, totals, and first-half markets. Full opening vs. current line comparison for every game. Sharp reverse line movement flags. Injury-adjusted total projections for Brown (Louisville), Wilson (UNC), Toppin (Texas Tech), and Huff (Gonzaga) absences. Games to avoid listed explicitly.</div>
+      <span class="file-link">↗ OPEN PDF</span>
+    </a>
+  </div>
+
+  <div class="grid">
+    <a href="2026_Upset_Analysis_Deep_Dive.pdf" class="file-card" style="text-decoration:none;color:inherit;">
+      <div class="file-icon">📈</div>
+      <div class="file-type">PDF · Deep Dive Analysis</div>
+      <div class="file-title">2026 Upset Analysis — Deep Dive</div>
+      <div class="tags-row">
+        <span class="ftag ftag-red">PASE / BARTHAG</span>
+        <span class="ftag ftag-orange">CONF ANALYSIS</span>
+        <span class="ftag ftag-navy">HISTORICAL DATA</span>
+      </div>
+      <div class="file-desc">Full historical framework applied to the 2026 bracket. Sections: Injury upset alerts, sharp line movement signals, PASE/BARTHAG applied game-by-game, conference over/underperformance analysis, historical upset totals. Cross-references 2008-2025 data against actual 2026 matchups. The analytical backbone for all picks.</div>
+      <span class="file-link">↗ OPEN PDF</span>
+    </a>
+
+    <a href="march_madness_1h_unders.html" class="file-card" style="text-decoration:none;color:inherit;">
+      <div class="file-icon">⏱️</div>
+      <div class="file-type">HTML · Interactive Tool</div>
+      <div class="file-title">First Half Unders & Totals Intelligence</div>
+      <div class="tags-row">
+        <span class="ftag ftag-red">INTERACTIVE</span>
+        <span class="ftag ftag-green">FILTERABLE</span>
+        <span class="ftag ftag-gold">INJURY-ADJUSTED</span>
+      </div>
+      <div class="file-desc">Interactive filterable tool for all totals and first-half plays. Filter by UNDER/OVER/1H plays or A/B rating. Includes pace data (Barttorvik adj. tempo), injury-suppressed scoring analysis, and blowout game under alerts. Key plays: Louisville/UNC unders (missing scorers), Iowa State 1H over, Akron/Tech under.</div>
+      <span class="file-link">↗ OPEN TOOL</span>
+    </a>
+  </div>
+
+  <div class="grid">
+    <a href="BRACKET_RULES.md" class="file-card" style="text-decoration:none;color:inherit;">
+      <div class="file-icon">📋</div>
+      <div class="file-type">Markdown · Reference</div>
+      <div class="file-title">The 15 Rules for Filling Out a Bracket</div>
+      <div class="tags-row">
+        <span class="ftag ftag-navy">2008-2025 DATA</span>
+        <span class="ftag ftag-navy">STATIC REFERENCE</span>
+      </div>
+      <div class="file-desc">The 15 historical rules derived from 17 tournaments of data. MANDATORY, STRONGLY RECOMMENDED, and ADVISORY tiers. Covers seed matchup rules, BARTHAG thresholds, travel/time-zone effects, conference PASE, and Cinderella qualification criteria. Foundation document — rules do not change year to year.</div>
+      <span class="file-link">↗ OPEN MD</span>
+    </a>
+
+    <a href="UPSET_INTELLIGENCE.md" class="file-card" style="text-decoration:none;color:inherit;">
+      <div class="file-icon">🔍</div>
+      <div class="file-type">Markdown · Analysis</div>
+      <div class="file-title">Upset Intelligence Report</div>
+      <div class="tags-row">
+        <span class="ftag ftag-navy">HISTORICAL</span>
+        <span class="ftag ftag-red">2026 ADDENDUM</span>
+      </div>
+      <div class="file-desc">Complete upset trend data: seed matchup frequencies, PASE by seed, BARTHAG danger zones, travel/time-zone effects, conference analysis, team metrics for 11 and 12-seed winners. Plus 2026 injury and line movement addendum at the top reflecting current tournament intelligence.</div>
+      <span class="file-link">↗ OPEN MD</span>
+    </a>
+  </div>
+
+  <!-- DATA SOURCES -->
+  <div class="sources">
+    <h3>▶ DATA SOURCES & METHODOLOGY</h3>
+    <div class="sources-grid">
+      <div class="source-item"><strong>Barttorvik 2026</strong>Full season Barthag, AdjOE/DE, Four Factors, Last10, Last30</div>
+      <div class="source-item"><strong>Warren Nolan NET</strong>NET rankings, Q1/Q2 records, SOS, conference records</div>
+      <div class="source-item"><strong>Historical (2008-2025)</strong>1,147 team-seasons, 17 tournaments (2020 excluded)</div>
+      <div class="source-item"><strong>Injury Reports</strong>RotoWire, NBC Sports, The Athletic, College Sports Network</div>
+      <div class="source-item"><strong>Line Data</strong>BetMGM, FanDuel, DraftKings — opening vs. current as of Mar 18</div>
+      <div class="source-item"><strong>Sharp Signals</strong>Action Network, VSiN, Yahoo Sports expert analysis</div>
+    </div>
+  </div>
 
 </div>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-left">
-      Data: Barttorvik 2026 · Warren Nolan NET · KenPom · AP Poll Archive · 2008–2025<br>
-      For entertainment purposes only. Please gamble responsibly. 1-800-GAMBLER.
-    </div>
-    <div class="footer-links">
-      <a href="https://bbeem1031.github.io/MarchMadness2026/README.md">Docs</a>
-      <a href="https://github.com" target="_blank">GitHub</a>
-    </div>
-  </div>
+  2026 MARCH MADNESS INTELLIGENCE HUB · bbeem1031 · Updated March 18, 2026<br>
+  Data: Barttorvik · Warren Nolan · KenPom · ESPN BPI · 2008-2025 historical record · All lines as of March 18, 2026 — verify before wagering.<br>
+  FOR ENTERTAINMENT PURPOSES ONLY. GAMBLING INVOLVES RISK. NEVER BET MORE THAN YOU CAN AFFORD TO LOSE.
 </footer>
 
 </body>

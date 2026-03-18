@@ -3,456 +3,361 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>March Madness 2026 — First Half Under Rankings</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>2026 March Madness — First Half Unders & Totals</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap');
+  :root {
+    --navy: #0f1923; --red: #e8502a; --orange: #dc6f1a; --gold: #f0a500;
+    --green: #2a7a4b; --slate: #94a3b8; --light: #f0f4f8; --white: #ffffff;
+    --card: #1a2535; --border: rgba(255,255,255,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: #f1f5f9; min-height: 100vh; }
+  
+  header { padding: 36px 32px 28px; border-bottom: 1px solid var(--border); background: linear-gradient(180deg,#0a1520 0%,var(--navy) 100%); }
+  .eyebrow { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 4px; color: var(--red); margin-bottom: 10px; }
+  h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: var(--slate); }
 
-  body {
-    background: #0d1117;
-    color: #e6edf3;
-    font-family: 'Barlow', sans-serif;
-    min-height: 100vh;
-    padding: 0 0 48px;
-  }
+  .injury-banner { background: linear-gradient(90deg, #7f1d1d, #450a0a); border-left: 4px solid var(--red); padding: 12px 32px; font-size: 12px; color: #fef3c7; }
+  .injury-banner strong { color: #fca5a5; }
 
-  /* ── HEADER ── */
-  .header {
-    background: linear-gradient(135deg, #111820 0%, #0d1117 100%);
-    border-bottom: 2px solid #f0a500;
-    padding: 28px 40px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-  }
-  .header-left { display: flex; align-items: center; gap: 20px; }
-  .header-logo {
-    width: 56px; height: 56px;
-    border: 3px solid #f0a500;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px; flex-shrink: 0;
-  }
-  .header-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 42px; font-weight: 900;
-    letter-spacing: 0.02em;
-    line-height: 1;
-    color: #ffffff;
-  }
-  .header-sub {
-    font-size: 14px; color: #8b949e;
-    margin-top: 4px; letter-spacing: 0.04em;
-  }
-  .header-sub span { color: #f0a500; }
+  .kpi-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; padding: 20px 32px; }
+  .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .kpi-val { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 700; color: var(--red); }
+  .kpi-val.green { color: var(--green); }
+  .kpi-val.gold { color: var(--gold); }
+  .kpi-label { font-size: 10px; color: var(--slate); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; font-family: 'Space Mono', monospace; }
 
-  .header-badge {
-    border: 2px solid #2ea043;
-    border-radius: 6px;
-    padding: 12px 18px;
-    text-align: center;
-    background: rgba(46,160,67,0.08);
-    flex-shrink: 0;
-  }
-  .badge-label {
-    font-size: 9px; font-weight: 700; letter-spacing: 0.15em;
-    text-transform: uppercase; color: #2ea043; margin-bottom: 4px;
-  }
-  .badge-stat {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 20px; font-weight: 800; color: #ffffff; line-height: 1;
-  }
-  .badge-note { font-size: 11px; color: #8b949e; margin-top: 3px; }
+  .filters { padding: 0 32px 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-btn { padding: 6px 14px; background: transparent; border: 1px solid #1e2d3d; color: var(--slate); border-radius: 3px; font-size: 11px; font-family: 'Space Mono', monospace; font-weight: 700; cursor: pointer; transition: all .15s; letter-spacing: 0.5px; }
+  .filter-btn.active { background: var(--red); border-color: var(--red); color: white; }
+  .filter-btn:hover:not(.active) { border-color: var(--slate); color: #f1f5f9; }
 
-  /* ── COLUMN HEADERS ── */
-  .col-headers {
-    display: grid;
-    grid-template-columns: 60px 1fr 110px 140px 110px 90px 1fr 130px 90px;
-    gap: 0;
-    padding: 10px 40px;
-    background: #161b22;
-    border-bottom: 1px solid #21262d;
-  }
-  .col-h {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-    text-transform: uppercase; color: #484f58;
-  }
+  .section-hdr { padding: 10px 32px; display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--border); }
+  .section-hdr h2 { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--red); text-transform: uppercase; }
 
-  /* ── ROWS ── */
-  .rows { padding: 0 24px; }
+  .cards { padding: 0 32px 12px; display: flex; flex-direction: column; gap: 8px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 16px 20px; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; transition: border-color .15s; }
+  .card:hover { border-color: rgba(255,255,255,0.15); }
+  .card.A-rated { border-left: 4px solid var(--red); }
+  .card.B-rated { border-left: 4px solid var(--orange); }
+  .card.C-rated { border-left: 4px solid var(--slate); }
+  .card.AVOID { border-left: 4px solid #374151; opacity: 0.7; }
 
-  .row {
-    display: grid;
-    grid-template-columns: 60px 1fr 110px 140px 110px 90px 1fr 130px 90px;
-    align-items: center;
-    gap: 0;
-    padding: 14px 16px;
-    border-bottom: 1px solid #161b22;
-    transition: background 0.15s;
-  }
-  .row:hover { background: rgba(255,255,255,0.03); }
+  .card-main .matchup { font-size: 15px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+  .card-main .tags { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 2px; letter-spacing: 0.5px; }
+  .tag-red { background: var(--red); color: white; }
+  .tag-orange { background: var(--orange); color: white; }
+  .tag-gold { background: var(--gold); color: var(--navy); }
+  .tag-green { background: var(--green); color: white; }
+  .tag-slate { background: #1e2d3d; color: var(--slate); }
+  .tag-injury { background: #7f1d1d; color: #fca5a5; }
+  .card-main .rationale { font-size: 12px; color: var(--slate); line-height: 1.6; }
+  .card-main .rationale strong { color: #cbd5e1; }
 
-  .row.tier1 { border-left: 3px solid #f0a500; }
-  .row.tier2 { border-left: 3px solid #388bfd; }
-  .row.tier3 { border-left: 3px solid #484f58; }
+  .card-right { text-align: right; min-width: 120px; }
+  .bet-label { font-size: 10px; color: var(--slate); font-family: 'Space Mono', monospace; letter-spacing: 1px; margin-bottom: 4px; }
+  .bet-val { font-family: 'Space Mono', monospace; font-size: 18px; font-weight: 700; }
+  .bet-val.red { color: var(--red); }
+  .bet-val.green { color: var(--green); }
+  .bet-val.gold { color: var(--gold); }
+  .conf-badge { display: inline-block; font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 3px; margin-top: 8px; }
+  .conf-A { background: var(--red); color: white; }
+  .conf-B { background: var(--orange); color: white; }
+  .conf-C { background: #1e2d3d; color: var(--slate); }
 
-  /* Rank circle */
-  .rank-circle {
-    width: 36px; height: 36px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px; font-weight: 800;
-  }
-  .rank-t1 { background: #f0a500; color: #0d1117; }
-  .rank-t2 { background: #388bfd; color: #ffffff; }
-  .rank-t3 { background: #21262d; color: #8b949e; border: 1px solid #30363d; }
+  .line-move { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .line-item { font-family: 'Space Mono', monospace; font-size: 11px; }
+  .line-arrow { color: var(--slate); }
+  .line-move .move { font-weight: 700; }
+  .move-down { color: var(--green); }
+  .move-up { color: var(--red); }
 
-  /* Matchup */
-  .matchup-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 17px; font-weight: 700; color: #e6edf3;
-    margin-bottom: 3px; letter-spacing: 0.01em;
-  }
-  .matchup-factors {
-    font-size: 11px; color: #6e7681; line-height: 1.4;
-  }
-  .matchup-factors .edge {
-    color: #2ea043; font-size: 10px; display: block; margin-top: 2px;
-  }
+  .footer { padding: 24px 32px; border-top: 1px solid var(--border); font-size: 11px; color: #475569; font-family: 'Space Mono', monospace; }
 
-  /* 1H Total pill */
-  .total-pill {
-    display: inline-flex; align-items: center; justify-content: center;
-    background: #f0a500; color: #0d1117;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 15px; font-weight: 800;
-    padding: 5px 12px; border-radius: 3px;
-    letter-spacing: 0.02em;
-  }
-
-  /* Best line */
-  .best-line {
-    font-size: 13px; font-weight: 600; color: #e6edf3;
-  }
-
-  /* Full game */
-  .full-gm { font-size: 13px; color: #8b949e; }
-
-  /* Ratio */
-  .ratio {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 15px; font-weight: 700;
-  }
-  .ratio.green { color: #2ea043; }
-  .ratio.red   { color: #f85149; }
-
-  /* Stars */
-  .stars { display: flex; gap: 3px; align-items: center; }
-  .star { font-size: 16px; }
-  .star.filled { color: #f0a500; }
-  .star.empty  { color: #21262d; }
-
-  /* Tier badge */
-  .tier-badge {
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-    padding: 4px 10px; border-radius: 3px;
-  }
-  .tier-badge.t1 { background: rgba(240,165,0,0.15); color: #f0a500; border: 1px solid rgba(240,165,0,0.4); }
-  .tier-badge.t2 { background: rgba(56,139,253,0.15); color: #388bfd; border: 1px solid rgba(56,139,253,0.4); }
-  .tier-badge.t3 { background: rgba(72,79,88,0.2);    color: #8b949e; border: 1px solid #30363d; }
-
-  /* ── LEGEND ── */
-  .legend {
-    display: flex; gap: 28px; flex-wrap: wrap;
-    padding: 16px 40px;
-    background: #161b22;
-    border-top: 1px solid #21262d;
-    margin-top: 8px;
-  }
-  .legend-item {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 11px; color: #6e7681;
-  }
-  .legend-dot {
-    width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0;
-  }
-
-  /* ── FOOTER ── */
-  .footer {
-    text-align: center;
-    font-size: 11px; color: #484f58;
-    padding: 20px 40px 0;
-    font-style: italic;
-  }
-
-  @media (max-width: 900px) {
-    .col-headers { display: none; }
-    .row {
-      grid-template-columns: 48px 1fr auto;
-      grid-template-rows: auto auto;
-      gap: 6px;
-      padding: 14px 12px;
-    }
-    .row > *:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)) { display: none; }
-    .header { flex-direction: column; align-items: flex-start; }
-  }
-
-  @media print {
-    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    @page { size: landscape; margin: 0.4in; }
+  @media (max-width: 700px) {
+    .kpi-row { grid-template-columns: repeat(2,1fr); }
+    .card { grid-template-columns: 1fr; }
+    .card-right { text-align: left; }
   }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-left">
-    <div class="header-logo">⛹</div>
-    <div>
-      <div class="header-title">MARCH MADNESS 2026</div>
-      <div class="header-sub">First Half Under Rankings &nbsp;·&nbsp; <span>Round of 64</span></div>
-    </div>
-  </div>
-  <div class="header-badge">
-    <div class="badge-label">Historical Edge</div>
-    <div class="badge-stat">1H Under hits 55–67%</div>
-    <div class="badge-note">on totals 150+ (last 6 tourneys)</div>
-  </div>
+<header>
+  <div class="eyebrow">▶ 2026 NCAA TOURNAMENT · INJURY-ADJUSTED · MARCH 18, 2026</div>
+  <h1>First Half Unders & Totals Intelligence</h1>
+  <div class="subtitle">Sharp line movement · Missing scorer adjustments · Barttorvik pace data · Tier-rated plays</div>
+</header>
+
+<div class="injury-banner">
+  <strong>⚠ INJURY IMPACT ON TOTALS:</strong> Mikel Brown Jr. (18.2 PPG) RULED OUT Louisville · Caleb Wilson (19.8 PPG) OUT season UNC · JT Toppin OUT Texas Tech · Braden Huff OUT Gonzaga · These absences directly suppress game totals — all unders in affected games are elevated-confidence plays.
 </div>
 
-<!-- COLUMN HEADERS -->
-<div class="col-headers">
-  <div class="col-h">RK</div>
-  <div class="col-h">Matchup / Key Factors</div>
-  <div class="col-h">1H Total</div>
-  <div class="col-h">Best Line</div>
-  <div class="col-h">Full GM</div>
-  <div class="col-h">Ratio</div>
-  <div class="col-h"></div>
-  <div class="col-h">Rating</div>
-  <div class="col-h">Tier</div>
+<div class="kpi-row">
+  <div class="kpi"><div class="kpi-val">5</div><div class="kpi-label">A-Rated Plays</div></div>
+  <div class="kpi"><div class="kpi-val green">7</div><div class="kpi-label">B-Rated Plays</div></div>
+  <div class="kpi"><div class="kpi-val gold">18.2</div><div class="kpi-label">PPG Lost (Brown)</div></div>
+  <div class="kpi"><div class="kpi-val" style="color:var(--orange)">19.8</div><div class="kpi-label">PPG Lost (Wilson)</div></div>
+  <div class="kpi"><div class="kpi-val" style="color:var(--slate)">4</div><div class="kpi-label">Games to Skip</div></div>
 </div>
 
-<!-- ROWS -->
-<div class="rows">
+<div class="filters">
+  <button class="filter-btn active" onclick="filterCards('ALL')">ALL</button>
+  <button class="filter-btn" onclick="filterCards('UNDER')">UNDERS</button>
+  <button class="filter-btn" onclick="filterCards('OVER')">OVERS</button>
+  <button class="filter-btn" onclick="filterCards('1H')">1H PLAYS</button>
+  <button class="filter-btn" onclick="filterCards('A')">A-RATED</button>
+  <button class="filter-btn" onclick="filterCards('B')">B-RATED</button>
+  <button class="filter-btn" onclick="filterCards('AVOID')">AVOID</button>
+</div>
 
-  <!-- 1 -->
-  <div class="row tier1">
-    <div><div class="rank-circle rank-t1">1</div></div>
-    <div>
-      <div class="matchup-name">Georgia vs. Saint Louis</div>
-      <div class="matchup-factors">Highest total in tourney history + both teams cooling</div>
-    </div>
-    <div><span class="total-pill">U 80.5</span></div>
-    <div><span class="best-line">Bovada -110</span></div>
-    <div><span class="full-gm">169.5</span></div>
-    <div><span class="ratio green">47.5%</span></div>
-    <div></div>
-    <div class="stars">
-      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-    </div>
-    <div><span class="tier-badge t1">TIER 1</span></div>
-  </div>
+<!-- A-RATED PLAYS -->
+<div class="section-hdr"><h2>▶ Tier A — Highest Conviction</h2></div>
+<div class="cards">
 
-  <!-- 2 -->
-  <div class="row tier1">
-    <div><div class="rank-circle rank-t1">2</div></div>
-    <div>
-      <div class="matchup-name">Hofstra vs. Alabama</div>
-      <div class="matchup-factors">Hofstra's 25-year drought from national stage + Alabama instability</div>
-    </div>
-    <div><span class="total-pill">U 75.5</span></div>
-    <div><span class="best-line">Bovada -110</span></div>
-    <div><span class="full-gm">159.5</span></div>
-    <div><span class="ratio green">47.3%</span></div>
-    <div></div>
-    <div class="stars">
-      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span>
-    </div>
-    <div><span class="tier-badge t1">TIER 1</span></div>
-  </div>
-
-  <!-- 3 -->
-  <div class="row tier1">
-    <div><div class="rank-circle rank-t1">3</div></div>
-    <div>
-      <div class="matchup-name">Santa Clara vs. Kentucky</div>
-      <div class="matchup-factors">Santa Clara 30-year absence — grab extra half-point vs. other sportsbooks
-        <span class="edge">⚡ Grab extra half-point vs. other sportsbooks</span>
+  <div class="card A-rated" data-tags="A UNDER 1H">
+    <div class="card-main">
+      <div class="matchup">South Florida vs Louisville · Total: 165.5</div>
+      <div class="tags">
+        <span class="tag tag-red">A-RATED</span>
+        <span class="tag tag-injury">BROWN OUT</span>
+        <span class="tag tag-red">UNDER 165.5</span>
+        <span class="tag tag-red">1H UNDER</span>
+      </div>
+      <div class="rationale">
+        <strong>Mikel Brown Jr. officially ruled out for at least the first two rounds</strong> — Louisville's 18.2 PPG lottery pick is not playing. Brown was their entire offensive engine and primary creator. Without him, Louisville is running Ryan Conwell, Isaac McKneely, and Adrian Wooley in the backcourt. South Florida (0.835 Barthag) is a defensive-minded American Conference team averaging 71 adj. tempo. This is a slow, grinding game missing the most explosive scorer. <strong>First-half under is a high-confidence play</strong> — teams feel each other out early, Brown's absence is most pronounced in the opening 20 minutes.
+      </div>
+      <div class="line-move">
+        <span class="line-item">Open: LOU -6.5</span>
+        <span class="line-arrow">→</span>
+        <span class="line-item move move-down">Current: LOU -5.5 (RLM ↓1.0)</span>
       </div>
     </div>
-    <div><span class="total-pill">U 75.5</span></div>
-    <div><span class="best-line">DraftKings -105</span></div>
-    <div><span class="full-gm">160.5</span></div>
-    <div><span class="ratio green">47.4%</span></div>
-    <div></div>
-    <div class="stars">
-      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span>
+    <div class="card-right">
+      <div class="bet-label">TOTAL</div>
+      <div class="bet-val red">U 165.5</div>
+      <div class="bet-label" style="margin-top:8px">1H TOTAL</div>
+      <div class="bet-val red">U 1H</div>
+      <div class="conf-badge conf-A">A</div>
     </div>
-    <div><span class="tier-badge t1">TIER 1</span></div>
   </div>
 
-  <!-- 4 -->
-  <div class="row tier1">
-    <div><div class="rank-circle rank-t1">4</div></div>
-    <div>
-      <div class="matchup-name">Iowa vs. Clemson</div>
-      <div class="matchup-factors">BOTH teams rank top-5 slowest tempo in all of D1 basketball</div>
-    </div>
-    <div><span class="total-pill">U 61</span></div>
-    <div><span class="best-line">Pinnacle -111</span></div>
-    <div><span class="full-gm">129.5</span></div>
-    <div><span class="ratio green">47.1%</span></div>
-    <div></div>
-    <div class="stars">
-      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span>
-    </div>
-    <div><span class="tier-badge t1">TIER 1</span></div>
-  </div>
-
-  <!-- 5 -->
-  <div class="row tier1">
-    <div><div class="rank-circle rank-t1">5</div></div>
-    <div>
-      <div class="matchup-name">Hawaii vs. Arkansas</div>
-      <div class="matchup-factors">Hawaii's 10-year absence + interior-dominant style controls pace</div>
-    </div>
-    <div><span class="total-pill">U 76.5</span></div>
-    <div><span class="best-line">Any -110</span></div>
-    <div><span class="full-gm">160.5</span></div>
-    <div><span class="ratio green">47.7%</span></div>
-    <div></div>
-    <div class="stars">
-      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span>
-    </div>
-    <div><span class="tier-badge t1">TIER 1</span></div>
-  </div>
-
-  <!-- 6 -->
-  <div class="row tier2">
-    <div><div class="rank-circle rank-t2">6</div></div>
-    <div>
-      <div class="matchup-name">Queens vs. Purdue</div>
-      <div class="matchup-factors">Queens' first-ever D1 tourney game + Purdue #1 offense controls pace</div>
-    </div>
-    <div><span class="total-pill">U 78.5</span></div>
-    <div><span class="best-line">Bovada -110</span></div>
-    <div><span class="full-gm">163.5</span></div>
-    <div><span class="ratio red">48.0%</span></div>
-    <div></div>
-    <div class="stars">
-      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span>
-    </div>
-    <div><span class="tier-badge t2">TIER 2</span></div>
-  </div>
-
-  <!-- 7 -->
-  <div class="row tier2">
-    <div><div class="rank-circle rank-t2">7</div></div>
-    <div>
-      <div class="matchup-name">NDSU vs. Michigan State</div>
-      <div class="matchup-factors">Izzo's #13 defense + NDSU outmatched — DK extra half-point
-        <span class="edge">⚡ Grab extra half-point vs. other sportsbooks</span>
+  <div class="card A-rated" data-tags="A UNDER 1H">
+    <div class="card-main">
+      <div class="matchup">VCU vs North Carolina · Total: TBD</div>
+      <div class="tags">
+        <span class="tag tag-red">A-RATED</span>
+        <span class="tag tag-injury">WILSON OUT SEASON</span>
+        <span class="tag tag-red">UNDER</span>
+        <span class="tag tag-red">1H UNDER</span>
+      </div>
+      <div class="rationale">
+        <strong>Caleb Wilson (19.8 PPG, 9.4 RPG) had season-ending thumb surgery</strong> — UNC's entire offensive identity is gone. The Tar Heels are 0-2 without Wilson and were dropped 1-2 seed lines by the committee. VCU plays a slow, grinding style under first-year coach Phil Martelli Jr. — they run controlled sets, minimize possessions, and win ugly. This is a low-scoring game regardless of total posted. <strong>Under the total regardless of where it opens.</strong> 1H under is near-automatic.
       </div>
     </div>
-    <div><span class="total-pill">U 67.5</span></div>
-    <div><span class="best-line">DraftKings -115</span></div>
-    <div><span class="full-gm">143.5</span></div>
-    <div><span class="ratio green">47.4%</span></div>
-    <div></div>
-    <div class="stars">
-      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span>
+    <div class="card-right">
+      <div class="bet-label">PLAY</div>
+      <div class="bet-val red">UNDER</div>
+      <div class="bet-label" style="margin-top:8px">1H</div>
+      <div class="bet-val red">UNDER</div>
+      <div class="conf-badge conf-A">A</div>
     </div>
-    <div><span class="tier-badge t2">TIER 2</span></div>
   </div>
 
-  <!-- 8 -->
-  <div class="row tier2">
-    <div><div class="rank-circle rank-t2">8</div></div>
-    <div>
-      <div class="matchup-name">Furman vs. UConn</div>
-      <div class="matchup-factors">UConn elite D + SoCon program overwhelmed on national stage</div>
+  <div class="card A-rated" data-tags="A OVER">
+    <div class="card-main">
+      <div class="matchup">Iowa State vs Tennessee State · Total: 148.5</div>
+      <div class="tags">
+        <span class="tag tag-green">A-RATED</span>
+        <span class="tag tag-green">OVER 1H</span>
+        <span class="tag tag-slate">STEAM MOVE +2</span>
+      </div>
+      <div class="rationale">
+        <strong>Iowa State is #1 nationally in last 10 games (0.987 Barthag)</strong> — the best recent-form team in the entire tournament. They are a full-court pressure squad that plays fast and scores early. Tennessee State is dramatically outmatched (OVC champion). Iowa State's offensive explosion in the first half is virtually guaranteed before garbage time leads to conservative play. Sharp steam moved this line +2 toward the Cyclones — market endorses the blowout. <strong>First-half over as Iowa State jumps out fast.</strong>
+      </div>
+      <div class="line-move">
+        <span class="line-item">Open: ISU -23.5</span>
+        <span class="line-arrow">→</span>
+        <span class="line-item move move-up">Current: ISU -25.5 (steam +2.0)</span>
+      </div>
     </div>
-    <div><span class="total-pill">U 64.5</span></div>
-    <div><span class="best-line">Pinnacle -111</span></div>
-    <div><span class="full-gm">137.5</span></div>
-    <div><span class="ratio red">46.9%</span></div>
-    <div></div>
-    <div class="stars">
-      <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span>
+    <div class="card-right">
+      <div class="bet-label">TOTAL</div>
+      <div class="bet-val green">OVER 1H</div>
+      <div class="bet-label" style="margin-top:8px">FULL GAME</div>
+      <div class="bet-val green">LEAN OVER</div>
+      <div class="conf-badge conf-A">A</div>
     </div>
-    <div><span class="tier-badge t2">TIER 2</span></div>
   </div>
 
-  <!-- 9 -->
-  <div class="row tier3">
-    <div><div class="rank-circle rank-t3">9</div></div>
-    <div>
-      <div class="matchup-name">McNeese vs. Vanderbilt</div>
-      <div class="matchup-factors">Right at 150 historical trigger + Vanderbilt SEC tournament fatigue</div>
+  <div class="card A-rated" data-tags="A UNDER">
+    <div class="card-main">
+      <div class="matchup">Texas Tech vs Akron · Total: 156.5</div>
+      <div class="tags">
+        <span class="tag tag-red">A-RATED</span>
+        <span class="tag tag-injury">TOPPIN OUT SEASON</span>
+        <span class="tag tag-red">UNDER 156.5</span>
+      </div>
+      <div class="rationale">
+        <strong>JT Toppin (season-ending knee injury) was Texas Tech's primary scorer AND rebounder</strong> — they went 3-3 after he went down, getting blown out by Iowa State. Christian Anderson (groin) is probable but limited. Akron is a defensive-first MAC team (29-5, 17-1 in MAC) — their identity is grinding games to a crawl. Barttorvik pace: Akron runs at a 70.3 adj. tempo, Tech at 66.4 — both below average. With Toppin gone and Anderson compromised, this game flows under.
+      </div>
     </div>
-    <div><span class="total-pill">U 71</span></div>
-    <div><span class="best-line">Any -111</span></div>
-    <div><span class="full-gm">150.5</span></div>
-    <div><span class="ratio green">47.2%</span></div>
-    <div></div>
-    <div class="stars">
-      <span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span><span class="star empty">★</span>
+    <div class="card-right">
+      <div class="bet-label">TOTAL</div>
+      <div class="bet-val red">U 156.5</div>
+      <div class="bet-label" style="margin-top:8px">SPREAD</div>
+      <div class="bet-val red">AKRON +7.5</div>
+      <div class="conf-badge conf-A">A</div>
     </div>
-    <div><span class="tier-badge t3">TIER 3</span></div>
   </div>
 
-  <!-- 10 -->
-  <div class="row tier3">
-    <div><div class="rank-circle rank-t3">10</div></div>
-    <div>
-      <div class="matchup-name">Idaho vs. Houston</div>
-      <div class="matchup-factors">Houston elite defense — value already priced in by market</div>
+  <div class="card A-rated" data-tags="A UNDER 1H">
+    <div class="card-main">
+      <div class="matchup">Duke vs Siena · Total: 135.5</div>
+      <div class="tags">
+        <span class="tag tag-orange">A/B-RATED</span>
+        <span class="tag tag-injury">FOSTER OUT · NGONGBA QUE</span>
+        <span class="tag tag-red">UNDER 135.5</span>
+      </div>
+      <div class="rationale">
+        <strong>Duke is missing their starting PG (Foster, foot fracture) and starting C (Ngongba, questionable)</strong>. Duke was already the lowest total on the board at 135.5/136.5 — a reflection of their elite defense under Scheyer. With two offensive contributors missing, this total is already pricing in a blowout. Against Siena (23-11, limited offense), Duke's defensive identity dominates. Under is the play at this number. <strong>1H under specifically — Duke's methodical approach keeps first halves low.</strong>
+      </div>
+      <div class="line-move">
+        <span class="line-item">Open: DUK -27.5</span>
+        <span class="line-arrow">→</span>
+        <span class="line-item move move-up">Current: DUK -29.5 (public money +2)</span>
+      </div>
     </div>
-    <div><span class="total-pill">U 64</span></div>
-    <div><span class="best-line">Bovada</span></div>
-    <div><span class="full-gm">136.5</span></div>
-    <div><span class="ratio red">46.9%</span></div>
-    <div></div>
-    <div class="stars">
-      <span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span><span class="star empty">★</span>
+    <div class="card-right">
+      <div class="bet-label">TOTAL</div>
+      <div class="bet-val red">U 135.5</div>
+      <div class="bet-label" style="margin-top:8px">1H</div>
+      <div class="bet-val red">U 1H</div>
+      <div class="conf-badge conf-A">A</div>
     </div>
-    <div><span class="tier-badge t3">TIER 3</span></div>
   </div>
 
 </div>
 
-<!-- LEGEND -->
-<div class="legend">
-  <div class="legend-item">
-    <div class="legend-dot" style="background:#f0a500;"></div>
-    TIER 1: 4+ factors aligning (strongest plays)
+<!-- B-RATED PLAYS -->
+<div class="section-hdr"><h2>▶ Tier B — Strong Plays</h2></div>
+<div class="cards">
+
+  <div class="card B-rated" data-tags="B OVER">
+    <div class="card-main">
+      <div class="matchup">Kentucky vs Santa Clara · Total: 160.5</div>
+      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-green">OVER 160.5</span></div>
+      <div class="rationale"><strong>Both teams push pace (68+ adj tempo)</strong> — Kentucky at 68.3, Santa Clara at 69.3. Santa Clara (0.895 Barthag) is nearly equal to Kentucky (0.890) — this is a competitive game where both teams need to score. Neither team is defensive-minded enough to grind below this total. Near-pick'em spreads produce competitive, higher-scoring games. Quaintance (knee) questionable for Kentucky — if he's limited, Kentucky has to outscore opponents rather than dominate inside.</div>
+    </div>
+    <div class="card-right"><div class="bet-label">PLAY</div><div class="bet-val green">O 160.5</div><div class="conf-badge conf-B">B</div></div>
   </div>
-  <div class="legend-item">
-    <div class="legend-dot" style="background:#388bfd;"></div>
-    TIER 2: 3 factors aligning (solid plays)
+
+  <div class="card B-rated" data-tags="B UNDER 1H">
+    <div class="card-main">
+      <div class="matchup">Houston vs Idaho · Total: 135.5</div>
+      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-red">1H UNDER</span><span class="tag tag-slate">STEAM +4</span></div>
+      <div class="rationale"><strong>Houston's defense is relentless and suffocating</strong> — their adjusted defensive efficiency is 92.4 (3rd nationally). Idaho is a Big Sky team going 13-20, dramatically outmatched. Blowout games typically go under as backups play extended minutes and offense becomes sloppy. First-half specifically: Houston's defensive identity is set by halftime. <strong>1H under before the backups take over.</strong> Steam move reflects respect for Houston's dominance.</div>
+    </div>
+    <div class="card-right"><div class="bet-label">1H</div><div class="bet-val red">U 1H</div><div class="conf-badge conf-B">B</div></div>
   </div>
-  <div class="legend-item">
-    <div class="legend-dot" style="background:#484f58;"></div>
-    TIER 3: situational / fade-in value
+
+  <div class="card B-rated" data-tags="B UNDER">
+    <div class="card-main">
+      <div class="matchup">Ohio State vs TCU · Total: 146.5</div>
+      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-red">UNDER 146.5</span></div>
+      <div class="rationale"><strong>TCU's adjusted offense ranks poorly</strong> (50.9% eFG, 114.8 adj OE) — they struggle to create high-quality shots. Ohio State under Chris Holtmann plays disciplined, controlled offense. The spread is -2.5 Ohio State, indicating a close game. Defensive tournament matchups between evenly-matched teams tend to go under. Taison Chatman (groin) may be limited for OSU, further suppressing scoring upside. Low possession count in a first-round pressure game.</div>
+    </div>
+    <div class="card-right"><div class="bet-label">TOTAL</div><div class="bet-val red">U 146.5</div><div class="conf-badge conf-B">B</div></div>
   </div>
-  <div class="legend-item">
-    <div class="legend-dot" style="background:#2ea043;"></div>
-    ⚡ = Half-point line edge at noted book
+
+  <div class="card B-rated" data-tags="B UNDER">
+    <div class="card-main">
+      <div class="matchup">Gonzaga vs Kennesaw State · Total: TBD</div>
+      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-injury">HUFF OUT · WARLEY LIMITED</span><span class="tag tag-red">UNDER (if high)</span></div>
+      <div class="rationale"><strong>Braden Huff (17.8 PPG) is OUT and Jalen Warley (thigh) is limited</strong> — Gonzaga loses their primary interior scorer and their starting guard is compromised. Gonzaga will still win convincingly, but their offensive ceiling is suppressed. If the total is posted above 155, under is the play. Davis Fogle and Tyon Grant-Foster are now taking extended minutes — role players in a tournament game tend to play conservatively.</div>
+    </div>
+    <div class="card-right"><div class="bet-label">IF HIGH</div><div class="bet-val red">UNDER</div><div class="conf-badge conf-B">B</div></div>
   </div>
-  <div class="legend-item">
-    <div class="legend-dot" style="background:#2ea043; opacity:0.5;"></div>
-    Ratio ≤47.5% = under-priced (green = more edge)
+
+  <div class="card B-rated" data-tags="B OVER">
+    <div class="card-main">
+      <div class="matchup">Alabama vs Hofstra · Total: 161.5</div>
+      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-green">OVER 1H</span></div>
+      <div class="rationale"><strong>Alabama runs the fastest pace in this region</strong> (73.1 adj tempo — fastest of any tournament team). Even at 1-2 in their last 10, Alabama's system creates high-tempo, high-scoring games. Hofstra (0.704 Barthag) can't match Alabama's athleticism — Alabama will push the pace relentlessly. <strong>First-half over as Alabama's transition offense takes over before halftime adjustments.</strong></div>
+    </div>
+    <div class="card-right"><div class="bet-label">1H</div><div class="bet-val green">O 1H</div><div class="conf-badge conf-B">B</div></div>
+  </div>
+
+  <div class="card B-rated" data-tags="B UNDER 1H">
+    <div class="card-main">
+      <div class="matchup">Nebraska vs Troy · Total: 137.5</div>
+      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-red">UNDER 137.5</span></div>
+      <div class="rationale"><strong>Nebraska (66.8 adj tempo) vs Troy (65.1 adj tempo)</strong> — both are slow, methodical teams. Nebraska started 20-0 but went 6-6 down the stretch, including getting blasted by Purdue. Troy is a physical Sun Belt team. Nebraska has never won a tournament game — pressure situations create conservative play. This has all the hallmarks of a low-scoring, tight game well under 138.</div>
+    </div>
+    <div class="card-right"><div class="bet-label">TOTAL</div><div class="bet-val red">U 137.5</div><div class="conf-badge conf-B">B</div></div>
+  </div>
+
+  <div class="card B-rated" data-tags="B OVER">
+    <div class="card-main">
+      <div class="matchup">Wisconsin vs High Point · Total: 164.5</div>
+      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-green">OVER 1H</span></div>
+      <div class="rationale"><strong>Wisconsin is the highest-scoring team in Greg Gard's era</strong> — adjusted offensive efficiency of 127.2, best 3-point shooting. They are expected to come out firing against a Big South team (High Point, 0.699 Barthag). <strong>1H over as Wisconsin attacks early</strong> before High Point adjusts. Nolan Winter (ankle) is probable and Wisconsin's full offense is expected to be operational.</div>
+    </div>
+    <div class="card-right"><div class="bet-label">1H</div><div class="bet-val green">O 1H</div><div class="conf-badge conf-B">B</div></div>
+  </div>
+
+</div>
+
+<!-- GAMES TO AVOID -->
+<div class="section-hdr"><h2>▶ Skip / No Edge</h2></div>
+<div class="cards">
+  <div class="card AVOID" data-tags="AVOID">
+    <div class="card-main">
+      <div class="matchup">Kansas vs Cal Baptist · Total: TBD</div>
+      <div class="tags"><span class="tag tag-slate">SKIP</span></div>
+      <div class="rationale">Kansas is Jekyll/Hyde — total is unpredictable. Darryn Peterson dominates some games, disappears in others. Cal Baptist (0.689 Barthag) doesn't have enough offense to push it over. Can't trust the Kansas offense enough to take an over, and Cal Baptist may shoot the game under with poor offense.</div>
+    </div>
+    <div class="card-right"><div class="bet-val" style="color:var(--slate)">SKIP</div></div>
+  </div>
+  <div class="card AVOID" data-tags="AVOID">
+    <div class="card-main">
+      <div class="matchup">Georgia vs Saint Louis · Total: TBD</div>
+      <div class="tags"><span class="tag tag-slate">SKIP</span></div>
+      <div class="rationale">Near pick-em with both teams in the 0.82-0.85 Barthag range. No strong pace differential. No injury impact. No sharp signal. Pass.</div>
+    </div>
+    <div class="card-right"><div class="bet-val" style="color:var(--slate)">SKIP</div></div>
   </div>
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
-  Based on historical NCAA Tournament trends, KenPom tempo data &amp; sharp line movement analysis
+  DATA: Barttorvik 2026 (Adj OE/DE, Barthag, Tempo) · Warren Nolan NET · Last10/Last30 trends · Injury reports: RotoWire / NBC Sports / The Athletic · Lines: BetMGM/FanDuel/DraftKings as of March 18, 2026<br>
+  Lines move — verify before wagering. GAMBLING INVOLVES RISK. FOR ENTERTAINMENT PURPOSES ONLY.
 </div>
 
+<script>
+function filterCards(tag) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.card').forEach(card => {
+    if (tag === 'ALL') { card.style.display = ''; return; }
+    const tags = card.dataset.tags || '';
+    card.style.display = tags.includes(tag) ? '' : 'none';
+  });
+  // Show/hide section headers
+  document.querySelectorAll('.section-hdr').forEach(h => {
+    const nextCards = [];
+    let next = h.nextElementSibling;
+    while (next && next.classList.contains('cards')) {
+      next.querySelectorAll('.card').forEach(c => nextCards.push(c));
+      next = next.nextElementSibling;
+    }
+    const anyVisible = nextCards.some(c => c.style.display !== 'none');
+    h.style.display = anyVisible ? '' : 'none';
+  });
+}
+</script>
 </body>
 </html>
