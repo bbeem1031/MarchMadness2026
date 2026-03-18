@@ -3,360 +3,1253 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 March Madness — First Half Unders & Totals</title>
+<title>2026 March Madness — 1H Unders</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap');
-  :root {
-    --navy: #0f1923; --red: #e8502a; --orange: #dc6f1a; --gold: #f0a500;
-    --green: #2a7a4b; --slate: #94a3b8; --light: #f0f4f8; --white: #ffffff;
-    --card: #1a2535; --border: rgba(255,255,255,0.08);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: #f1f5f9; min-height: 100vh; }
-  
-  header { padding: 36px 32px 28px; border-bottom: 1px solid var(--border); background: linear-gradient(180deg,#0a1520 0%,var(--navy) 100%); }
-  .eyebrow { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 4px; color: var(--red); margin-bottom: 10px; }
-  h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
-  .subtitle { font-size: 14px; color: var(--slate); }
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Barlow+Condensed:wght@300;400;500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap');
 
-  .injury-banner { background: linear-gradient(90deg, #7f1d1d, #450a0a); border-left: 4px solid var(--red); padding: 12px 32px; font-size: 12px; color: #fef3c7; }
-  .injury-banner strong { color: #fca5a5; }
+:root {
+  --bg: #080e14;
+  --surface: #0d1520;
+  --card: #101c2a;
+  --card2: #0f1d2d;
+  --border: #162230;
+  --border2: #1e3045;
+  --red: #f43f5e;
+  --orange: #fb923c;
+  --gold: #fbbf24;
+  --green: #34d399;
+  --teal: #2dd4bf;
+  --blue: #60a5fa;
+  --purple: #a78bfa;
+  --text: #f0f6ff;
+  --muted: #7a9ab8;
+  --dim: #3d5a75;
+}
 
-  .kpi-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; padding: 20px 32px; }
-  .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
-  .kpi-val { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 700; color: var(--red); }
-  .kpi-val.green { color: var(--green); }
-  .kpi-val.gold { color: var(--gold); }
-  .kpi-label { font-size: 10px; color: var(--slate); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; font-family: 'Space Mono', monospace; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-  .filters { padding: 0 32px 16px; display: flex; gap: 8px; flex-wrap: wrap; }
-  .filter-btn { padding: 6px 14px; background: transparent; border: 1px solid #1e2d3d; color: var(--slate); border-radius: 3px; font-size: 11px; font-family: 'Space Mono', monospace; font-weight: 700; cursor: pointer; transition: all .15s; letter-spacing: 0.5px; }
-  .filter-btn.active { background: var(--red); border-color: var(--red); color: white; }
-  .filter-btn:hover:not(.active) { border-color: var(--slate); color: #f1f5f9; }
+/* ── HEADER ─────────────────────────────────────────── */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border2);
+  padding: 24px 32px 20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+}
+.h-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--teal);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.h-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+.h-title em { color: var(--teal); font-style: normal; }
+.h-sub { font-size: 13px; color: var(--muted); margin-top: 6px; font-weight: 400; }
+.h-right { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.h-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+.badge-green { background: rgba(52,211,153,0.12); color: var(--green); border: 1px solid rgba(52,211,153,0.25); }
+.badge-blue { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+.badge-red { background: rgba(244,63,94,0.12); color: var(--red); border: 1px solid rgba(244,63,94,0.25); }
+.badge-dim { background: rgba(61,90,117,0.2); color: var(--muted); border: 1px solid var(--border2); }
 
-  .section-hdr { padding: 10px 32px; display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--border); }
-  .section-hdr h2 { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--red); text-transform: uppercase; }
+/* ── KPI STRIP ──────────────────────────────────────── */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border-bottom: 1px solid var(--border2);
+}
+.kpi {
+  padding: 14px 20px;
+  border-right: 1px solid var(--border);
+  background: var(--card);
+}
+.kpi:last-child { border-right: none; }
+.kpi-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+.kpi-lbl {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
 
-  .cards { padding: 0 32px 12px; display: flex; flex-direction: column; gap: 8px; }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 16px 20px; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; transition: border-color .15s; }
-  .card:hover { border-color: rgba(255,255,255,0.15); }
-  .card.A-rated { border-left: 4px solid var(--red); }
-  .card.B-rated { border-left: 4px solid var(--orange); }
-  .card.C-rated { border-left: 4px solid var(--slate); }
-  .card.AVOID { border-left: 4px solid #374151; opacity: 0.7; }
+/* ── FILTERS ────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  padding: 14px 32px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.fl { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--dim); letter-spacing: 2px; margin-right: 4px; }
+.fbtn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 5px 14px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.fbtn.on { background: var(--teal); border-color: var(--teal); color: #080e14; }
+.fbtn:hover:not(.on) { border-color: var(--muted); color: var(--text); }
 
-  .card-main .matchup { font-size: 15px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
-  .card-main .tags { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
-  .tag { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 2px; letter-spacing: 0.5px; }
-  .tag-red { background: var(--red); color: white; }
-  .tag-orange { background: var(--orange); color: white; }
-  .tag-gold { background: var(--gold); color: var(--navy); }
-  .tag-green { background: var(--green); color: white; }
-  .tag-slate { background: #1e2d3d; color: var(--slate); }
-  .tag-injury { background: #7f1d1d; color: #fca5a5; }
-  .card-main .rationale { font-size: 12px; color: var(--slate); line-height: 1.6; }
-  .card-main .rationale strong { color: #cbd5e1; }
+/* ── DAY HEADER ─────────────────────────────────────── */
+.day-hdr {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 32px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.day-bar {
+  width: 3px;
+  height: 18px;
+  background: var(--teal);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.day-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.day-meta { font-size: 12px; color: var(--dim); font-family: 'IBM Plex Mono', monospace; }
 
-  .card-right { text-align: right; min-width: 120px; }
-  .bet-label { font-size: 10px; color: var(--slate); font-family: 'Space Mono', monospace; letter-spacing: 1px; margin-bottom: 4px; }
-  .bet-val { font-family: 'Space Mono', monospace; font-size: 18px; font-weight: 700; }
-  .bet-val.red { color: var(--red); }
-  .bet-val.green { color: var(--green); }
-  .bet-val.gold { color: var(--gold); }
-  .conf-badge { display: inline-block; font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 3px; margin-top: 8px; }
-  .conf-A { background: var(--red); color: white; }
-  .conf-B { background: var(--orange); color: white; }
-  .conf-C { background: #1e2d3d; color: var(--slate); }
+/* ── GAME GRID ──────────────────────────────────────── */
+.game-grid {
+  padding: 10px 32px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 
-  .line-move { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
-  .line-item { font-family: 'Space Mono', monospace; font-size: 11px; }
-  .line-arrow { color: var(--slate); }
-  .line-move .move { font-weight: 700; }
-  .move-down { color: var(--green); }
-  .move-up { color: var(--red); }
+/* ── SINGLE GAME ROW ────────────────────────────────── */
+.grow {
+  display: grid;
+  grid-template-columns: 80px 1fr 220px 180px;
+  gap: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color .15s;
+  min-height: 64px;
+}
+.grow:hover { border-color: var(--border2); }
+.grow.A { border-left: 3px solid var(--green); }
+.grow.B { border-left: 3px solid var(--blue); }
+.grow.C { border-left: 3px solid var(--dim); }
+.grow.SKIP { border-left: 3px solid var(--border); opacity: 0.55; }
+.grow.hide { display: none; }
 
-  .footer { padding: 24px 32px; border-top: 1px solid var(--border); font-size: 11px; color: #475569; font-family: 'Space Mono', monospace; }
+/* time cell */
+.g-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 8px;
+  background: var(--card2);
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.g-time-val {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+}
+.g-time-day {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  color: var(--dim);
+  letter-spacing: 1px;
+  margin-top: 3px;
+}
 
-  @media (max-width: 700px) {
-    .kpi-row { grid-template-columns: repeat(2,1fr); }
-    .card { grid-template-columns: 1fr; }
-    .card-right { text-align: left; }
-  }
+/* matchup cell */
+.g-match {
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+.g-teams {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+.g-seed { font-size: 12px; color: var(--muted); font-weight: 500; font-family: 'Barlow', sans-serif; }
+.g-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.tag-injury { background: rgba(244,63,94,0.12); color: var(--red); border: 1px solid rgba(244,63,94,0.2); }
+.tag-sharp  { background: rgba(251,191,36,0.12); color: var(--gold); border: 1px solid rgba(251,191,36,0.2); }
+.tag-pace   { background: rgba(45,212,191,0.10); color: var(--teal); border: 1px solid rgba(45,212,191,0.2); }
+.tag-model  { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
+.tag-rule   { background: rgba(251,146,60,0.12); color: var(--orange); border: 1px solid rgba(251,146,60,0.2); }
+.tag-venue  { background: rgba(61,90,117,0.2); color: var(--muted); border: 1px solid var(--border2); }
+
+/* 1H line cell — THE STAR OF THE SHOW */
+.g-line {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 16px;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  text-align: center;
+  background: var(--card2);
+}
+.g-line-lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--dim);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.g-line-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+.g-line-juice {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  margin-top: 2px;
+  color: var(--muted);
+}
+.g-line-best {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--dim);
+  margin-top: 3px;
+  letter-spacing: 0.5px;
+}
+
+/* pick cell */
+.g-pick {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 14px;
+  text-align: center;
+  gap: 3px;
+}
+.pick-rating {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.pick-rating.A { color: var(--green); }
+.pick-rating.B { color: var(--blue); }
+.pick-rating.C { color: var(--dim); }
+.pick-rating.SKIP { color: var(--dim); }
+.pick-val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.3px;
+}
+.pick-val.A { color: var(--green); }
+.pick-val.B { color: var(--blue); }
+.pick-val.C { color: var(--muted); }
+.pick-val.SKIP { color: var(--dim); }
+.pick-note {
+  font-size: 10px;
+  color: var(--dim);
+  line-height: 1.3;
+  max-width: 140px;
+}
+
+/* ── EXPANDABLE REASON ──────────────────────────────── */
+.g-reason {
+  grid-column: 1 / -1;
+  padding: 0 16px 12px 100px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.65;
+  display: none;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+.g-reason strong { color: var(--text); }
+.grow.expanded .g-reason { display: block; }
+.grow { cursor: pointer; }
+
+/* ── FOOTER ─────────────────────────────────────────── */
+.site-footer {
+  margin: 20px 32px;
+  padding: 14px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 11px;
+  color: var(--dim);
+  line-height: 1.6;
+  font-family: 'IBM Plex Mono', monospace;
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="eyebrow">▶ 2026 NCAA TOURNAMENT · INJURY-ADJUSTED · MARCH 18, 2026</div>
-  <h1>First Half Unders & Totals Intelligence</h1>
-  <div class="subtitle">Sharp line movement · Missing scorer adjustments · Barttorvik pace data · Tier-rated plays</div>
+<!-- HEADER -->
+<header class="site-header">
+  <div>
+    <div class="h-eyebrow">▶ 2026 March Madness · R64 + First Four · Lines as of 4PM Mar 18</div>
+    <div class="h-title">FIRST HALF <em>UNDERS</em></div>
+    <div class="h-sub">All 30 games · Real 1H lines from file · Model ratings · Click any row to expand reasoning</div>
+  </div>
+  <div class="h-right">
+    <span class="h-badge badge-green">A-RATED: STRONG PLAY</span>
+    <span class="h-badge badge-blue">B-RATED: SOLID LEAN</span>
+    <span class="h-badge badge-dim">C / SKIP: LOW CONVICTION</span>
+  </div>
 </header>
 
-<div class="injury-banner">
-  <strong>⚠ INJURY IMPACT ON TOTALS:</strong> Mikel Brown Jr. (18.2 PPG) RULED OUT Louisville · Caleb Wilson (19.8 PPG) OUT season UNC · JT Toppin OUT Texas Tech · Braden Huff OUT Gonzaga · These absences directly suppress game totals — all unders in affected games are elevated-confidence plays.
+<!-- KPI STRIP -->
+<div class="kpi-strip">
+  <div class="kpi"><div class="kpi-num" style="color:var(--green)">5</div><div class="kpi-lbl">A-Rated Unders</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--blue)">9</div><div class="kpi-lbl">B-Rated Unders</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--dim)">11</div><div class="kpi-lbl">C-Rated / Skip</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--red)">5</div><div class="kpi-lbl">Fade / Skip Over</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--gold)">61½</div><div class="kpi-lbl">Lowest 1H Line (NI)</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--orange)">80</div><div class="kpi-lbl">Highest 1H Line (GA)</div></div>
 </div>
 
-<div class="kpi-row">
-  <div class="kpi"><div class="kpi-val">5</div><div class="kpi-label">A-Rated Plays</div></div>
-  <div class="kpi"><div class="kpi-val green">7</div><div class="kpi-label">B-Rated Plays</div></div>
-  <div class="kpi"><div class="kpi-val gold">18.2</div><div class="kpi-label">PPG Lost (Brown)</div></div>
-  <div class="kpi"><div class="kpi-val" style="color:var(--orange)">19.8</div><div class="kpi-label">PPG Lost (Wilson)</div></div>
-  <div class="kpi"><div class="kpi-val" style="color:var(--slate)">4</div><div class="kpi-label">Games to Skip</div></div>
+<!-- FILTERS -->
+<div class="filter-bar">
+  <span class="fl">SHOW:</span>
+  <button class="fbtn on" onclick="filter('ALL')">ALL GAMES</button>
+  <button class="fbtn" onclick="filter('A')">A-RATED</button>
+  <button class="fbtn" onclick="filter('B')">B-RATED</button>
+  <button class="fbtn" onclick="filter('SKIP')">SKIPS</button>
+  <button class="fbtn" onclick="filter('THU')">THURSDAY</button>
+  <button class="fbtn" onclick="filter('FRI')">FRIDAY</button>
 </div>
 
-<div class="filters">
-  <button class="filter-btn active" onclick="filterCards('ALL')">ALL</button>
-  <button class="filter-btn" onclick="filterCards('UNDER')">UNDERS</button>
-  <button class="filter-btn" onclick="filterCards('OVER')">OVERS</button>
-  <button class="filter-btn" onclick="filterCards('1H')">1H PLAYS</button>
-  <button class="filter-btn" onclick="filterCards('A')">A-RATED</button>
-  <button class="filter-btn" onclick="filterCards('B')">B-RATED</button>
-  <button class="filter-btn" onclick="filterCards('AVOID')">AVOID</button>
+<!-- ═══════════════ THURSDAY ═══════════════ -->
+<div class="day-hdr" id="thu-hdr">
+  <div class="day-bar"></div>
+  <div class="day-label">Thursday · March 19</div>
+  <div class="day-meta">16 games · Greenville SC · Philadelphia PA · St. Louis MO · Oklahoma City OK · Portland OR · San Diego CA</div>
 </div>
 
-<!-- A-RATED PLAYS -->
-<div class="section-hdr"><h2>▶ Tier A — Highest Conviction</h2></div>
-<div class="cards">
+<div class="game-grid" id="thu-games">
 
-  <div class="card A-rated" data-tags="A UNDER 1H">
-    <div class="card-main">
-      <div class="matchup">South Florida vs Louisville · Total: 165.5</div>
-      <div class="tags">
-        <span class="tag tag-red">A-RATED</span>
-        <span class="tag tag-injury">BROWN OUT</span>
-        <span class="tag tag-red">UNDER 165.5</span>
-        <span class="tag tag-red">1H UNDER</span>
-      </div>
-      <div class="rationale">
-        <strong>Mikel Brown Jr. officially ruled out for at least the first two rounds</strong> — Louisville's 18.2 PPG lottery pick is not playing. Brown was their entire offensive engine and primary creator. Without him, Louisville is running Ryan Conwell, Isaac McKneely, and Adrian Wooley in the backcourt. South Florida (0.835 Barthag) is a defensive-minded American Conference team averaging 71 adj. tempo. This is a slow, grinding game missing the most explosive scorer. <strong>First-half under is a high-confidence play</strong> — teams feel each other out early, Brown's absence is most pronounced in the opening 20 minutes.
-      </div>
-      <div class="line-move">
-        <span class="line-item">Open: LOU -6.5</span>
-        <span class="line-arrow">→</span>
-        <span class="line-item move move-down">Current: LOU -5.5 (RLM ↓1.0)</span>
+  <!-- TCU vs Ohio State: Total 67u -113 -->
+  <div class="grow B" data-day="THU" data-rating="B" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">11:15</div><div class="g-time-day">AM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#9</span> TCU vs <span class="g-seed">#8</span> Ohio State</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">OSU PACE 66.2</span>
+        <span class="tag tag-model">Big Ten +4.5 PASE</span>
+        <span class="tag tag-venue">Greenville SC</span>
       </div>
     </div>
-    <div class="card-right">
-      <div class="bet-label">TOTAL</div>
-      <div class="bet-val red">U 165.5</div>
-      <div class="bet-label" style="margin-top:8px">1H TOTAL</div>
-      <div class="bet-val red">U 1H</div>
-      <div class="conf-badge conf-A">A</div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--blue)">67</div>
+      <div class="g-line-juice">-113 (Pinnacle)</div>
+      <div class="g-line-best">Best: 67½ Bookmaker</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating B">B-RATED</div>
+      <div class="pick-val B">U 67 1H</div>
+      <div class="pick-note">Physical 8/9 slug — both teams grind early</div>
+    </div>
+    <div class="g-reason">
+      <strong>Under lean:</strong> 8/9 games are the most physically contested matchups in R64 — both teams play tight defense to set the tone. OSU (66.2 pace) and TCU (67.6 pace) are both deliberate. Neither team pushes pace in tournament debuts. Line has moved from 68 open → 67, confirming under pressure. Target Pinnacle -113 for best value.
     </div>
   </div>
 
-  <div class="card A-rated" data-tags="A UNDER 1H">
-    <div class="card-main">
-      <div class="matchup">VCU vs North Carolina · Total: TBD</div>
-      <div class="tags">
-        <span class="tag tag-red">A-RATED</span>
-        <span class="tag tag-injury">WILSON OUT SEASON</span>
-        <span class="tag tag-red">UNDER</span>
-        <span class="tag tag-red">1H UNDER</span>
-      </div>
-      <div class="rationale">
-        <strong>Caleb Wilson (19.8 PPG, 9.4 RPG) had season-ending thumb surgery</strong> — UNC's entire offensive identity is gone. The Tar Heels are 0-2 without Wilson and were dropped 1-2 seed lines by the committee. VCU plays a slow, grinding style under first-year coach Phil Martelli Jr. — they run controlled sets, minimize possessions, and win ugly. This is a low-scoring game regardless of total posted. <strong>Under the total regardless of where it opens.</strong> 1H under is near-automatic.
-      </div>
-    </div>
-    <div class="card-right">
-      <div class="bet-label">PLAY</div>
-      <div class="bet-val red">UNDER</div>
-      <div class="bet-label" style="margin-top:8px">1H</div>
-      <div class="bet-val red">UNDER</div>
-      <div class="conf-badge conf-A">A</div>
-    </div>
-  </div>
-
-  <div class="card A-rated" data-tags="A OVER">
-    <div class="card-main">
-      <div class="matchup">Iowa State vs Tennessee State · Total: 148.5</div>
-      <div class="tags">
-        <span class="tag tag-green">A-RATED</span>
-        <span class="tag tag-green">OVER 1H</span>
-        <span class="tag tag-slate">STEAM MOVE +2</span>
-      </div>
-      <div class="rationale">
-        <strong>Iowa State is #1 nationally in last 10 games (0.987 Barthag)</strong> — the best recent-form team in the entire tournament. They are a full-court pressure squad that plays fast and scores early. Tennessee State is dramatically outmatched (OVC champion). Iowa State's offensive explosion in the first half is virtually guaranteed before garbage time leads to conservative play. Sharp steam moved this line +2 toward the Cyclones — market endorses the blowout. <strong>First-half over as Iowa State jumps out fast.</strong>
-      </div>
-      <div class="line-move">
-        <span class="line-item">Open: ISU -23.5</span>
-        <span class="line-arrow">→</span>
-        <span class="line-item move move-up">Current: ISU -25.5 (steam +2.0)</span>
+  <!-- South Florida vs Louisville: Total 77u -115 -->
+  <div class="grow A" data-day="THU" data-rating="A" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">12:30</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#11</span> S. Florida vs <span class="g-seed">#6</span> Louisville</div>
+      <div class="g-tags">
+        <span class="tag tag-injury">Brown OUT R1+R2</span>
+        <span class="tag tag-model">R1+6: SFU 5-0 L10</span>
+        <span class="tag tag-pace">SFU DEF identity</span>
+        <span class="tag tag-venue">Buffalo NY</span>
       </div>
     </div>
-    <div class="card-right">
-      <div class="bet-label">TOTAL</div>
-      <div class="bet-val green">OVER 1H</div>
-      <div class="bet-label" style="margin-top:8px">FULL GAME</div>
-      <div class="bet-val green">LEAN OVER</div>
-      <div class="conf-badge conf-A">A</div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--green)">77</div>
+      <div class="g-line-juice">-115 (Opener/Book)</div>
+      <div class="g-line-best">Best: 76½ DK/Bovada</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating A">A-RATED</div>
+      <div class="pick-val A">U 77 1H</div>
+      <div class="pick-note">Brown OUT guts LOU first-half offense</div>
+    </div>
+    <div class="g-reason">
+      <strong>A-rated under:</strong> Mikel Brown Jr. is <strong>RULED OUT for R1 and R2</strong> — he is Louisville's primary backcourt creator. Without him, LOU's first-half offensive rhythm is completely restructured with an unfamiliar rotation. South Florida arrives 5-0 in their last 10 with a BARTHAG of 0.913 — they play elite defensive intensity. This total opened at 78 and moved to 77, confirming books agree. Both teams in tournament debut, cautious gameplanning slows early pace. At 77 this is still slightly generous — projected 1H is closer to 70-72.
     </div>
   </div>
 
-  <div class="card A-rated" data-tags="A UNDER">
-    <div class="card-main">
-      <div class="matchup">Texas Tech vs Akron · Total: 156.5</div>
-      <div class="tags">
-        <span class="tag tag-red">A-RATED</span>
-        <span class="tag tag-injury">TOPPIN OUT SEASON</span>
-        <span class="tag tag-red">UNDER 156.5</span>
-      </div>
-      <div class="rationale">
-        <strong>JT Toppin (season-ending knee injury) was Texas Tech's primary scorer AND rebounder</strong> — they went 3-3 after he went down, getting blown out by Iowa State. Christian Anderson (groin) is probable but limited. Akron is a defensive-first MAC team (29-5, 17-1 in MAC) — their identity is grinding games to a crawl. Barttorvik pace: Akron runs at a 70.3 adj. tempo, Tech at 66.4 — both below average. With Toppin gone and Anderson compromised, this game flows under.
-      </div>
-    </div>
-    <div class="card-right">
-      <div class="bet-label">TOTAL</div>
-      <div class="bet-val red">U 156.5</div>
-      <div class="bet-label" style="margin-top:8px">SPREAD</div>
-      <div class="bet-val red">AKRON +7.5</div>
-      <div class="conf-badge conf-A">A</div>
-    </div>
-  </div>
-
-  <div class="card A-rated" data-tags="A UNDER 1H">
-    <div class="card-main">
-      <div class="matchup">Duke vs Siena · Total: 135.5</div>
-      <div class="tags">
-        <span class="tag tag-orange">A/B-RATED</span>
-        <span class="tag tag-injury">FOSTER OUT · NGONGBA QUE</span>
-        <span class="tag tag-red">UNDER 135.5</span>
-      </div>
-      <div class="rationale">
-        <strong>Duke is missing their starting PG (Foster, foot fracture) and starting C (Ngongba, questionable)</strong>. Duke was already the lowest total on the board at 135.5/136.5 — a reflection of their elite defense under Scheyer. With two offensive contributors missing, this total is already pricing in a blowout. Against Siena (23-11, limited offense), Duke's defensive identity dominates. Under is the play at this number. <strong>1H under specifically — Duke's methodical approach keeps first halves low.</strong>
-      </div>
-      <div class="line-move">
-        <span class="line-item">Open: DUK -27.5</span>
-        <span class="line-arrow">→</span>
-        <span class="line-item move move-up">Current: DUK -29.5 (public money +2)</span>
+  <!-- Troy vs Nebraska: Total 64½u -115 -->
+  <div class="grow B" data-day="THU" data-rating="B" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">11:40</div><div class="g-time-day">AM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#13</span> Troy vs <span class="g-seed">#4</span> Nebraska</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">NEB PACE 66.8</span>
+        <span class="tag tag-model">NEB Elite Defense</span>
+        <span class="tag tag-venue">Oklahoma City OK</span>
       </div>
     </div>
-    <div class="card-right">
-      <div class="bet-label">TOTAL</div>
-      <div class="bet-val red">U 135.5</div>
-      <div class="bet-label" style="margin-top:8px">1H</div>
-      <div class="bet-val red">U 1H</div>
-      <div class="conf-badge conf-A">A</div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--blue)">64½</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Consistent cross-book</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating B">B-RATED</div>
+      <div class="pick-val B">U 64½ 1H</div>
+      <div class="pick-note">Troy (0.544 Barthag) packs paint, stalls early</div>
+    </div>
+    <div class="g-reason">
+      <strong>Under lean:</strong> Nebraska plays deliberate half-court offense (pace 66.8). Troy with a 0.544 BARTHAG will immediately go into a shell — pack the paint, slow it down, survive. Their best-case scenario is a low-scoring grind where anything can happen. Both teams will play careful, physical ball in the first half. 64½ is the number — project closer to 58-61 combined.
     </div>
   </div>
 
+  <!-- Siena vs Duke: Total 64u -115 -->
+  <div class="grow A" data-day="THU" data-rating="A" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">1:50</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#16</span> Siena vs <span class="g-seed">#1</span> Duke</div>
+      <div class="g-tags">
+        <span class="tag tag-injury">Foster OUT · Ngongba QUE</span>
+        <span class="tag tag-pace">Duke PACE 65.8</span>
+        <span class="tag tag-venue">Greenville SC</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--green)">64</div>
+      <div class="g-line-juice">-115 (best: -112 BetOnline)</div>
+      <div class="g-line-best">Best line: BetOnline -112</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating A">A-RATED</div>
+      <div class="pick-val A">U 64 1H</div>
+      <div class="pick-note">Slow pace both sides + injury rotation</div>
+    </div>
+    <div class="g-reason">
+      <strong>A-rated under:</strong> Duke's pace is 65.8 — one of the slower 1-seeds. Siena (-1.7 net rating) will play conservative, defensive basketball trying to hang around early. Duke with Foster OUT and Ngongba questionable must work through unfamiliar rotations in the first half, slowing their offensive rhythm. 16-seeds almost always pack the paint and force the 1-seed to grind in the first 20 minutes. Projected 1H total: 57-60. The 64 line is generous.
+    </div>
+  </div>
+
+  <!-- N. Dakota State vs Michigan State: Total 67½u -115 -->
+  <div class="grow B" data-day="THU" data-rating="B" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">3:05</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#14</span> N. Dakota St vs <span class="g-seed">#3</span> Michigan State</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">MSU PACE 66.0</span>
+        <span class="tag tag-model">Izzo slow starts</span>
+        <span class="tag tag-venue">Philadelphia PA</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--blue)">67½</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Consistent cross-book</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating B">B-RATED</div>
+      <div class="pick-val B">U 67½ 1H</div>
+      <div class="pick-note">Izzo teams grind first halves</div>
+    </div>
+    <div class="g-reason">
+      <strong>Under lean:</strong> Tom Izzo is famous for deliberate, physical first halves — MSU almost never gets out of the gate fast in tournament games. NDST (0.410 Barthag, pace 66.4) will pack the paint and try to keep it close early. Both teams play in the 66 pace range. First-half projected: 61-64 combined.
+    </div>
+  </div>
+
+  <!-- McNeese vs Vanderbilt: Total 70½u -116 -->
+  <div class="grow A" data-day="THU" data-rating="A" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">2:15</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#12</span> McNeese State vs <span class="g-seed">#5</span> Vanderbilt</div>
+      <div class="g-tags">
+        <span class="tag tag-model">R2: 12-seed def-first profile</span>
+        <span class="tag tag-pace">MCN PACE 66.1 · VAN 69.0</span>
+        <span class="tag tag-venue">Tampa FL</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--green)">70½</div>
+      <div class="g-line-juice">-116 (Opener)</div>
+      <div class="g-line-best">Best: 70½ across books</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating A">A-RATED</div>
+      <div class="pick-val A">U 70½ 1H</div>
+      <div class="pick-note">12-seed wins are built on 1H defense</div>
+    </div>
+    <div class="g-reason">
+      <strong>A-rated under — model convergence:</strong> Our 12-seed winner profile shows defense is the key differentiator. McNeese (3-0 last 10, 0.899 Barthag last 10) plays lockdown defense. Their KADJ D is the stat that separates winning 12-seeds. McNeese pace is 66.1 — deliberately slow. Vanderbilt (0.946 Barthag) is the 5-seed but will face a defense that limits their usual efficiency, especially in the cautious first half. Projected 1H: 63-66.
+    </div>
+  </div>
+
+  <!-- VCU vs North Carolina: Total 71u -116 -->
+  <div class="grow A" data-day="THU" data-rating="A" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">5:50</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#11</span> VCU vs <span class="g-seed">#6</span> North Carolina</div>
+      <div class="g-tags">
+        <span class="tag tag-injury">Wilson OUT (UNC)</span>
+        <span class="tag tag-model">VCU 5-0 L10 · R1+6</span>
+        <span class="tag tag-pace">VCU DEF pace</span>
+        <span class="tag tag-venue">Tampa FL</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--green)">71</div>
+      <div class="g-line-juice">-116 (Opener/Book)</div>
+      <div class="g-line-best">Best: 71 BetOnline/Circa -110</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating A">A-RATED</div>
+      <div class="pick-val A">U 71 1H</div>
+      <div class="pick-note">Wilson OUT + VCU defensive identity</div>
+    </div>
+    <div class="g-reason">
+      <strong>A-rated under:</strong> Caleb Wilson is OUT for the season — UNC's primary offensive creator is gone, and the team is 0-2 without him. UNC's half-court offense is fundamentally broken right now. VCU arrives 5-0 in their last 10 with a 0.906 Barthag — they are playing their best basketball and their identity is suffocating defensive pressure. A-10 champs playing with full confidence. First-half projected: 63-67.
+    </div>
+  </div>
+
+  <!-- Howard vs Michigan: Total 71½u -110 -->
+  <div class="grow B" data-day="THU" data-rating="B" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">6:10</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-seeds">&nbsp;</div>
+      <div class="g-teams"><span class="g-seed">#16</span> Howard vs <span class="g-seed">#1</span> Michigan</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">MICH PACE 71.2</span>
+        <span class="tag tag-model">MICH #1 defense</span>
+        <span class="tag tag-venue">St. Louis MO</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--blue)">71½</div>
+      <div class="g-line-juice">-110</div>
+      <div class="g-line-best">Consistent across books</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating B">B-RATED</div>
+      <div class="pick-val B">U 71½ 1H</div>
+      <div class="pick-note">Michigan #1 defense clamps Howard</div>
+    </div>
+    <div class="g-reason">
+      <strong>Under lean:</strong> Michigan's #1 national defense will completely shut down Howard (0.424 Barthag, -2.8 net) in the first half. Howard's only path to "covering" the 1H total is if Michigan runs away early and coasts — which means Howard scores even less. Michigan's 71.2 pace is deceptive; they run their defense hard and dictate tempo. Projected 1H: 63-67.
+    </div>
+  </div>
+
+  <!-- Texas A&M vs Saint Mary's: Total 67½u -115 -->
+  <div class="grow B" data-day="THU" data-rating="B" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">6:35</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#10</span> Texas A&M vs <span class="g-seed">#7</span> Saint Mary's</div>
+      <div class="g-tags">
+        <span class="tag tag-rule">R4+5: SMC 3TZ travel</span>
+        <span class="tag tag-pace">SMC PACE 65.3</span>
+        <span class="tag tag-venue">Oklahoma City OK</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--blue)">67½</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Best: 67 BetOnline -110</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating B">B-RATED</div>
+      <div class="pick-val B">U 67½ 1H</div>
+      <div class="pick-note">SMC slow pace + 3TZ jet lag</div>
+    </div>
+    <div class="g-reason">
+      <strong>Under lean:</strong> Saint Mary's (65.3 pace) plays one of the most deliberate styles in the country. Three time zones of travel from Moraga, CA to Oklahoma City affects their rhythm. TAMU (71.0 pace, Exp 2.497) is the more comfortable team here — but SMC's tempo control limits possessions in the 1H. 67½ is a slow-game number — expect 61-65 combined.
+    </div>
+  </div>
+
+  <!-- Pennsylvania vs Illinois: Total 71u -110 -->
+  <div class="grow B" data-day="THU" data-rating="B" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">8:25</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#14</span> Pennsylvania vs <span class="g-seed">#3</span> Illinois</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">ILL PACE 65.7</span>
+        <span class="tag tag-model">Penn packs paint</span>
+        <span class="tag tag-venue">Greenville SC</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--blue)">71</div>
+      <div class="g-line-juice">-110</div>
+      <div class="g-line-best">Consistent across books</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating B">B-RATED</div>
+      <div class="pick-val B">U 71 1H</div>
+      <div class="pick-note">Penn Ivy defense + Illinois deliberate pace</div>
+    </div>
+    <div class="g-reason">
+      <strong>Under lean:</strong> Illinois (65.7 pace) is methodical — they don't push tempo even in blowouts. Penn (0.531 Barthag) will pack the paint and force Illinois into perimeter basketball, which slows possession counts. Ivy defense is fundamentally sound against half-court sets. Projected 1H: 64-68.
+    </div>
+  </div>
+
+  <!-- Idaho vs Houston: Total 63½u -115 — SKIP (too low already) -->
+  <div class="grow SKIP" data-day="THU" data-rating="SKIP" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">9:10</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#15</span> Idaho vs <span class="g-seed">#2</span> Houston</div>
+      <div class="g-tags">
+        <span class="tag tag-sharp">STEAM: HOU -19.5→-23.5</span>
+        <span class="tag tag-model">HOU Elite defense</span>
+        <span class="tag tag-venue">Oklahoma City OK</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--dim)">63½</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Already priced in</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating SKIP">SKIP</div>
+      <div class="pick-val SKIP">Pass</div>
+      <div class="pick-note">Total already reflects Houston dominance</div>
+    </div>
+    <div class="g-reason">
+      <strong>Skip:</strong> 63½ is already the lowest non-trivial 1H total on the Thursday slate — the market has fully priced in Houston's elite defense and Idaho's offensive ineptitude. There's no value squeezing further under on a number this low. The -115 juice confirms sharps aren't backing this under hard.
+    </div>
+  </div>
+
+  <!-- Saint Louis vs Georgia: Total 79u -115 — SKIP (too high, fast pace) -->
+  <div class="grow SKIP" data-day="THU" data-rating="SKIP" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">8:45</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#9</span> Saint Louis vs <span class="g-seed">#8</span> Georgia</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">GA PACE 72.0 (fast)</span>
+        <span class="tag tag-model">Competitive 8/9</span>
+        <span class="tag tag-venue">Buffalo NY</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--dim)">79</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Highest 1H total Thursday</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating SKIP">SKIP</div>
+      <div class="pick-val SKIP">Pass</div>
+      <div class="pick-note">Georgia's 72.0 pace inflates 1H total</div>
+    </div>
+    <div class="g-reason">
+      <strong>Skip — fade the under:</strong> Georgia plays at 72.0 pace, one of the fastest in the field. Saint Louis is A-10 and will try to push transition. This is the highest 1H total on Thursday for a reason — both teams can score quickly. No under edge here.
+    </div>
+  </div>
+
+  <!-- High Point vs Wisconsin: Total 76½u -115 -->
+  <div class="grow C" data-day="THU" data-rating="C" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">12:50</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#12</span> High Point vs <span class="g-seed">#5</span> Wisconsin</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">WIS PACE 68.7 · HP 69.9</span>
+        <span class="tag tag-venue">Portland OR</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--muted)">76½</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Mixed books — some at 75½</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating C">C-RATED</div>
+      <div class="pick-val C">U 76½ 1H</div>
+      <div class="pick-note">Modest lean only — average paces</div>
+    </div>
+    <div class="g-reason">
+      <strong>C-rated — weak lean:</strong> Wisconsin (4-1 L10, 0.975 Barthag) is rolling and could score efficiently early. High Point (0.699 Barthag) will pack it in. Moderate pace both sides. 76½ is a reasonable number with modest under lean — not strong enough for a real position.
+    </div>
+  </div>
+
+  <!-- Hawaii vs Arkansas: Total 75½u -110 -->
+  <div class="grow C" data-day="THU" data-rating="C" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">3:25</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#13</span> Hawaii vs <span class="g-seed">#4</span> Arkansas</div>
+      <div class="g-tags">
+        <span class="tag tag-model">ARK 5-0 L10 rolling</span>
+        <span class="tag tag-pace">ARK PACE 71.0</span>
+        <span class="tag tag-venue">Portland OR</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--muted)">75½</div>
+      <div class="g-line-juice">-110</div>
+      <div class="g-line-best">Best: 75½ BetOnline -110</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating SKIP">SKIP</div>
+      <div class="pick-val SKIP">Pass</div>
+      <div class="pick-note">ARK 5-0 L10 — could go early</div>
+    </div>
+    <div class="g-reason">
+      <strong>Skip:</strong> Arkansas is 5-0 in their last 10 with a 0.951 Barthag — they are playing their best basketball of the season and at 71.0 pace will push the tempo early. Hawaii (0.636 Barthag) won't slow things down. This game could go over 75 in the first half alone. No under value.
+    </div>
+  </div>
+
+  <!-- Texas vs BYU: Total 74½u -115 -->
+  <div class="grow B" data-day="THU" data-rating="B" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">6:25</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#11</span> Texas vs <span class="g-seed">#6</span> BYU</div>
+      <div class="g-tags">
+        <span class="tag tag-injury">Saunders OUT (BYU)</span>
+        <span class="tag tag-model">R1+6+9: BYU fade</span>
+        <span class="tag tag-pace">TEX 0-3 L10</span>
+        <span class="tag tag-venue">San Diego CA</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--blue)">74½</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Best: 74½ BetOnline -113</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating B">B-RATED</div>
+      <div class="pick-val B">U 74½ 1H</div>
+      <div class="pick-note">Saunders OUT disrupts BYU 1H offense</div>
+    </div>
+    <div class="g-reason">
+      <strong>Under lean:</strong> Richie Saunders is OUT for the season with an ACL — BYU's first-half offensive structure is compromised, especially early in the tournament when they haven't had time to adjust. Texas (0-3 last 10) is cold offensively but their defense-first identity keeps first halves lower. Projected 1H: 68-72.
+    </div>
+  </div>
+
+  <!-- Kennesaw State vs Gonzaga: Total 72u -115 -->
+  <div class="grow C" data-day="THU" data-rating="C" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">9:00</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#14</span> Kennesaw St vs <span class="g-seed">#3</span> Gonzaga</div>
+      <div class="g-tags">
+        <span class="tag tag-injury">Huff OUT R1 (GON)</span>
+        <span class="tag tag-pace">GON PACE 68.9</span>
+        <span class="tag tag-venue">Portland OR</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--muted)">72</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Consistent cross-book</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating C">C-RATED</div>
+      <div class="pick-val C">U 72 1H</div>
+      <div class="pick-note">Huff OUT disrupts Gonzaga paint game</div>
+    </div>
+    <div class="g-reason">
+      <strong>C-rated lean:</strong> Braden Huff is out for R1, removing Gonzaga's dominant interior presence. Their half-court offense will be less efficient early while redistributing roles. Kennesaw (0.534 Barthag, 71.3 pace) will try to push early. Moderate lean — not strong enough for A or B.
+    </div>
+  </div>
+
+</div><!-- /thu-games -->
+
+<!-- ═══════════════ FRIDAY ═══════════════ -->
+<div class="day-hdr" id="fri-hdr">
+  <div class="day-bar"></div>
+  <div class="day-label">Friday · March 20</div>
+  <div class="day-meta">14 games · Greenville SC · Philadelphia PA · St. Louis MO · Portland OR · San Diego CA</div>
 </div>
 
-<!-- B-RATED PLAYS -->
-<div class="section-hdr"><h2>▶ Tier B — Strong Plays</h2></div>
-<div class="cards">
+<div class="game-grid" id="fri-games">
 
-  <div class="card B-rated" data-tags="B OVER">
-    <div class="card-main">
-      <div class="matchup">Kentucky vs Santa Clara · Total: 160.5</div>
-      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-green">OVER 160.5</span></div>
-      <div class="rationale"><strong>Both teams push pace (68+ adj tempo)</strong> — Kentucky at 68.3, Santa Clara at 69.3. Santa Clara (0.895 Barthag) is nearly equal to Kentucky (0.890) — this is a competitive game where both teams need to score. Neither team is defensive-minded enough to grind below this total. Near-pick'em spreads produce competitive, higher-scoring games. Quaintance (knee) questionable for Kentucky — if he's limited, Kentucky has to outscore opponents rather than dominate inside.</div>
+  <!-- Santa Clara vs Kentucky: Total 75u -110 -->
+  <div class="grow C" data-day="FRI" data-rating="C" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">11:15</div><div class="g-time-day">AM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#10</span> Santa Clara vs <span class="g-seed">#7</span> Kentucky</div>
+      <div class="g-tags">
+        <span class="tag tag-model">LOCK: SC 0.895 > KEN 0.890</span>
+        <span class="tag tag-pace">KEN PACE 68.3</span>
+        <span class="tag tag-venue">St. Louis MO</span>
+      </div>
     </div>
-    <div class="card-right"><div class="bet-label">PLAY</div><div class="bet-val green">O 160.5</div><div class="conf-badge conf-B">B</div></div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--muted)">75</div>
+      <div class="g-line-juice">-110</div>
+      <div class="g-line-best">Best: 74½ Bovada</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating C">C-RATED</div>
+      <div class="pick-val C">U 75 1H</div>
+      <div class="pick-note">Competitive matchup — cautious early play</div>
+    </div>
+    <div class="g-reason">
+      <strong>C-rated lean:</strong> Competitive 7/10 game where both teams will play tight defense early. Kentucky (2-3 last 10, 0.849 Barthag last 10) is cold. Santa Clara will play controlled, half-court basketball. 75 is moderate — slight lean under given KEN's cold form.
+    </div>
   </div>
 
-  <div class="card B-rated" data-tags="B UNDER 1H">
-    <div class="card-main">
-      <div class="matchup">Houston vs Idaho · Total: 135.5</div>
-      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-red">1H UNDER</span><span class="tag tag-slate">STEAM +4</span></div>
-      <div class="rationale"><strong>Houston's defense is relentless and suffocating</strong> — their adjusted defensive efficiency is 92.4 (3rd nationally). Idaho is a Big Sky team going 13-20, dramatically outmatched. Blowout games typically go under as backups play extended minutes and offense becomes sloppy. First-half specifically: Houston's defensive identity is set by halftime. <strong>1H under before the backups take over.</strong> Steam move reflects respect for Houston's dominance.</div>
+  <!-- Akron vs Texas Tech: Total 73u -113 -->
+  <div class="grow A" data-day="FRI" data-rating="A" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">11:40</div><div class="g-time-day">AM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#12</span> Akron vs <span class="g-seed">#5</span> Texas Tech</div>
+      <div class="g-tags">
+        <span class="tag tag-injury">Toppin OUT season</span>
+        <span class="tag tag-model">TTU 0-3 L10 · AKR 5-0 L10</span>
+        <span class="tag tag-rule">R2+9: Big 12 PASE -15.9</span>
+        <span class="tag tag-venue">Tampa FL</span>
+      </div>
     </div>
-    <div class="card-right"><div class="bet-label">1H</div><div class="bet-val red">U 1H</div><div class="conf-badge conf-B">B</div></div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--green)">73</div>
+      <div class="g-line-juice">-113 (Pinnacle)</div>
+      <div class="g-line-best">Best: Pinnacle -113</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating A">A-RATED</div>
+      <div class="pick-val A">U 73 1H</div>
+      <div class="pick-note">Toppin OUT + TTU 0-3 L10 = cold offense</div>
+    </div>
+    <div class="g-reason">
+      <strong>A-rated under:</strong> JT Toppin is out for the season — Texas Tech's leading scorer and inside presence is gone. They went 0-3 in their last 10 without fully adjusting. Akron (5-0 L10, 0.735 Barthag last 10) plays defense-first MAC basketball. Texas Tech's first-half offense will be disorganized and cold. Projected 1H: 65-69. Multiple signals align: injury + cold form + defensive opponent + Big 12 PASE concerns.
+    </div>
   </div>
 
-  <div class="card B-rated" data-tags="B UNDER">
-    <div class="card-main">
-      <div class="matchup">Ohio State vs TCU · Total: 146.5</div>
-      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-red">UNDER 146.5</span></div>
-      <div class="rationale"><strong>TCU's adjusted offense ranks poorly</strong> (50.9% eFG, 114.8 adj OE) — they struggle to create high-quality shots. Ohio State under Chris Holtmann plays disciplined, controlled offense. The spread is -2.5 Ohio State, indicating a close game. Defensive tournament matchups between evenly-matched teams tend to go under. Taison Chatman (groin) may be limited for OSU, further suppressing scoring upside. Low possession count in a first-round pressure game.</div>
+  <!-- LIU vs Arizona: Total 72u -115 -->
+  <div class="grow B" data-day="FRI" data-rating="B" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">12:35</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#16</span> LIU vs <span class="g-seed">#1</span> Arizona</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">ARI PACE 70.0</span>
+        <span class="tag tag-model">ARI 5-0 L10 (#2 nationally)</span>
+        <span class="tag tag-venue">San Diego CA</span>
+      </div>
     </div>
-    <div class="card-right"><div class="bet-label">TOTAL</div><div class="bet-val red">U 146.5</div><div class="conf-badge conf-B">B</div></div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--blue)">72</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Best: 72 BetOnline -115</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating B">B-RATED</div>
+      <div class="pick-val B">U 72 1H</div>
+      <div class="pick-note">LIU (0.341) packs paint early</div>
+    </div>
+    <div class="g-reason">
+      <strong>Under lean:</strong> LIU (0.341 Barthag, -3.5 net) will immediately go into a shell and pack the paint — their only chance to stay in it early is to slow Arizona's pace and force perimeter shots. Arizona at 70.0 pace will push but face a desperate defense. 16-seeds almost never run in the first half. Projected 1H: 64-68.
+    </div>
   </div>
 
-  <div class="card B-rated" data-tags="B UNDER">
-    <div class="card-main">
-      <div class="matchup">Gonzaga vs Kennesaw State · Total: TBD</div>
-      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-injury">HUFF OUT · WARLEY LIMITED</span><span class="tag tag-red">UNDER (if high)</span></div>
-      <div class="rationale"><strong>Braden Huff (17.8 PPG) is OUT and Jalen Warley (thigh) is limited</strong> — Gonzaga loses their primary interior scorer and their starting guard is compromised. Gonzaga will still win convincingly, but their offensive ceiling is suppressed. If the total is posted above 155, under is the play. Davis Fogle and Tyon Grant-Foster are now taking extended minutes — role players in a tournament game tend to play conservatively.</div>
+  <!-- Wright State vs Virginia: Total 68½u -110 -->
+  <div class="grow B" data-day="FRI" data-rating="B" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">12:50</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#14</span> Wright State vs <span class="g-seed">#3</span> Virginia</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">VIR PACE 65.6 (pack-line)</span>
+        <span class="tag tag-model">Pack-line defense</span>
+        <span class="tag tag-venue">St. Louis MO</span>
+      </div>
     </div>
-    <div class="card-right"><div class="bet-label">IF HIGH</div><div class="bet-val red">UNDER</div><div class="conf-badge conf-B">B</div></div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--blue)">68½</div>
+      <div class="g-line-juice">-110</div>
+      <div class="g-line-best">Consistent across books</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating B">B-RATED</div>
+      <div class="pick-val B">U 68½ 1H</div>
+      <div class="pick-note">Virginia pack-line = slowest 1H pace</div>
+    </div>
+    <div class="g-reason">
+      <strong>Under lean:</strong> Virginia's pack-line defense is the single most possession-limiting system in college basketball. At 65.6 pace they dictate every game to be a half-court grind. Wright State (0.430 Barthag) will struggle to score and will try to slow it down themselves. First halves of Virginia games are consistently among the lowest-scoring in the tournament. Projected 1H: 60-64.
+    </div>
   </div>
 
-  <div class="card B-rated" data-tags="B OVER">
-    <div class="card-main">
-      <div class="matchup">Alabama vs Hofstra · Total: 161.5</div>
-      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-green">OVER 1H</span></div>
-      <div class="rationale"><strong>Alabama runs the fastest pace in this region</strong> (73.1 adj tempo — fastest of any tournament team). Even at 1-2 in their last 10, Alabama's system creates high-tempo, high-scoring games. Hofstra (0.704 Barthag) can't match Alabama's athleticism — Alabama will push the pace relentlessly. <strong>First-half over as Alabama's transition offense takes over before halftime adjustments.</strong></div>
+  <!-- Tennessee State vs Iowa State: Total 70u -115 -->
+  <div class="grow C" data-day="FRI" data-rating="C" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">1:50</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#15</span> Tenn. State vs <span class="g-seed">#2</span> Iowa State</div>
+      <div class="g-tags">
+        <span class="tag tag-sharp">ISU STEAM +2pts</span>
+        <span class="tag tag-model">ISU #1 L10 (0.987 Barthag)</span>
+        <span class="tag tag-venue">Philadelphia PA</span>
+      </div>
     </div>
-    <div class="card-right"><div class="bet-label">1H</div><div class="bet-val green">O 1H</div><div class="conf-badge conf-B">B</div></div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--muted)">70</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Best: 70 BetOnline/Book -115</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating SKIP">SKIP</div>
+      <div class="pick-val SKIP">Pass</div>
+      <div class="pick-note">ISU rolling — could pour it on early</div>
+    </div>
+    <div class="g-reason">
+      <strong>Skip:</strong> Iowa State is #1 nationally in their last 10 (0.987 Barthag). They could easily push 38-42 in the first half alone against a 15-seed. Tennessee State (0.330 Barthag) won't slow them. This is a volatile over, not an under.
+    </div>
   </div>
 
-  <div class="card B-rated" data-tags="B UNDER 1H">
-    <div class="card-main">
-      <div class="matchup">Nebraska vs Troy · Total: 137.5</div>
-      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-red">UNDER 137.5</span></div>
-      <div class="rationale"><strong>Nebraska (66.8 adj tempo) vs Troy (65.1 adj tempo)</strong> — both are slow, methodical teams. Nebraska started 20-0 but went 6-6 down the stretch, including getting blasted by Purdue. Troy is a physical Sun Belt team. Nebraska has never won a tournament game — pressure situations create conservative play. This has all the hallmarks of a low-scoring, tight game well under 138.</div>
+  <!-- Hofstra vs Alabama: Total 74½u -113 -->
+  <div class="grow C" data-day="FRI" data-rating="C" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">2:15</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#13</span> Hofstra vs <span class="g-seed">#4</span> Alabama</div>
+      <div class="g-tags">
+        <span class="tag tag-rule">R17: ALA outside trapezoid</span>
+        <span class="tag tag-pace">ALA PACE 73.1 (fastest)</span>
+        <span class="tag tag-venue">Philadelphia PA</span>
+      </div>
     </div>
-    <div class="card-right"><div class="bet-label">TOTAL</div><div class="bet-val red">U 137.5</div><div class="conf-badge conf-B">B</div></div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--muted)">74½</div>
+      <div class="g-line-juice">-113 (Pinnacle)</div>
+      <div class="g-line-best">Best: Pinnacle -113</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating SKIP">SKIP</div>
+      <div class="pick-val SKIP">Pass</div>
+      <div class="pick-note">Alabama 73.1 pace = fastest in field</div>
+    </div>
+    <div class="g-reason">
+      <strong>Skip — fade the under:</strong> Alabama at 73.1 pace is the fastest team in the entire tournament field. Rule 17 tags them as outside the trapezoid for deep runs, but in R1 they will push hard. Hofstra (0.704 Barthag, 64.7 pace) will try to slow it but Alabama forces pace. This game could hit 42-38 in the first half. No under value at 74½.
+    </div>
   </div>
 
-  <div class="card B-rated" data-tags="B OVER">
-    <div class="card-main">
-      <div class="matchup">Wisconsin vs High Point · Total: 164.5</div>
-      <div class="tags"><span class="tag tag-orange">B-RATED</span><span class="tag tag-green">OVER 1H</span></div>
-      <div class="rationale"><strong>Wisconsin is the highest-scoring team in Greg Gard's era</strong> — adjusted offensive efficiency of 127.2, best 3-point shooting. They are expected to come out firing against a Big South team (High Point, 0.699 Barthag). <strong>1H over as Wisconsin attacks early</strong> before High Point adjusts. Nolan Winter (ankle) is probable and Wisconsin's full offense is expected to be operational.</div>
+  <!-- Iowa vs Clemson: Total 59½u -110 -->
+  <div class="grow A" data-day="FRI" data-rating="A" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">5:50</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#9</span> Iowa vs <span class="g-seed">#8</span> Clemson</div>
+      <div class="g-tags">
+        <span class="tag tag-model">LOCK: Iowa 0.907 > CLM 0.892</span>
+        <span class="tag tag-pace">IOWA PACE 63.0 (slowest)</span>
+        <span class="tag tag-pace">CLM PACE 64.3</span>
+        <span class="tag tag-venue">Greenville SC</span>
+      </div>
     </div>
-    <div class="card-right"><div class="bet-label">1H</div><div class="bet-val green">O 1H</div><div class="conf-badge conf-B">B</div></div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--green)">59½</div>
+      <div class="g-line-juice">-110</div>
+      <div class="g-line-best">Best: 59½ BetOnline -110</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating A">A-RATED</div>
+      <div class="pick-val A">U 59½ 1H</div>
+      <div class="pick-note">Lowest pace pairing in entire field</div>
+    </div>
+    <div class="g-reason">
+      <strong>A-rated under — pace trap:</strong> Iowa at 63.0 pace is the <strong>slowest team in the tournament</strong>. Clemson at 64.3 is the second slowest. This is the lowest combined pace pairing of any game in the entire R64. Both teams play grind-it-out half-court basketball with elite guards who control possessions. 59½ already looks low — but with these tempos, first half could genuinely end 27-26 or lower. Model projects 52-57 combined first half. This is the standout pace-driven under of the tournament.
+    </div>
   </div>
 
-</div>
-
-<!-- GAMES TO AVOID -->
-<div class="section-hdr"><h2>▶ Skip / No Edge</h2></div>
-<div class="cards">
-  <div class="card AVOID" data-tags="AVOID">
-    <div class="card-main">
-      <div class="matchup">Kansas vs Cal Baptist · Total: TBD</div>
-      <div class="tags"><span class="tag tag-slate">SKIP</span></div>
-      <div class="rationale">Kansas is Jekyll/Hyde — total is unpredictable. Darryn Peterson dominates some games, disappears in others. Cal Baptist (0.689 Barthag) doesn't have enough offense to push it over. Can't trust the Kansas offense enough to take an over, and Cal Baptist may shoot the game under with poor offense.</div>
+  <!-- Northern Iowa vs St. Johns: Total 61½u -110 -->
+  <div class="grow A" data-day="FRI" data-rating="A" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">6:10</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#12</span> Northern Iowa vs <span class="g-seed">#5</span> St. Johns</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">NI PACE 62.2 (2nd slowest)</span>
+        <span class="tag tag-model">R2+MVC: NI def-identity</span>
+        <span class="tag tag-pace">SJU wants 69.6</span>
+        <span class="tag tag-venue">Portland OR</span>
+      </div>
     </div>
-    <div class="card-right"><div class="bet-val" style="color:var(--slate)">SKIP</div></div>
-  </div>
-  <div class="card AVOID" data-tags="AVOID">
-    <div class="card-main">
-      <div class="matchup">Georgia vs Saint Louis · Total: TBD</div>
-      <div class="tags"><span class="tag tag-slate">SKIP</span></div>
-      <div class="rationale">Near pick-em with both teams in the 0.82-0.85 Barthag range. No strong pace differential. No injury impact. No sharp signal. Pass.</div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--green)">61½</div>
+      <div class="g-line-juice">-110</div>
+      <div class="g-line-best">Consistent cross-book</div>
     </div>
-    <div class="card-right"><div class="bet-val" style="color:var(--slate)">SKIP</div></div>
+    <div class="g-pick">
+      <div class="pick-rating A">A-RATED</div>
+      <div class="pick-val A">U 61½ 1H</div>
+      <div class="pick-note">NI's 62.2 pace forces SJU into grind</div>
+    </div>
+    <div class="g-reason">
+      <strong>A-rated under — pace dominance:</strong> Northern Iowa at 62.2 pace is the second slowest team in the field and their <strong>entire identity is to impose a half-court grind</strong>. St. Johns wants to push at 69.6 but NI's defensive scheme — the same system that made them 5-0 in their last 10 — will immediately slow possessions. In the first half, NI will dictate tempo. The 61½ line already accounts for the pace but this game could end 28-24 at the half. Model projects 53-58 combined.
+    </div>
   </div>
-</div>
 
-<div class="footer">
-  DATA: Barttorvik 2026 (Adj OE/DE, Barthag, Tempo) · Warren Nolan NET · Last10/Last30 trends · Injury reports: RotoWire / NBC Sports / The Athletic · Lines: BetMGM/FanDuel/DraftKings as of March 18, 2026<br>
-  Lines move — verify before wagering. GAMBLING INVOLVES RISK. FOR ENTERTAINMENT PURPOSES ONLY.
-</div>
+  <!-- UCF vs UCLA: Total 71u -115 -->
+  <div class="grow C" data-day="FRI" data-rating="C" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">6:25</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#10</span> UCF vs <span class="g-seed">#7</span> UCLA</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">UCLA PACE 64.7 · UCF 69.1</span>
+        <span class="tag tag-model">UCLA 4-1 L10</span>
+        <span class="tag tag-venue">Portland OR</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--muted)">71</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Consistent across books</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating C">C-RATED</div>
+      <div class="pick-val C">U 71 1H</div>
+      <div class="pick-note">UCLA slow pace vs UCF push — conflicting</div>
+    </div>
+    <div class="g-reason">
+      <strong>C-rated lean:</strong> UCLA (64.7 pace) wants deliberate, UCF (69.1) wants to run. The pace mismatch creates unpredictability. UCLA will try to impose but UCF can push transition. Moderate lean — not strong enough conviction.
+    </div>
+  </div>
+
+  <!-- Queens vs Purdue: Total 77½u -115 -->
+  <div class="grow B" data-day="FRI" data-rating="B" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">6:35</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#15</span> Queens NC vs <span class="g-seed">#2</span> Purdue</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">PUR PACE 64.4 (slow)</span>
+        <span class="tag tag-model">PUR #1 offense — but deliberate</span>
+        <span class="tag tag-venue">San Diego CA</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--blue)">77½</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Best: 77½ across books</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating B">B-RATED</div>
+      <div class="pick-val B">U 77½ 1H</div>
+      <div class="pick-note">Purdue slow pace + Queens packs paint</div>
+    </div>
+    <div class="g-reason">
+      <strong>Under lean:</strong> Purdue at 64.4 pace is one of the slower 2-seeds. Despite having the #1 offense nationally, they grind in half-court execution — not fast pace. Queens (0.439 Barthag) will immediately pack the paint and try to survive. 15-seeds almost always keep first halves lower than expected. Projected 1H: 70-74.
+    </div>
+  </div>
+
+  <!-- Utah State vs Villanova: Total 69u -115 -->
+  <div class="grow B" data-day="FRI" data-rating="B" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">3:10</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#9</span> Utah State vs <span class="g-seed">#8</span> Villanova</div>
+      <div class="g-tags">
+        <span class="tag tag-sharp">SHARP LINE FLIP: USU fav</span>
+        <span class="tag tag-model">LOCK: USU 0.895 > VIL 0.881</span>
+        <span class="tag tag-pace">VIL PACE 64.9 · USU 67.6</span>
+        <span class="tag tag-venue">San Diego CA</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--blue)">69</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Best: 68½ DraftKings -115</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating B">B-RATED</div>
+      <div class="pick-val B">U 69 1H</div>
+      <div class="pick-note">Slow Villanova pace, defensive battle</div>
+    </div>
+    <div class="g-reason">
+      <strong>Under lean:</strong> Villanova at 64.9 pace is a methodical Big East program. This is a competitive matchup where both teams will be cautious early — the sharp line flip just flipped the spread but both teams play controlled basketball. 8/9 matchups tend to be low-scoring first halves. Projected 1H: 63-67.
+    </div>
+  </div>
+
+  <!-- Furman vs UConn: Total 63½u -115 -->
+  <div class="grow C" data-day="FRI" data-rating="C" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">9:00</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#15</span> Furman vs <span class="g-seed">#2</span> UConn</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">UCONN PACE 64.6</span>
+        <span class="tag tag-model">Hurley elite defense</span>
+        <span class="tag tag-venue">San Diego CA</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--muted)">63½</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Best: 63½ BetOnline -110</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating C">C-RATED</div>
+      <div class="pick-val C">U 63½ 1H</div>
+      <div class="pick-note">Already very low — priced in</div>
+    </div>
+    <div class="g-reason">
+      <strong>C-rated:</strong> 63½ is already very low — the market has fully priced in Hurley's defensive identity and Furman's limitations. No extra value at this number.
+    </div>
+  </div>
+
+  <!-- Missouri vs Miami FL: Total 69u -115 — SKIP -->
+  <div class="grow SKIP" data-day="FRI" data-rating="SKIP" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">9:10</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#10</span> Missouri vs <span class="g-seed">#7</span> Miami FL</div>
+      <div class="g-tags">
+        <span class="tag tag-rule">R4+5: MIA 2TZ travel</span>
+        <span class="tag tag-pace">MIA PACE 67.9</span>
+        <span class="tag tag-venue">St. Louis MO</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--dim)">69</div>
+      <div class="g-line-juice">-115</div>
+      <div class="g-line-best">Consistent cross-book</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating SKIP">SKIP</div>
+      <div class="pick-val SKIP">Pass</div>
+      <div class="pick-note">Missouri 0-3 L10 but MIA travel-fatigued</div>
+    </div>
+    <div class="g-reason">
+      <strong>Skip:</strong> Competing factors. Miami FL traveling 2 time zones (Rule 5) weakens them but Missouri is 0-3 last 10 and cold. The uncertainty doesn't create a strong under edge — 69 is already modest.
+    </div>
+  </div>
+
+  <!-- Cal Baptist vs Kansas: Total 65u -111 -->
+  <div class="grow C" data-day="FRI" data-rating="C" onclick="this.classList.toggle('expanded')">
+    <div class="g-time"><div class="g-time-val">8:45</div><div class="g-time-day">PM ET</div></div>
+    <div class="g-match">
+      <div class="g-teams"><span class="g-seed">#13</span> Cal Baptist vs <span class="g-seed">#4</span> Kansas</div>
+      <div class="g-tags">
+        <span class="tag tag-pace">KAN PACE 67.6</span>
+        <span class="tag tag-rule">R9: Big 12 PASE -15.9</span>
+        <span class="tag tag-venue">Portland OR</span>
+      </div>
+    </div>
+    <div class="g-line">
+      <div class="g-line-lbl">1H UNDER</div>
+      <div class="g-line-num" style="color:var(--muted)">65</div>
+      <div class="g-line-juice">-111 (Pinnacle)</div>
+      <div class="g-line-best">Best: Pinnacle -111</div>
+    </div>
+    <div class="g-pick">
+      <div class="pick-rating C">C-RATED</div>
+      <div class="pick-val C">U 65 1H</div>
+      <div class="pick-note">Cal Baptist packs paint, Kansas grinds</div>
+    </div>
+    <div class="g-reason">
+      <strong>C-rated lean:</strong> Cal Baptist (0.689 Barthag, 65.9 pace) will pack the paint and try to survive early. Kansas grinds it out in the half-court. 65 is reasonable but the juice doesn't offer great value. Modest lean only.
+    </div>
+  </div>
+
+</div><!-- /fri-games -->
+
+<footer class="site-footer">
+  ▶ SOURCES: Lines from uploaded file (4PM Mar 18 2026) · Best line shown is best under across all books in file (Opener, Bookmaker, BetOnline, Pinnacle, Circa, DraftKings, Bovada) · Ratings: A=strong play, B=solid lean, C=weak lean, SKIP=no value · Model: Barttorvik 2026, Last10 CSV, Warren Nolan NET, 17 Rules, Trapezoid of Excellence · Click any row to expand reasoning · FOR ENTERTAINMENT PURPOSES ONLY
+</footer>
 
 <script>
-function filterCards(tag) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  document.querySelectorAll('.card').forEach(card => {
-    if (tag === 'ALL') { card.style.display = ''; return; }
-    const tags = card.dataset.tags || '';
-    card.style.display = tags.includes(tag) ? '' : 'none';
+function filter(type) {
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+  event.target.classList.add('on');
+  document.querySelectorAll('.grow').forEach(g => {
+    g.classList.remove('hide');
+    const r = g.dataset.rating;
+    const d = g.dataset.day;
+    if (type === 'A' && r !== 'A') g.classList.add('hide');
+    if (type === 'B' && r !== 'B') g.classList.add('hide');
+    if (type === 'SKIP' && r !== 'SKIP' && r !== 'C') g.classList.add('hide');
+    if (type === 'THU' && d !== 'THU') g.classList.add('hide');
+    if (type === 'FRI' && d !== 'FRI') g.classList.add('hide');
   });
-  // Show/hide section headers
-  document.querySelectorAll('.section-hdr').forEach(h => {
-    const nextCards = [];
-    let next = h.nextElementSibling;
-    while (next && next.classList.contains('cards')) {
-      next.querySelectorAll('.card').forEach(c => nextCards.push(c));
-      next = next.nextElementSibling;
-    }
-    const anyVisible = nextCards.some(c => c.style.display !== 'none');
-    h.style.display = anyVisible ? '' : 'none';
-  });
+  // show/hide day headers
+  const thuVisible = type === 'ALL' || type === 'THU' || 
+    (type !== 'FRI' && document.querySelectorAll('.grow[data-day="THU"]:not(.hide)').length > 0);
+  const friVisible = type === 'ALL' || type === 'FRI' ||
+    (type !== 'THU' && document.querySelectorAll('.grow[data-day="FRI"]:not(.hide)').length > 0);
+  document.getElementById('thu-hdr').style.display = (type === 'FRI') ? 'none' : 'flex';
+  document.getElementById('fri-hdr').style.display = (type === 'THU') ? 'none' : 'flex';
 }
 </script>
 </body>
