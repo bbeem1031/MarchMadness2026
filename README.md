@@ -1,9 +1,11 @@
 # 🏀 2026 March Madness Analytics Hub
 
-**Data-Driven · 2008–2025 · 17 Tournaments · 1,147 Team-Seasons · Updated March 18, 2026 · v2**
+**Data-Driven · 2008–2025 · 17 Tournaments · 1,147 Team-Seasons · Updated March 19, 2026 · v3**
 
 > **🏆 Model Champion Pick: Michigan over Duke 73-68**  
 > Rules 16 + 17 confirmed · Veteran depth (Exp 1.95) · Indianapolis = Big Ten country
+
+> **📡 v3 Update:** Live Lines & Picks Dashboard added · All 32 games with current lines, public betting %, pick tiers · Betting Picks PDF rebuilt with today's lines
 
 ---
 
@@ -12,9 +14,10 @@
 | File | Type | Description |
 |------|------|-------------|
 | [`index.html`](index.html) | Hub | **Main dashboard** — all tools, KPIs, live intelligence |
+| [`lines_dashboard.html`](lines_dashboard.html) | Interactive Tool | **NEW v3 — Live Lines & Picks** — all 32 games, current lines, public %, pick tiers, filterable |
 | [`team_comparison.html`](team_comparison.html) | Interactive Tool | **Head-to-head comparison** — any two teams, full player + efficiency breakdown |
 | [`2026_FINAL_POOL_BRACKET.pdf`](2026_FINAL_POOL_BRACKET.pdf) | PDF | **The bracket** — all 17 rules, 11 R1 upsets, Michigan champion |
-| [`2026_March_Madness_Betting_Picks.pdf`](2026_March_Madness_Betting_Picks.pdf) | PDF | Spread/total/ML picks — Kalshi crosscheck + situational ATS |
+| [`2026_March_Madness_Betting_Picks.pdf`](2026_March_Madness_Betting_Picks.pdf) | PDF | **v3 rebuilt** — picks with current lines, public %, 2 new plays (TCU, High Point) |
 | [`2026_Upset_Analysis_Deep_Dive.pdf`](2026_Upset_Analysis_Deep_Dive.pdf) | PDF | Full PASE/BARTHAG framework + win probabilities + coach records |
 | [`march_madness_1h_unders.html`](march_madness_1h_unders.html) | Interactive Tool | First-half under tracker — all 30 R64 games, 6 books |
 | [`BRACKET_RULES.md`](BRACKET_RULES.md) | Reference | All 17 bracket rules with full data and 2026 applications |
@@ -22,7 +25,23 @@
 
 ---
 
-## ⚔️ Team Comparison Tool — New
+## 📡 Lines & Picks Dashboard — New v3
+
+[`lines_dashboard.html`](lines_dashboard.html) — The real-time reference for game day. All 32 first-round games in one filterable table.
+
+**What's inside:**
+- **Current lines** — opening spread vs current spread with visual move indicators (▼ favorable, ▲ unfavorable, ⇄ flip)
+- **Public betting %** — handle% and bets% side by side for every game, with sharp signal flags where handle >> tickets
+- **Pick + tier every game** — Tier A, B, Total, Lean, Watch, Skip, or no opinion with a 1-line signal reason
+- **Left-border color coding** — scan instantly by tier without reading every row
+- **Dual filters** — filter by day (Thursday/Friday) and by tier simultaneously
+- **Sharp tags** — games with confirmed sharp money signals are flagged inline
+
+**Pick distribution:** 5 Tier A · 7 Tier B · 7 Totals · 4 Lean · 4 Watch · 4 Skip · 1 No opinion
+
+---
+
+## ⚔️ Team Comparison Tool
 
 [`team_comparison.html`](team_comparison.html) — Select any two tournament teams for a full head-to-head breakdown.
 
@@ -40,7 +59,7 @@ Covers all 68 tournament teams. Powered by Barttorvik 2026 player data (2,275 pl
 
 ---
 
-## 🤖 Model Architecture — v2
+## 🤖 Model Architecture — v3
 
 ### Core Data Sources
 
@@ -55,6 +74,14 @@ Covers all 68 tournament teams. Powered by Barttorvik 2026 player data (2,275 pl
 | `collegebasketballinjuryreport.csv` | 414 players | Player, Team, Pos, Status, Est. Return |
 | `First_half_lines.xlsx` | 30 games | 1H totals across 6 books |
 | Historical tournament data | 17 years | 2008–2025, 1,147 team-seasons, 38 sources |
+| SportsGeek public betting % | 32 R64 games | Handle% and bets% as of March 19 tip-off |
+| VegasInsider / ESPN / DraftKings | 32 R64 games | Current lines, opening lines, line movement |
+
+### New in v3
+
+**Live Lines & Picks Dashboard** — `lines_dashboard.html` covers all 32 first-round games with current lines, opening-to-current movement, public money% and bets%, pick recommendation, and tier badge for every game. Filterable by day and tier.
+
+**Betting Picks PDF rebuilt** — v3 update with current lines throughout (LOU now -4.5, VCU flipped to slight fav, Akron improved to +8.5, Santa Clara weakened to +3.5). Public betting % column added to all Tier A picks. Two new Tier B plays added: TCU +2.5 and High Point +10.5.
 
 ### New in v2
 
@@ -152,16 +179,19 @@ Covers all 68 tournament teams. Powered by Barttorvik 2026 player data (2,275 pl
 
 ---
 
-## 📈 Sharp Line Movement (March 18, 2026)
+## 📈 Sharp Line Movement — Updated March 19, 2026
 
 | Game | Open | Current | Move | Signal |
 |------|------|---------|------|--------|
-| Houston vs Idaho | -19.5 | -23.5 | **+4.0** | 🔥 Steam |
-| Louisville vs SFU | -6.5 | -5.5 | **-1.0** | 🔄 RLM — injury |
-| Utah St vs Villanova | VIL -1.5 | USU -2.5 | **FLIP** | 🔄 Sharp |
-| Iowa State vs T.State | -23.5 | -25.5 | **+2.0** | 🔥 Steam |
-| NCarolina vs VCU | NC -2.5 | VCU fav | **RLM** | 🔄 Wilson news |
-| Michigan St vs NDST | O/U 154.5 | O/U **143.5** | **-11.0** | 🔥 Biggest move on board |
+| Louisville vs SFU | -7.5 | **-4.5** | **-3.0** | 🔴 RLM — Brown OUT R1+R2, 81% money on SFU |
+| NCarolina vs VCU | NC -2.5 | **VCU fav** | **FLIP** | 🔴 Wilson OUT season — line fully flipped |
+| Utah St vs Villanova | VIL -1.5 | **USU -2.5** | **FLIP +4** | 🔄 Sharp identification — USU undervalued |
+| Ohio State vs TCU | -4.5 | **-2.5** | **-2.0** | 🔄 Sharp money on TCU — DK director confirmed |
+| Wisconsin vs High Point | -12.5 | **-10.5** | **-2.0** | 🔄 Sharp dog — 65% handle on High Point |
+| MSU vs NDSU (TOTAL) | 154.5 | **143.5** | **-11.0** | 🔥 Biggest move on board — sharpest under signal |
+| Houston vs Idaho | -19.5 | **-23.5** | **+4.0** | 🔥 Steam — ATS trend A+ qualifier |
+| Iowa State vs T.State | -23.5 | **-25.5** | **+2.0** | 🔥 Steam — ISU #1 nationally L10 |
+| Illinois vs Penn | -22.5 | **-24.5** | **+2.0** | ⚠ Reverse line move — sharps on Illinois |
 
 ---
 
@@ -234,4 +264,4 @@ BARTHAG 0.980 · Net Rating +36.6 · Pace 71.2 · Exp 1.947 · Rule 16 ✅ · Ru
 ## ⚠ Disclaimer
 All analysis is for entertainment and educational purposes only. Past performance does not guarantee future results. Please gamble responsibly.
 
-**Data:** Barttorvik · KenPom · Warren Nolan NET · ESPN BPI · Kalshi · AP Poll Archive · 38 sources · 2008–2025 (2020 excluded)
+**Data:** Barttorvik · KenPom · Warren Nolan NET · ESPN BPI · Kalshi · SportsGeek · VegasInsider · DraftKings · AP Poll Archive · 38 sources · 2008–2025 (2020 excluded) · Lines and public % as of March 19, 2026

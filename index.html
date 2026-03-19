@@ -77,7 +77,7 @@
 <body>
 
 <div class="hero">
-  <div class="eyebrow">▶ Intelligence Hub v2 · 2026 NCAA Tournament · Updated March 18, 2026</div>
+  <div class="eyebrow">▶ Intelligence Hub v3 · 2026 NCAA Tournament · Updated March 19, 2026 · Games Tip Today</div>
   <h1>March Madness<br><em>Intelligence Hub</em></h1>
   <p class="lead">Data-driven bracket picks, betting analysis, and upset intelligence for the 2026 NCAA Tournament. Built on Barttorvik 2026, Warren Nolan NET, 17 years of PASE/BARTHAG data, real-time injury intelligence, sharp line movement, Kalshi prediction markets, and round-by-round win probabilities.</p>
   <div class="hero-meta">
@@ -91,21 +91,23 @@
     <span class="meta-pill new">WIN PROBABILITIES</span>
     <span class="meta-pill new">COACH ATS RECORDS</span>
     <span class="meta-pill new">SITUATIONAL ATS</span>
+    <span class="meta-pill new">LIVE LINES DASHBOARD</span>
+    <span class="meta-pill new">PUBLIC BETTING %</span>
   </div>
 </div>
 
 <div class="alert-bar">
-  <strong>⚠ CRITICAL INJURIES:</strong> Mikel Brown Jr. (Louisville) RULED OUT R1+R2 · Caleb Wilson (UNC) OUT season · Braden Huff (Gonzaga) OUT R1 · Caleb Foster (Duke) OUT · Richie Saunders (BYU) OUT season · JT Toppin (Texas Tech) OUT season · All picks injury-adjusted.
+  <strong>⚠ CRITICAL INJURIES (v3 — all picks adjusted):</strong> Mikel Brown Jr. (Louisville) RULED OUT R1+R2 · Caleb Wilson (UNC) OUT season → VCU now fav · Braden Huff (Gonzaga) OUT R1 · Caleb Foster (Duke) OUT · Richie Saunders (BYU) OUT season · JT Toppin (Texas Tech) OUT season · <strong>Current lines: LOU -4.5 · OSU -2.5 · SJU -9.5 · USU -2.5 (flipped)</strong>
 </div>
 
 <div class="kpi-strip">
   <div class="kpi-cell"><div class="kpi-num">5</div><div class="kpi-txt">Tier-A Plays<br>Highest conviction</div></div>
-  <div class="kpi-cell"><div class="kpi-num o">8</div><div class="kpi-txt">Sharp Moves<br>Tracked today</div></div>
+  <div class="kpi-cell"><div class="kpi-num o">9</div><div class="kpi-txt">Sharp Moves<br>Tracked v3</div></div>
   <div class="kpi-cell"><div class="kpi-num g">Michigan</div><div class="kpi-txt">Champion Pick<br>Rules 16+17</div></div>
   <div class="kpi-cell"><div class="kpi-num" style="color:var(--gold)">13.5</div><div class="kpi-txt">Expected Upsets<br>Long-run avg</div></div>
   <div class="kpi-cell"><div class="kpi-num s">6</div><div class="kpi-txt">Key Injuries<br>Confirmed out</div></div>
   <div class="kpi-cell"><div class="kpi-num b">22%</div><div class="kpi-txt">Michigan Champ%<br>Round-by-round</div></div>
-  <div class="kpi-cell"><div class="kpi-num t">17</div><div class="kpi-txt">Rules Applied<br>Incl. Trapezoid</div></div>
+  <div class="kpi-cell"><div class="kpi-num t">32</div><div class="kpi-txt">Games w/ Public %<br>Lines Dashboard</div></div>
 </div>
 
 <div class="main">
@@ -147,33 +149,31 @@
   </div>
 
   <div class="box">
-    <h3 class="bh3-blue">▶ SHARP LINE MOVEMENT TRACKER</h3>
+    <h3 class="bh3-blue">▶ SHARP LINE MOVEMENT — TOP SIGNALS <span style="font-size:9px;font-weight:400;color:var(--slate);">(see full dashboard for all 32 games)</span></h3>
     <div class="row row-hdr" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
       <span>GAME</span><span>OPEN</span><span>CURRENT</span><span>MOVE</span><span>SIGNAL</span>
     </div>
-    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span class="bold">Houston vs Idaho</span><span>-19.5</span><span class="mono bold">-23.5</span><span class="mono up">+4.0</span><span style="font-size:11px;">🔥 Steam — back HOU ATS</span>
+    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;background:rgba(232,80,42,0.06);">
+      <span class="bold">Louisville vs SFU</span><span>-7.5</span><span class="mono bold">-4.5</span><span class="mono down">-3.0</span><span style="font-size:11px;">🔴 RLM — Brown OUT, 81% money</span>
+    </div>
+    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;background:rgba(232,80,42,0.06);">
+      <span class="bold">NCarolina vs VCU</span><span>NC-2.5</span><span class="mono bold">VCU fav</span><span class="mono flip">FLIP</span><span style="font-size:11px;">🔴 Wilson OUT — line fully flipped</span>
     </div>
     <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span class="bold">Louisville vs SFU</span><span>-6.5</span><span class="mono bold">-5.5</span><span class="mono down">-1.0</span><span style="font-size:11px;">🔄 RLM — injury driven</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span class="bold">Utah St vs Villanova</span><span>VIL-1.5</span><span class="mono bold">USU-2.5</span><span class="mono flip">FLIP</span><span style="font-size:11px;">🔄 4pt sharp flip</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span class="bold">Iowa State vs T.State</span><span>-23.5</span><span class="mono bold">-25.5</span><span class="mono up">+2.0</span><span style="font-size:11px;">🔥 Steam — ISU #1 L10</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span class="bold">NCarolina vs VCU</span><span>NC-2.5</span><span class="mono bold">VCU fav</span><span class="mono down">RLM</span><span style="font-size:11px;">🔄 Wilson news</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span class="bold">Illinois vs Penn</span><span>-21.5</span><span class="mono bold">-24.5</span><span class="mono up">+3.0</span><span style="font-size:11px;">⚠ Public — Ivy 10-4 ATS L14</span>
+      <span class="bold">Utah St vs Villanova</span><span>VIL-1.5</span><span class="mono bold">USU-2.5</span><span class="mono flip">FLIP</span><span style="font-size:11px;">🔄 4pt sharp flip confirmed</span>
     </div>
     <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;background:rgba(45,212,191,0.04);">
-      <span class="bold" style="color:var(--teal);">MSU vs NDST (TOTAL)</span><span>154.5</span><span class="mono bold" style="color:var(--teal);">143.5</span><span class="mono down">-11.0</span><span style="font-size:11px;">🔥 Biggest move on board</span>
+      <span class="bold" style="color:var(--teal);">MSU vs NDST (TOTAL)</span><span>154.5</span><span class="mono bold" style="color:var(--teal);">143.5</span><span class="mono down">-11.0</span><span style="font-size:11px;">🔥 Biggest sharp move on board</span>
     </div>
     <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span class="bold">Arizona vs LIU</span><span>-29.5</span><span class="mono bold">-31.5</span><span class="mono up">+2.0</span><span style="font-size:11px;">📢 Public — Arizona legit</span>
+      <span class="bold">Ohio State vs TCU</span><span>-4.5</span><span class="mono bold">-2.5</span><span class="mono down">-2.0</span><span style="font-size:11px;">🔄 Sharp money on TCU confirmed</span>
+    </div>
+    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
+      <span class="bold">Wisconsin vs High Point</span><span>-12.5</span><span class="mono bold">-10.5</span><span class="mono down">-2.0</span><span style="font-size:11px;">🔄 Sharp dog — 65% handle on HP</span>
+    </div>
+    <div style="padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:11px;color:var(--slate);">All 32 games · current lines · public money% · pick tiers</span>
+      <a href="lines_dashboard.html" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--teal);text-decoration:none;letter-spacing:1px;">↗ OPEN LINES DASHBOARD</a>
     </div>
   </div>
 </div>
@@ -334,6 +334,33 @@
 <!-- FILES -->
 <div class="sec">▶ Repository Files</div>
 
+<!-- LINES DASHBOARD — new v3, full width prominent -->
+<div style="margin-bottom:20px;">
+  <a href="lines_dashboard.html" class="file-card" style="max-width:100%;border-color:rgba(45,212,191,0.5);background:linear-gradient(135deg,#1a2535,#001a14);">
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="file-icon">📡</div>
+      <div>
+        <div class="ftype">HTML · Live Dashboard · New v3</div>
+        <div class="ftitle">Live Lines & Picks Dashboard — All 32 First Round Games</div>
+      </div>
+      <div style="margin-left:auto;text-align:right;">
+        <div style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--teal);">32</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);">GAMES COVERED</div>
+      </div>
+    </div>
+    <div class="tags">
+      <span class="tag tt">CURRENT LINES</span>
+      <span class="tag tt">PUBLIC MONEY %</span>
+      <span class="tag tt">PICK + TIER EVERY GAME</span>
+      <span class="tag tt">SHARP SIGNALS</span>
+      <span class="tag tt">FILTERABLE BY DAY + TIER</span>
+      <span class="tag tt">LINE MOVEMENT</span>
+    </div>
+    <div class="fdesc">Every first-round game with opening vs current spread, public money% and bets%, pick recommendation, tier badge (A / B / Total / Lean / Watch / Skip), and key signal in one scannable table. Filter by Thursday/Friday or by tier. The go-to reference during games today — all 32 matchups, current as of March 19 tip-off.</div>
+    <span class="flink">↗ OPEN LINES DASHBOARD</span>
+  </a>
+</div>
+
 <!-- BRACKET — full width, prominent -->
 <div style="margin-bottom:20px;">
   <a href="2026_FINAL_POOL_BRACKET.pdf" class="file-card bracket" style="max-width:100%;">
@@ -365,15 +392,17 @@
 <div class="grid">
   <a href="2026_March_Madness_Betting_Picks.pdf" class="file-card betting">
     <div class="file-icon">📊</div>
-    <div class="ftype">PDF · Betting Picks</div>
+    <div class="ftype">PDF · Betting Picks · v3 Rebuilt March 19</div>
     <div class="ftitle">2026 Betting Picks — Spreads, Totals & Sharp Plays</div>
     <div class="tags">
       <span class="tag tr">5 TIER-A PLAYS</span>
       <span class="tag tt">KALSHI CROSSCHECK</span>
       <span class="tag to">SITUATIONAL ATS</span>
       <span class="tag tn">23-5 ATS TREND</span>
+      <span class="tag tt">PUBLIC % ADDED</span>
+      <span class="tag tr">LINES UPDATED</span>
     </div>
-    <div class="fdesc">Tier A/B/C plays with Kalshi probability crosscheck, situational ATS splits (SMU 8-12, Miami OH 4-0, PV 1-9 UNDER), injury-adjusted totals, and the 23-5 ATS trend for all 5 qualifying teams. Top play: Houston -23.5 A+.</div>
+    <div class="fdesc">Fully rebuilt v3 with today's current lines throughout. LOU now -4.5 (was -6.5), VCU now slight fav, Akron improved to +8.5. Public betting % column added to every Tier A pick. Two new Tier B plays: TCU +2.5 and High Point +10.5. Full rationale paragraphs, Kalshi crosscheck, 23-5 ATS trend, games to skip. Permanent analytical record to complement the live dashboard.</div>
     <span class="flink">↗ OPEN PDF</span>
   </a>
 
@@ -461,15 +490,17 @@
     <div class="si"><strong>ESPN BPI</strong>Independent efficiency model crosscheck</div>
     <div class="si"><strong>Rule 17 — Trapezoid</strong>Ryan Hammer (@ryanhammer09) — Net Rating vs Pace championship filter</div>
     <div class="si ns"><strong>Barttorvik Player Data</strong>2,275 players · PRPG, BPM, Usage%, eFG, ORtg, rebounding — all 68 teams</div>
+    <div class="si ns"><strong>Public Betting % — v3</strong>SportsGeek · handle% and bets% for all 32 first-round games as of March 19</div>
+    <div class="si ns"><strong>VegasInsider Lines</strong>Current consensus spread, total, ML across bet365, BetMGM, DK, Caesars, FanDuel</div>
   </div>
 </div>
 
 </div>
 
 <footer>
-  2026 MARCH MADNESS INTELLIGENCE HUB v2 · bbeem1031 · Updated March 18, 2026<br>
-  Data: Barttorvik · Warren Nolan · KenPom · ESPN BPI · Kalshi · AP Poll Archive · 2008-2025 historical (2020 excluded)<br>
-  Lines as of March 18, 2026 — verify before wagering · FOR ENTERTAINMENT PURPOSES ONLY · GAMBLING INVOLVES RISK
+  2026 MARCH MADNESS INTELLIGENCE HUB v3 · bbeem1031 · Updated March 19, 2026 · Games tip today<br>
+  Data: Barttorvik · Warren Nolan · KenPom · ESPN BPI · Kalshi · SportsGeek · VegasInsider · AP Poll Archive · 2008-2025 historical (2020 excluded)<br>
+  Lines as of March 19, 2026 — verify before wagering · FOR ENTERTAINMENT PURPOSES ONLY · GAMBLING INVOLVES RISK
 </footer>
 </body>
 </html>

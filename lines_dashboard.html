@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 March Madness — Live Lines & Picks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#080e14; --surface:#0d1520; --card:#101c2a; --card2:#0c1828;
+  --border:#162230; --border2:#1e3045;
+  --red:#e8502a; --orange:#dc6f1a; --gold:#f0a500;
+  --green:#2a7a4b; --teal:#2dd4bf; --blue:#60a5fa; --purple:#a78bfa;
+  --text:#f0f6ff; --muted:#7a9ab8; --dim:#3d5a75;
+  --tier-a:#e8502a; --tier-b:#dc6f1a; --tier-tot:#a78bfa;
+  --tier-skip:#3d5a75; --tier-watch:#f0a500; --tier-lean:#2a7a4b;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ── HEADER ── */
+.hdr{padding:28px 32px 20px;border-bottom:2px solid var(--border2);background:var(--surface);}
+.hdr-top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--teal);text-transform:uppercase;margin-bottom:8px;}
+.hdr h1{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:800;line-height:1;letter-spacing:-0.5px;}
+.hdr h1 span{color:var(--red);}
+.hdr-sub{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5;}
+.injury-bar{background:linear-gradient(90deg,#3b0000,#1a0000);border-top:1.5px solid var(--red);padding:9px 32px;font-size:11px;color:#fde68a;line-height:1.6;}
+.injury-bar strong{color:#fca5a5;}
+
+/* ── KPI STRIP ── */
+.kpi-strip{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--border2);}
+.kpi{padding:14px 18px;border-right:1px solid var(--border);}
+.kpi:last-child{border-right:none;}
+.kpi-num{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;line-height:1;}
+.kpi-lbl{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.3;}
+
+/* ── FILTERS ── */
+.filters{display:flex;align-items:center;gap:8px;padding:14px 32px;background:var(--surface);border-bottom:1px solid var(--border2);flex-wrap:wrap;}
+.filter-label{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-right:4px;}
+.btn{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:5px 14px;border:1px solid var(--border2);background:transparent;color:var(--muted);border-radius:2px;cursor:pointer;letter-spacing:0.5px;transition:all .15s;}
+.btn:hover{border-color:var(--teal);color:var(--teal);}
+.btn.active{background:var(--teal);border-color:var(--teal);color:#000;font-weight:700;}
+.btn.active-day{background:var(--blue);border-color:var(--blue);color:#000;font-weight:700;}
+.sep{width:1px;height:20px;background:var(--border2);margin:0 4px;}
+
+/* ── TABLE ── */
+.table-wrap{padding:16px 32px 40px;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;min-width:900px;}
+thead tr{background:var(--border);}
+th{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;padding:9px 10px;text-align:left;white-space:nowrap;}
+th.r{text-align:right;}
+th.c{text-align:center;}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s;}
+tbody tr:hover{background:rgba(255,255,255,0.025);}
+tbody tr.hidden{display:none;}
+td{padding:9px 10px;font-size:12px;vertical-align:middle;}
+
+/* row accent by tier */
+tr.tier-a{border-left:2px solid var(--tier-a);}
+tr.tier-b{border-left:2px solid var(--tier-b);}
+tr.tier-tot{border-left:2px solid var(--tier-tot);}
+tr.tier-skip{border-left:2px solid var(--tier-skip);opacity:.65;}
+tr.tier-watch{border-left:2px solid var(--tier-watch);}
+tr.tier-lean{border-left:2px solid var(--tier-lean);}
+tr.tier-none{border-left:2px solid transparent;}
+
+/* ── CELLS ── */
+.game-name{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;line-height:1.2;}
+.game-time{font-size:10px;color:var(--muted);margin-top:1px;}
+.seeds{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--dim);}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:12px;}
+.move-up{color:#f43f5e;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;}
+.move-dn{color:var(--green);font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;}
+.move-flip{color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;}
+.move-none{color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:11px;}
+.pub{font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:1.5;}
+.pub-hi{color:var(--teal);font-weight:700;}
+.pub-mid{color:var(--orange);}
+.pub-lo{color:var(--muted);}
+
+/* tier badge */
+.tier{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:2px;letter-spacing:.5px;white-space:nowrap;}
+.t-a{background:var(--tier-a);color:#fff;}
+.t-b{background:rgba(220,111,26,.2);color:var(--orange);border:1px solid var(--orange);}
+.t-tot{background:rgba(167,139,250,.15);color:var(--purple);border:1px solid var(--purple);}
+.t-lean{background:rgba(42,122,75,.2);color:#4ade80;border:1px solid var(--green);}
+.t-watch{background:rgba(240,165,0,.15);color:var(--gold);border:1px solid var(--gold);}
+.t-skip{background:rgba(61,90,117,.15);color:var(--dim);border:1px solid var(--border2);}
+.t-none{color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:11px;}
+
+/* pick cell */
+.pick-side{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;line-height:1.2;}
+.pick-reason{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3;}
+
+/* legend */
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:10px 32px;border-bottom:1px solid var(--border);background:var(--surface);}
+.leg-item{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);}
+.leg-dot{width:8px;height:8px;border-radius:1px;}
+
+/* section divider */
+.region-row td{background:var(--border);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;padding:6px 10px;}
+
+/* sharp tag */
+.sharp{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--teal);background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.25);padding:1px 5px;border-radius:2px;margin-left:4px;vertical-align:middle;}
+
+.footer{padding:20px 32px;border-top:1px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--dim);line-height:1.8;}
+.back-link{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--teal);text-decoration:none;letter-spacing:1px;}
+.back-link:hover{color:#fff;}
+
+@media(max-width:900px){
+  .kpi-strip{grid-template-columns:repeat(3,1fr);}
+  .table-wrap{padding:12px 12px 40px;}
+  .filters{padding:12px 12px;}
+  .hdr{padding:20px 16px 16px;}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-top">
+    <div>
+      <div class="eyebrow">▶ Live Lines + Picks · 2026 March Madness · First Round</div>
+      <h1>Lines <span>&amp;</span> Picks<br>Dashboard</h1>
+      <div class="hdr-sub">
+        DraftKings consensus · VegasInsider · SportsGeek public % · Updated March 19, 2026<br>
+        Opening lines from Selection Sunday (Mar 15) · First Four complete: Howard, Texas, SMU, Lehigh advance
+      </div>
+    </div>
+    <a href="index.html" class="back-link">← BACK TO HUB</a>
+  </div>
+</div>
+
+<div class="injury-bar">
+  <strong>⚠ INJURIES (picks adjusted):</strong>
+  Brown (Louisville) OUT R1+R2 · Wilson (UNC) OUT season · Huff (Gonzaga) OUT R1 · Foster (Duke) OUT · Saunders (BYU) OUT season · Toppin (Texas Tech) OUT season
+</div>
+
+<div class="kpi-strip">
+  <div class="kpi"><div class="kpi-num" style="color:var(--red);">5</div><div class="kpi-lbl">Tier A plays<br>highest conviction</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--orange);">7</div><div class="kpi-lbl">Tier B plays<br>strong edge</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--purple);">7</div><div class="kpi-lbl">Totals plays<br>A &amp; B rated</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--dim);">4</div><div class="kpi-lbl">Skip games<br>no edge</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--gold);">4</div><div class="kpi-lbl">Watch games<br>monitor only</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--teal);">81%</div><div class="kpi-lbl">SFU money %<br>top public signal</div></div>
+</div>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:var(--tier-a);"></div>Tier A — highest conviction</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--orange);"></div>Tier B — strong play</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--purple);"></div>Total play</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--green);"></div>Lean — mild edge</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--gold);"></div>Watch — monitor</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--dim);"></div>Skip — no edge</div>
+</div>
+
+<div class="filters">
+  <span class="filter-label">Day</span>
+  <button class="btn active-day" onclick="filterDay('all',this)">ALL</button>
+  <button class="btn" onclick="filterDay('thu',this)">THURSDAY</button>
+  <button class="btn" onclick="filterDay('fri',this)">FRIDAY</button>
+  <div class="sep"></div>
+  <span class="filter-label">Tier</span>
+  <button class="btn active" onclick="filterTier('all',this)">ALL</button>
+  <button class="btn" onclick="filterTier('a',this)">TIER A</button>
+  <button class="btn" onclick="filterTier('b',this)">TIER B</button>
+  <button class="btn" onclick="filterTier('tot',this)">TOTALS</button>
+  <button class="btn" onclick="filterTier('lean',this)">LEAN</button>
+  <button class="btn" onclick="filterTier('watch',this)">WATCH</button>
+  <button class="btn" onclick="filterTier('skip',this)">SKIP</button>
+</div>
+
+<div class="table-wrap">
+<table id="lines-table">
+<thead>
+  <tr>
+    <th style="width:170px;">Matchup</th>
+    <th>Seeds</th>
+    <th>Spread<br><span style="font-weight:400;opacity:.6;">open → now</span></th>
+    <th>Total</th>
+    <th>Moneyline</th>
+    <th class="c">Public<br>Money% / Bets%</th>
+    <th class="c">Line<br>Move</th>
+    <th style="width:130px;">Pick</th>
+    <th class="c">Tier</th>
+    <th>Key Signal</th>
+  </tr>
+</thead>
+<tbody>
+
+<!-- ══ THURSDAY ══════════════════════════════════════════════════════════ -->
+<tr class="region-row"><td colspan="10">▶ THURSDAY, MARCH 19 — 16 GAMES</td></tr>
+
+<!-- Ohio State vs TCU -->
+<tr class="tier-b" data-day="thu" data-tier="b">
+  <td><div class="game-name">Ohio State vs TCU</div><div class="game-time">12:15 ET · Greenville SC</div></td>
+  <td><div class="seeds">#8 vs #9</div></td>
+  <td><span class="mono">OSU -4.5 → <b>-2.5</b></span></td>
+  <td><span class="mono">146.5</span></td>
+  <td><span class="mono">OSU -142<br>TCU +120</span></td>
+  <td style="text-align:center;"><div class="pub pub-hi">TCU: 57% MON</div><div class="pub pub-lo">43% bets</div></td>
+  <td style="text-align:center;"><span class="move-dn">▼ -2.0</span></td>
+  <td><div class="pick-side" style="color:var(--orange);">TCU +2.5</div><div class="pick-reason">Sharp steam, Big 12 PASE -15.9</div></td>
+  <td style="text-align:center;"><span class="tier t-b">B</span></td>
+  <td style="font-size:11px;color:var(--muted);">-4.5→-2.5 opening night<span class="sharp">SHARP</span></td>
+</tr>
+
+<!-- Nebraska vs Troy -->
+<tr class="tier-skip" data-day="thu" data-tier="skip">
+  <td><div class="game-name">Nebraska vs Troy</div><div class="game-time">12:40 ET · OKC OK</div></td>
+  <td><div class="seeds">#4 vs #13</div></td>
+  <td><span class="mono">-13 → <b>-12.5</b></span></td>
+  <td><span class="mono">137.5</span></td>
+  <td><span class="mono">NEB -1000<br>Troy +650</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">NEB: 82% MON</div><div class="pub pub-lo">62% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--dim);">SKIP</div><div class="pick-reason">Nebraska 0-8 all-time in tourney</div></td>
+  <td style="text-align:center;"><span class="tier t-skip">SKIP</span></td>
+  <td style="font-size:11px;color:var(--muted);">Jekyll/Hyde season, pressure situation</td>
+</tr>
+
+<!-- Louisville vs South Florida -->
+<tr class="tier-a" data-day="thu" data-tier="a">
+  <td><div class="game-name">Louisville vs S. Florida</div><div class="game-time">1:30 ET · Buffalo NY</div></td>
+  <td><div class="seeds">#6 vs #11</div></td>
+  <td><span class="mono">-7.5 → <b>-4.5</b></span></td>
+  <td><span class="mono">165.5</span></td>
+  <td><span class="mono">LOU -225<br>SFU +185</span></td>
+  <td style="text-align:center;"><div class="pub pub-hi">SFU: 81% MON</div><div class="pub pub-hi">70% bets</div></td>
+  <td style="text-align:center;"><span class="move-dn">▼ -3.0</span></td>
+  <td><div class="pick-side" style="color:var(--red);">SFU +4.5</div><div class="pick-reason">Brown OUT R1+R2 · RLM · 6-seed PASE</div></td>
+  <td style="text-align:center;"><span class="tier t-a">A</span></td>
+  <td style="font-size:11px;color:var(--muted);">Brown OUT confirmed, 81% money<span class="sharp">SHARP</span></td>
+</tr>
+
+<!-- Wisconsin vs High Point -->
+<tr class="tier-b" data-day="thu" data-tier="b">
+  <td><div class="game-name">Wisconsin vs High Point</div><div class="game-time">1:50 ET · Portland OR</div></td>
+  <td><div class="seeds">#5 vs #12</div></td>
+  <td><span class="mono">-12.5 → <b>-10.5</b></span></td>
+  <td><span class="mono">164.5</span></td>
+  <td><span class="mono">WIS -500<br>HP +380</span></td>
+  <td style="text-align:center;"><div class="pub pub-hi">HP: 65% MON</div><div class="pub pub-lo">51% bets</div></td>
+  <td style="text-align:center;"><span class="move-dn">▼ -2.0</span></td>
+  <td><div class="pick-side" style="color:var(--orange);">HP +10.5</div><div class="pick-reason">Sharp dog money, Portland = upset state</div></td>
+  <td style="text-align:center;"><span class="tier t-b">B</span></td>
+  <td style="font-size:11px;color:var(--muted);">65% handle vs 51% tickets<span class="sharp">SHARP</span></td>
+</tr>
+
+<!-- Duke vs Siena -->
+<tr class="tier-none" data-day="thu" data-tier="none">
+  <td><div class="game-name">Duke vs Siena</div><div class="game-time">2:50 ET · Greenville SC</div></td>
+  <td><div class="seeds">#1 vs #16</div></td>
+  <td><span class="mono">-27.5 → <b>-28.5</b></span></td>
+  <td><span class="mono">136.5</span></td>
+  <td><span class="mono">DUKE -20000<br>SIENA +3500</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">DUK: 63% MON</div><div class="pub pub-lo">85% bets</div></td>
+  <td style="text-align:center;"><span class="move-up">▲ +1.0</span></td>
+  <td><div class="pick-side" style="color:var(--dim);">—</div><div class="pick-reason">No edge either side</div></td>
+  <td style="text-align:center;"><span class="t-none">—</span></td>
+  <td style="font-size:11px;color:var(--muted);">Public chalk, Foster OUT — monitor total</td>
+</tr>
+
+<!-- Vanderbilt vs McNeese -->
+<tr class="tier-b" data-day="thu" data-tier="b">
+  <td><div class="game-name">Vanderbilt vs McNeese</div><div class="game-time">3:15 ET · OKC OK</div></td>
+  <td><div class="seeds">#5 vs #12</div></td>
+  <td><span class="mono">-11.5 → <b>-11.5</b></span></td>
+  <td><span class="mono">150.5</span></td>
+  <td><span class="mono">VAN -700<br>MCN +500</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">VAN: 59% MON</div><div class="pub pub-lo">48% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--orange);">McNeese +11.5</div><div class="pick-reason">3-0 L10, 0.899 BARTHAG, def-first</div></td>
+  <td style="text-align:center;"><span class="tier t-b">B</span></td>
+  <td style="font-size:11px;color:var(--muted);">Classic defensive 12-seed profile</td>
+</tr>
+
+<!-- Michigan State vs NDSU -->
+<tr class="tier-tot" data-day="thu" data-tier="tot">
+  <td><div class="game-name">Michigan State vs NDSU</div><div class="game-time">4:05 ET · Buffalo NY</div></td>
+  <td><div class="seeds">#3 vs #14</div></td>
+  <td><span class="mono">-16.5 → <b>-16.5</b></span></td>
+  <td><span class="mono">154.5 → <b>143.5</b></span></td>
+  <td><span class="mono">MSU -1800<br>NDSU +1000</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">MSU: 60% MON</div><div class="pub pub-lo">70% bets</div></td>
+  <td style="text-align:center;"><span class="move-dn" style="font-size:10px;">▼ -11 TOTAL</span></td>
+  <td><div class="pick-side" style="color:var(--purple);">UNDER 143.5</div><div class="pick-reason">Biggest sharp move on board</div></td>
+  <td style="text-align:center;"><span class="tier t-tot">TOT-A</span></td>
+  <td style="font-size:11px;color:var(--muted);">Total dropped 11pts — sharpest move in field<span class="sharp">SHARP</span></td>
+</tr>
+
+<!-- Arkansas vs Hawaii -->
+<tr class="tier-watch" data-day="thu" data-tier="watch">
+  <td><div class="game-name">Arkansas vs Hawaii</div><div class="game-time">4:25 ET · Portland OR</div></td>
+  <td><div class="seeds">#4 vs #13</div></td>
+  <td><span class="mono">-15.5 → <b>-15.5</b></span></td>
+  <td><span class="mono">159.5</span></td>
+  <td><span class="mono">ARK -1450<br>HAW +850</span></td>
+  <td style="text-align:center;"><div class="pub pub-hi">HAW: 59% MON</div><div class="pub pub-lo">38% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--gold);">WATCH</div><div class="pick-reason">+21% handle gap on Hawaii dog</div></td>
+  <td style="text-align:center;"><span class="tier t-watch">WATCH</span></td>
+  <td style="font-size:11px;color:var(--muted);">59% money / 38% tickets = big sharp gap<span class="sharp">SHARP</span></td>
+</tr>
+
+<!-- North Carolina vs VCU -->
+<tr class="tier-a" data-day="thu" data-tier="a">
+  <td><div class="game-name">North Carolina vs VCU</div><div class="game-time">6:50 ET · Greenville SC</div></td>
+  <td><div class="seeds">#6 vs #11</div></td>
+  <td><span class="mono">NC -2.5 → <b>VCU fav</b></span></td>
+  <td><span class="mono">153.5</span></td>
+  <td><span class="mono">VCU -110<br>UNC +100</span></td>
+  <td style="text-align:center;"><div class="pub pub-hi">VCU: 55% MON</div><div class="pub pub-lo">50% bets</div></td>
+  <td style="text-align:center;"><span class="move-flip">⇄ FLIP</span></td>
+  <td><div class="pick-side" style="color:var(--red);">VCU ML</div><div class="pick-reason">Wilson OUT season · line fully flipped</div></td>
+  <td style="text-align:center;"><span class="tier t-a">A</span></td>
+  <td style="font-size:11px;color:var(--muted);">NC -2.5 → VCU fav, Wilson 19.8 PPG gone<span class="sharp">SHARP</span></td>
+</tr>
+
+<!-- BYU vs Texas -->
+<tr class="tier-a" data-day="thu" data-tier="a">
+  <td><div class="game-name">BYU vs Texas</div><div class="game-time">7:10 ET · Portland OR</div></td>
+  <td><div class="seeds">#6 vs #11</div></td>
+  <td><span class="mono">-2.5 → <b>-2.5</b></span></td>
+  <td><span class="mono">157.5</span></td>
+  <td><span class="mono">BYU -148<br>TEX +124</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">BYU: 50% MON</div><div class="pub pub-lo">52% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--red);">Texas +2.5</div><div class="pick-reason">Saunders ACL · at-large 11 · Big 12 PASE</div></td>
+  <td style="text-align:center;"><span class="tier t-a">A</span></td>
+  <td style="font-size:11px;color:var(--muted);">Saunders ACL, BYU 2-4 post-injury</td>
+</tr>
+
+<!-- Saint Mary's vs Texas A&M -->
+<tr class="tier-lean" data-day="thu" data-tier="lean">
+  <td><div class="game-name">Saint Mary's vs Tex A&amp;M</div><div class="game-time">7:10 ET · Philadelphia PA</div></td>
+  <td><div class="seeds">#7 vs #10</div></td>
+  <td><span class="mono">-3.5 → <b>-3.5</b></span></td>
+  <td><span class="mono">147.5</span></td>
+  <td><span class="mono">SMC -190<br>TXAM +160</span></td>
+  <td style="text-align:center;"><div class="pub pub-hi">SMC: 64% MON</div><div class="pub pub-lo">49% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--green);">TXAM +3.5</div><div class="pick-reason">3TZ travel Moraga CA→Philadelphia</div></td>
+  <td style="text-align:center;"><span class="tier t-lean">LEAN</span></td>
+  <td style="font-size:11px;color:var(--muted);">Rule 5: 3 time zones for Saint Mary's</td>
+</tr>
+
+<!-- Illinois vs Penn -->
+<tr class="tier-lean" data-day="thu" data-tier="lean">
+  <td><div class="game-name">Illinois vs Penn</div><div class="game-time">9:25 ET · Philadelphia PA</div></td>
+  <td><div class="seeds">#2 vs #15</div></td>
+  <td><span class="mono">-22.5 → <b>-24.5</b></span></td>
+  <td><span class="mono">151</span></td>
+  <td><span class="mono">ILL -5000<br>PENN +2000</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">ILL: 37% MON</div><div class="pub pub-lo">48% bets</div></td>
+  <td style="text-align:center;"><span class="move-up">▲ +2.0</span></td>
+  <td><div class="pick-side" style="color:var(--green);">Illinois -24.5</div><div class="pick-reason">Reverse line move — sharps on ILL</div></td>
+  <td style="text-align:center;"><span class="tier t-lean">LEAN</span></td>
+  <td style="font-size:11px;color:var(--muted);">Line UP despite Penn getting 63% of money<span class="sharp">SHARP</span></td>
+</tr>
+
+<!-- Georgia vs Saint Louis -->
+<tr class="tier-skip" data-day="thu" data-tier="skip">
+  <td><div class="game-name">Georgia vs Saint Louis</div><div class="game-time">9:45 ET · Philadelphia PA</div></td>
+  <td><div class="seeds">#8 vs #9</div></td>
+  <td><span class="mono">-2.5 → <b>-2.5</b></span></td>
+  <td><span class="mono">169</span></td>
+  <td><span class="mono">UGA -148<br>SLU +124</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">UGA: 65% MON</div><div class="pub pub-lo">49% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--dim);">SKIP</div><div class="pick-reason">Near coinflip, no data edge</div></td>
+  <td style="text-align:center;"><span class="tier t-skip">SKIP</span></td>
+  <td style="font-size:11px;color:var(--muted);">0.877 vs 0.858 BARTHAG — too close</td>
+</tr>
+
+<!-- Gonzaga vs Kennesaw -->
+<tr class="tier-watch" data-day="thu" data-tier="watch">
+  <td><div class="game-name">Gonzaga vs Kennesaw St</div><div class="game-time">10:00 ET · Portland OR</div></td>
+  <td><div class="seeds">#3 vs #16</div></td>
+  <td><span class="mono">-18.5 → <b>-20.5</b></span></td>
+  <td><span class="mono">154</span></td>
+  <td><span class="mono">GONZ -4000<br>KSU +2000</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">GON: 71% MON</div><div class="pub pub-lo">60% bets</div></td>
+  <td style="text-align:center;"><span class="move-up">▲ +2.0</span></td>
+  <td><div class="pick-side" style="color:var(--gold);">WATCH</div><div class="pick-reason">Huff OUT R1, public pushed line up</div></td>
+  <td style="text-align:center;"><span class="tier t-watch">WATCH</span></td>
+  <td style="font-size:11px;color:var(--muted);">Public steam, Huff OUT — spread inflated</td>
+</tr>
+
+<!-- Houston vs Idaho -->
+<tr class="tier-tot" data-day="thu" data-tier="tot">
+  <td><div class="game-name">Houston vs Idaho</div><div class="game-time">10:10 ET · Tampa FL</div></td>
+  <td><div class="seeds">#1 vs #16</div></td>
+  <td><span class="mono">-19.5 → <b>-23.5</b></span></td>
+  <td><span class="mono">138.5</span></td>
+  <td><span class="mono">HOU -3000<br>IDH +1500</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">HOU: 72% MON</div><div class="pub pub-lo">60% bets</div></td>
+  <td style="text-align:center;"><span class="move-up">▲ +4.0</span></td>
+  <td><div class="pick-side" style="color:var(--purple);">UNDER 1H</div><div class="pick-reason">Blowout → garbage time kills over</div></td>
+  <td style="text-align:center;"><span class="tier t-tot">TOT-B</span></td>
+  <td style="font-size:11px;color:var(--muted);">+4pt steam, ATS trend A+ qualifier</td>
+</tr>
+
+<!-- ══ FRIDAY ════════════════════════════════════════════════════════════ -->
+<tr class="region-row"><td colspan="10">▶ FRIDAY, MARCH 20 — 16 GAMES</td></tr>
+
+<!-- Kentucky vs Santa Clara -->
+<tr class="tier-b" data-day="fri" data-tier="b">
+  <td><div class="game-name">Kentucky vs Santa Clara</div><div class="game-time">12:15 ET · Raleigh NC</div></td>
+  <td><div class="seeds">#7 vs #10</div></td>
+  <td><span class="mono">-3.5 → <b>-3.5</b></span></td>
+  <td><span class="mono">160.5</span></td>
+  <td><span class="mono">UK -190<br>SCU +160</span></td>
+  <td style="text-align:center;"><div class="pub pub-hi">SCU: 60% MON</div><div class="pub pub-lo">52% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--orange);">SCU +3.5</div><div class="pick-reason">SCU 0.895 BARTHAG &gt; KEN 0.890</div></td>
+  <td style="text-align:center;"><span class="tier t-b">B</span></td>
+  <td style="font-size:11px;color:var(--muted);">LOCK: BARTHAG + AP-ranked + KEN 2-3 L10</td>
+</tr>
+
+<!-- Texas Tech vs Akron -->
+<tr class="tier-b" data-day="fri" data-tier="b">
+  <td><div class="game-name">Texas Tech vs Akron</div><div class="game-time">12:40 ET · Raleigh NC</div></td>
+  <td><div class="seeds">#5 vs #12</div></td>
+  <td><span class="mono">-7.5 → <b>-8.5</b></span></td>
+  <td><span class="mono">156</span></td>
+  <td><span class="mono">TTU -380<br>AKR +300</span></td>
+  <td style="text-align:center;"><div class="pub pub-hi">AKR: 80% MON</div><div class="pub pub-hi">67% bets</div></td>
+  <td style="text-align:center;"><span class="move-up">▲ +1.0</span></td>
+  <td><div class="pick-side" style="color:var(--orange);">Akron +8.5</div><div class="pick-reason">Toppin OUT season · Big 12 PASE -15.9</div></td>
+  <td style="text-align:center;"><span class="tier t-b">B</span></td>
+  <td style="font-size:11px;color:var(--muted);">Line improved 1pt for Akron vs v2</td>
+</tr>
+
+<!-- Arizona vs LIU -->
+<tr class="tier-a" data-day="fri" data-tier="a">
+  <td><div class="game-name">Arizona vs Long Island</div><div class="game-time">12:35 ET · San Diego CA</div></td>
+  <td><div class="seeds">#1 vs #16</div></td>
+  <td><span class="mono">-29.5 → <b>-30.5</b></span></td>
+  <td><span class="mono">151.5</span></td>
+  <td><span class="mono">AZ -20000<br>LIU +5000</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">AZ: 70% MON</div><div class="pub pub-lo">86% bets</div></td>
+  <td style="text-align:center;"><span class="move-up">▲ +1.0</span></td>
+  <td><div class="pick-side" style="color:var(--red);">Arizona -30.5</div><div class="pick-reason">Healthiest #1, 0.978 BARTHAG</div></td>
+  <td style="text-align:center;"><span class="tier t-a">A</span></td>
+  <td style="font-size:11px;color:var(--muted);">Best #1 seed analytically (Rule 16: exits F4)</td>
+</tr>
+
+<!-- Virginia vs Wright State -->
+<tr class="tier-tot" data-day="fri" data-tier="tot">
+  <td><div class="game-name">Virginia vs Wright State</div><div class="game-time">12:50 ET · Memphis TN</div></td>
+  <td><div class="seeds">#4 vs #13</div></td>
+  <td><span class="mono">-18.5 → <b>-18.5</b></span></td>
+  <td><span class="mono">146</span></td>
+  <td><span class="mono">UVA -4000<br>WST +1800</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">UVA: 51% MON</div><div class="pub pub-lo">56% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--purple);">Virginia -18.5</div><div class="pick-reason">23-5 ATS trend qualifier (A-rated)</div></td>
+  <td style="text-align:center;"><span class="tier t-tot">TOT-A</span></td>
+  <td style="font-size:11px;color:var(--muted);">Top-3 seed + total &lt;148 + 5 days rest</td>
+</tr>
+
+<!-- Iowa State vs Tennessee State -->
+<tr class="tier-tot" data-day="fri" data-tier="tot">
+  <td><div class="game-name">Iowa State vs Tenn St</div><div class="game-time">1:50 ET · Memphis TN</div></td>
+  <td><div class="seeds">#2 vs #15</div></td>
+  <td><span class="mono">-23.5 → <b>-25.5</b></span></td>
+  <td><span class="mono">148.5</span></td>
+  <td><span class="mono">ISU -6000<br>TNST +3000</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">ISU: 68% MON</div><div class="pub pub-lo">85% bets</div></td>
+  <td style="text-align:center;"><span class="move-up">▲ +2.0</span></td>
+  <td><div class="pick-side" style="color:var(--purple);">OVER 1H</div><div class="pick-reason">ISU #1 nationally L10, T.State overmatched</div></td>
+  <td style="text-align:center;"><span class="tier t-tot">TOT-B</span></td>
+  <td style="font-size:11px;color:var(--muted);">Steam +2, ISU explosive offense early</td>
+</tr>
+
+<!-- Alabama vs Hofstra -->
+<tr class="tier-watch" data-day="fri" data-tier="watch">
+  <td><div class="game-name">Alabama vs Hofstra</div><div class="game-time">2:15 ET · Memphis TN</div></td>
+  <td><div class="seeds">#4 vs #13</div></td>
+  <td><span class="mono">-11.5 → <b>-11.5</b></span></td>
+  <td><span class="mono">158.5</span></td>
+  <td><span class="mono">ALA -650<br>HOF +480</span></td>
+  <td style="text-align:center;"><div class="pub pub-hi">HOF: 64% MON</div><div class="pub pub-lo">45% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--gold);">WATCH</div><div class="pick-reason">+19% handle gap on Hofstra — large bets</div></td>
+  <td style="text-align:center;"><span class="tier t-watch">WATCH</span></td>
+  <td style="font-size:11px;color:var(--muted);">Sharp gap, Rule 17 fades Alabama R32<span class="sharp">SHARP</span></td>
+</tr>
+
+<!-- Utah State vs Villanova -->
+<tr class="tier-a" data-day="fri" data-tier="a">
+  <td><div class="game-name">Utah State vs Villanova</div><div class="game-time">3:10 ET · Raleigh NC</div></td>
+  <td><div class="seeds">#9 vs #8</div></td>
+  <td><span class="mono">VIL -1.5 → <b>USU -2.5</b></span></td>
+  <td><span class="mono">147</span></td>
+  <td><span class="mono">USU -135<br>VIL +115</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">USU: 55% MON</div><div class="pub pub-lo">53% bets</div></td>
+  <td style="text-align:center;"><span class="move-flip">⇄ FLIP</span></td>
+  <td><div class="pick-side" style="color:var(--red);">Utah St -2.5</div><div class="pick-reason">4pt sharp flip · USU BARTHAG &gt; VIL</div></td>
+  <td style="text-align:center;"><span class="tier t-a">A</span></td>
+  <td style="font-size:11px;color:var(--muted);">VIL -1.5 → USU -2.5, sharp identification<span class="sharp">SHARP</span></td>
+</tr>
+
+<!-- Tennessee vs Miami OH -->
+<tr class="tier-none" data-day="fri" data-tier="none">
+  <td><div class="game-name">Tennessee vs Miami OH</div><div class="game-time">3:25 ET · San Diego CA</div></td>
+  <td><div class="seeds">#3 vs #11</div></td>
+  <td><span class="mono">-7 → <b>-6.5</b></span></td>
+  <td><span class="mono">163</span></td>
+  <td><span class="mono">TENN -290<br>M-OH +240</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">TENN: 53% MON</div><div class="pub pub-lo">41% bets</div></td>
+  <td style="text-align:center;"><span class="move-dn">▼ -0.5</span></td>
+  <td><div class="pick-side" style="color:var(--dim);">—</div><div class="pick-reason">M-OH 4-0 ATS as dog, but small sample</div></td>
+  <td style="text-align:center;"><span class="t-none">—</span></td>
+  <td style="font-size:11px;color:var(--muted);">Miami OH 4-0 ATS dog — situational watch</td>
+</tr>
+
+<!-- Iowa vs Clemson -->
+<tr class="tier-b" data-day="fri" data-tier="b">
+  <td><div class="game-name">Iowa vs Clemson</div><div class="game-time">5:50 ET · San Diego CA</div></td>
+  <td><div class="seeds">#9 vs #8</div></td>
+  <td><span class="mono">-2.5 → <b>-2.5</b></span></td>
+  <td><span class="mono">129</span></td>
+  <td><span class="mono">IOWA -148<br>CLEM +124</span></td>
+  <td style="text-align:center;"><div class="pub pub-hi">IOWA: 72% MON</div><div class="pub pub-lo">50% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--orange);">Iowa -2.5</div><div class="pick-reason">0.907 &gt; 0.892 BARTHAG · Big Ten PASE</div></td>
+  <td style="text-align:center;"><span class="tier t-b">B</span></td>
+  <td style="font-size:11px;color:var(--muted);">72% money / 50% tickets — sharp handle<span class="sharp">SHARP</span></td>
+</tr>
+
+<!-- St. John's vs Northern Iowa -->
+<tr class="tier-b" data-day="fri" data-tier="b">
+  <td><div class="game-name">St. John's vs N. Iowa</div><div class="game-time">7:10 ET · Memphis TN</div></td>
+  <td><div class="seeds">#5 vs #12</div></td>
+  <td><span class="mono">-11 → <b>-9.5</b></span></td>
+  <td><span class="mono">131.5</span></td>
+  <td><span class="mono">SJU -535<br>UNI +400</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">SJU: 51% MON</div><div class="pub pub-lo">62% bets</div></td>
+  <td style="text-align:center;"><span class="move-dn">▼ -1.5</span></td>
+  <td><div class="pick-side" style="color:var(--orange);">N. Iowa +9.5</div><div class="pick-reason">MVC +4.1 PASE · 5-0 L10 · still drifting</div></td>
+  <td style="text-align:center;"><span class="tier t-b">B</span></td>
+  <td style="font-size:11px;color:var(--muted);">-11 → -9.5, still moving toward UNI</td>
+</tr>
+
+<!-- UCLA vs UCF -->
+<tr class="tier-lean" data-day="fri" data-tier="lean">
+  <td><div class="game-name">UCLA vs UCF</div><div class="game-time">7:25 ET · Philadelphia PA</div></td>
+  <td><div class="seeds">#7 vs #10</div></td>
+  <td><span class="mono">-6.5 → <b>-5.5</b></span></td>
+  <td><span class="mono">152.5</span></td>
+  <td><span class="mono">UCLA -215<br>UCF +180</span></td>
+  <td style="text-align:center;"><div class="pub pub-hi">UCF: 53% MON</div><div class="pub pub-hi">59% bets</div></td>
+  <td style="text-align:center;"><span class="move-dn">▼ -1.0</span></td>
+  <td><div class="pick-side" style="color:var(--green);">UCF +5.5</div><div class="pick-reason">Sharp dog money, -1pt RLM</div></td>
+  <td style="text-align:center;"><span class="tier t-lean">LEAN</span></td>
+  <td style="font-size:11px;color:var(--muted);">Respected money on UCF<span class="sharp">SHARP</span></td>
+</tr>
+
+<!-- Purdue vs Queens -->
+<tr class="tier-none" data-day="fri" data-tier="none">
+  <td><div class="game-name">Purdue vs Queens NC</div><div class="game-time">6:35 ET · San Diego CA</div></td>
+  <td><div class="seeds">#2 vs #15</div></td>
+  <td><span class="mono">-23.5 → <b>-25.5</b></span></td>
+  <td><span class="mono">163.5</span></td>
+  <td><span class="mono">PUR -6000<br>QUC +3000</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">PUR: 68% MON</div><div class="pub pub-lo">85% bets</div></td>
+  <td style="text-align:center;"><span class="move-up">▲ +2.0</span></td>
+  <td><div class="pick-side" style="color:var(--dim);">—</div><div class="pick-reason">Kalshi futures value, skip spread</div></td>
+  <td style="text-align:center;"><span class="t-none">—</span></td>
+  <td style="font-size:11px;color:var(--muted);">Purdue best Kalshi futures value (+2.2%)</td>
+</tr>
+
+<!-- Florida vs Prairie View -->
+<tr class="tier-none" data-day="fri" data-tier="none">
+  <td><div class="game-name">Florida vs Prairie View</div><div class="game-time">8:25 ET · Raleigh NC</div></td>
+  <td><div class="seeds">#1 vs #16</div></td>
+  <td><span class="mono">-22.5 → <b>-22.5</b></span></td>
+  <td><span class="mono">150</span></td>
+  <td><span class="mono">FLA -5000<br>PV +2500</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">FLA: 74% MON</div><div class="pub pub-lo">64% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--dim);">—</div><div class="pick-reason">PV 1-9 UNDER streak — note total</div></td>
+  <td style="text-align:center;"><span class="t-none">—</span></td>
+  <td style="font-size:11px;color:var(--muted);">PV 1-9 UNDER L10 — situational total note</td>
+</tr>
+
+<!-- Michigan vs Howard -->
+<tr class="tier-none" data-day="fri" data-tier="none">
+  <td><div class="game-name">Michigan vs Howard</div><div class="game-time">6:10 ET · Memphis TN</div></td>
+  <td><div class="seeds">#1 vs #16</div></td>
+  <td><span class="mono">-24.5 → <b>-24.5</b></span></td>
+  <td><span class="mono">152</span></td>
+  <td><span class="mono">MICH -6000<br>HOW +3000</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">MICH: 80% MON</div><div class="pub pub-lo">72% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--dim);">—</div><div class="pick-reason">Champion path, no spread edge</div></td>
+  <td style="text-align:center;"><span class="t-none">—</span></td>
+  <td style="font-size:11px;color:var(--muted);">Michigan champion pick — track progress</td>
+</tr>
+
+<!-- Kansas vs Cal Baptist -->
+<tr class="tier-skip" data-day="fri" data-tier="skip">
+  <td><div class="game-name">Kansas vs Cal Baptist</div><div class="game-time">8:45 ET · Raleigh NC</div></td>
+  <td><div class="seeds">#2 vs #15</div></td>
+  <td><span class="mono">-14.5 → <b>-14.5</b></span></td>
+  <td><span class="mono">138.5</span></td>
+  <td><span class="mono">KU -2000<br>CBU +1000</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">KU: 75% MON</div><div class="pub pub-lo">70% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--dim);">SKIP</div><div class="pick-reason">Jekyll/Hyde — unpredictable cover</div></td>
+  <td style="text-align:center;"><span class="tier t-skip">SKIP</span></td>
+  <td style="font-size:11px;color:var(--muted);">6W vs ranked, multiple losses unranked</td>
+</tr>
+
+<!-- UConn vs Furman -->
+<tr class="tier-tot" data-day="fri" data-tier="tot">
+  <td><div class="game-name">UConn vs Furman</div><div class="game-time">9:00 ET · Memphis TN</div></td>
+  <td><div class="seeds">#2 vs #15</div></td>
+  <td><span class="mono">-18.5 → <b>-20.5</b></span></td>
+  <td><span class="mono">136.5</span></td>
+  <td><span class="mono">UCONN -5000<br>FUR +2500</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">CON: 62% MON</div><div class="pub pub-lo">76% bets</div></td>
+  <td style="text-align:center;"><span class="move-up">▲ +2.0</span></td>
+  <td><div class="pick-side" style="color:var(--purple);">UConn -20.5</div><div class="pick-reason">23-5 ATS trend · Hurley .750 tourney</div></td>
+  <td style="text-align:center;"><span class="tier t-tot">TOT-B</span></td>
+  <td style="font-size:11px;color:var(--muted);">ATS trend qualifier, public pushed line up</td>
+</tr>
+
+<!-- Miami FL vs Missouri -->
+<tr class="tier-lean" data-day="fri" data-tier="lean">
+  <td><div class="game-name">Miami FL vs Missouri</div><div class="game-time">9:35 ET · San Diego CA</div></td>
+  <td><div class="seeds">#8 vs #9</div></td>
+  <td><span class="mono">-1.5 → <b>-1.5</b></span></td>
+  <td><span class="mono">147.5</span></td>
+  <td><span class="mono">MIA -120<br>MIZ +100</span></td>
+  <td style="text-align:center;"><div class="pub pub-lo">MIA: 59% MON</div><div class="pub pub-lo">60% bets</div></td>
+  <td style="text-align:center;"><span class="move-none">—</span></td>
+  <td><div class="pick-side" style="color:var(--green);">Missouri +1.5</div><div class="pick-reason">Miami FL crosses 2TZ to San Diego</div></td>
+  <td style="text-align:center;"><span class="tier t-lean">LEAN</span></td>
+  <td style="font-size:11px;color:var(--muted);">Rule 5: 2 time zones, Coral Gables→SD</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<div class="footer">
+  2026 MARCH MADNESS LINES + PICKS DASHBOARD v3 · bbeem1031 · Updated March 19, 2026<br>
+  Lines: DraftKings / VegasInsider / ESPN · Public %: SportsGeek (as of March 18-19) · Opening lines: Selection Sunday March 15<br>
+  FOR ENTERTAINMENT PURPOSES ONLY · GAMBLING INVOLVES RISK · Verify all lines before wagering
+</div>
+
+<script>
+let activeTier = 'all';
+let activeDay  = 'all';
+
+function applyFilters() {
+  document.querySelectorAll('tbody tr[data-day]').forEach(row => {
+    const d = row.dataset.day;
+    const t = row.dataset.tier;
+    const dayOk  = activeDay  === 'all' || d === activeDay;
+    const tierOk = activeTier === 'all' || t === activeTier;
+    row.classList.toggle('hidden', !(dayOk && tierOk));
+  });
+}
+
+function filterDay(val, btn) {
+  activeDay = val;
+  document.querySelectorAll('.btn').forEach(b => {
+    if (['ALL','THURSDAY','FRIDAY'].includes(b.textContent)) b.classList.remove('active-day');
+  });
+  btn.classList.add('active-day');
+  applyFilters();
+}
+
+function filterTier(val, btn) {
+  activeTier = val;
+  document.querySelectorAll('.btn').forEach(b => {
+    if (!['ALL','THURSDAY','FRIDAY'].includes(b.textContent)) b.classList.remove('active');
+  });
+  // also deactivate the tier ALL if switching
+  btn.classList.add('active');
+  applyFilters();
+}
+
+// Fix: make the day ALL and tier ALL buttons cooperate on first click
+document.addEventListener('DOMContentLoaded', () => {
+  // region rows never hidden
+  document.querySelectorAll('.region-row').forEach(r => r.removeAttribute('data-day'));
+});
+</script>
+</body>
+</html>
