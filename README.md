@@ -1,11 +1,30 @@
 # 🏀 2026 March Madness Analytics Hub
 
-**Data-Driven · 2008–2025 · 17 Tournaments · 1,147 Team-Seasons · Updated March 19, 2026 · v3**
+**Data-Driven · 2008–2025 · 17 Tournaments · 1,147 Team-Seasons · Updated March 19, 2026 · v4 · R1 IN PROGRESS**
 
 > **🏆 Model Champion Pick: Michigan over Duke 73-68**  
 > Rules 16 + 17 confirmed · Veteran depth (Exp 1.95) · Indianapolis = Big Ten country
 
+> **🎯 v4 Update:** Betting Results Tracker added · All picks tracked ATS live · Thu early slate: 6W-2L · TCU ✅ HP ✅ McNeese ✅ · SFU ❌ Duke 1H ❌ McNeese 1H ❌
+
 > **📡 v3 Update:** Live Lines & Picks Dashboard added · All 32 games with current lines, public betting %, pick tiers · Betting Picks PDF rebuilt with today's lines
+
+---
+
+## 📊 Live Betting Results — Thu Early Slate
+
+| Pick | Tier | Result | Score | Notes |
+|------|------|--------|-------|-------|
+| TCU +2.5 | B | ✅ WIN | TCU 66, OSU 64 | TCU won outright |
+| HP +10 | B | ✅ WIN | HP 83, WIS 82 | HP won outright — upset! |
+| McNeese +12 | B | ✅ WIN | VAN 78, MCN 68 | Vandy won by 10, not 12 |
+| SFU +4.5 | A | ✅ WIN | LOU 83, SFU 79 | Lost by 4 — covers +4.5 ✓ |
+| SFU 1H U 76 | 1H-A | ✅ WIN | LOU 37, SFU 27 HT | 64 combined, crushed under |
+| TCU/OSU 1H U 65.5 | 1H-B | ✅ WIN | TCU 39, OSU 26 HT | 65 combined ✓ |
+| Duke 1H U 64 | 1H-A | ❌ LOSS | SIE 43, DUK 32 HT | 75 combined at half |
+| McNeese 1H U 69 | 1H-A | ❌ LOSS | VAN 38, MCN 35 HT | 73 combined at half |
+
+**Current record: 6W-2L · Spreads: 4-0 · 1H Unders: 2-2**
 
 ---
 
@@ -14,7 +33,8 @@
 | File | Type | Description |
 |------|------|-------------|
 | [`index.html`](index.html) | Hub | **Main dashboard** — all tools, KPIs, live intelligence |
-| [`lines_dashboard.html`](lines_dashboard.html) | Interactive Tool | **NEW v3 — Live Lines & Picks** — all 32 games, current lines, public %, pick tiers, filterable |
+| [`results.html`](results.html) | Interactive Tool | **NEW v4 — Betting Results Tracker** — all picks tracked ATS, live results, filterable by Win/Loss/Pending/Type/Day |
+| [`lines_dashboard.html`](lines_dashboard.html) | Interactive Tool | **Live Lines & Picks** — all 32 games, current lines, public %, pick tiers, filterable |
 | [`team_comparison.html`](team_comparison.html) | Interactive Tool | **Head-to-head comparison** — any two teams, full player + efficiency breakdown |
 | [`2026_FINAL_POOL_BRACKET.pdf`](2026_FINAL_POOL_BRACKET.pdf) | PDF | **The bracket** — all 17 rules, 11 R1 upsets, Michigan champion |
 | [`2026_March_Madness_Betting_Picks.pdf`](2026_March_Madness_Betting_Picks.pdf) | PDF | **v3 rebuilt** — picks with current lines, public %, 2 new plays (TCU, High Point) |
@@ -76,6 +96,12 @@ Covers all 68 tournament teams. Powered by Barttorvik 2026 player data (2,275 pl
 | Historical tournament data | 17 years | 2008–2025, 1,147 team-seasons, 38 sources |
 | SportsGeek public betting % | 32 R64 games | Handle% and bets% as of March 19 tip-off |
 | VegasInsider / ESPN / DraftKings | 32 R64 games | Current lines, opening lines, line movement |
+
+### New in v4
+
+**Betting Results Tracker** — `results.html` tracks every pick from all three sources (lines dashboard, betting picks PDF, 1H unders tool) in one live-updating page. Each bet row shows the pick, line, tier, final score, and result badge (WIN / LOSS / PUSH / PENDING). Filterable by result type, bet type (spread/total/1H), and day. Updated as Thursday games complete.
+
+**Current Thursday early record:** 4W-4L · Spreads 3-1 (TCU +2.5 ✅, HP +10 ✅, McNeese +12 ✅, SFU +4.5 ❌) · 1H Unders 1-3 (TCU/OSU 65.5 ✅, Duke 64 ❌, McNeese 69 ❌, SFU 76 ❌)
 
 ### New in v3
 
