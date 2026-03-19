@@ -9,15 +9,34 @@
 
 ## 📁 Repository Files
 
-| File | Description |
-|------|-------------|
-| [`index.html`](index.html) | **Main dashboard hub** — all tools, KPIs, live intelligence |
-| [`2026_FINAL_POOL_BRACKET.pdf`](2026_FINAL_POOL_BRACKET.pdf) | **The bracket** — all 17 rules, 11 R1 upsets, Michigan champion |
-| [`2026_March_Madness_Betting_Picks.pdf`](2026_March_Madness_Betting_Picks.pdf) | Spread/total/ML picks — Kalshi crosscheck + situational ATS |
-| [`2026_Upset_Analysis_Deep_Dive.pdf`](2026_Upset_Analysis_Deep_Dive.pdf) | Full PASE/BARTHAG framework + win probabilities + coach records |
-| [`march_madness_1h_unders.html`](march_madness_1h_unders.html) | Interactive 1H under tracker — all 30 R64 games, 6 books |
-| [`BRACKET_RULES.md`](BRACKET_RULES.md) | All 17 bracket rules with data |
-| [`UPSET_INTELLIGENCE.md`](UPSET_INTELLIGENCE.md) | Historical upset patterns + full 2026 intelligence addendum |
+| File | Type | Description |
+|------|------|-------------|
+| [`index.html`](index.html) | Hub | **Main dashboard** — all tools, KPIs, live intelligence |
+| [`team_comparison.html`](team_comparison.html) | Interactive Tool | **Head-to-head comparison** — any two teams, full player + efficiency breakdown |
+| [`2026_FINAL_POOL_BRACKET.pdf`](2026_FINAL_POOL_BRACKET.pdf) | PDF | **The bracket** — all 17 rules, 11 R1 upsets, Michigan champion |
+| [`2026_March_Madness_Betting_Picks.pdf`](2026_March_Madness_Betting_Picks.pdf) | PDF | Spread/total/ML picks — Kalshi crosscheck + situational ATS |
+| [`2026_Upset_Analysis_Deep_Dive.pdf`](2026_Upset_Analysis_Deep_Dive.pdf) | PDF | Full PASE/BARTHAG framework + win probabilities + coach records |
+| [`march_madness_1h_unders.html`](march_madness_1h_unders.html) | Interactive Tool | First-half under tracker — all 30 R64 games, 6 books |
+| [`BRACKET_RULES.md`](BRACKET_RULES.md) | Reference | All 17 bracket rules with full data and 2026 applications |
+| [`UPSET_INTELLIGENCE.md`](UPSET_INTELLIGENCE.md) | Reference | Historical upset patterns + full 2026 live addendum |
+
+---
+
+## ⚔️ Team Comparison Tool — New
+
+[`team_comparison.html`](team_comparison.html) — Select any two tournament teams for a full head-to-head breakdown.
+
+**What's inside:**
+- **Model Verdict** — auto-generated edge summary across BARTHAG, offense, defense, experience, momentum, roster balance, injuries, and conference PASE
+- **Efficiency comparison** — AdjOE, AdjDE, Net Rating, eFG%, Defensive eFG%, TOV%, OReb% side-by-side with winner/loser color coding
+- **Last-10 momentum** — season vs L10 BARTHAG trend for each team with hot/cold/flat signal
+- **Roster context** — Pace, Experience, Talent Score, Height, Elite SOS head-to-head
+- **Star dependency** — star player usage%, usage concentration index, total team PRPG, injury count
+- **Full roster tables** — every player with PRPG, Usage%, BPM, ORtg, eFG%, Ast%, Blk, year badges, and injury flags
+- **Experience breakdown** — Fr/So/Jr/Sr count per team with overall Exp score
+- **Risk flags** — auto-generated: injured star, BARTHAG < 0.85, Trapezoid violation, young roster, cold streak, negative conference PASE
+
+Covers all 68 tournament teams. Powered by Barttorvik 2026 player data (2,275 players).
 
 ---
 
@@ -31,6 +50,7 @@
 | `Barttorvik_2026_Last10.csv` | 732 rows | Full re-ranking on last 10 games |
 | `Barttorvik_2026_Last30.csv` | 732 rows | Full re-ranking on last 30 games |
 | `Barttorvik_FourFactors_2026.xlsx` | All teams | EFG%, TOV%, OREB%, FTR + defensive equivalents |
+| `Barttorvik_Player_Data.xlsx` | 2,275 players · 68 teams | PRPG, BPM, Usage%, eFG, ORtg, rebounding, assists, defense |
 | `WarrenNolan.xlsx` | All teams | NET rankings, Q1/Q2/Q3/Q4 records, SOS |
 | `collegebasketballinjuryreport.csv` | 414 players | Player, Team, Pos, Status, Est. Return |
 | `First_half_lines.xlsx` | 30 games | 1H totals across 6 books |
@@ -73,6 +93,8 @@
 | Tommy Lloyd | Arizona | 10-6 | .625 | 0 | ⚠ Never past S16 |
 
 **Situational ATS Splits** — ATS record by situation per team, applied to betting pick ratings.
+
+**Player-Level Intelligence** — Barttorvik 2026 player data integrated into team comparison tool. Star dependency scoring, usage concentration index, injury cross-referencing, and experience breakdown for all 68 teams.
 
 ---
 
