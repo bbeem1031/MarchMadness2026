@@ -8,487 +8,459 @@
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;700&display=swap');
   :root {
     --navy:#0f1923;--red:#e8502a;--orange:#dc6f1a;--gold:#f0a500;
-    --green:#2a7a4b;--slate:#94a3b8;--light:#f0f4f8;
-    --card:#1a2535;--border:rgba(255,255,255,0.08);--text:#f1f5f9;
-    --blue:#60a5fa;--purple:#a78bfa;--teal:#2dd4bf;
+    --green:#22c55e;--win-bg:rgba(34,197,94,0.08);
+    --loss:#f43f5e;--loss-bg:rgba(244,63,94,0.08);
+    --slate:#94a3b8;--card:#1a2535;--border:rgba(255,255,255,0.08);
+    --text:#f1f5f9;--blue:#60a5fa;--purple:#a78bfa;--teal:#2dd4bf;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;}
-  .hero{padding:56px 40px 40px;border-bottom:1px solid var(--border);background:linear-gradient(160deg,#0a1520 0%,#0f1923 60%,#0d1f30 100%);position:relative;overflow:hidden;}
-  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(232,80,42,0.07) 0%,transparent 60%);pointer-events:none;}
-  .eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--red);margin-bottom:14px;text-transform:uppercase;}
-  .hero h1{font-family:'DM Serif Display',serif;font-size:52px;line-height:1.05;letter-spacing:-1px;margin-bottom:10px;max-width:700px;}
+
+  /* ── BANNER ── */
+  .banner{
+    display:flex;align-items:center;justify-content:center;gap:0;
+    background:#0a1520;border-bottom:2px solid rgba(255,255,255,0.06);
+    font-family:'Space Mono',monospace;
+  }
+  .banner-cell{
+    padding:18px 40px;display:flex;flex-direction:column;align-items:center;
+    border-right:1px solid rgba(255,255,255,0.06);
+  }
+  .banner-cell:last-child{border-right:none;}
+  .banner-num{font-size:36px;font-weight:700;line-height:1;}
+  .banner-lbl{font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-top:4px;color:var(--slate);}
+  .banner-divider{width:1px;height:60px;background:rgba(255,255,255,0.06);}
+
+  /* ── HERO ── */
+  .hero{
+    padding:44px 40px 36px;border-bottom:1px solid var(--border);
+    background:linear-gradient(160deg,#0a1520 0%,#0f1923 60%,#0d1f30 100%);
+    position:relative;overflow:hidden;
+  }
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(232,80,42,0.06) 0%,transparent 60%);pointer-events:none;}
+  .eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--red);margin-bottom:12px;text-transform:uppercase;}
+  .hero h1{font-family:'DM Serif Display',serif;font-size:48px;line-height:1.05;letter-spacing:-1px;margin-bottom:8px;}
   .hero h1 em{color:var(--red);font-style:normal;}
-  .hero .lead{font-size:15px;color:var(--slate);max-width:620px;line-height:1.7;margin-bottom:28px;}
-  .hero-meta{display:flex;gap:8px;flex-wrap:wrap;}
-  .meta-pill{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--slate);border:1px solid rgba(255,255,255,0.1);padding:5px 12px;border-radius:2px;}
-  .meta-pill.new{color:var(--teal);border-color:rgba(45,212,191,0.3);}
-  .alert-bar{background:linear-gradient(90deg,#450a0a,#7f1d1d);border-top:2px solid var(--red);padding:14px 40px;font-size:12px;color:#fef3c7;line-height:1.6;}
+  .hero .lead{font-size:14px;color:var(--slate);line-height:1.65;}
+
+  /* ── INJURY BAR ── */
+  .alert-bar{background:linear-gradient(90deg,#450a0a,#7f1d1d);border-top:2px solid var(--red);padding:12px 40px;font-size:11px;color:#fef3c7;line-height:1.6;}
   .alert-bar strong{color:#fca5a5;}
-  .kpi-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--border);}
-  .kpi-cell{background:var(--navy);padding:18px 20px;}
-  .kpi-num{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--red);line-height:1;}
-  .kpi-num.g{color:#22c55e;}.kpi-num.loss{color:#f43f5e;}.kpi-num.o{color:var(--orange)}.kpi-num.s{color:var(--slate)}.kpi-num.b{color:var(--blue)}.kpi-num.t{color:var(--teal);}
-  .kpi-txt{font-size:10px;color:var(--slate);margin-top:6px;letter-spacing:0.5px;line-height:1.4;}
-  .main{padding:40px;}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
-  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:20px;}
-  .sec{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--slate);margin-bottom:14px;text-transform:uppercase;}
-  .box{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
-  .box h3{padding:16px 20px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);}
+
+  /* ── MAIN ── */
+  .main{padding:32px 40px 48px;max-width:1100px;margin:0 auto;}
+
+  /* ── TOOL CARDS ── */
+  .tools{display:flex;flex-direction:column;gap:12px;margin-bottom:40px;}
+  .tool-card{
+    display:grid;grid-template-columns:56px 1fr auto;gap:0;
+    background:var(--card);border:1px solid var(--border);border-radius:8px;
+    overflow:hidden;text-decoration:none;color:inherit;
+    transition:border-color .2s,transform .15s;
+  }
+  .tool-card:hover{border-color:rgba(255,255,255,0.18);transform:translateY(-1px);}
+  .tool-card.primary{border-color:rgba(45,212,191,0.35);}
+  .tool-card.results{border-color:rgba(34,197,94,0.35);}
+  .tool-card.bracket{border-color:rgba(240,165,0,0.35);}
+  .tool-icon{
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;background:rgba(255,255,255,0.03);
+    border-right:1px solid var(--border);
+  }
+  .tool-body{padding:16px 20px;}
+  .tool-type{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--slate);text-transform:uppercase;margin-bottom:4px;}
+  .tool-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px;}
+  .tool-desc{font-size:12px;color:var(--slate);line-height:1.55;}
+  .tool-meta{
+    padding:16px 20px;display:flex;flex-direction:column;
+    align-items:flex-end;justify-content:center;gap:4px;
+    border-left:1px solid var(--border);min-width:110px;
+  }
+  .tool-stat{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;line-height:1;}
+  .tool-stat-lbl{font-family:'Space Mono',monospace;font-size:8px;color:var(--slate);letter-spacing:1px;text-align:right;}
+  .tool-link{font-family:'Space Mono',monospace;font-size:9px;color:var(--red);letter-spacing:1px;margin-top:6px;}
+
+  /* ── COLLAPSED INTELLIGENCE ── */
+  .intel-toggle{
+    width:100%;background:transparent;border:1px solid var(--border);
+    border-radius:6px;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;
+    cursor:pointer;color:var(--slate);font-family:'Space Mono',monospace;
+    font-size:10px;letter-spacing:2px;text-transform:uppercase;
+    transition:border-color .15s,color .15s;margin-bottom:0;
+  }
+  .intel-toggle:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
+  .intel-toggle .chevron{transition:transform .25s;display:inline-block;font-style:normal;}
+  .intel-toggle.open .chevron{transform:rotate(180deg);}
+  .intel-body{
+    display:none;margin-top:12px;
+    border:1px solid var(--border);border-radius:8px;overflow:hidden;
+  }
+  .intel-body.open{display:block;}
+
+  /* ── INTELLIGENCE INNER STYLES ── */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px;}
+  .box{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+  .box h3{padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);}
   .bh3-red{color:var(--red)}.bh3-blue{color:var(--blue)}.bh3-teal{color:var(--teal)}.bh3-purple{color:var(--purple)}.bh3-orange{color:var(--orange)}.bh3-gold{color:var(--gold);}
-  .row{display:grid;gap:8px;padding:12px 20px;border-bottom:1px solid var(--border);align-items:center;font-size:12px;}
+  .row{display:grid;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);align-items:center;font-size:12px;}
   .row:last-child{border-bottom:none;}
   .row-hdr{background:rgba(255,255,255,0.03);font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);letter-spacing:1px;}
   .bold{font-weight:700;}.mono{font-family:'Space Mono',monospace;}
-  .up{color:var(--red)}.down{color:#22c55e}.flip{color:var(--gold)}.pos{color:var(--teal)}.neg{color:var(--red)}
-  .hi{color:#22c55e}.mid{color:var(--orange)}.lo{color:var(--slate);}
-  .badge{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;padding:4px 10px;border-radius:3px;white-space:nowrap;}
+  .up{color:var(--red)}.down{color:var(--green)}.flip{color:var(--gold)}.pos{color:var(--teal)}.neg{color:var(--red)}
+  .hi{color:var(--green)}.mid{color:var(--orange)}.lo{color:var(--slate);}
+  .badge{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:3px;white-space:nowrap;}
   .bc{background:var(--red);color:white;}.bh{background:var(--orange);color:white;}.bm{background:#1e2d3d;color:var(--slate);}
-  /* FILE CARDS */
-  .file-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,transform .15s;text-decoration:none;color:inherit;}
-  .file-card:hover{border-color:rgba(255,255,255,0.2);transform:translateY(-2px);}
-  .file-card.bracket{border-color:rgba(240,165,0,0.5);background:linear-gradient(135deg,#1a2535,#1a1500);}
-  .file-icon{font-size:28px;}
-  .ftype{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--slate);text-transform:uppercase;}
-  .ftitle{font-size:17px;font-weight:700;color:var(--text);line-height:1.3;}
-  .fdesc{font-size:12px;color:var(--slate);line-height:1.65;flex:1;}
-  .flink{display:inline-flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:10px;color:var(--red);letter-spacing:1px;margin-top:4px;}
-  .flink:hover{color:#ff7a5a;}
-  .tags{display:flex;gap:6px;flex-wrap:wrap;}
-  .tag{font-family:'Space Mono',monospace;font-size:8px;padding:2px 7px;border-radius:2px;letter-spacing:0.5px;font-weight:700;}
-  .tr{background:var(--red);color:white;}.tg{background:var(--green);color:white;}.to{background:var(--orange);color:white;}
-  .tn{background:#1e2d3d;color:var(--slate);}.tgo{background:var(--gold);color:var(--navy);}
-  .tt{background:rgba(45,212,191,0.2);color:var(--teal);border:1px solid rgba(45,212,191,0.3);}
-  .tp{background:rgba(167,139,250,0.2);color:var(--purple);border:1px solid rgba(167,139,250,0.3);}
-  /* SOURCES */
-  .sources{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;}
-  .sources h3{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--slate);margin-bottom:16px;}
-  .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-  .si{font-size:12px;color:#64748b;padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:4px;border:1px solid rgba(255,255,255,0.05);}
-  .si strong{color:var(--slate);display:block;margin-bottom:2px;font-size:11px;}
-  .si.ns{border-color:rgba(45,212,191,0.2);}.si.ns strong{color:var(--teal);}
-  footer{padding:24px 40px;border-top:1px solid var(--border);font-family:'Space Mono',monospace;font-size:10px;color:#334155;line-height:1.8;}
-  @media(max-width:1100px){.kpi-strip{grid-template-columns:repeat(4,1fr);}.sg{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:900px){.grid,.grid-3{grid-template-columns:1fr;}.kpi-strip{grid-template-columns:repeat(3,1fr);}.hero h1{font-size:36px;}.main{padding:20px;}}
+
+  footer{padding:20px 40px;border-top:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:#334155;line-height:1.8;}
+
+  @media(max-width:900px){
+    .banner-cell{padding:14px 20px;}
+    .banner-num{font-size:26px;}
+    .main{padding:20px;}
+    .hero{padding:28px 20px;}
+    .alert-bar{padding:10px 20px;}
+    .tool-card{grid-template-columns:48px 1fr;}
+    .tool-meta{display:none;}
+    .grid{grid-template-columns:1fr;padding:12px;}
+    footer{padding:16px 20px;}
+  }
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <div class="eyebrow">▶ Intelligence Hub v5 · 2026 NCAA Tournament · March 19, 2026 · R1 In Progress · Thu early: 6-2 ATS</div>
-  <h1>March Madness<br><em>Intelligence Hub</em></h1>
-  <p class="lead">Data-driven bracket picks, betting analysis, and upset intelligence for the 2026 NCAA Tournament. Built on Barttorvik 2026, Warren Nolan NET, 17 years of PASE/BARTHAG data, real-time injury intelligence, sharp line movement, Kalshi prediction markets, and round-by-round win probabilities.</p>
-  <div class="hero-meta">
-    <span class="meta-pill">1,147 TEAM-SEASONS</span>
-    <span class="meta-pill">38 DATA SOURCES</span>
-    <span class="meta-pill">BARTTORVIK 2026</span>
-    <span class="meta-pill">WARREN NOLAN NET</span>
-    <span class="meta-pill">LAST-10 / LAST-30</span>
-    <span class="meta-pill">INJURY-ADJUSTED</span>
-    <span class="meta-pill new">KALSHI MARKETS</span>
-    <span class="meta-pill new">WIN PROBABILITIES</span>
-    <span class="meta-pill new">COACH ATS RECORDS</span>
-    <span class="meta-pill new">LIVE LINES DASHBOARD</span>
-    <span class="meta-pill new">PUBLIC BETTING %</span>
-    <span class="meta-pill new">LIVE RESULTS TRACKER</span>
+<!-- ── BANNER ── -->
+<div class="banner">
+  <div class="banner-cell">
+    <div class="banner-num" style="color:var(--green);">6</div>
+    <div class="banner-lbl">Wins</div>
+  </div>
+  <div class="banner-cell">
+    <div class="banner-num" style="color:var(--loss);">2</div>
+    <div class="banner-lbl">Losses</div>
+  </div>
+  <div class="banner-cell">
+    <div class="banner-num" style="color:var(--gold);">6-2</div>
+    <div class="banner-lbl">Record</div>
   </div>
 </div>
 
-<div class="alert-bar">
-  <strong>⚠ CRITICAL INJURIES (all picks adjusted):</strong> Mikel Brown Jr. (Louisville) OUT R1+R2 · Caleb Wilson (UNC) OUT season · Braden Huff (Gonzaga) OUT R1 · Caleb Foster (Duke) OUT · Richie Saunders (BYU) OUT season · JT Toppin (Texas Tech) OUT season
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="eyebrow">▶ Intelligence Hub v6 · 2026 NCAA Tournament · March 19, 2026 · R1 In Progress</div>
+  <h1>March Madness<br><em>Intelligence Hub</em></h1>
+  <p class="lead">Data-driven bracket picks, betting analysis, and upset intelligence for the 2026 NCAA Tournament.</p>
 </div>
 
-<div class="kpi-strip">
-  <div class="kpi-cell"><div class="kpi-num g">6</div><div class="kpi-txt">ATS Wins<br>Thu early slate</div></div>
-  <div class="kpi-cell"><div class="kpi-num loss">2</div><div class="kpi-txt">ATS Losses<br>Thu early slate</div></div>
-  <div class="kpi-cell"><div class="kpi-num" style="color:var(--gold)">6-2</div><div class="kpi-txt">Overall record<br>completed bets</div></div>
-  <div class="kpi-cell"><div class="kpi-num" style="color:#22c55e">Michigan</div><div class="kpi-txt">Champion Pick<br>Rules 16+17</div></div>
-  <div class="kpi-cell"><div class="kpi-num s">6</div><div class="kpi-txt">Key Injuries<br>Confirmed out</div></div>
-  <div class="kpi-cell"><div class="kpi-num b">22%</div><div class="kpi-txt">Michigan Champ%<br>Round-by-round</div></div>
-  <div class="kpi-cell"><div class="kpi-num t">32</div><div class="kpi-txt">Games tracked<br>Lines Dashboard</div></div>
+<!-- ── INJURY BAR ── -->
+<div class="alert-bar">
+  <strong>⚠ INJURIES (picks adjusted):</strong> Brown (Louisville) OUT R1+R2 · Wilson (UNC) OUT season · Huff (Gonzaga) OUT R1 · Foster (Duke) OUT · Saunders (BYU) OUT season · Toppin (Texas Tech) OUT season
 </div>
 
 <div class="main">
 
-<!-- LIVE INTELLIGENCE -->
-<div class="sec">▶ Live Intelligence</div>
-<div class="grid">
+  <!-- ── 5 TOOL CARDS ── -->
+  <div class="tools">
 
-  <div class="box">
-    <h3 class="bh3-red">▶ UPSET ALERTS — INJURY + MODEL DRIVEN</h3>
-    <div class="row" style="grid-template-columns:1fr auto;background:rgba(232,80,42,0.06);">
-      <div><div class="bold" style="margin-bottom:4px;">🔴 South Florida vs Louisville (#6)</div><div style="font-size:11px;color:var(--slate);">Brown RULED OUT R1+R2. 6-seed PASE -20.3. At-large 11-seed 64.1% win rate. SFU 5-0 L10. RLM: -7.5→-4.5. <strong style="color:#22c55e;">RESULT: SFU +4.5 ✅ WIN (lost by 4)</strong></div></div>
-      <span class="badge bc">COVERED</span>
-    </div>
-    <div class="row" style="grid-template-columns:1fr auto;background:rgba(232,80,42,0.06);">
-      <div><div class="bold" style="margin-bottom:4px;">🔴 VCU vs North Carolina (#6)</div><div style="font-size:11px;color:var(--slate);">Wilson OUT season. UNC 0-2 without him. VCU CAA champs, 5-0 L10. Line: NC -2.5.</div></div>
-      <span class="badge bc">TAKE VCU</span>
-    </div>
-    <div class="row" style="grid-template-columns:1fr auto;background:rgba(220,111,26,0.04);">
-      <div><div class="bold" style="margin-bottom:4px;">🟠 Texas vs BYU (#6)</div><div style="font-size:11px;color:var(--slate);">Saunders ACL — BYU 2-4 post-injury. At-large 11. Big 12 PASE -15.9.</div></div>
-      <span class="badge bh">TAKE TEX</span>
-    </div>
-    <div class="row" style="grid-template-columns:1fr auto;background:rgba(220,111,26,0.04);">
-      <div><div class="bold" style="margin-bottom:4px;">🟠 Akron vs Texas Tech (#5)</div><div style="font-size:11px;color:var(--slate);">Toppin OUT season. Tech 0-3 L10. Akron 5-0 L10, MAC champs. Classic 12-seed defensive profile.</div></div>
-      <span class="badge bh">LEAN AKRON</span>
-    </div>
-    <div class="row" style="grid-template-columns:1fr auto;background:rgba(120,53,15,0.15);">
-      <div><div class="bold" style="margin-bottom:4px;">⛔ Rule 16 — West of Mississippi Hard Fade</div><div style="font-size:11px;color:var(--slate);">No western school has won in 31 years (UCLA 1995). Arizona hard-faded from championship. Exits F4 to Michigan.</div></div>
-      <span class="badge" style="background:#78350f;color:#fef3c7;">HARD RULE</span>
-    </div>
-    <div class="row" style="grid-template-columns:1fr auto;background:rgba(15,30,50,0.4);">
-      <div><div class="bold" style="margin-bottom:4px;">🔺 Rule 17 — Trapezoid of Excellence</div><div style="font-size:11px;color:var(--slate);">Alabama (73.1 pace) OUTSIDE — exits R32. Michigan Net +36.6, Pace 71.2 ✅ top cluster. Credit: Ryan Hammer (@ryanhammer09).</div></div>
-      <span class="badge" style="background:#1a3a5c;color:#93c5fd;">ADVISORY</span>
-    </div>
-    <div class="row" style="grid-template-columns:1fr auto;">
-      <div><div class="bold" style="margin-bottom:4px;">⚡ Utah State vs Villanova — Sharp Flip</div><div style="font-size:11px;color:var(--slate);">VIL -1.5 open → USU -2. 4pt swing. USU 0.895 Barthag &gt; VIL 0.881.</div></div>
-      <span class="badge bm">SHARP FLIP</span>
-    </div>
-  </div>
-
-  <div class="box">
-    <h3 class="bh3-blue">▶ SHARP LINE MOVEMENT — TOP SIGNALS <span style="font-size:9px;font-weight:400;color:var(--slate);">(see full dashboard for all 32 games)</span></h3>
-    <div class="row row-hdr" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span>GAME</span><span>OPEN</span><span>CURRENT</span><span>MOVE</span><span>SIGNAL</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;background:rgba(232,80,42,0.06);">
-      <span class="bold">Louisville vs SFU</span><span>-7.5</span><span class="mono bold">-4.5</span><span class="mono down">-3.0</span><span style="font-size:11px;">🔴 RLM — Brown OUT, 81% money</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;background:rgba(232,80,42,0.06);">
-      <span class="bold">NCarolina vs VCU</span><span>NC-2.5</span><span class="mono bold">NC-2.5</span><span class="mono flip">FLIP</span><span style="font-size:11px;">🔴 Wilson OUT — line fully flipped</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span class="bold">Utah St vs Villanova</span><span>VIL-1.5</span><span class="mono bold">USU-2</span><span class="mono flip">FLIP</span><span style="font-size:11px;">🔄 4pt sharp flip confirmed</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;background:rgba(45,212,191,0.04);">
-      <span class="bold" style="color:var(--teal);">MSU vs NDST (TOTAL)</span><span>154.5</span><span class="mono bold" style="color:var(--teal);">143</span><span class="mono down">-11.0</span><span style="font-size:11px;">🔥 Biggest sharp move on board</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span class="bold">Ohio State vs TCU</span><span>-4.5</span><span class="mono bold">-2.5</span><span class="mono down">-2.0</span><span style="font-size:11px;">🔄 Sharp money on TCU confirmed</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span class="bold">Wisconsin vs High Point</span><span>-12.5</span><span class="mono bold">-10</span><span class="mono down">-2.0</span><span style="font-size:11px;">🔄 Sharp dog — 65% handle on HP</span>
-    </div>
-    <div style="padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
-      <span style="font-size:11px;color:var(--slate);">All 32 games · current lines · public money% · pick tiers</span>
-      <a href="lines_dashboard.html" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--teal);text-decoration:none;letter-spacing:1px;">↗ OPEN LINES DASHBOARD</a>
-    </div>
-  </div>
-</div>
-
-<!-- KALSHI + WIN PROBABILITIES -->
-<div class="sec">▶ Kalshi Markets + Win Probabilities</div>
-<div class="grid">
-
-  <div class="box" style="border-color:rgba(45,212,191,0.2);">
-    <h3 class="bh3-teal">▶ KALSHI vs SPORTSBOOK — CHAMPIONSHIP DIVERGENCE</h3>
-    <div class="row row-hdr" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
-      <span>TEAM</span><span>KALSHI%</span><span>BOOK IMPLIED</span><span>GAP</span><span>SIGNAL</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
-      <span class="bold">Duke (#1 East)</span><span class="mono">19%</span><span class="mono">25.0%</span><span class="mono neg">-6.0%</span><span style="font-size:11px;">Market fading Duke</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
-      <span class="bold">Michigan (#1 Mid)</span><span class="mono">18%</span><span class="mono">22.2%</span><span class="mono neg">-4.2%</span><span style="font-size:11px;">Market fading Michigan</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
-      <span class="bold">Arizona ⛔</span><span class="mono">17%</span><span class="mono">20.0%</span><span class="mono neg">-3.0%</span><span style="font-size:11px;">Fading + Rule 16 hard fade</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
-      <span class="bold">Florida (#1 South)</span><span class="mono">9%</span><span class="mono">11.8%</span><span class="mono neg">-2.8%</span><span style="font-size:11px;">Market fading Florida</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
-      <span class="bold">Houston (#2 South)</span><span class="mono">7%</span><span class="mono">9.1%</span><span class="mono neg">-2.1%</span><span style="font-size:11px;">Slight market fade</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;background:rgba(45,212,191,0.06);">
-      <span class="bold" style="color:var(--teal);">Purdue (#2 West) ★</span><span class="mono pos">5%</span><span class="mono">2.8%</span><span class="mono pos">+2.2%</span><span style="font-size:11px;color:var(--teal);font-weight:600;">VALUE — only positive gap</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
-      <span class="bold">Illinois (#3 South)</span><span class="mono">5%</span><span class="mono">5.0%</span><span class="mono" style="color:var(--slate);">0.0%</span><span style="font-size:11px;">Priced fairly</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
-      <span class="bold">Iowa State (#2 Mid)</span><span class="mono">4%</span><span class="mono">4.3%</span><span class="mono" style="color:var(--slate);">-0.3%</span><span style="font-size:11px;">Essentially fair</span>
-    </div>
-    <div style="padding:10px 20px;font-size:10px;color:#475569;font-family:'Space Mono',monospace;">Kalshi = CFTC-regulated. No vig. Kalshi% &lt; Book implied% → crowd fading the line.</div>
-  </div>
-
-  <div class="box" style="border-color:rgba(167,139,250,0.2);">
-    <h3 class="bh3-purple">▶ ROUND-BY-ROUND WIN PROBABILITIES</h3>
-    <div class="row row-hdr" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
-      <span>TEAM</span><span>R64</span><span>R32</span><span>S16</span><span>E8</span><span>F4</span><span>CHAMP</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
-      <span class="bold" style="color:var(--gold);">Michigan 🏆</span><span class="mono hi">99%</span><span class="mono hi">92%</span><span class="mono hi">80%</span><span class="mono hi">66%</span><span class="mono hi">50%</span><span class="mono bold" style="color:var(--gold);">22%</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
-      <span class="bold">Duke</span><span class="mono hi">99%</span><span class="mono hi">88%</span><span class="mono hi">72%</span><span class="mono hi">58%</span><span class="mono mid">38%</span><span class="mono bold" style="color:var(--gold);">21%</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
-      <span class="bold">Arizona ⛔</span><span class="mono hi">99%</span><span class="mono hi">91%</span><span class="mono hi">77%</span><span class="mono hi">63%</span><span class="mono mid">40%</span><span class="mono bold" style="color:var(--gold);">19%</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
-      <span class="bold">Houston</span><span class="mono hi">99%</span><span class="mono hi">82%</span><span class="mono hi">62%</span><span class="mono mid">44%</span><span class="mono mid">28%</span><span class="mono bold" style="color:var(--gold);">10%</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
-      <span class="bold">Florida</span><span class="mono hi">98%</span><span class="mono hi">80%</span><span class="mono hi">58%</span><span class="mono mid">38%</span><span class="mono mid">22%</span><span class="mono bold" style="color:var(--gold);">9%</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
-      <span class="bold">Iowa State</span><span class="mono hi">99%</span><span class="mono hi">78%</span><span class="mono hi">55%</span><span class="mono mid">36%</span><span class="mono mid">22%</span><span class="mono bold" style="color:var(--gold);">8%</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
-      <span class="bold" style="color:var(--teal);">Purdue ★</span><span class="mono hi">98%</span><span class="mono hi">72%</span><span class="mono mid">48%</span><span class="mono mid">33%</span><span class="mono mid">18%</span><span class="mono bold" style="color:var(--gold);">6%</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
-      <span class="bold">UConn</span><span class="mono hi">97%</span><span class="mono hi">62%</span><span class="mono mid">40%</span><span class="mono mid">27%</span><span class="mono lo">14%</span><span class="mono bold" style="color:var(--gold);">5%</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
-      <span class="bold">Illinois</span><span class="mono hi">98%</span><span class="mono hi">65%</span><span class="mono mid">40%</span><span class="mono mid">22%</span><span class="mono lo">10%</span><span class="mono bold" style="color:var(--gold);">4%</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
-      <span class="bold">Michigan St.</span><span class="mono hi">96%</span><span class="mono mid">55%</span><span class="mono mid">30%</span><span class="mono lo">16%</span><span class="mono lo">7%</span><span class="mono bold" style="color:var(--gold);">3%</span>
-    </div>
-    <div style="padding:10px 20px;font-size:10px;color:#475569;font-family:'Space Mono',monospace;">⛔ Rule 16 caps Arizona championship probability. Purdue ★ = Kalshi +2.2% value gap.</div>
-  </div>
-</div>
-
-<!-- COACH + ATS -->
-<div class="sec">▶ Coach Records + Situational ATS</div>
-<div class="grid">
-  <div class="box" style="border-color:rgba(220,111,26,0.2);">
-    <h3 class="bh3-orange">▶ COACH NCAA TOURNAMENT RECORDS</h3>
-    <div class="row row-hdr" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span>COACH</span><span>SCHOOL</span><span>W-L</span><span>WIN%</span><span>TITLES</span><span>SIGNAL</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Dan Hurley</span><span>UConn</span><span class="mono">15-5</span><span class="mono">.750</span><span class="mono">2</span><span style="font-size:11px;color:var(--teal);">✅ Elite</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Dusty May</span><span>Michigan</span><span class="mono">11-4</span><span class="mono">.733</span><span class="mono">0</span><span style="font-size:11px;color:var(--teal);">✅ Strong</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Tom Izzo</span><span>Michigan St.</span><span class="mono">59-26</span><span class="mono">.694</span><span class="mono">1</span><span style="font-size:11px;color:var(--teal);">✅ Mr. March</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Todd Golden</span><span>Florida</span><span class="mono">7-2</span><span class="mono">.778</span><span class="mono">1</span><span style="font-size:11px;color:var(--teal);">✅ Def. champ</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Bill Self</span><span>Kansas</span><span class="mono">57-24</span><span class="mono">.704</span><span class="mono">2</span><span style="font-size:11px;color:var(--teal);">✅ Proven</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Rick Pitino</span><span>St. Johns</span><span class="mono">55-25</span><span class="mono">.688</span><span class="mono">2</span><span style="font-size:11px;color:var(--teal);">✅ Elite clutch</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Kelvin Sampson</span><span>Houston</span><span class="mono">26-19</span><span class="mono">.578</span><span class="mono">0</span><span style="font-size:11px;color:var(--teal);">✅ F4 builder</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">John Calipari</span><span>Arkansas</span><span class="mono">59-22</span><span class="mono">.728</span><span class="mono">1</span><span style="font-size:11px;color:var(--orange);">⚠ 1 win since '19</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Tommy Lloyd</span><span>Arizona</span><span class="mono">10-6</span><span class="mono">.625</span><span class="mono">0</span><span style="font-size:11px;color:var(--orange);">⚠ Never past S16</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Mark Few</span><span>Gonzaga</span><span class="mono">43-24</span><span class="mono">.642</span><span class="mono">0</span><span style="font-size:11px;color:var(--orange);">⚠ Fades late</span>
-    </div>
-  </div>
-
-  <div class="box" style="border-color:rgba(240,165,0,0.2);">
-    <h3 class="bh3-gold">▶ ATS TREND: TOP-3 SEED + TOTAL &lt;148 + 4+ DAYS REST (23-5)</h3>
-    <div class="row row-hdr" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;">
-      <span>TEAM</span><span>SPREAD</span><span>TOTAL</span><span>REST</span><span>RATING</span><span>NOTE</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;background:rgba(34,197,94,0.06);">
-      <span class="bold" style="color:#22c55e;">Houston ★</span><span class="mono">-23.5</span><span class="mono">138.5</span><span class="mono">4d</span>
-      <span class="mono bold" style="color:#22c55e;">A+</span><span style="font-size:11px;color:var(--slate);">Steam +4 · near home</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;background:rgba(34,197,94,0.04);">
-      <span class="bold" style="color:#22c55e;">Virginia ★</span><span class="mono">-18.5</span><span class="mono">145</span><span class="mono">5d</span>
-      <span class="mono bold" style="color:#22c55e;">A</span><span style="font-size:11px;color:var(--slate);">Pack-line defense</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;background:rgba(34,197,94,0.04);">
-      <span class="bold" style="color:#22c55e;">Michigan St. ★</span><span class="mono">-16</span><span class="mono">143</span><span class="mono">4d</span>
-      <span class="mono bold" style="color:#22c55e;">A</span><span style="font-size:11px;color:var(--slate);">11pt total drop = sharp under</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;">
-      <span class="bold">Duke</span><span class="mono">-27.5</span><span class="mono">136</span><span class="mono">4d</span>
-      <span class="mono bold" style="color:var(--blue);">B</span><span style="font-size:11px;color:var(--slate);">Spread size + Foster OUT</span>
-    </div>
-    <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;">
-      <span class="bold">UConn</span><span class="mono">-20.5</span><span class="mono">136.5</span><span class="mono">5d</span>
-      <span class="mono bold" style="color:var(--blue);">B</span><span style="font-size:11px;color:var(--slate);">Big East PASE -7.3</span>
-    </div>
-    <div style="padding:14px 20px;border-top:1px solid var(--border);">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);letter-spacing:1px;margin-bottom:8px;">▶ SITUATIONAL ATS SPOTS (FRI)</div>
-      <div style="font-size:12px;color:var(--slate);line-height:1.8;">
-        Iowa St.: <strong style="color:#f1f5f9;">Steam -23→-24.5</strong> — cover confirmed<br>
-        Illinois: <strong style="color:#f1f5f9;">RLM -22.5→-25.5</strong> — sharps on ILL<br>
-        Arizona: <strong style="color:#f1f5f9;">Steam -29.5→-31</strong> — structural blowout
+    <!-- Lines Dashboard -->
+    <a href="lines_dashboard.html" class="tool-card primary">
+      <div class="tool-icon">📡</div>
+      <div class="tool-body">
+        <div class="tool-type">Live Dashboard</div>
+        <div class="tool-title">Live Lines & Picks — All 32 First Round Games</div>
+        <div class="tool-desc">Current spreads, public money%, pick tier (A/B/Total/Lean), and sharp signals for every game. Filterable by day and tier.</div>
       </div>
-    </div>
+      <div class="tool-meta">
+        <div class="tool-stat" style="color:var(--teal);">32</div>
+        <div class="tool-stat-lbl">GAMES</div>
+        <div class="tool-link">↗ OPEN</div>
+      </div>
+    </a>
+
+    <!-- Results Tracker -->
+    <a href="results.html" class="tool-card results">
+      <div class="tool-icon">🎯</div>
+      <div class="tool-body">
+        <div class="tool-type">Live Results Tracker</div>
+        <div class="tool-title">Betting Results — All Picks Tracked ATS</div>
+        <div class="tool-desc">Every spread, total, and 1H under tracked with live scores and outcomes. Filter by Win / Loss / Pending / bet type / day.</div>
+      </div>
+      <div class="tool-meta">
+        <div class="tool-stat" style="color:var(--green);">6-2</div>
+        <div class="tool-stat-lbl">RECORD</div>
+        <div class="tool-link">↗ OPEN</div>
+      </div>
+    </a>
+
+    <!-- Final Pool Bracket -->
+    <a href="2026_FINAL_POOL_BRACKET.pdf" class="tool-card bracket">
+      <div class="tool-icon">🏆</div>
+      <div class="tool-body">
+        <div class="tool-type">PDF · The Bracket</div>
+        <div class="tool-title">2026 Final Pool Bracket — Michigan over Duke 73-68</div>
+        <div class="tool-desc">All 17 rules applied. 11 R1 upsets picked. Michigan champion via Rules 16 + 17. This is the submission.</div>
+      </div>
+      <div class="tool-meta">
+        <div class="tool-stat" style="color:var(--gold);">11</div>
+        <div class="tool-stat-lbl">R1 UPSETS</div>
+        <div class="tool-link">↗ OPEN</div>
+      </div>
+    </a>
+
+    <!-- 1H Unders -->
+    <a href="march_madness_1h_unders.html" class="tool-card">
+      <div class="tool-icon">⏱️</div>
+      <div class="tool-body">
+        <div class="tool-type">Interactive Tool</div>
+        <div class="tool-title">First Half Unders Tracker</div>
+        <div class="tool-desc">Real 1H lines from 6 books. A/B/C ratings for all 30 R64 games based on pace, injuries, and defensive identity. Filterable by day and rating.</div>
+      </div>
+      <div class="tool-meta">
+        <div class="tool-stat" style="color:var(--slate);">30</div>
+        <div class="tool-stat-lbl">GAMES</div>
+        <div class="tool-link">↗ OPEN</div>
+      </div>
+    </a>
+
+    <!-- Team Comparison -->
+    <a href="team_comparison.html" class="tool-card" style="border-color:rgba(45,212,191,0.2);">
+      <div class="tool-icon">⚔️</div>
+      <div class="tool-body">
+        <div class="tool-type">Interactive Tool</div>
+        <div class="tool-title">Head-to-Head Team Comparison</div>
+        <div class="tool-desc">Any two tournament teams, full breakdown — efficiency, rosters, star dependency, injuries, momentum. Powered by Barttorvik 2026 player data (2,275 players).</div>
+      </div>
+      <div class="tool-meta">
+        <div class="tool-stat" style="color:var(--teal);">68</div>
+        <div class="tool-stat-lbl">TEAMS</div>
+        <div class="tool-link">↗ OPEN</div>
+      </div>
+    </a>
+
   </div>
-</div>
 
-<!-- FILES -->
-<div class="sec">▶ Tools & Files</div>
+  <!-- ── COLLAPSED INTELLIGENCE ── -->
+  <button class="intel-toggle" id="intel-btn" onclick="toggleIntel()">
+    <span>▶ Live Intelligence — Injuries · Sharp Lines · Kalshi · Win Probabilities · Coach Records · ATS Trend</span>
+    <span class="chevron" id="intel-chevron">▼</span>
+  </button>
 
-<!-- LINES DASHBOARD — top card -->
-<div style="margin-bottom:20px;">
-  <a href="lines_dashboard.html" class="file-card" style="max-width:100%;border-color:rgba(45,212,191,0.5);background:linear-gradient(135deg,#1a2535,#001a14);">
-    <div style="display:flex;align-items:center;gap:16px;">
-      <div class="file-icon">📡</div>
-      <div>
-        <div class="ftype">HTML · Live Dashboard</div>
-        <div class="ftitle">Live Lines & Picks Dashboard — All 32 First Round Games</div>
+  <div class="intel-body" id="intel-body">
+    <div class="grid">
+
+      <!-- Upset Alerts -->
+      <div class="box">
+        <h3 class="bh3-red">▶ UPSET ALERTS</h3>
+        <div class="row" style="grid-template-columns:1fr auto;background:rgba(232,80,42,0.06);">
+          <div><div class="bold" style="margin-bottom:3px;">🔴 S. Florida vs Louisville (#6)</div><div style="font-size:11px;color:var(--slate);">Brown OUT R1+R2. 6-seed PASE -20.3. RLM -7.5→-4.5. <strong style="color:var(--green);">SFU +4.5 ✅ WIN</strong></div></div>
+          <span class="badge bc">DONE</span>
+        </div>
+        <div class="row" style="grid-template-columns:1fr auto;background:rgba(232,80,42,0.06);">
+          <div><div class="bold" style="margin-bottom:3px;">🔴 VCU vs North Carolina (#6)</div><div style="font-size:11px;color:var(--slate);">Wilson OUT season. UNC 0-2 without him. NC -2.5.</div></div>
+          <span class="badge bc">TAKE VCU</span>
+        </div>
+        <div class="row" style="grid-template-columns:1fr auto;background:rgba(220,111,26,0.04);">
+          <div><div class="bold" style="margin-bottom:3px;">🟠 Texas vs BYU (#6)</div><div style="font-size:11px;color:var(--slate);">Saunders ACL. BYU 2-4 post-injury. At-large 11. Big 12 PASE -15.9.</div></div>
+          <span class="badge bh">TAKE TEX</span>
+        </div>
+        <div class="row" style="grid-template-columns:1fr auto;background:rgba(220,111,26,0.04);">
+          <div><div class="bold" style="margin-bottom:3px;">🟠 Akron vs Texas Tech (#5)</div><div style="font-size:11px;color:var(--slate);">Toppin OUT season. Tech 0-3 L10. Akron 5-0 L10.</div></div>
+          <span class="badge bh">LEAN AKR</span>
+        </div>
+        <div class="row" style="grid-template-columns:1fr auto;background:rgba(120,53,15,0.15);">
+          <div><div class="bold" style="margin-bottom:3px;">⛔ Rule 16 — West of Mississippi</div><div style="font-size:11px;color:var(--slate);">No western champion in 31 years. Arizona exits F4 to Michigan.</div></div>
+          <span class="badge" style="background:#78350f;color:#fef3c7;">HARD</span>
+        </div>
+        <div class="row" style="grid-template-columns:1fr auto;">
+          <div><div class="bold" style="margin-bottom:3px;">⚡ Utah State vs Villanova</div><div style="font-size:11px;color:var(--slate);">VIL -1.5 open → USU -2. 4pt sharp flip. USU 0.895 &gt; VIL 0.881.</div></div>
+          <span class="badge bm">FLIP</span>
+        </div>
       </div>
-      <div style="margin-left:auto;text-align:right;">
-        <div style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--teal);">32</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);">GAMES COVERED</div>
+
+      <!-- Sharp Line Movement -->
+      <div class="box">
+        <h3 class="bh3-blue">▶ SHARP LINE MOVEMENT</h3>
+        <div class="row row-hdr" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
+          <span>GAME</span><span>OPEN</span><span>NOW</span><span>MOVE</span><span>SIGNAL</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;background:rgba(232,80,42,0.06);">
+          <span class="bold">LOU vs SFU</span><span>-7.5</span><span class="mono bold">-4.5</span><span class="mono down">-3.0</span><span style="font-size:11px;">🔴 RLM · Brown OUT</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;background:rgba(232,80,42,0.06);">
+          <span class="bold">UNC vs VCU</span><span>NC-2.5</span><span class="mono bold">NC-2.5</span><span class="mono flip">FLIP</span><span style="font-size:11px;">🔴 Wilson OUT</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
+          <span class="bold">USU vs VIL</span><span>VIL-1.5</span><span class="mono bold">USU-2</span><span class="mono flip">FLIP</span><span style="font-size:11px;">🔄 4pt sharp flip</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;background:rgba(45,212,191,0.04);">
+          <span class="bold" style="color:var(--teal);">MSU/NDST (TOT)</span><span>154.5</span><span class="mono bold" style="color:var(--teal);">143</span><span class="mono down">-11.0</span><span style="font-size:11px;">🔥 Biggest sharp move</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
+          <span class="bold">OSU vs TCU</span><span>-4.5</span><span class="mono bold">-2.5</span><span class="mono down">-2.0</span><span style="font-size:11px;">🔄 Sharp on TCU</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
+          <span class="bold">WIS vs HP</span><span>-12.5</span><span class="mono bold">-10</span><span class="mono down">-2.0</span><span style="font-size:11px;">🔄 Sharp dog · 65% handle</span>
+        </div>
       </div>
-    </div>
-    <div class="tags">
-      <span class="tag tt">CURRENT LINES</span>
-      <span class="tag tt">PUBLIC MONEY %</span>
-      <span class="tag tt">PICK + TIER EVERY GAME</span>
-      <span class="tag tt">SHARP SIGNALS</span>
-      <span class="tag tt">FILTERABLE BY DAY + TIER</span>
-      <span class="tag tt">LINE MOVEMENT</span>
-    </div>
-    <div class="fdesc">Every first-round game with opening vs current spread, public money% and bets%, pick recommendation, and tier badge. 5 Tier A · 7 Tier B · 7 Totals · 4 Lean. The go-to for all pending games — use alongside the results tracker.</div>
-    <span class="flink">↗ OPEN LINES DASHBOARD</span>
-  </a>
-</div>
 
-<!-- RESULTS TRACKER -->
-<div style="margin-bottom:20px;">
-  <a href="results.html" class="file-card" style="max-width:100%;border-color:rgba(34,197,94,0.5);background:linear-gradient(135deg,#1a2535,#001a0a);">
-    <div style="display:flex;align-items:center;gap:16px;">
-      <div class="file-icon">🎯</div>
-      <div>
-        <div class="ftype">HTML · Live Results Tracker</div>
-        <div class="ftitle">Betting Results — All Picks Tracked ATS</div>
+      <!-- Kalshi -->
+      <div class="box">
+        <h3 class="bh3-teal">▶ KALSHI vs SPORTSBOOK — CHAMP DIVERGENCE</h3>
+        <div class="row row-hdr" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
+          <span>TEAM</span><span>KALSHI</span><span>BOOK</span><span>GAP</span><span>SIGNAL</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
+          <span class="bold">Duke (#1 East)</span><span class="mono">19%</span><span class="mono">25.0%</span><span class="mono neg">-6.0%</span><span style="font-size:11px;">Market fading</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
+          <span class="bold">Michigan (#1 Mid)</span><span class="mono">18%</span><span class="mono">22.2%</span><span class="mono neg">-4.2%</span><span style="font-size:11px;">Market fading</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
+          <span class="bold">Arizona ⛔</span><span class="mono">17%</span><span class="mono">20.0%</span><span class="mono neg">-3.0%</span><span style="font-size:11px;">+ Rule 16 fade</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
+          <span class="bold">Florida (#1 South)</span><span class="mono">9%</span><span class="mono">11.8%</span><span class="mono neg">-2.8%</span><span style="font-size:11px;">Market fading</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;background:rgba(45,212,191,0.06);">
+          <span class="bold" style="color:var(--teal);">Purdue (#2 West) ★</span><span class="mono pos">5%</span><span class="mono">2.8%</span><span class="mono pos">+2.2%</span><span style="font-size:11px;color:var(--teal);">VALUE</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 0.7fr 0.8fr 0.7fr 1fr;">
+          <span class="bold">Iowa State (#2 Mid)</span><span class="mono">4%</span><span class="mono">4.3%</span><span class="mono lo">-0.3%</span><span style="font-size:11px;">Fair</span>
+        </div>
       </div>
-      <div style="margin-left:auto;text-align:right;">
-        <div style="font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#22c55e;">6-2</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);">THU EARLY · COMPLETED</div>
+
+      <!-- Win Probabilities -->
+      <div class="box">
+        <h3 class="bh3-purple">▶ ROUND-BY-ROUND WIN PROBABILITIES</h3>
+        <div class="row row-hdr" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
+          <span>TEAM</span><span>R64</span><span>R32</span><span>S16</span><span>E8</span><span>F4</span><span>CHAMP</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
+          <span class="bold" style="color:var(--gold);">Michigan 🏆</span><span class="mono hi">99%</span><span class="mono hi">92%</span><span class="mono hi">80%</span><span class="mono hi">66%</span><span class="mono hi">50%</span><span class="mono bold" style="color:var(--gold);">22%</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
+          <span class="bold">Duke</span><span class="mono hi">99%</span><span class="mono hi">88%</span><span class="mono hi">72%</span><span class="mono hi">58%</span><span class="mono mid">38%</span><span class="mono bold" style="color:var(--gold);">21%</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
+          <span class="bold">Arizona ⛔</span><span class="mono hi">99%</span><span class="mono hi">91%</span><span class="mono hi">77%</span><span class="mono hi">63%</span><span class="mono mid">40%</span><span class="mono bold" style="color:var(--gold);">19%</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
+          <span class="bold">Houston</span><span class="mono hi">99%</span><span class="mono hi">82%</span><span class="mono hi">62%</span><span class="mono mid">44%</span><span class="mono mid">28%</span><span class="mono bold" style="color:var(--gold);">10%</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
+          <span class="bold">Florida</span><span class="mono hi">98%</span><span class="mono hi">80%</span><span class="mono hi">58%</span><span class="mono mid">38%</span><span class="mono mid">22%</span><span class="mono bold" style="color:var(--gold);">9%</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
+          <span class="bold">Iowa State</span><span class="mono hi">99%</span><span class="mono hi">78%</span><span class="mono hi">55%</span><span class="mono mid">36%</span><span class="mono mid">22%</span><span class="mono bold" style="color:var(--gold);">8%</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.3fr 0.55fr 0.55fr 0.55fr 0.55fr 0.55fr 0.75fr;">
+          <span class="bold" style="color:var(--teal);">Purdue ★</span><span class="mono hi">98%</span><span class="mono hi">72%</span><span class="mono mid">48%</span><span class="mono mid">33%</span><span class="mono mid">18%</span><span class="mono bold" style="color:var(--gold);">6%</span>
+        </div>
+        <div style="padding:8px 16px;font-size:10px;color:#475569;font-family:'Space Mono',monospace;">⛔ Rule 16 caps Arizona. Purdue ★ = Kalshi +2.2% value.</div>
       </div>
-    </div>
-    <div class="tags">
-      <span class="tag tg">6 WINS</span>
-      <span class="tag tr">2 LOSSES</span>
-      <span class="tag tt">SPREADS + TOTALS + 1H</span>
-      <span class="tag tn">FILTERABLE</span>
-      <span class="tag tp">WIN / LOSS / PENDING</span>
-    </div>
-    <div class="fdesc">Every bet from every source tracked in one place — spreads, totals, and 1H unders. Completed Thu early: TCU +2.5 ✅ · SFU +4.5 ✅ · HP +10 ✅ · McNeese +12 ✅ · SFU 1H U76 ✅ · TCU/OSU 1H U65.5 ✅ · Duke 1H U64 ❌ · McNeese 1H U69 ❌. All pending Thursday and Friday games shown live.</div>
-    <span class="flink">↗ OPEN RESULTS TRACKER</span>
-  </a>
-</div>
 
-<!-- BRACKET — full width -->
-<div style="margin-bottom:20px;">
-  <a href="2026_FINAL_POOL_BRACKET.pdf" class="file-card bracket" style="max-width:100%;">
-    <div style="display:flex;align-items:center;gap:16px;">
-      <div class="file-icon">🏆</div>
-      <div>
-        <div class="ftype">PDF · The Bracket</div>
-        <div class="ftitle">2026 Final Pool Bracket — Michigan over Duke 73-68</div>
+      <!-- Coach Records -->
+      <div class="box">
+        <h3 class="bh3-orange">▶ COACH TOURNAMENT RECORDS</h3>
+        <div class="row row-hdr" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.9fr;">
+          <span>COACH</span><span>SCHOOL</span><span>W-L</span><span>WIN%</span><span>SIGNAL</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.9fr;">
+          <span class="bold">Todd Golden</span><span>Florida</span><span class="mono">7-2</span><span class="mono">.778</span><span style="font-size:11px;color:var(--teal);">✅ Def. champ</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.9fr;">
+          <span class="bold">Dan Hurley</span><span>UConn</span><span class="mono">15-5</span><span class="mono">.750</span><span style="font-size:11px;color:var(--teal);">✅ Elite</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.9fr;">
+          <span class="bold">Dusty May</span><span>Michigan</span><span class="mono">11-4</span><span class="mono">.733</span><span style="font-size:11px;color:var(--teal);">✅ Strong</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.9fr;">
+          <span class="bold">Bill Self</span><span>Kansas</span><span class="mono">57-24</span><span class="mono">.704</span><span style="font-size:11px;color:var(--teal);">✅ Proven</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.9fr;">
+          <span class="bold">Tom Izzo</span><span>Michigan St.</span><span class="mono">59-26</span><span class="mono">.694</span><span style="font-size:11px;color:var(--teal);">✅ Mr. March</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.9fr;">
+          <span class="bold">Jon Scheyer</span><span>Duke</span><span class="mono">9-4</span><span class="mono">.692</span><span style="font-size:11px;color:var(--teal);">✅ Positive</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.9fr;">
+          <span class="bold">John Calipari</span><span>Arkansas</span><span class="mono">59-22</span><span class="mono">.728</span><span style="font-size:11px;color:var(--orange);">⚠ 1 win since '19</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.9fr;">
+          <span class="bold">Tommy Lloyd</span><span>Arizona</span><span class="mono">10-6</span><span class="mono">.625</span><span style="font-size:11px;color:var(--orange);">⚠ Never past S16</span>
+        </div>
       </div>
-      <div style="margin-left:auto;text-align:right;">
-        <div style="font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:var(--gold);">11</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);">R1 UPSETS PICKED</div>
+
+      <!-- ATS Trend -->
+      <div class="box">
+        <h3 class="bh3-gold">▶ ATS TREND: TOP-3 SEED + TOTAL &lt;148 + 4+ DAYS REST (23-5)</h3>
+        <div class="row row-hdr" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;">
+          <span>TEAM</span><span>SPREAD</span><span>TOTAL</span><span>REST</span><span>RTG</span><span>NOTE</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;background:rgba(34,197,94,0.06);">
+          <span class="bold" style="color:var(--green);">Houston ★</span><span class="mono">-23.5</span><span class="mono">138.5</span><span class="mono">4d</span><span class="mono bold" style="color:var(--green);">A+</span><span style="font-size:11px;color:var(--slate);">Steam +4 · near home</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;background:rgba(34,197,94,0.04);">
+          <span class="bold" style="color:var(--green);">Virginia ★</span><span class="mono">-18.5</span><span class="mono">145</span><span class="mono">5d</span><span class="mono bold" style="color:var(--green);">A</span><span style="font-size:11px;color:var(--slate);">Pack-line · Fri</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;background:rgba(34,197,94,0.04);">
+          <span class="bold" style="color:var(--green);">Michigan St. ★</span><span class="mono">-16</span><span class="mono">143</span><span class="mono">4d</span><span class="mono bold" style="color:var(--green);">A</span><span style="font-size:11px;color:var(--slate);">11pt total drop</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;">
+          <span class="bold">Duke</span><span class="mono">-27.5</span><span class="mono">136</span><span class="mono">4d</span><span class="mono bold" style="color:var(--blue);">B</span><span style="font-size:11px;color:var(--slate);">Foster OUT</span>
+        </div>
+        <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;">
+          <span class="bold">UConn</span><span class="mono">-20.5</span><span class="mono">136.5</span><span class="mono">5d</span><span class="mono bold" style="color:var(--blue);">B</span><span style="font-size:11px;color:var(--slate);">Hurley .750 · Fri</span>
+        </div>
       </div>
-    </div>
-    <div class="tags">
-      <span class="tag tgo">SUBMIT THIS</span>
-      <span class="tag tr">ALL 17 RULES</span>
-      <span class="tag tg">MICHIGAN WINS</span>
-      <span class="tag tt">KALSHI CONFIRMED</span>
-      <span class="tag tp">WIN PROBS INTEGRATED</span>
-      <span class="tag tn">INJURY-ADJUSTED</span>
-    </div>
-    <div class="fdesc">All 17 rules applied. 11 R1 upsets: SFU, Utah State, Texas, Missouri, Saint Louis, Akron, Santa Clara, Iowa, VCU, McNeese, Texas A&M. R32: Akron over Alabama (Rule 17). S16: Purdue over Gonzaga. F4: Michigan, Duke, Arizona, Houston. Michigan over Duke 73-68 in Indianapolis.</div>
-    <span class="flink">↗ OPEN PDF</span>
-  </a>
-</div>
 
-<!-- SECONDARY TOOLS — 3 across -->
-<div class="grid-3">
-  <a href="march_madness_1h_unders.html" class="file-card">
-    <div class="file-icon">⏱️</div>
-    <div class="ftype">HTML · Interactive Tool</div>
-    <div class="ftitle">First Half Unders Tracker</div>
-    <div class="tags">
-      <span class="tag tr">INTERACTIVE</span>
-      <span class="tag tg">ALL 30 R64 GAMES</span>
-      <span class="tag tgo">6 BOOKS</span>
-    </div>
-    <div class="fdesc">Real 1H lines from 6 books. A/B/C ratings for all 30 R64 games. Filterable by day and rating. Top A-rated plays: Iowa/Clemson U59.5, N. Iowa/SJU U61, Akron/TTU U72.</div>
-    <span class="flink">↗ OPEN TOOL</span>
-  </a>
+    </div><!-- /grid -->
+  </div><!-- /intel-body -->
 
-  <a href="BRACKET_RULES.md" class="file-card">
-    <div class="file-icon">📋</div>
-    <div class="ftype">Markdown · Reference</div>
-    <div class="ftitle">The 17 Bracket Rules</div>
-    <div class="tags"><span class="tag tn">2008-2025</span><span class="tag tr">RULES 16+17</span></div>
-    <div class="fdesc">All 17 rules with full statistics, data backing, and 2026 applications. The complete analytical framework behind every pick.</div>
-    <span class="flink">↗ OPEN MD</span>
-  </a>
 
-  <a href="UPSET_INTELLIGENCE.md" class="file-card">
-    <div class="file-icon">🔍</div>
-    <div class="ftype">Markdown · Reference</div>
-    <div class="ftitle">Upset Intelligence Report</div>
-    <div class="tags"><span class="tag tn">HISTORICAL</span><span class="tag tr">2026 ADDENDUM</span></div>
-    <div class="fdesc">Complete upset trend data + 2026 live addendum with Kalshi divergences, win probabilities, coach records, and sharp line movement.</div>
-    <span class="flink">↗ OPEN MD</span>
-  </a>
-</div>
-
-<div class="sec">▶ Team Comparison Tool</div>
-<a href="team_comparison.html" class="file-card" style="border-color:rgba(45,212,191,0.4);background:linear-gradient(135deg,#1a2535,#001a1a);margin-bottom:20px;">
-  <div class="file-icon">⚔️</div>
-  <div class="ftype">HTML · Interactive Tool</div>
-  <div class="ftitle">Head-to-Head Team Comparison</div>
-  <div class="tags">
-    <span class="tag tt">ALL 68 TEAMS</span>
-    <span class="tag tt">PLAYER ROSTERS</span>
-    <span class="tag tt">STAR DEPENDENCY</span>
-    <span class="tag tt">INJURY OVERLAY</span>
-    <span class="tag tt">EXPERIENCE BREAKDOWN</span>
-    <span class="tag tt">MOMENTUM L10</span>
+  <!-- ── REFERENCE CARDS ── -->
+  <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;">
+    <a href="BRACKET_RULES.md" class="tool-card" style="border-color:rgba(255,255,255,0.04);opacity:0.65;">
+      <div class="tool-icon" style="font-size:18px;">📋</div>
+      <div class="tool-body">
+        <div class="tool-type">Reference · Markdown</div>
+        <div class="tool-title" style="font-size:14px;">The 17 Bracket Rules</div>
+        <div class="tool-desc">Full statistical framework — all 17 rules with data, PASE, BARTHAG, and 2026 applications.</div>
+      </div>
+      <div class="tool-meta">
+        <div class="tool-link" style="margin-top:0;">↗ OPEN</div>
+      </div>
+    </a>
+    <a href="2026_Upset_Analysis_Deep_Dive.pdf" class="tool-card" style="border-color:rgba(255,255,255,0.04);opacity:0.65;">
+      <div class="tool-icon" style="font-size:18px;">📈</div>
+      <div class="tool-body">
+        <div class="tool-type">Reference · PDF</div>
+        <div class="tool-title" style="font-size:14px;">Upset Analysis Deep Dive</div>
+        <div class="tool-desc">PASE/BARTHAG framework, Kalshi divergences, round-by-round win probabilities, coach records.</div>
+      </div>
+      <div class="tool-meta">
+        <div class="tool-link" style="margin-top:0;">↗ OPEN</div>
+      </div>
+    </a>
   </div>
-  <div class="fdesc">Select any two tournament teams for a full head-to-head breakdown. Efficiency stats, roster by player (PRPG, Usage%, BPM, ORtg), star dependency scoring, usage concentration, injury flags, experience breakdown (Fr/So/Jr/Sr), last-10 momentum, risk factor analysis, and model verdict. Powered by Barttorvik player data — 2,275 players across all 68 teams.</div>
-  <span class="flink">↗ OPEN COMPARISON TOOL</span>
-</a>
 
-<!-- SOURCES -->
-<div class="sources">
-  <h3>▶ DATA SOURCES & METHODOLOGY</h3>
-  <div class="sg">
-    <div class="si"><strong>Barttorvik 2026</strong>Full season Barthag, AdjOE/DE, Four Factors, Last10, Last30 CSVs</div>
-    <div class="si"><strong>Warren Nolan NET</strong>NET rankings, Q1/Q2 records, SOS, conference performance</div>
-    <div class="si"><strong>Historical 2008-2025</strong>1,147 team-seasons, 17 tournaments, 38 sources (2020 excluded)</div>
-    <div class="si"><strong>Injury Intelligence</strong>414-player CSV + press crosscheck + impact scoring</div>
-    <div class="si ns"><strong>Kalshi Prediction Markets</strong>CFTC-regulated. Championship + per-round probabilities. No vig distortion.</div>
-    <div class="si ns"><strong>Win Probability Model</strong>Round-by-round % for all 68 teams — BARTHAG + BPI + Kalshi + draw</div>
-    <div class="si ns"><strong>Coach ATS Database</strong>Full NCAA tournament W-L record for all 68 coaches in the field</div>
-    <div class="si"><strong>Sharp Line Movement</strong>Opening vs current across BetMGM, FanDuel, DK, Pinnacle, Circa, Bovada</div>
-    <div class="si"><strong>1H Lines — 6 Books</strong>First-half totals for all 30 R64 games across 6 sportsbooks</div>
-    <div class="si"><strong>ESPN BPI</strong>Independent efficiency model crosscheck</div>
-    <div class="si"><strong>Rule 17 — Trapezoid</strong>Ryan Hammer (@ryanhammer09) — Net Rating vs Pace championship filter</div>
-    <div class="si ns"><strong>Barttorvik Player Data</strong>2,275 players · PRPG, BPM, Usage%, eFG, ORtg, rebounding — all 68 teams</div>
-    <div class="si ns"><strong>Public Betting % — v5</strong>SportsGeek · handle% and bets% for all 32 first-round games as of March 19</div>
-    <div class="si ns"><strong>VegasInsider Lines</strong>Current consensus spread, total, ML across bet365, BetMGM, DK, Caesars, FanDuel</div>
-  </div>
-</div>
-
-</div>
+</div><!-- /main -->
 
 <footer>
-  2026 MARCH MADNESS INTELLIGENCE HUB v5 · bbeem1031 · Updated March 19, 2026 · R1 In Progress — Thu early 6-2 ATS<br>
-  Data: Barttorvik · Warren Nolan · KenPom · ESPN BPI · Kalshi · SportsGeek · VegasInsider · AP Poll Archive · 2008-2025 historical (2020 excluded)<br>
-  Lines as of March 19, 2026 — verify before wagering · FOR ENTERTAINMENT PURPOSES ONLY · GAMBLING INVOLVES RISK
+  2026 MARCH MADNESS INTELLIGENCE HUB v6 · bbeem1031 · Updated March 19, 2026 · R1 In Progress · 6-2 ATS<br>
+  Data: Barttorvik · Warren Nolan · KenPom · ESPN BPI · Kalshi · SportsGeek · VegasInsider · 2008-2025 (2020 excluded)<br>
+  FOR ENTERTAINMENT PURPOSES ONLY · GAMBLING INVOLVES RISK
 </footer>
+
+<script>
+function toggleIntel() {
+  const body = document.getElementById('intel-body');
+  const btn  = document.getElementById('intel-btn');
+  const chev = document.getElementById('intel-chevron');
+  const open = body.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  chev.textContent = open ? '▲' : '▼';
+}
+</script>
 </body>
 </html>
