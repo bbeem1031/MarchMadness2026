@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Team Comparison — March Madness Intelligence</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;700&display=swap');
+  :root {
+    --navy:#0f1923;--red:#e8502a;--orange:#dc6f1a;--gold:#f0a500;
+    --green:#2a7a4b;--slate:#94a3b8;--light:#f0f4f8;
+    --card:#1a2535;--border:rgba(255,255,255,0.08);--text:#f1f5f9;
+    --blue:#60a5fa;--purple:#a78bfa;--teal:#2dd4bf;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;}
+
+  /* ── HEADER ── */
+  .header{padding:32px 40px 28px;border-bottom:1px solid var(--border);background:linear-gradient(160deg,#0a1520 0%,#0f1923 100%);}
+  .back{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--slate);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}
+  .back:hover{color:var(--text);}
+  .eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--red);margin-bottom:10px;text-transform:uppercase;}
+  .header h1{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.05;letter-spacing:-0.5px;}
+  .header h1 em{color:var(--red);font-style:normal;}
+  .header-sub{font-size:13px;color:var(--slate);margin-top:8px;}
+
+  /* ── SELECTOR ── */
+  .selector{padding:28px 40px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.01);}
+  .selector-inner{display:grid;grid-template-columns:1fr 60px 1fr;gap:16px;align-items:center;max-width:900px;}
+  .sel-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--slate);margin-bottom:8px;}
+  .sel-team{font-size:13px;font-weight:600;color:var(--text);margin-top:4px;}
+  select{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 14px;border-radius:6px;outline:none;cursor:pointer;appearance:none;}
+  select:hover{border-color:rgba(255,255,255,0.2);}
+  select:focus{border-color:var(--teal);}
+  .vs{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:var(--slate);text-align:center;}
+  .swap-btn{display:block;width:100%;margin-top:12px;background:transparent;border:1px solid var(--border);color:var(--slate);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;padding:7px;border-radius:4px;cursor:pointer;}
+  .swap-btn:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
+
+  /* ── MAIN ── */
+  .main{padding:32px 40px 60px;}
+  .sec{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--slate);margin-bottom:14px;text-transform:uppercase;}
+  .sec-block{margin-bottom:28px;}
+
+  /* ── HERO COMPARE ── */
+  .hero-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:28px;}
+  .hc-team{padding:24px 28px;}
+  .hc-team.left{background:linear-gradient(135deg,#1a2535,#0f1f35);}
+  .hc-team.right{background:linear-gradient(135deg,#1a2535,#0f1f35);text-align:right;}
+  .hc-divider{background:rgba(255,255,255,0.04);width:1px;display:flex;align-items:center;justify-content:center;padding:0 20px;}
+  .hc-divider-inner{font-family:'Space Mono',monospace;font-size:11px;color:var(--slate);}
+  .hc-rk{font-family:'Space Mono',monospace;font-size:10px;color:var(--slate);letter-spacing:1px;margin-bottom:4px;}
+  .hc-name{font-family:'DM Serif Display',serif;font-size:28px;line-height:1;}
+  .hc-conf{font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);letter-spacing:2px;margin-top:4px;}
+  .hc-rec{font-family:'Space Mono',monospace;font-size:12px;color:var(--teal);margin-top:8px;}
+  .hc-bar{display:flex;align-items:center;gap:8px;margin-top:12px;}
+  .hc-team.right .hc-bar{justify-content:flex-end;}
+  .hc-bar-val{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;}
+  .hc-bar-lbl{font-size:10px;color:var(--slate);}
+  .inj-flag{display:inline-block;font-family:'Space Mono',monospace;font-size:8px;font-weight:700;background:var(--red);color:white;padding:2px 7px;border-radius:3px;margin-top:8px;}
+
+  /* ── STAT COMPARE ROWS ── */
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .box{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .box h3{padding:14px 20px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);}
+  .bh3-red{color:var(--red)}.bh3-blue{color:var(--blue)}.bh3-teal{color:var(--teal)}
+  .bh3-purple{color:var(--purple)}.bh3-orange{color:var(--orange)}.bh3-gold{color:var(--gold)}
+  .bh3-green{color:#4ade80;}
+
+  /* stat bar rows */
+  .srow{padding:10px 20px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr 180px 1fr;gap:8px;align-items:center;}
+  .srow:last-child{border-bottom:none;}
+  .srow-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);letter-spacing:0.5px;text-align:center;}
+  .srow-val{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;}
+  .srow-val.left{text-align:left;}
+  .srow-val.right{text-align:right;}
+  .srow-bar-wrap{display:flex;align-items:center;gap:4px;}
+  .srow-bar{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.06);}
+  .srow-bar-fill{height:100%;border-radius:2px;transition:width 0.4s ease;}
+  .win{color:#4ade80;} .lose{color:var(--red);} .tie{color:var(--slate);}
+  .srow-hdr{padding:8px 20px;background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border);}
+  .srow-hdr-inner{display:grid;grid-template-columns:1fr 180px 1fr;gap:8px;}
+  .srow-hdr-name{font-family:'Space Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .srow-hdr-name.right{text-align:right;}
+
+  /* ── ROSTER TABLE ── */
+  .roster-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .rtable{width:100%;border-collapse:collapse;font-size:11px;}
+  .rtable th{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--slate);padding:7px 10px;text-align:right;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);}
+  .rtable th.left{text-align:left;}
+  .rtable td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.04);text-align:right;color:var(--slate);}
+  .rtable td.left{text-align:left;color:var(--text);}
+  .rtable tr:last-child td{border-bottom:none;}
+  .rtable tr:hover td{background:rgba(255,255,255,0.02);}
+  .p-name{font-weight:600;font-size:12px;}
+  .p-star{color:var(--gold);}
+  .yr-badge{font-family:'Space Mono',monospace;font-size:8px;font-weight:700;padding:1px 5px;border-radius:2px;margin-left:4px;}
+  .yr-Fr{background:rgba(232,80,42,0.25);color:#fca5a5;}
+  .yr-So{background:rgba(240,165,0,0.2);color:#fde68a;}
+  .yr-Jr{background:rgba(45,212,191,0.15);color:var(--teal);}
+  .yr-Sr{background:rgba(96,165,250,0.2);color:var(--blue);}
+  .inj-pill{font-family:'Space Mono',monospace;font-size:7px;font-weight:700;background:var(--red);color:white;padding:1px 5px;border-radius:2px;margin-left:4px;white-space:nowrap;}
+  .inj-gtd{background:var(--orange);}
+  .usg-bar{display:inline-block;height:3px;border-radius:2px;background:var(--teal);vertical-align:middle;margin-left:4px;}
+  .prpg-hi{color:#4ade80;}
+  .prpg-mid{color:var(--orange);}
+
+  /* ── EXPERIENCE / DEPENDENCY ── */
+  .dep-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .dep-box{padding:20px;}
+  .dep-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--slate);margin-bottom:12px;}
+  .dep-stat{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .dep-stat-lbl{font-size:12px;color:var(--slate);}
+  .dep-stat-val{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;}
+  .yr-strip{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;}
+  .yr-chip{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;padding:3px 9px;border-radius:3px;}
+
+  /* ── RISK FACTORS ── */
+  .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .risk-item{display:flex;gap:10px;align-items:flex-start;padding:12px 16px;border-bottom:1px solid var(--border);}
+  .risk-item:last-child{border-bottom:none;}
+  .risk-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
+  .risk-text{font-size:11px;color:var(--slate);line-height:1.5;}
+  .risk-text strong{color:var(--text);display:block;margin-bottom:2px;}
+  .risk-none{padding:14px 20px;font-size:11px;color:var(--slate);font-style:italic;}
+
+  /* ── MOMENTUM ── */
+  .mom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+
+  /* ── VERDICT ── */
+  .verdict-box{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:28px;}
+  .verdict-header{padding:16px 24px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);}
+  .verdict-header h3{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--purple);}
+  .verdict-body{padding:20px 24px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .verdict-team{font-size:12px;line-height:1.7;color:var(--slate);}
+  .verdict-team h4{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;margin-bottom:10px;}
+  .verdict-edge{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:3px;display:inline-block;margin-top:4px;}
+  .edge-win{background:rgba(74,222,128,0.15);color:#4ade80;border:1px solid rgba(74,222,128,0.3);}
+  .edge-lose{background:rgba(232,80,42,0.15);color:#fca5a5;border:1px solid rgba(232,80,42,0.3);}
+  .edge-even{background:rgba(148,163,184,0.1);color:var(--slate);border:1px solid rgba(148,163,184,0.2);}
+
+  /* empty state */
+  .empty{padding:60px 40px;text-align:center;color:var(--slate);font-size:14px;}
+  .empty-icon{font-size:40px;margin-bottom:16px;}
+
+  @media(max-width:900px){
+    .selector-inner{grid-template-columns:1fr;}.vs{display:none;}
+    .hero-compare{grid-template-columns:1fr;}.hc-divider{width:100%;height:1px;padding:12px 20px;}
+    .compare-grid,.roster-grid,.dep-grid,.risk-grid,.mom-grid,.verdict-body{grid-template-columns:1fr;}
+    .header{padding:20px;}.selector{padding:20px;}.main{padding:20px 20px 40px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="back">← Back to Intelligence Hub</a>
+  <div class="eyebrow">▶ Team Comparison Tool · 2026 NCAA Tournament</div>
+  <h1>Head-to-Head <em>Matchup Analysis</em></h1>
+  <p class="header-sub">Team efficiency · Player dependency · Injury risk · Roster experience · All 68 tournament teams</p>
+</div>
+
+<div class="selector">
+  <div class="selector-inner">
+    <div>
+      <div class="sel-label">TEAM A</div>
+      <select id="selA" onchange="render()">
+        <option value="">— Select Team —</option>
+      </select>
+    </div>
+    <div class="vs">VS</div>
+    <div>
+      <div class="sel-label">TEAM B</div>
+      <select id="selB" onchange="render()">
+        <option value="">— Select Team —</option>
+      </select>
+    </div>
+  </div>
+  <button class="swap-btn" onclick="swap()" style="max-width:900px;">⇄ SWAP TEAMS</button>
+</div>
+
+<div class="main" id="main">
+  <div class="empty">
+    <div class="empty-icon">🏀</div>
+    Select two teams above to compare
+  </div>
+</div>
+
+<script>
+const TEAMS = [{"rk":1,"team":"Duke","conf":"ACC","rec":"32\u20132","barthag":0.981,"adjOE":128.1,"adjDE":90.8,"netRtg":37.3,"efg":56.8,"efgD":46.2,"tov":15.7,"tovD":18.1,"oreb":38.1,"dreb":24.8,"pace":65.8,"exp":0.86,"talent":91.2,"sos":38.4,"hgt":79.4,"l10_bar":0.9804,"l10_oe":132.2,"l10_de":94.1,"l10_rec":"5\u20130","usgConc":0.566,"totalPrpg":24.0,"injCount":2,"injStar":false,"yrBreakdown":{"Fr":4,"So":2,"Jr":1,"Sr":1},"players":[{"name":"Cameron Boozer","yr":"Fr","prpg":7.7,"usg":30.3,"bpm":18.4,"ortg":133.5,"efg":62.1,"ast":26.4,"blk":2.0,"stl":2.7,"orb":12.4,"drb":22.4},{"name":"Isaiah Evans","yr":"So","prpg":3.9,"usg":21.9,"bpm":8.7,"ortg":121.9,"efg":54.6,"ast":8.9,"blk":3.1,"stl":1.7,"orb":1.3,"drb":10.9},{"name":"Patrick Ngongba","yr":"So","prpg":3.7,"usg":22.6,"bpm":9.8,"ortg":128.3,"efg":62.4,"ast":15.8,"blk":6.3,"stl":1.7,"orb":12.4,"drb":18.2,"inj":"Foot","injStatus":"Game Time Decision"},{"name":"Caleb Foster","yr":"Jr","prpg":2.5,"usg":17.4,"bpm":4.3,"ortg":117.8,"efg":53.2,"ast":18.8,"blk":0.3,"stl":0.7,"orb":3.1,"drb":12.6,"inj":"Foot","injStatus":"Out"},{"name":"Cayden Boozer","yr":"Fr","prpg":2.2,"usg":17.7,"bpm":4.8,"ortg":117.6,"efg":53.7,"ast":21.2,"blk":0.5,"stl":2.2,"orb":2.5,"drb":8.5},{"name":"Maliq Brown","yr":"Sr","prpg":1.7,"usg":14.6,"bpm":10.8,"ortg":119.2,"efg":63.8,"ast":14.6,"blk":3.6,"stl":5.8,"orb":11.7,"drb":16.2},{"name":"Nikolas Khamenia","yr":"Fr","prpg":1.6,"usg":15.0,"bpm":4.9,"ortg":117.0,"efg":55.6,"ast":9.3,"blk":0.4,"stl":2.0,"orb":6.1,"drb":13.7},{"name":"Dame Sarr","yr":"Fr","prpg":0.7,"usg":15.3,"bpm":3.4,"ortg":101.6,"efg":50.0,"ast":7.2,"blk":1.8,"stl":2.5,"orb":4.1,"drb":13.8}]},{"rk":2,"team":"Michigan","conf":"Big Ten","rec":"31\u20133","barthag":0.98,"adjOE":127.6,"adjDE":91.0,"netRtg":36.6,"efg":58.1,"efgD":44.7,"tov":16.7,"tovD":15.5,"oreb":35.4,"dreb":27.7,"pace":71.2,"exp":1.95,"talent":69.9,"sos":41.9,"hgt":78.6,"l10_bar":0.9523,"l10_oe":121.5,"l10_de":93.6,"l10_rec":"4\u20131","usgConc":0.176,"totalPrpg":22.4,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":2,"Sr":3},"players":[{"name":"Yaxel Lendeborg","yr":"Sr","prpg":5.6,"usg":20.3,"bpm":15.0,"ortg":135.7,"efg":59.2,"ast":17.9,"blk":4.8,"stl":2.2,"orb":8.4,"drb":16.6},{"name":"Morez Johnson Jr.","yr":"So","prpg":4.4,"usg":20.8,"bpm":10.5,"ortg":132.4,"efg":64.9,"ast":8.2,"blk":4.9,"stl":1.6,"orb":12.9,"drb":18.8},{"name":"Aday Mara","yr":"Jr","prpg":3.2,"usg":23.6,"bpm":12.5,"ortg":118.3,"efg":67.8,"ast":18.1,"blk":12.3,"stl":0.8,"orb":11.0,"drb":21.6},{"name":"Elliot Cadeau","yr":"Jr","prpg":2.9,"usg":22.8,"bpm":5.0,"ortg":112.1,"efg":51.9,"ast":33.3,"blk":0.6,"stl":1.5,"orb":1.3,"drb":8.7},{"name":"Trey McKenney","yr":"Fr","prpg":2.6,"usg":17.5,"bpm":5.7,"ortg":123.2,"efg":56.7,"ast":6.9,"blk":0.1,"stl":1.1,"orb":2.7,"drb":10.2},{"name":"Nimari Burnett","yr":"Sr","prpg":2.4,"usg":17.0,"bpm":6.2,"ortg":124.8,"efg":57.7,"ast":9.7,"blk":0.3,"stl":1.5,"orb":3.5,"drb":9.7},{"name":"Roddy Gayle Jr.","yr":"Sr","prpg":1.3,"usg":18.5,"bpm":4.3,"ortg":105.1,"efg":48.6,"ast":10.5,"blk":2.1,"stl":2.2,"orb":5.2,"drb":11.9}]},{"rk":3,"team":"Arizona","conf":"Big 12","rec":"32\u20132","barthag":0.978,"adjOE":126.9,"adjDE":91.4,"netRtg":35.5,"efg":55.1,"efgD":45.0,"tov":15.1,"tovD":16.7,"oreb":38.1,"dreb":26.9,"pace":70.0,"exp":1.41,"talent":73.5,"sos":38.8,"hgt":79.0,"l10_bar":0.9838,"l10_oe":131.9,"l10_de":92.3,"l10_rec":"5\u20130","usgConc":0.187,"totalPrpg":22.7,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":3,"So":0,"Jr":1,"Sr":3},"players":[{"name":"Brayden Burries","yr":"Fr","prpg":4.5,"usg":21.7,"bpm":10.1,"ortg":125.7,"efg":56.6,"ast":14.8,"blk":0.6,"stl":3.0,"orb":2.3,"drb":13.9},{"name":"Jaden Bradley","yr":"Sr","prpg":3.8,"usg":21.5,"bpm":7.8,"ortg":119.4,"efg":49.7,"ast":24.1,"blk":0.3,"stl":2.8,"orb":2.1,"drb":9.8},{"name":"Motiejus Krivas","yr":"Jr","prpg":3.4,"usg":19.1,"bpm":9.1,"ortg":126.0,"efg":59.1,"ast":6.3,"blk":7.5,"stl":1.6,"orb":14.2,"drb":20.1},{"name":"Koa Peat","yr":"Fr","prpg":3.3,"usg":24.4,"bpm":7.1,"ortg":114.6,"efg":54.6,"ast":17.9,"blk":2.7,"stl":1.5,"orb":8.8,"drb":12.0},{"name":"Tobe Awaka","yr":"Sr","prpg":3.3,"usg":20.7,"bpm":7.4,"ortg":128.1,"efg":60.9,"ast":6.4,"blk":3.4,"stl":1.0,"orb":20.6,"drb":26.8},{"name":"Ivan Kharchenkov","yr":"Fr","prpg":2.6,"usg":17.0,"bpm":8.3,"ortg":117.9,"efg":55.0,"ast":13.4,"blk":1.2,"stl":2.9,"orb":4.4,"drb":10.8},{"name":"Anthony Dell'Orso","yr":"Sr","prpg":1.8,"usg":19.5,"bpm":5.6,"ortg":110.5,"efg":50.0,"ast":14.7,"blk":0.8,"stl":2.3,"orb":0.8,"drb":8.9}]},{"rk":4,"team":"Florida","conf":"SEC","rec":"26\u20137","barthag":0.973,"adjOE":126.1,"adjDE":92.3,"netRtg":33.8,"efg":53.5,"efgD":46.3,"tov":16.5,"tovD":15.4,"oreb":43.2,"dreb":24.8,"pace":70.4,"exp":1.93,"talent":41.7,"sos":39.3,"hgt":78.9,"l10_bar":0.9479,"l10_oe":127.1,"l10_de":98.8,"l10_rec":"3\u20131","usgConc":0.174,"totalPrpg":20.2,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":4,"Sr":1},"players":[{"name":"Thomas Haugh","yr":"Jr","prpg":4.8,"usg":20.8,"bpm":9.7,"ortg":126.0,"efg":53.4,"ast":9.9,"blk":2.9,"stl":1.8,"orb":7.1,"drb":12.3},{"name":"Alex Condon","yr":"Jr","prpg":3.7,"usg":23.6,"bpm":9.1,"ortg":116.1,"efg":56.2,"ast":19.2,"blk":4.5,"stl":1.2,"orb":8.3,"drb":17.8},{"name":"Rueben Chinyelu","yr":"Jr","prpg":3.2,"usg":20.2,"bpm":7.8,"ortg":122.7,"efg":58.3,"ast":4.5,"blk":4.3,"stl":1.7,"orb":17.8,"drb":30.4},{"name":"Xaivian Lee","yr":"Sr","prpg":2.9,"usg":20.5,"bpm":6.7,"ortg":116.0,"efg":49.4,"ast":24.6,"blk":0.4,"stl":2.4,"orb":1.5,"drb":12.7},{"name":"Urban Klavzar","yr":"Jr","prpg":2.8,"usg":16.7,"bpm":6.6,"ortg":131.1,"efg":58.8,"ast":9.3,"blk":0.3,"stl":1.0,"orb":1.6,"drb":6.0},{"name":"Boogie Fland","yr":"So","prpg":2.8,"usg":18.8,"bpm":5.7,"ortg":115.0,"efg":47.9,"ast":18.1,"blk":0.3,"stl":3.2,"orb":2.8,"drb":5.9}]},{"rk":5,"team":"Houston","conf":"Big 12","rec":"28\u20136","barthag":0.971,"adjOE":125.4,"adjDE":92.4,"netRtg":33.0,"efg":52.1,"efgD":46.6,"tov":13.0,"tovD":21.0,"oreb":35.9,"dreb":30.9,"pace":63.3,"exp":1.55,"talent":82.0,"sos":36.8,"hgt":77.9,"l10_bar":0.9591,"l10_oe":121.8,"l10_de":92.6,"l10_rec":"4\u20131","usgConc":0.245,"totalPrpg":17.9,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":2,"So":0,"Jr":1,"Sr":2},"players":[{"name":"Kingston Flemings","yr":"Fr","prpg":5.1,"usg":27.0,"bpm":11.6,"ortg":121.1,"efg":52.1,"ast":33.4,"blk":1.3,"stl":3.0,"orb":1.8,"drb":12.5},{"name":"Emanuel Sharp","yr":"Sr","prpg":4.5,"usg":23.2,"bpm":9.1,"ortg":124.1,"efg":51.7,"ast":11.4,"blk":0.4,"stl":2.6,"orb":3.3,"drb":8.3},{"name":"Joseph Tugler","yr":"Jr","prpg":2.9,"usg":19.6,"bpm":9.2,"ortg":121.8,"efg":59.2,"ast":9.8,"blk":8.2,"stl":3.6,"orb":14.8,"drb":11.5},{"name":"Milos Uzan","yr":"Sr","prpg":2.9,"usg":19.2,"bpm":5.2,"ortg":112.4,"efg":48.1,"ast":21.3,"blk":0.6,"stl":1.9,"orb":1.2,"drb":8.1},{"name":"Chris Cenac Jr","yr":"Fr","prpg":2.5,"usg":19.4,"bpm":5.8,"ortg":115.8,"efg":54.6,"ast":5.8,"blk":2.5,"stl":1.9,"orb":10.2,"drb":24.7}]},{"rk":6,"team":"Illinois","conf":"Big Ten","rec":"24\u20138","barthag":0.968,"adjOE":131.9,"adjDE":98.2,"netRtg":33.7,"efg":55.1,"efgD":47.6,"tov":13.2,"tovD":11.6,"oreb":38.7,"dreb":27.0,"pace":65.7,"exp":1.55,"talent":63.1,"sos":38.3,"hgt":80.0,"l10_bar":0.9427,"l10_oe":126.2,"l10_de":98.9,"l10_rec":"2\u20131","usgConc":0.339,"totalPrpg":30.2,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":2,"So":0,"Jr":4,"Sr":2},"players":[{"name":"Keaton Wagler","yr":"Fr","prpg":6.5,"usg":25.6,"bpm":10.8,"ortg":131.3,"efg":54.3,"ast":23.7,"blk":1.0,"stl":1.7,"orb":6.8,"drb":9.2},{"name":"Kylan Boswell","yr":"Sr","prpg":4.7,"usg":21.2,"bpm":6.6,"ortg":128.9,"efg":53.1,"ast":19.3,"blk":0.0,"stl":1.5,"orb":6.0,"drb":8.9},{"name":"David Mirkovic","yr":"Fr","prpg":4.4,"usg":23.0,"bpm":8.3,"ortg":124.1,"efg":56.6,"ast":16.4,"blk":1.1,"stl":0.9,"orb":9.7,"drb":19.8},{"name":"Andrej Stojakovic","yr":"Jr","prpg":3.6,"usg":23.6,"bpm":4.6,"ortg":119.0,"efg":52.2,"ast":7.3,"blk":2.0,"stl":0.9,"orb":6.2,"drb":13.2},{"name":"Jake Davis","yr":"Jr","prpg":3.1,"usg":11.3,"bpm":6.1,"ortg":145.8,"efg":61.9,"ast":6.3,"blk":1.0,"stl":0.8,"orb":5.3,"drb":6.6},{"name":"Tomislav Ivisic","yr":"Jr","prpg":3.0,"usg":19.6,"bpm":6.2,"ortg":120.5,"efg":57.0,"ast":11.3,"blk":2.4,"stl":0.7,"orb":7.7,"drb":16.7},{"name":"Ben Humrichous","yr":"Sr","prpg":2.7,"usg":11.9,"bpm":6.9,"ortg":135.3,"efg":53.3,"ast":5.8,"blk":3.4,"stl":1.1,"orb":6.2,"drb":13.7},{"name":"Zvonimir Ivisic","yr":"Jr","prpg":2.2,"usg":16.7,"bpm":10.0,"ortg":127.7,"efg":61.0,"ast":2.8,"blk":13.1,"stl":0.9,"orb":7.8,"drb":22.3}]},{"rk":7,"team":"Iowa St.","conf":"Big 12","rec":"27\u20137","barthag":0.966,"adjOE":123.8,"adjDE":92.6,"netRtg":31.1,"efg":56.5,"efgD":49.5,"tov":15.1,"tovD":22.4,"oreb":35.3,"dreb":28.1,"pace":67.0,"exp":1.94,"talent":50.5,"sos":35.4,"hgt":78.1,"l10_bar":0.9872,"l10_oe":124.8,"l10_de":85.5,"l10_rec":"3\u20132","usgConc":0.485,"totalPrpg":20.4,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":0,"Jr":2,"Sr":3},"players":[{"name":"Milan Momcilovic","yr":"Jr","prpg":5.3,"usg":18.4,"bpm":10.5,"ortg":138.2,"efg":67.9,"ast":5.7,"blk":0.9,"stl":1.5,"orb":0.8,"drb":11.7},{"name":"Joshua Jefferson","yr":"Sr","prpg":4.7,"usg":28.8,"bpm":11.6,"ortg":115.4,"efg":51.6,"ast":27.7,"blk":3.4,"stl":3.1,"orb":7.3,"drb":21.6},{"name":"Tamin Lipsey","yr":"Sr","prpg":4.4,"usg":22.5,"bpm":9.7,"ortg":120.9,"efg":51.8,"ast":27.5,"blk":0.1,"stl":4.1,"orb":5.2,"drb":9.9},{"name":"Blake Buchanan","yr":"Jr","prpg":3.0,"usg":17.4,"bpm":6.4,"ortg":125.5,"efg":64.5,"ast":10.5,"blk":5.0,"stl":1.6,"orb":14.1,"drb":14.2},{"name":"Killyan Toure","yr":"Fr","prpg":1.5,"usg":18.8,"bpm":3.3,"ortg":106.0,"efg":49.8,"ast":14.3,"blk":1.1,"stl":3.4,"orb":5.4,"drb":10.2},{"name":"Nate Heise","yr":"Sr","prpg":1.5,"usg":10.5,"bpm":4.5,"ortg":119.3,"efg":51.5,"ast":10.0,"blk":0.5,"stl":2.1,"orb":4.5,"drb":15.4}]},{"rk":8,"team":"Purdue","conf":"Big Ten","rec":"27\u20138","barthag":0.964,"adjOE":133.3,"adjDE":100.3,"netRtg":33.0,"efg":57.6,"efgD":52.3,"tov":13.5,"tovD":15.6,"oreb":36.3,"dreb":26.4,"pace":64.4,"exp":2.02,"talent":59.3,"sos":41.3,"hgt":77.6,"l10_bar":0.9649,"l10_oe":140.5,"l10_de":105.3,"l10_rec":"5\u20132","usgConc":0.254,"totalPrpg":22.8,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":0,"Sr":4},"players":[{"name":"Braden Smith","yr":"Sr","prpg":5.5,"usg":26.0,"bpm":9.6,"ortg":121.4,"efg":51.9,"ast":44.1,"blk":0.9,"stl":3.2,"orb":2.4,"drb":10.6},{"name":"Oscar Cluff","yr":"Sr","prpg":5.1,"usg":19.2,"bpm":10.0,"ortg":145.5,"efg":69.8,"ast":12.2,"blk":4.3,"stl":1.0,"orb":17.8,"drb":20.6},{"name":"Trey Kaufman-Renn","yr":"Sr","prpg":4.6,"usg":24.6,"bpm":7.3,"ortg":123.3,"efg":58.2,"ast":17.5,"blk":1.0,"stl":0.9,"orb":13.6,"drb":24.3},{"name":"Fletcher Loyer","yr":"Sr","prpg":4.5,"usg":19.5,"bpm":8.0,"ortg":129.2,"efg":58.9,"ast":11.8,"blk":0.3,"stl":1.6,"orb":0.9,"drb":9.0},{"name":"C.J. Cox","yr":"So","prpg":3.1,"usg":14.4,"bpm":5.9,"ortg":130.4,"efg":56.0,"ast":8.5,"blk":0.6,"stl":1.4,"orb":3.6,"drb":9.5}]},{"rk":9,"team":"Connecticut","conf":"Big East","rec":"29\u20135","barthag":0.952,"adjOE":123.1,"adjDE":95.0,"netRtg":28.1,"efg":55.3,"efgD":45.7,"tov":16.8,"tovD":18.0,"oreb":35.7,"dreb":28.7,"pace":64.6,"exp":2.0,"talent":84.3,"sos":33.3,"hgt":78.3,"l10_bar":0.8953,"l10_oe":114.9,"l10_de":95.4,"l10_rec":"2\u20132","usgConc":0.201,"totalPrpg":17.5,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":0,"Jr":2,"Sr":2},"players":[{"name":"Alex Karaban","yr":"Sr","prpg":4.1,"usg":17.1,"bpm":7.1,"ortg":126.0,"efg":56.7,"ast":12.0,"blk":2.7,"stl":1.5,"orb":6.4,"drb":12.0},{"name":"Silas Demary Jr.","yr":"Jr","prpg":3.8,"usg":23.1,"bpm":8.2,"ortg":119.1,"efg":52.4,"ast":36.6,"blk":0.9,"stl":3.4,"orb":4.1,"drb":14.1},{"name":"Tarris Reed Jr.","yr":"Sr","prpg":3.7,"usg":25.9,"bpm":10.9,"ortg":118.0,"efg":62.5,"ast":18.6,"blk":9.2,"stl":2.2,"orb":13.2,"drb":23.4},{"name":"Solo Ball","yr":"Jr","prpg":3.1,"usg":21.9,"bpm":3.2,"ortg":113.9,"efg":49.6,"ast":9.8,"blk":1.0,"stl":0.9,"orb":3.5,"drb":9.8},{"name":"Braylon Mullins","yr":"Fr","prpg":2.8,"usg":19.8,"bpm":5.9,"ortg":113.5,"efg":54.3,"ast":9.2,"blk":3.0,"stl":2.3,"orb":3.8,"drb":11.2}]},{"rk":10,"team":"Vanderbilt","conf":"SEC","rec":"26\u20138","barthag":0.946,"adjOE":127.4,"adjDE":99.3,"netRtg":28.1,"efg":55.3,"efgD":48.8,"tov":13.3,"tovD":17.9,"oreb":31.2,"dreb":31.6,"pace":69.0,"exp":2.31,"talent":36.0,"sos":37.1,"hgt":77.3,"l10_bar":0.9709,"l10_oe":137.0,"l10_de":101.0,"l10_rec":"4\u20131","usgConc":0.263,"totalPrpg":22.9,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":0,"Sr":5},"players":[{"name":"Tyler Tanner","yr":"So","prpg":5.7,"usg":25.9,"bpm":11.3,"ortg":126.1,"efg":55.2,"ast":28.9,"blk":1.2,"stl":4.0,"orb":1.6,"drb":10.6},{"name":"Duke Miles","yr":"Sr","prpg":4.7,"usg":25.6,"bpm":11.1,"ortg":123.7,"efg":52.2,"ast":27.4,"blk":0.9,"stl":5.2,"orb":0.8,"drb":11.5},{"name":"Tyler Nickel","yr":"Sr","prpg":3.6,"usg":16.7,"bpm":6.7,"ortg":126.7,"efg":59.9,"ast":6.7,"blk":2.0,"stl":1.5,"orb":2.4,"drb":9.5},{"name":"Devin McGlockton","yr":"Sr","prpg":3.2,"usg":17.5,"bpm":4.3,"ortg":128.1,"efg":60.1,"ast":9.0,"blk":2.9,"stl":0.9,"orb":11.9,"drb":18.7},{"name":"Jalen Washington","yr":"Sr","prpg":2.9,"usg":19.7,"bpm":6.2,"ortg":126.2,"efg":58.0,"ast":7.6,"blk":7.0,"stl":1.7,"orb":11.4,"drb":19.8},{"name":"AK Okereke","yr":"Sr","prpg":2.8,"usg":17.6,"bpm":4.0,"ortg":121.5,"efg":56.2,"ast":12.7,"blk":2.5,"stl":1.2,"orb":4.9,"drb":10.0}]},{"rk":11,"team":"Gonzaga","conf":"WCC","rec":"30\u20133","barthag":0.944,"adjOE":120.3,"adjDE":94.0,"netRtg":26.3,"efg":56.3,"efgD":46.2,"tov":13.7,"tovD":20.5,"oreb":34.8,"dreb":25.9,"pace":68.9,"exp":2.11,"talent":36.8,"sos":25.0,"hgt":77.9,"l10_bar":0.9394,"l10_oe":119.2,"l10_de":93.9,"l10_rec":"2\u20130","usgConc":0.347,"totalPrpg":16.0,"injCount":1,"injStar":false,"yrBreakdown":{"Fr":1,"So":0,"Jr":2,"Sr":4},"players":[{"name":"Graham Ike","yr":"Sr","prpg":5.1,"usg":26.1,"bpm":10.4,"ortg":126.4,"efg":60.2,"ast":14.1,"blk":3.5,"stl":1.4,"orb":7.8,"drb":21.2},{"name":"Mario Saint-Supery","yr":"Fr","prpg":2.3,"usg":19.8,"bpm":7.1,"ortg":118.8,"efg":53.3,"ast":23.6,"blk":0.7,"stl":3.4,"orb":2.2,"drb":11.2},{"name":"Tyon Grant-Foster","yr":"Sr","prpg":1.9,"usg":26.2,"bpm":4.6,"ortg":106.8,"efg":50.9,"ast":8.7,"blk":6.3,"stl":2.0,"orb":8.5,"drb":17.1},{"name":"Jalen Warley","yr":"Sr","prpg":1.9,"usg":16.5,"bpm":6.6,"ortg":120.0,"efg":56.7,"ast":13.4,"blk":1.5,"stl":3.9,"orb":8.3,"drb":14.9,"inj":"Thigh","injStatus":"Game Time Decision"},{"name":"Emmanuel Innocenti","yr":"Jr","prpg":1.7,"usg":12.8,"bpm":5.4,"ortg":122.5,"efg":52.7,"ast":10.0,"blk":1.4,"stl":2.3,"orb":7.5,"drb":10.0},{"name":"Braeden Smith","yr":"Jr","prpg":1.7,"usg":18.2,"bpm":6.3,"ortg":119.2,"efg":52.9,"ast":30.9,"blk":0.0,"stl":3.3,"orb":2.2,"drb":11.6},{"name":"Adam Miller","yr":"Sr","prpg":1.4,"usg":16.6,"bpm":3.1,"ortg":114.8,"efg":51.9,"ast":8.3,"blk":0.2,"stl":2.1,"orb":1.4,"drb":7.3}]},{"rk":12,"team":"Texas Tech","conf":"Big 12","rec":"22\u201310","barthag":0.944,"adjOE":126.3,"adjDE":98.8,"netRtg":27.5,"efg":56.2,"efgD":49.4,"tov":15.9,"tovD":14.7,"oreb":33.3,"dreb":30.1,"pace":66.4,"exp":1.6,"talent":41.7,"sos":40.1,"hgt":77.0,"l10_bar":0.7793,"l10_oe":117.7,"l10_de":105.4,"l10_rec":"0\u20133","usgConc":0.514,"totalPrpg":23.1,"injCount":2,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":2,"Sr":2},"players":[{"name":"Christian Anderson","yr":"So","prpg":6.4,"usg":25.5,"bpm":8.7,"ortg":124.0,"efg":60.8,"ast":36.3,"blk":0.7,"stl":2.0,"orb":1.9,"drb":8.6},{"name":"JT Toppin","yr":"Jr","prpg":5.3,"usg":30.6,"bpm":8.6,"ortg":114.9,"efg":56.7,"ast":13.8,"blk":5.1,"stl":2.3,"orb":14.0,"drb":21.1,"inj":"Knee","injStatus":"Out For Season"},{"name":"Donovan Atwell","yr":"Sr","prpg":5.3,"usg":13.1,"bpm":8.2,"ortg":140.8,"efg":66.4,"ast":3.7,"blk":0.4,"stl":2.0,"orb":2.4,"drb":8.2},{"name":"Jaylen Petty","yr":"Fr","prpg":2.7,"usg":15.2,"bpm":3.2,"ortg":119.0,"efg":53.1,"ast":11.9,"blk":0.1,"stl":1.1,"orb":2.4,"drb":12.1},{"name":"LeJuan Watts","yr":"Jr","prpg":2.6,"usg":24.9,"bpm":2.6,"ortg":106.2,"efg":47.1,"ast":15.8,"blk":0.8,"stl":1.5,"orb":8.3,"drb":16.2,"inj":"Undisclosed","injStatus":"Game Time Decision"},{"name":"Tyeree Bryan","yr":"Sr","prpg":0.8,"usg":12.0,"bpm":2.0,"ortg":111.6,"efg":45.0,"ast":5.2,"blk":1.3,"stl":1.3,"orb":6.7,"drb":10.3}]},{"rk":13,"team":"Michigan St.","conf":"Big Ten","rec":"25\u20137","barthag":0.944,"adjOE":122.9,"adjDE":96.2,"netRtg":26.7,"efg":53.6,"efgD":48.6,"tov":17.1,"tovD":14.8,"oreb":38.5,"dreb":22.6,"pace":66.0,"exp":1.81,"talent":68.8,"sos":37.9,"hgt":78.5,"l10_bar":0.9241,"l10_oe":135.0,"l10_de":108.6,"l10_rec":"2\u20132","usgConc":0.329,"totalPrpg":18.4,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":2,"Sr":2},"players":[{"name":"Jeremy Fears Jr.","yr":"Jr","prpg":6.3,"usg":26.9,"bpm":11.1,"ortg":130.4,"efg":49.4,"ast":52.8,"blk":0.1,"stl":2.4,"orb":1.7,"drb":6.9},{"name":"Jaxon Kohler","yr":"Sr","prpg":3.8,"usg":20.1,"bpm":9.5,"ortg":125.5,"efg":59.7,"ast":9.3,"blk":3.4,"stl":1.2,"orb":13.3,"drb":24.9},{"name":"Carson Cooper","yr":"Sr","prpg":3.0,"usg":19.2,"bpm":7.5,"ortg":120.6,"efg":57.5,"ast":9.6,"blk":4.7,"stl":1.4,"orb":9.1,"drb":22.1},{"name":"Coen Carr","yr":"Jr","prpg":2.4,"usg":19.4,"bpm":4.4,"ortg":111.3,"efg":53.9,"ast":8.0,"blk":3.4,"stl":0.9,"orb":6.6,"drb":15.1},{"name":"Kur Teng","yr":"So","prpg":1.5,"usg":20.7,"bpm":2.7,"ortg":109.6,"efg":50.2,"ast":11.2,"blk":0.5,"stl":1.0,"orb":3.9,"drb":9.8},{"name":"Jordan Scott","yr":"Fr","prpg":1.4,"usg":15.1,"bpm":5.8,"ortg":114.0,"efg":52.3,"ast":9.4,"blk":3.2,"stl":2.3,"orb":7.7,"drb":9.7}]},{"rk":14,"team":"Virginia","conf":"ACC","rec":"29\u20135","barthag":0.943,"adjOE":122.2,"adjDE":95.8,"netRtg":26.4,"efg":54.6,"efgD":45.3,"tov":16.0,"tovD":15.6,"oreb":37.9,"dreb":29.2,"pace":65.6,"exp":1.72,"talent":53.8,"sos":30.6,"hgt":78.1,"l10_bar":0.9605,"l10_oe":126.7,"l10_de":96.0,"l10_rec":"4\u20131","usgConc":0.341,"totalPrpg":18.5,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":3,"So":0,"Jr":1,"Sr":3},"players":[{"name":"Thijs De Ridder","yr":"Fr","prpg":3.7,"usg":26.6,"bpm":6.3,"ortg":118.2,"efg":55.5,"ast":11.6,"blk":2.0,"stl":1.9,"orb":10.2,"drb":14.7},{"name":"Chance Mallory","yr":"Fr","prpg":3.3,"usg":20.5,"bpm":9.0,"ortg":127.0,"efg":50.7,"ast":25.6,"blk":0.7,"stl":4.0,"orb":4.5,"drb":12.2},{"name":"Malik Thomas","yr":"Sr","prpg":2.4,"usg":26.5,"bpm":3.2,"ortg":110.8,"efg":50.3,"ast":13.6,"blk":0.6,"stl":1.3,"orb":3.6,"drb":15.0},{"name":"Sam Lewis","yr":"Jr","prpg":2.4,"usg":19.3,"bpm":4.5,"ortg":117.0,"efg":56.8,"ast":10.5,"blk":1.0,"stl":1.8,"orb":3.7,"drb":12.0},{"name":"Dallin Hall","yr":"Sr","prpg":2.4,"usg":13.6,"bpm":3.8,"ortg":123.7,"efg":51.9,"ast":24.6,"blk":0.3,"stl":1.8,"orb":4.7,"drb":9.1},{"name":"Ugonna Onyenso","yr":"Sr","prpg":2.2,"usg":15.7,"bpm":11.7,"ortg":130.2,"efg":59.4,"ast":5.6,"blk":17.7,"stl":2.1,"orb":10.4,"drb":19.5},{"name":"Johann Gr\u00fcnloh","yr":"Fr","prpg":2.1,"usg":16.7,"bpm":6.5,"ortg":123.6,"efg":59.4,"ast":5.8,"blk":11.5,"stl":1.3,"orb":13.4,"drb":14.0}]},{"rk":15,"team":"St. John's","conf":"Big East","rec":"28\u20136","barthag":0.941,"adjOE":119.8,"adjDE":94.1,"netRtg":25.7,"efg":51.0,"efgD":47.4,"tov":14.7,"tovD":19.4,"oreb":35.9,"dreb":30.2,"pace":69.6,"exp":2.3,"talent":70.1,"sos":31.2,"hgt":78.2,"l10_bar":0.9701,"l10_oe":123.3,"l10_de":91.1,"l10_rec":"5\u20130","usgConc":0.299,"totalPrpg":17.5,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":2,"Jr":1,"Sr":4},"players":[{"name":"Zuby Ejiofor","yr":"Sr","prpg":4.8,"usg":26.2,"bpm":13.4,"ortg":122.8,"efg":57.7,"ast":23.0,"blk":7.4,"stl":2.2,"orb":12.1,"drb":14.4},{"name":"Bryce Hopkins","yr":"Sr","prpg":3.3,"usg":22.4,"bpm":6.6,"ortg":116.1,"efg":49.3,"ast":13.1,"blk":1.1,"stl":2.2,"orb":7.7,"drb":16.1},{"name":"Dillon Mitchell","yr":"Sr","prpg":2.8,"usg":16.1,"bpm":8.1,"ortg":121.7,"efg":54.8,"ast":20.0,"blk":2.6,"stl":2.6,"orb":9.8,"drb":17.8},{"name":"Oziyah Sellers","yr":"Sr","prpg":2.7,"usg":15.5,"bpm":3.2,"ortg":120.3,"efg":52.0,"ast":10.6,"blk":0.9,"stl":1.1,"orb":1.9,"drb":8.9},{"name":"Ian Jackson","yr":"So","prpg":1.5,"usg":24.1,"bpm":3.2,"ortg":104.9,"efg":50.2,"ast":12.7,"blk":1.2,"stl":2.5,"orb":1.6,"drb":12.0},{"name":"Dylan Darling","yr":"Jr","prpg":1.5,"usg":17.5,"bpm":4.6,"ortg":110.8,"efg":48.5,"ast":19.9,"blk":0.5,"stl":3.9,"orb":1.6,"drb":11.4},{"name":"Joson Sanon","yr":"So","prpg":0.9,"usg":19.4,"bpm":-0.8,"ortg":99.4,"efg":43.8,"ast":5.3,"blk":0.8,"stl":1.5,"orb":2.6,"drb":10.7}]},{"rk":16,"team":"Tennessee","conf":"SEC","rec":"22\u201311","barthag":0.941,"adjOE":121.5,"adjDE":95.5,"netRtg":26.0,"efg":51.6,"efgD":47.7,"tov":17.1,"tovD":16.3,"oreb":45.1,"dreb":27.9,"pace":65.2,"exp":1.47,"talent":59.7,"sos":38.6,"hgt":78.4,"l10_bar":0.9187,"l10_oe":120.5,"l10_de":97.6,"l10_rec":"2\u20132","usgConc":0.361,"totalPrpg":14.1,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":1,"Sr":2},"players":[{"name":"Ja'Kobi Gillespie","yr":"Sr","prpg":4.9,"usg":25.5,"bpm":9.4,"ortg":120.1,"efg":49.6,"ast":30.2,"blk":0.8,"stl":3.6,"orb":1.8,"drb":7.2},{"name":"Nate Ament","yr":"Fr","prpg":4.0,"usg":28.4,"bpm":7.6,"ortg":114.8,"efg":45.8,"ast":15.4,"blk":2.3,"stl":2.0,"orb":6.9,"drb":17.4},{"name":"Felix Okpara","yr":"Sr","prpg":2.0,"usg":13.3,"bpm":3.9,"ortg":120.3,"efg":60.0,"ast":2.9,"blk":6.8,"stl":1.0,"orb":10.5,"drb":15.4},{"name":"Jaylen Carey","yr":"Jr","prpg":1.7,"usg":22.8,"bpm":2.6,"ortg":109.5,"efg":47.3,"ast":12.7,"blk":0.4,"stl":1.0,"orb":17.5,"drb":19.2},{"name":"Bishop Boswell","yr":"So","prpg":1.5,"usg":14.3,"bpm":4.8,"ortg":112.3,"efg":52.6,"ast":17.5,"blk":0.6,"stl":2.9,"orb":5.5,"drb":13.7}]},{"rk":17,"team":"Louisville","conf":"ACC","rec":"23\u201310","barthag":0.936,"adjOE":124.0,"adjDE":98.2,"netRtg":25.9,"efg":56.4,"efgD":48.8,"tov":16.4,"tovD":16.7,"oreb":32.9,"dreb":26.9,"pace":69.7,"exp":2.21,"talent":39.1,"sos":35.2,"hgt":78.2,"l10_bar":0.9373,"l10_oe":124.2,"l10_de":98.2,"l10_rec":"3\u20131","usgConc":0.472,"totalPrpg":20.8,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":1,"Sr":3},"players":[{"name":"J'Vonne Hadley","yr":"Sr","prpg":4.2,"usg":16.3,"bpm":8.3,"ortg":134.7,"efg":64.5,"ast":10.9,"blk":1.2,"stl":2.1,"orb":5.3,"drb":15.0},{"name":"Ryan Conwell","yr":"Sr","prpg":4.1,"usg":27.3,"bpm":6.1,"ortg":114.0,"efg":52.0,"ast":15.8,"blk":0.7,"stl":2.1,"orb":2.5,"drb":14.6},{"name":"Mikel Brown Jr.","yr":"Fr","prpg":4.0,"usg":31.0,"bpm":5.5,"ortg":111.8,"efg":51.1,"ast":30.2,"blk":0.5,"stl":2.4,"orb":0.2,"drb":12.1},{"name":"Sananda Fru","yr":"Jr","prpg":3.3,"usg":17.9,"bpm":8.2,"ortg":132.3,"efg":77.2,"ast":10.5,"blk":7.1,"stl":1.2,"orb":14.7,"drb":15.7},{"name":"Isaac McKneely","yr":"Sr","prpg":2.8,"usg":15.1,"bpm":4.2,"ortg":122.1,"efg":56.4,"ast":8.1,"blk":0.2,"stl":1.0,"orb":2.2,"drb":9.1},{"name":"Adrian Wooley","yr":"So","prpg":2.4,"usg":18.8,"bpm":4.8,"ortg":119.5,"efg":53.0,"ast":13.5,"blk":0.3,"stl":1.9,"orb":7.3,"drb":12.6}]},{"rk":18,"team":"Alabama","conf":"SEC","rec":"23\u20139","barthag":0.934,"adjOE":129.5,"adjDE":102.8,"netRtg":26.7,"efg":55.4,"efgD":49.2,"tov":13.0,"tovD":12.6,"oreb":31.8,"dreb":32.8,"pace":73.1,"exp":1.53,"talent":73.6,"sos":40.7,"hgt":77.9,"l10_bar":0.8647,"l10_oe":125.9,"l10_de":107.2,"l10_rec":"1\u20132","usgConc":0.448,"totalPrpg":23.6,"injCount":1,"injStar":false,"yrBreakdown":{"Fr":1,"So":2,"Jr":1,"Sr":2},"players":[{"name":"Labaron Philon","yr":"So","prpg":5.8,"usg":29.8,"bpm":9.8,"ortg":124.0,"efg":59.0,"ast":30.9,"blk":0.6,"stl":2.0,"orb":1.7,"drb":8.5},{"name":"Aden Holloway","yr":"Jr","prpg":5.1,"usg":23.1,"bpm":7.7,"ortg":130.7,"efg":59.9,"ast":23.9,"blk":0.0,"stl":1.1,"orb":1.1,"drb":8.3,"inj":"Not Injury Related","injStatus":"Game Time Decision"},{"name":"Amari Allen","yr":"Fr","prpg":3.5,"usg":19.2,"bpm":7.1,"ortg":122.6,"efg":54.9,"ast":17.7,"blk":2.2,"stl":2.1,"orb":6.0,"drb":18.6},{"name":"Aiden Sherrell","yr":"So","prpg":3.5,"usg":19.4,"bpm":8.1,"ortg":128.5,"efg":60.3,"ast":7.9,"blk":8.8,"stl":1.1,"orb":10.0,"drb":15.5},{"name":"Latrell Wrightsell Jr.","yr":"Sr","prpg":3.2,"usg":19.4,"bpm":5.1,"ortg":119.5,"efg":52.6,"ast":12.6,"blk":0.1,"stl":2.1,"orb":1.6,"drb":9.5},{"name":"Houston Mallette","yr":"Sr","prpg":2.5,"usg":12.6,"bpm":3.9,"ortg":129.0,"efg":52.6,"ast":7.1,"blk":0.0,"stl":1.6,"orb":7.3,"drb":11.8}]},{"rk":19,"team":"Arkansas","conf":"SEC","rec":"26\u20138","barthag":0.934,"adjOE":127.9,"adjDE":101.7,"netRtg":26.3,"efg":56.5,"efgD":51.4,"tov":12.3,"tovD":15.7,"oreb":32.2,"dreb":31.2,"pace":71.0,"exp":1.46,"talent":80.5,"sos":38.4,"hgt":78.5,"l10_bar":0.9512,"l10_oe":128.2,"l10_de":99.0,"l10_rec":"5\u20130","usgConc":0.496,"totalPrpg":23.6,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":2,"So":1,"Jr":1,"Sr":3},"players":[{"name":"Darius Acuff Jr.","yr":"Fr","prpg":6.6,"usg":29.0,"bpm":9.3,"ortg":126.4,"efg":56.5,"ast":33.0,"blk":1.0,"stl":1.3,"orb":1.5,"drb":8.6},{"name":"Trevon Brazile","yr":"Sr","prpg":3.9,"usg":17.2,"bpm":8.8,"ortg":127.0,"efg":60.5,"ast":7.5,"blk":5.3,"stl":2.7,"orb":5.9,"drb":20.6},{"name":"Meleek Thomas","yr":"Fr","prpg":3.8,"usg":22.3,"bpm":5.9,"ortg":119.9,"efg":51.8,"ast":13.4,"blk":0.6,"stl":2.7,"orb":3.5,"drb":10.8},{"name":"Billy Richmond III","yr":"So","prpg":3.1,"usg":18.1,"bpm":5.8,"ortg":122.7,"efg":58.0,"ast":11.8,"blk":3.2,"stl":2.2,"orb":5.9,"drb":11.0},{"name":"Malique Ewin","yr":"Sr","prpg":2.9,"usg":22.2,"bpm":5.1,"ortg":125.2,"efg":59.8,"ast":6.2,"blk":5.0,"stl":1.7,"orb":16.0,"drb":14.7},{"name":"D.J. Wagner","yr":"Jr","prpg":1.9,"usg":15.0,"bpm":3.0,"ortg":118.2,"efg":52.0,"ast":14.8,"blk":1.4,"stl":2.1,"orb":0.0,"drb":7.1},{"name":"Nick Pringle","yr":"Sr","prpg":1.4,"usg":11.9,"bpm":0.9,"ortg":122.4,"efg":72.0,"ast":4.4,"blk":2.4,"stl":1.0,"orb":9.7,"drb":14.0}]},{"rk":20,"team":"Nebraska","conf":"Big Ten","rec":"26\u20136","barthag":0.931,"adjOE":117.3,"adjDE":93.5,"netRtg":23.8,"efg":55.4,"efgD":47.8,"tov":14.4,"tovD":19.2,"oreb":26.3,"dreb":27.7,"pace":66.8,"exp":2.26,"talent":42.5,"sos":35.3,"hgt":77.6,"l10_bar":0.7199,"l10_oe":106.2,"l10_de":97.9,"l10_rec":"1\u20132","usgConc":0.34,"totalPrpg":19.4,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":0,"Jr":3,"Sr":3},"players":[{"name":"Pryce Sandfort","yr":"Jr","prpg":4.8,"usg":21.3,"bpm":9.7,"ortg":126.4,"efg":60.6,"ast":12.1,"blk":1.2,"stl":1.8,"orb":2.4,"drb":14.0},{"name":"Sam Hoiberg","yr":"Sr","prpg":4.1,"usg":15.2,"bpm":8.8,"ortg":132.2,"efg":62.3,"ast":23.9,"blk":0.4,"stl":3.9,"orb":3.5,"drb":15.0},{"name":"Rienk Mast","yr":"Sr","prpg":3.3,"usg":25.9,"bpm":4.8,"ortg":112.4,"efg":51.7,"ast":19.9,"blk":1.2,"stl":0.9,"orb":9.3,"drb":13.7},{"name":"Braden Frager","yr":"Fr","prpg":2.6,"usg":21.7,"bpm":6.0,"ortg":117.9,"efg":59.1,"ast":7.8,"blk":0.4,"stl":1.8,"orb":5.2,"drb":13.5},{"name":"Jamarques Lawrence","yr":"Sr","prpg":1.8,"usg":21.4,"bpm":1.5,"ortg":104.3,"efg":51.2,"ast":24.9,"blk":0.2,"stl":1.9,"orb":1.5,"drb":8.5},{"name":"Berke Buyuktuncel","yr":"Jr","prpg":1.5,"usg":17.5,"bpm":4.9,"ortg":108.4,"efg":49.7,"ast":13.9,"blk":5.9,"stl":2.1,"orb":8.9,"drb":17.1},{"name":"Cale Jacobsen","yr":"Jr","prpg":1.3,"usg":12.3,"bpm":5.1,"ortg":118.0,"efg":60.0,"ast":11.8,"blk":2.1,"stl":3.1,"orb":3.2,"drb":12.9}]},{"rk":21,"team":"Wisconsin","conf":"Big Ten","rec":"24\u201310","barthag":0.929,"adjOE":127.2,"adjDE":101.6,"netRtg":25.5,"efg":54.5,"efgD":51.3,"tov":12.8,"tovD":14.4,"oreb":29.4,"dreb":28.2,"pace":68.7,"exp":1.87,"talent":38.6,"sos":38.2,"hgt":78.9,"l10_bar":0.9746,"l10_oe":136.1,"l10_de":99.1,"l10_rec":"4\u20131","usgConc":0.495,"totalPrpg":23.1,"injCount":1,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":2,"Sr":3},"players":[{"name":"Nick Boyd","yr":"Sr","prpg":5.8,"usg":30.0,"bpm":8.6,"ortg":122.3,"efg":53.9,"ast":28.6,"blk":0.1,"stl":1.9,"orb":2.9,"drb":10.8},{"name":"John Blackwell","yr":"Jr","prpg":5.1,"usg":25.4,"bpm":6.9,"ortg":120.4,"efg":53.1,"ast":13.5,"blk":0.3,"stl":2.0,"orb":4.2,"drb":12.6},{"name":"Nolan Winter","yr":"Jr","prpg":4.7,"usg":17.8,"bpm":8.3,"ortg":133.5,"efg":62.8,"ast":9.4,"blk":4.3,"stl":0.9,"orb":8.5,"drb":23.5,"inj":"Ankle","injStatus":"Game Time Decision"},{"name":"Austin Rapp","yr":"So","prpg":2.7,"usg":19.8,"bpm":5.8,"ortg":119.9,"efg":54.5,"ast":13.0,"blk":2.5,"stl":1.2,"orb":5.4,"drb":14.7},{"name":"Braeden Carrington","yr":"Sr","prpg":2.4,"usg":19.5,"bpm":7.0,"ortg":124.2,"efg":57.4,"ast":10.6,"blk":2.0,"stl":1.2,"orb":3.6,"drb":12.2},{"name":"Andrew Rohde","yr":"Sr","prpg":1.2,"usg":13.9,"bpm":2.6,"ortg":108.8,"efg":47.2,"ast":17.5,"blk":0.8,"stl":2.8,"orb":2.5,"drb":6.6},{"name":"Aleksas Bieliauskas","yr":"Fr","prpg":1.2,"usg":14.1,"bpm":1.3,"ortg":112.4,"efg":54.0,"ast":7.2,"blk":3.3,"stl":0.4,"orb":8.5,"drb":16.4}]},{"rk":22,"team":"Kansas","conf":"Big 12","rec":"23\u201310","barthag":0.928,"adjOE":117.9,"adjDE":94.4,"netRtg":23.5,"efg":51.6,"efgD":45.2,"tov":15.5,"tovD":14.0,"oreb":29.5,"dreb":30.1,"pace":67.6,"exp":1.63,"talent":57.8,"sos":41.6,"hgt":78.2,"l10_bar":0.7253,"l10_oe":107.4,"l10_de":98.7,"l10_rec":"2\u20132","usgConc":0.529,"totalPrpg":18.5,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":2,"So":1,"Jr":2,"Sr":2},"players":[{"name":"Darryn Peterson","yr":"Fr","prpg":4.7,"usg":30.9,"bpm":12.3,"ortg":115.0,"efg":53.0,"ast":13.5,"blk":1.9,"stl":3.0,"orb":3.0,"drb":12.6},{"name":"Flory Bidunga","yr":"So","prpg":4.6,"usg":19.7,"bpm":9.7,"ortg":124.6,"efg":64.5,"ast":10.1,"blk":9.2,"stl":1.3,"orb":11.5,"drb":18.8},{"name":"Tre White","yr":"Sr","prpg":4.0,"usg":21.4,"bpm":6.4,"ortg":117.4,"efg":54.7,"ast":10.6,"blk":1.4,"stl":1.1,"orb":7.2,"drb":14.8},{"name":"Melvin Council Jr.","yr":"Sr","prpg":2.9,"usg":23.2,"bpm":3.8,"ortg":104.0,"efg":43.9,"ast":28.3,"blk":0.9,"stl":1.8,"orb":2.5,"drb":11.6},{"name":"Bryson Tiller","yr":"Fr","prpg":1.0,"usg":19.2,"bpm":2.2,"ortg":97.3,"efg":49.1,"ast":7.3,"blk":5.7,"stl":0.8,"orb":7.0,"drb":17.0},{"name":"Elmarko Jackson","yr":"Jr","prpg":0.7,"usg":16.0,"bpm":2.0,"ortg":101.9,"efg":43.7,"ast":14.2,"blk":1.3,"stl":2.4,"orb":0.4,"drb":9.4},{"name":"Jamari McDowell","yr":"Jr","prpg":0.6,"usg":11.1,"bpm":2.3,"ortg":108.2,"efg":51.5,"ast":10.8,"blk":0.9,"stl":1.4,"orb":1.4,"drb":7.9}]},{"rk":23,"team":"Ohio St.","conf":"Big Ten","rec":"21\u201312","barthag":0.917,"adjOE":125.2,"adjDE":101.6,"netRtg":23.6,"efg":56.5,"efgD":50.3,"tov":15.4,"tovD":15.8,"oreb":30.8,"dreb":30.0,"pace":66.2,"exp":1.78,"talent":68.9,"sos":37.9,"hgt":77.7,"l10_bar":0.9779,"l10_oe":136.6,"l10_de":98.2,"l10_rec":"4\u20131","usgConc":0.077,"totalPrpg":20.4,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":1,"Sr":2},"players":[{"name":"Bruce Thornton","yr":"Sr","prpg":7.4,"usg":23.5,"bpm":12.0,"ortg":137.0,"efg":63.0,"ast":22.0,"blk":0.8,"stl":1.9,"orb":3.5,"drb":13.6},{"name":"John Mobley Jr.","yr":"So","prpg":4.1,"usg":23.4,"bpm":5.7,"ortg":118.6,"efg":57.3,"ast":16.4,"blk":0.4,"stl":1.5,"orb":1.6,"drb":7.7},{"name":"Devin Royal","yr":"Jr","prpg":3.5,"usg":21.8,"bpm":3.0,"ortg":114.2,"efg":52.6,"ast":9.7,"blk":0.6,"stl":1.2,"orb":6.7,"drb":15.0},{"name":"Christoph Tilly","yr":"Sr","prpg":3.1,"usg":23.5,"bpm":4.5,"ortg":114.5,"efg":50.9,"ast":15.6,"blk":2.4,"stl":1.4,"orb":7.0,"drb":15.2},{"name":"Amare Bynum","yr":"Fr","prpg":2.3,"usg":16.9,"bpm":3.7,"ortg":114.3,"efg":55.9,"ast":6.8,"blk":3.3,"stl":1.3,"orb":5.3,"drb":15.5}]},{"rk":24,"team":"UCLA","conf":"Big Ten","rec":"23\u201311","barthag":0.911,"adjOE":124.5,"adjDE":101.8,"netRtg":22.8,"efg":53.9,"efgD":50.4,"tov":13.4,"tovD":18.1,"oreb":31.1,"dreb":32.4,"pace":64.7,"exp":2.24,"talent":70.3,"sos":36.3,"hgt":78.0,"l10_bar":0.9767,"l10_oe":133.4,"l10_de":96.4,"l10_rec":"4\u20131","usgConc":0.261,"totalPrpg":21.0,"injCount":1,"injStar":true,"yrBreakdown":{"Fr":0,"So":1,"Jr":2,"Sr":3},"players":[{"name":"Tyler Bilodeau","yr":"Sr","prpg":5.0,"usg":23.8,"bpm":7.9,"ortg":126.7,"efg":60.9,"ast":7.3,"blk":1.5,"stl":1.0,"orb":4.7,"drb":18.2,"inj":"Knee","injStatus":"Game Time Decision"},{"name":"Trent Perry","yr":"So","prpg":4.0,"usg":21.1,"bpm":6.3,"ortg":123.1,"efg":53.1,"ast":17.8,"blk":0.5,"stl":1.9,"orb":3.4,"drb":8.9},{"name":"Donovan Dent","yr":"Sr","prpg":3.9,"usg":26.6,"bpm":4.8,"ortg":110.2,"efg":44.1,"ast":41.8,"blk":1.3,"stl":2.8,"orb":1.7,"drb":8.7},{"name":"Skyy Clark","yr":"Sr","prpg":3.4,"usg":17.8,"bpm":4.9,"ortg":123.4,"efg":57.9,"ast":13.6,"blk":0.4,"stl":2.5,"orb":1.5,"drb":8.4},{"name":"Eric Dailey Jr.","yr":"Jr","prpg":2.6,"usg":21.2,"bpm":3.7,"ortg":111.0,"efg":53.8,"ast":9.3,"blk":1.0,"stl":1.9,"orb":6.8,"drb":19.3},{"name":"Xavier Booker","yr":"Jr","prpg":2.1,"usg":16.1,"bpm":5.5,"ortg":123.2,"efg":62.3,"ast":7.3,"blk":7.5,"stl":0.6,"orb":7.4,"drb":13.6}]},{"rk":25,"team":"Saint Mary's","conf":"WCC","rec":"26\u20135","barthag":0.91,"adjOE":119.4,"adjDE":97.6,"netRtg":21.8,"efg":52.9,"efgD":46.7,"tov":16.4,"tovD":15.2,"oreb":37.6,"dreb":23.8,"pace":65.3,"exp":1.35,"talent":37.0,"sos":22.7,"hgt":78.7,"l10_bar":0.8426,"l10_oe":122.4,"l10_de":105.8,"l10_rec":"0\u20131","usgConc":0.29,"totalPrpg":18.2,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":2,"Jr":2,"Sr":1},"players":[{"name":"Paulius Murauskas","yr":"Jr","prpg":5.1,"usg":26.7,"bpm":7.3,"ortg":122.5,"efg":52.6,"ast":14.4,"blk":1.8,"stl":1.1,"orb":7.6,"drb":19.7},{"name":"Joshua Dent","yr":"So","prpg":4.1,"usg":18.6,"bpm":6.0,"ortg":122.8,"efg":55.2,"ast":28.5,"blk":0.5,"stl":2.7,"orb":1.0,"drb":6.6},{"name":"Mikey Lewis","yr":"So","prpg":3.1,"usg":25.3,"bpm":4.6,"ortg":114.4,"efg":49.0,"ast":15.8,"blk":0.9,"stl":1.7,"orb":1.8,"drb":9.5},{"name":"Andrew McKeever","yr":"Jr","prpg":2.4,"usg":23.4,"bpm":5.0,"ortg":113.1,"efg":51.5,"ast":14.6,"blk":3.9,"stl":1.3,"orb":20.1,"drb":25.5},{"name":"Dillan Shaw","yr":"Fr","prpg":2.0,"usg":13.8,"bpm":5.4,"ortg":118.8,"efg":55.2,"ast":10.1,"blk":2.5,"stl":1.8,"orb":5.7,"drb":15.9},{"name":"Harry Wessels","yr":"Sr","prpg":1.5,"usg":16.4,"bpm":3.3,"ortg":118.4,"efg":51.0,"ast":5.6,"blk":6.4,"stl":1.3,"orb":16.9,"drb":17.8}]},{"rk":26,"team":"Iowa","conf":"Big Ten","rec":"21\u201312","barthag":0.907,"adjOE":122.1,"adjDE":100.2,"netRtg":21.9,"efg":56.6,"efgD":52.7,"tov":15.2,"tovD":21.0,"oreb":30.1,"dreb":28.0,"pace":63.0,"exp":1.78,"talent":14.3,"sos":35.5,"hgt":78.5,"l10_bar":0.8878,"l10_oe":121.0,"l10_de":101.1,"l10_rec":"1\u20133","usgConc":0.348,"totalPrpg":19.1,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":2,"Jr":4,"Sr":1},"players":[{"name":"Bennett Stirtz","yr":"Sr","prpg":6.1,"usg":26.0,"bpm":9.3,"ortg":124.1,"efg":58.1,"ast":25.4,"blk":1.0,"stl":2.4,"orb":0.8,"drb":8.6},{"name":"Tavion Banks","yr":"Jr","prpg":2.9,"usg":23.0,"bpm":4.9,"ortg":118.7,"efg":57.6,"ast":10.0,"blk":1.4,"stl":2.7,"orb":8.6,"drb":19.5},{"name":"Alvaro Folgueiras","yr":"Jr","prpg":2.6,"usg":21.7,"bpm":6.5,"ortg":119.4,"efg":57.7,"ast":21.2,"blk":1.5,"stl":2.4,"orb":6.5,"drb":18.5},{"name":"Cam Manyawu","yr":"Jr","prpg":2.5,"usg":19.1,"bpm":6.1,"ortg":126.1,"efg":64.0,"ast":10.4,"blk":3.9,"stl":2.9,"orb":12.7,"drb":20.4},{"name":"Cooper Koch","yr":"So","prpg":2.5,"usg":13.1,"bpm":4.1,"ortg":124.8,"efg":57.8,"ast":7.2,"blk":0.6,"stl":1.3,"orb":4.1,"drb":11.1},{"name":"Isaia Howard","yr":"So","prpg":1.3,"usg":17.3,"bpm":4.6,"ortg":110.8,"efg":50.6,"ast":11.8,"blk":2.2,"stl":3.8,"orb":6.4,"drb":14.5},{"name":"Kael Combs","yr":"Jr","prpg":1.2,"usg":14.8,"bpm":2.0,"ortg":108.5,"efg":52.3,"ast":15.5,"blk":0.3,"stl":1.9,"orb":2.6,"drb":10.9}]},{"rk":27,"team":"North Carolina","conf":"ACC","rec":"24\u20138","barthag":0.903,"adjOE":121.5,"adjDE":100.1,"netRtg":21.4,"efg":54.6,"efgD":48.2,"tov":14.0,"tovD":13.6,"oreb":31.4,"dreb":28.1,"pace":68.0,"exp":1.52,"talent":63.8,"sos":33.4,"hgt":79.2,"l10_bar":0.8555,"l10_oe":117.3,"l10_de":100.5,"l10_rec":"1\u20132","usgConc":0.472,"totalPrpg":20.5,"injCount":1,"injStar":true,"yrBreakdown":{"Fr":2,"So":1,"Jr":4,"Sr":1},"players":[{"name":"Caleb Wilson","yr":"Fr","prpg":5.4,"usg":28.7,"bpm":12.9,"ortg":123.3,"efg":59.0,"ast":18.0,"blk":4.4,"stl":2.8,"orb":10.5,"drb":22.2,"inj":"Thumb","injStatus":"Out For Season"},{"name":"Henri Veesaar","yr":"Jr","prpg":4.8,"usg":22.3,"bpm":9.7,"ortg":126.5,"efg":67.1,"ast":13.2,"blk":4.0,"stl":1.1,"orb":8.2,"drb":22.0},{"name":"Seth Trimble","yr":"Sr","prpg":3.5,"usg":21.9,"bpm":3.9,"ortg":113.3,"efg":50.9,"ast":16.0,"blk":0.7,"stl":2.1,"orb":3.6,"drb":8.6},{"name":"Jarin Stevenson","yr":"Jr","prpg":2.2,"usg":15.0,"bpm":4.5,"ortg":118.8,"efg":54.3,"ast":5.9,"blk":2.6,"stl":1.4,"orb":6.5,"drb":12.3},{"name":"Luka Bogavac","yr":"Jr","prpg":2.1,"usg":20.8,"bpm":2.2,"ortg":110.4,"efg":50.4,"ast":16.3,"blk":0.0,"stl":0.8,"orb":2.6,"drb":8.5},{"name":"Derek Dixon","yr":"Fr","prpg":1.3,"usg":16.7,"bpm":2.6,"ortg":109.3,"efg":50.0,"ast":19.9,"blk":0.0,"stl":1.1,"orb":1.3,"drb":9.7},{"name":"Jonathan Powell","yr":"So","prpg":1.0,"usg":14.5,"bpm":3.4,"ortg":113.7,"efg":53.4,"ast":7.8,"blk":0.4,"stl":1.8,"orb":4.3,"drb":11.5},{"name":"Kyan Evans","yr":"Jr","prpg":0.2,"usg":16.1,"bpm":-1.7,"ortg":96.1,"efg":44.5,"ast":22.7,"blk":0.0,"stl":1.6,"orb":0.0,"drb":7.1}]},{"rk":28,"team":"Santa Clara","conf":"WCC","rec":"25\u20138","barthag":0.895,"adjOE":125.0,"adjDE":103.7,"netRtg":21.3,"efg":54.6,"efgD":51.8,"tov":15.6,"tovD":20.1,"oreb":36.7,"dreb":32.3,"pace":69.3,"exp":1.44,"talent":20.0,"sos":24.2,"hgt":78.4,"l10_bar":0.9187,"l10_oe":136.4,"l10_de":110.4,"l10_rec":"2\u20131","usgConc":0.193,"totalPrpg":20.7,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":2,"So":2,"Jr":2,"Sr":2},"players":[{"name":"Allen Graves","yr":"Fr","prpg":4.1,"usg":22.2,"bpm":13.0,"ortg":135.3,"efg":58.7,"ast":14.0,"blk":5.0,"stl":5.1,"orb":13.8,"drb":20.2},{"name":"Christian Hammond","yr":"So","prpg":3.7,"usg":23.1,"bpm":4.2,"ortg":118.5,"efg":55.5,"ast":14.5,"blk":0.2,"stl":2.1,"orb":2.1,"drb":8.7},{"name":"Jake Ensminger","yr":"Jr","prpg":3.3,"usg":10.9,"bpm":5.0,"ortg":137.4,"efg":65.5,"ast":14.9,"blk":0.8,"stl":1.7,"orb":7.6,"drb":15.0},{"name":"Elijah Mahi","yr":"Sr","prpg":3.0,"usg":22.9,"bpm":4.8,"ortg":112.8,"efg":51.0,"ast":15.0,"blk":1.4,"stl":2.8,"orb":5.9,"drb":12.9},{"name":"Bukky Oboye","yr":"So","prpg":2.5,"usg":17.6,"bpm":5.1,"ortg":131.7,"efg":68.8,"ast":5.9,"blk":7.8,"stl":2.2,"orb":10.4,"drb":17.6},{"name":"Sash Gavalyugov","yr":"Fr","prpg":1.9,"usg":23.5,"bpm":2.4,"ortg":111.4,"efg":52.1,"ast":22.7,"blk":0.0,"stl":1.6,"orb":4.0,"drb":6.4},{"name":"Brenton Knapper","yr":"Sr","prpg":1.5,"usg":19.3,"bpm":1.4,"ortg":108.0,"efg":47.2,"ast":16.6,"blk":0.2,"stl":3.4,"orb":2.8,"drb":7.1},{"name":"Thierry Darlan","yr":"Jr","prpg":0.7,"usg":18.1,"bpm":-0.6,"ortg":102.8,"efg":49.7,"ast":7.5,"blk":3.7,"stl":1.6,"orb":4.8,"drb":17.7}]},{"rk":29,"team":"Utah St.","conf":"MWC","rec":"27\u20136","barthag":0.895,"adjOE":123.0,"adjDE":102.1,"netRtg":20.9,"efg":56.6,"efgD":49.6,"tov":15.4,"tovD":20.6,"oreb":33.1,"dreb":32.2,"pace":67.6,"exp":2.19,"talent":26.5,"sos":23.0,"hgt":77.7,"l10_bar":0.8815,"l10_oe":119.2,"l10_de":100.1,"l10_rec":"4\u20131","usgConc":0.158,"totalPrpg":18.3,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":0,"Jr":2,"Sr":4},"players":[{"name":"Mason Falslev","yr":"Jr","prpg":4.5,"usg":22.8,"bpm":9.1,"ortg":123.4,"efg":57.7,"ast":17.7,"blk":1.0,"stl":3.7,"orb":5.6,"drb":15.5},{"name":"MJ Collins","yr":"Sr","prpg":4.4,"usg":22.5,"bpm":5.5,"ortg":125.0,"efg":57.5,"ast":9.9,"blk":0.4,"stl":1.6,"orb":2.0,"drb":7.0},{"name":"Karson Templin","yr":"Jr","prpg":2.2,"usg":23.1,"bpm":3.9,"ortg":117.2,"efg":56.4,"ast":7.3,"blk":5.7,"stl":2.4,"orb":12.0,"drb":14.6},{"name":"Garry Clark","yr":"Sr","prpg":2.1,"usg":18.2,"bpm":3.2,"ortg":128.7,"efg":70.7,"ast":7.2,"blk":3.2,"stl":1.4,"orb":15.0,"drb":15.0},{"name":"Kolby King","yr":"Sr","prpg":2.1,"usg":16.9,"bpm":5.3,"ortg":123.5,"efg":59.7,"ast":13.2,"blk":0.2,"stl":1.9,"orb":3.2,"drb":17.5},{"name":"Drake Allen","yr":"Sr","prpg":1.8,"usg":20.2,"bpm":5.6,"ortg":108.0,"efg":52.1,"ast":29.4,"blk":2.0,"stl":4.6,"orb":2.4,"drb":11.1},{"name":"Adlan Elamin","yr":"Fr","prpg":1.2,"usg":15.9,"bpm":3.4,"ortg":113.0,"efg":53.3,"ast":7.7,"blk":2.2,"stl":2.3,"orb":4.8,"drb":14.0}]},{"rk":30,"team":"Clemson","conf":"ACC","rec":"24\u201310","barthag":0.892,"adjOE":116.5,"adjDE":97.0,"netRtg":19.6,"efg":52.6,"efgD":48.9,"tov":14.2,"tovD":17.5,"oreb":28.1,"dreb":25.7,"pace":64.3,"exp":2.34,"talent":43.9,"sos":31.5,"hgt":78.0,"l10_bar":0.8788,"l10_oe":119.4,"l10_de":100.5,"l10_rec":"3\u20132","usgConc":0.31,"totalPrpg":15.4,"injCount":1,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":2,"Sr":5},"players":[{"name":"RJ Godfrey","yr":"Sr","prpg":3.3,"usg":23.5,"bpm":6.7,"ortg":120.4,"efg":61.6,"ast":14.1,"blk":3.2,"stl":1.6,"orb":8.4,"drb":17.0},{"name":"Carter Welling","yr":"Jr","prpg":2.4,"usg":26.0,"bpm":6.8,"ortg":113.0,"efg":53.2,"ast":11.2,"blk":4.7,"stl":2.5,"orb":8.9,"drb":22.4,"inj":"Knee","injStatus":"Out For Season"},{"name":"Nick Davidson","yr":"Sr","prpg":2.3,"usg":21.0,"bpm":4.8,"ortg":116.3,"efg":58.6,"ast":10.4,"blk":2.3,"stl":1.3,"orb":6.9,"drb":15.7},{"name":"Ace Buckner","yr":"So","prpg":1.9,"usg":23.7,"bpm":5.2,"ortg":111.5,"efg":50.0,"ast":19.3,"blk":0.6,"stl":2.7,"orb":3.9,"drb":13.5},{"name":"Dillon Hunter","yr":"Sr","prpg":1.7,"usg":16.0,"bpm":3.1,"ortg":111.8,"efg":48.3,"ast":19.6,"blk":0.5,"stl":2.0,"orb":2.0,"drb":13.8},{"name":"Jestin Porter","yr":"Sr","prpg":1.6,"usg":19.0,"bpm":3.8,"ortg":106.7,"efg":47.6,"ast":9.6,"blk":1.1,"stl":2.8,"orb":2.5,"drb":5.6},{"name":"Efrem Johnson","yr":"Sr","prpg":1.4,"usg":15.0,"bpm":3.7,"ortg":114.7,"efg":50.3,"ast":8.7,"blk":1.1,"stl":1.8,"orb":2.4,"drb":9.8},{"name":"Jake Wahlin","yr":"Jr","prpg":0.8,"usg":14.6,"bpm":1.5,"ortg":107.1,"efg":52.3,"ast":6.1,"blk":1.7,"stl":1.0,"orb":4.9,"drb":17.8}]},{"rk":31,"team":"Kentucky","conf":"SEC","rec":"21\u201313","barthag":0.89,"adjOE":119.9,"adjDE":100.0,"netRtg":19.9,"efg":53.1,"efgD":48.8,"tov":15.0,"tovD":15.8,"oreb":33.8,"dreb":30.1,"pace":68.3,"exp":1.58,"talent":85.1,"sos":40.8,"hgt":78.8,"l10_bar":0.8486,"l10_oe":118.0,"l10_de":101.6,"l10_rec":"2\u20133","usgConc":0.31,"totalPrpg":15.5,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":1,"Sr":2},"players":[{"name":"Otega Oweh","yr":"Sr","prpg":3.8,"usg":26.6,"bpm":5.8,"ortg":111.2,"efg":50.8,"ast":16.0,"blk":0.8,"stl":3.2,"orb":3.3,"drb":12.4},{"name":"Denzel Aberdeen","yr":"Sr","prpg":3.6,"usg":20.9,"bpm":4.4,"ortg":119.2,"efg":50.7,"ast":21.2,"blk":0.3,"stl":1.3,"orb":2.5,"drb":6.8},{"name":"Collin Chandler","yr":"So","prpg":2.8,"usg":16.1,"bpm":6.0,"ortg":122.9,"efg":58.8,"ast":14.5,"blk":1.0,"stl":2.6,"orb":1.6,"drb":10.0},{"name":"Malachi Moreno","yr":"Fr","prpg":2.7,"usg":18.2,"bpm":6.8,"ortg":123.0,"efg":58.3,"ast":13.3,"blk":7.6,"stl":1.4,"orb":12.1,"drb":18.7},{"name":"Mouhamed Dioubate","yr":"Jr","prpg":2.6,"usg":19.7,"bpm":5.9,"ortg":120.4,"efg":54.5,"ast":8.1,"blk":4.9,"stl":2.6,"orb":12.2,"drb":16.4}]},{"rk":32,"team":"Cincinnati","conf":"Big 12","rec":"18\u201315","barthag":0.889,"adjOE":112.3,"adjDE":93.7,"netRtg":18.6,"efg":50.5,"efgD":47.3,"tov":17.0,"tovD":18.2,"oreb":30.6,"dreb":27.3,"pace":67.7,"exp":2.0,"talent":61.9,"sos":32.7,"hgt":78.5,"l10_bar":0.8939,"l10_oe":109.8,"l10_de":91.2,"l10_rec":"2\u20132","usgConc":0.132,"totalPrpg":11.6,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":1,"Sr":3},"players":[{"name":"Baba Miller","yr":"Sr","prpg":3.3,"usg":22.3,"bpm":8.5,"ortg":112.7,"efg":54.6,"ast":23.3,"blk":4.2,"stl":1.3,"orb":8.3,"drb":27.7},{"name":"Day Day Thomas","yr":"Sr","prpg":2.3,"usg":20.3,"bpm":4.4,"ortg":108.0,"efg":48.4,"ast":21.5,"blk":1.9,"stl":1.8,"orb":2.2,"drb":9.2},{"name":"Moustapha Thiam","yr":"So","prpg":2.3,"usg":22.0,"bpm":5.0,"ortg":108.2,"efg":54.9,"ast":4.1,"blk":6.8,"stl":1.6,"orb":8.8,"drb":20.4},{"name":"Jalen Celestine","yr":"Sr","prpg":2.0,"usg":15.7,"bpm":6.9,"ortg":117.7,"efg":58.0,"ast":10.5,"blk":1.2,"stl":2.2,"orb":4.4,"drb":10.2},{"name":"Jizzle James","yr":"Jr","prpg":1.7,"usg":18.2,"bpm":1.8,"ortg":103.9,"efg":53.7,"ast":13.7,"blk":0.7,"stl":1.3,"orb":2.3,"drb":6.0}]},{"rk":33,"team":"BYU","conf":"Big 12","rec":"23\u201311","barthag":0.887,"adjOE":124.7,"adjDE":104.3,"netRtg":20.4,"efg":54.7,"efgD":51.2,"tov":15.3,"tovD":16.5,"oreb":34.6,"dreb":29.3,"pace":69.8,"exp":1.46,"talent":48.9,"sos":38.2,"hgt":78.1,"l10_bar":0.8916,"l10_oe":124.7,"l10_de":103.9,"l10_rec":"3\u20132","usgConc":0.524,"totalPrpg":22.0,"injCount":1,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":1,"Sr":2},"players":[{"name":"AJ Dybantsa","yr":"Fr","prpg":6.7,"usg":33.1,"bpm":10.2,"ortg":119.1,"efg":55.4,"ast":22.5,"blk":1.1,"stl":1.8,"orb":4.8,"drb":16.7},{"name":"Richie Saunders","yr":"Sr","prpg":5.3,"usg":23.7,"bpm":9.1,"ortg":128.0,"efg":59.3,"ast":12.1,"blk":1.0,"stl":3.1,"orb":6.7,"drb":13.6,"inj":"Knee","injStatus":"Out For Season"},{"name":"Robert Wright III","yr":"So","prpg":5.3,"usg":25.1,"bpm":5.6,"ortg":119.6,"efg":53.0,"ast":24.3,"blk":0.1,"stl":2.0,"orb":2.9,"drb":8.2},{"name":"Keba Keita","yr":"Sr","prpg":2.6,"usg":13.1,"bpm":7.0,"ortg":129.2,"efg":67.7,"ast":2.2,"blk":8.2,"stl":2.6,"orb":13.9,"drb":21.7},{"name":"Kennard Davis Jr.","yr":"Jr","prpg":2.1,"usg":13.6,"bpm":2.4,"ortg":114.8,"efg":50.2,"ast":6.7,"blk":0.7,"stl":2.2,"orb":3.2,"drb":7.0}]},{"rk":34,"team":"Indiana","conf":"Big Ten","rec":"18\u201314","barthag":0.885,"adjOE":121.9,"adjDE":102.1,"netRtg":19.9,"efg":56.1,"efgD":49.0,"tov":15.1,"tovD":15.1,"oreb":26.9,"dreb":29.3,"pace":66.2,"exp":2.64,"talent":24.1,"sos":35.8,"hgt":78.1,"l10_bar":0.8113,"l10_oe":119.5,"l10_de":105.2,"l10_rec":"1\u20133","usgConc":0.358,"totalPrpg":20.4,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":0,"Jr":1,"Sr":6},"players":[{"name":"Lamar Wilkerson","yr":"Sr","prpg":5.0,"usg":27.2,"bpm":7.2,"ortg":118.7,"efg":56.9,"ast":15.9,"blk":0.6,"stl":1.7,"orb":1.6,"drb":10.8},{"name":"Tucker DeVries","yr":"Sr","prpg":3.2,"usg":21.2,"bpm":6.1,"ortg":112.1,"efg":51.0,"ast":18.3,"blk":1.8,"stl":2.0,"orb":2.1,"drb":16.3},{"name":"Sam Alexis","yr":"Sr","prpg":3.2,"usg":18.5,"bpm":7.3,"ortg":131.6,"efg":69.3,"ast":11.7,"blk":6.2,"stl":0.9,"orb":11.6,"drb":16.0},{"name":"Reed Bailey","yr":"Sr","prpg":2.7,"usg":21.0,"bpm":3.3,"ortg":125.3,"efg":57.4,"ast":10.8,"blk":2.0,"stl":0.7,"orb":7.6,"drb":14.1},{"name":"Tayton Conerway","yr":"Sr","prpg":2.6,"usg":25.1,"bpm":6.3,"ortg":114.7,"efg":61.1,"ast":31.6,"blk":0.9,"stl":3.0,"orb":4.3,"drb":11.5},{"name":"Conor Enright","yr":"Sr","prpg":2.0,"usg":11.7,"bpm":1.8,"ortg":120.0,"efg":51.2,"ast":25.6,"blk":0.0,"stl":1.3,"orb":2.1,"drb":10.0},{"name":"Nick Dorn","yr":"Jr","prpg":1.7,"usg":15.5,"bpm":2.2,"ortg":114.6,"efg":57.3,"ast":2.3,"blk":0.5,"stl":0.8,"orb":3.2,"drb":9.0}]},{"rk":35,"team":"Miami FL","conf":"ACC","rec":"25\u20138","barthag":0.884,"adjOE":121.1,"adjDE":101.5,"netRtg":19.6,"efg":55.6,"efgD":51.7,"tov":16.2,"tovD":18.4,"oreb":37.0,"dreb":26.3,"pace":67.9,"exp":1.67,"talent":80.8,"sos":29.3,"hgt":78.4,"l10_bar":0.8833,"l10_oe":127.3,"l10_de":106.7,"l10_rec":"2\u20132","usgConc":0.467,"totalPrpg":18.5,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":2,"So":0,"Jr":1,"Sr":3},"players":[{"name":"Tre Donaldson","yr":"Sr","prpg":4.4,"usg":24.7,"bpm":6.1,"ortg":118.9,"efg":52.0,"ast":29.9,"blk":0.7,"stl":2.3,"orb":2.3,"drb":9.9},{"name":"Malik Reneau","yr":"Sr","prpg":4.3,"usg":30.0,"bpm":7.3,"ortg":117.3,"efg":57.9,"ast":13.7,"blk":3.1,"stl":2.0,"orb":10.0,"drb":17.4},{"name":"Ernest Udeh Jr.","yr":"Sr","prpg":3.2,"usg":11.0,"bpm":6.6,"ortg":137.0,"efg":73.5,"ast":3.0,"blk":6.2,"stl":2.1,"orb":13.2,"drb":26.5},{"name":"Shelton Henderson","yr":"Fr","prpg":3.0,"usg":21.1,"bpm":4.1,"ortg":115.1,"efg":58.4,"ast":11.2,"blk":1.4,"stl":2.1,"orb":7.1,"drb":11.5},{"name":"Tru Washington","yr":"Jr","prpg":2.4,"usg":21.0,"bpm":4.6,"ortg":112.3,"efg":51.4,"ast":10.2,"blk":0.0,"stl":4.0,"orb":5.6,"drb":11.2},{"name":"Dante Allen","yr":"Fr","prpg":1.2,"usg":14.9,"bpm":2.9,"ortg":109.6,"efg":50.0,"ast":14.3,"blk":0.5,"stl":2.4,"orb":2.7,"drb":11.3}]},{"rk":36,"team":"Villanova","conf":"Big East","rec":"24\u20138","barthag":0.881,"adjOE":119.6,"adjDE":100.5,"netRtg":19.1,"efg":53.7,"efgD":51.3,"tov":15.1,"tovD":18.7,"oreb":32.4,"dreb":31.7,"pace":64.9,"exp":1.55,"talent":63.8,"sos":30.1,"hgt":77.6,"l10_bar":0.8579,"l10_oe":117.1,"l10_de":100.2,"l10_rec":"2\u20131","usgConc":0.269,"totalPrpg":18.7,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":3,"Jr":1,"Sr":2},"players":[{"name":"Duke Brennan","yr":"Sr","prpg":4.1,"usg":21.0,"bpm":6.1,"ortg":123.1,"efg":65.7,"ast":12.3,"blk":2.0,"stl":1.6,"orb":14.9,"drb":24.5},{"name":"Tyler Perkins","yr":"Jr","prpg":3.7,"usg":21.2,"bpm":6.9,"ortg":120.4,"efg":53.3,"ast":10.5,"blk":1.1,"stl":2.4,"orb":6.1,"drb":15.6},{"name":"Acaden Lewis","yr":"Fr","prpg":2.9,"usg":24.7,"bpm":5.0,"ortg":108.3,"efg":50.3,"ast":33.6,"blk":0.3,"stl":3.8,"orb":1.5,"drb":10.5},{"name":"Bryce Lindsay","yr":"So","prpg":2.4,"usg":21.3,"bpm":1.7,"ortg":110.0,"efg":48.6,"ast":13.3,"blk":0.0,"stl":1.5,"orb":2.3,"drb":6.4},{"name":"Devin Askew","yr":"Sr","prpg":2.4,"usg":21.7,"bpm":4.9,"ortg":114.0,"efg":52.2,"ast":17.2,"blk":0.6,"stl":2.9,"orb":3.2,"drb":9.9},{"name":"Matt Hodge","yr":"So","prpg":2.2,"usg":15.0,"bpm":2.9,"ortg":118.4,"efg":57.2,"ast":4.5,"blk":2.4,"stl":0.9,"orb":4.8,"drb":10.5},{"name":"Malachi Palmer","yr":"So","prpg":1.0,"usg":11.4,"bpm":1.1,"ortg":116.6,"efg":56.8,"ast":5.5,"blk":0.4,"stl":2.0,"orb":3.3,"drb":7.6}]},{"rk":37,"team":"Georgia","conf":"SEC","rec":"22\u201310","barthag":0.877,"adjOE":124.3,"adjDE":104.8,"netRtg":19.6,"efg":54.6,"efgD":50.1,"tov":14.3,"tovD":18.4,"oreb":35.2,"dreb":34.9,"pace":72.0,"exp":1.55,"talent":61.0,"sos":32.4,"hgt":77.4,"l10_bar":0.848,"l10_oe":123.4,"l10_de":106.3,"l10_rec":"2\u20131","usgConc":0.342,"totalPrpg":17.7,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":3,"Jr":3,"Sr":0},"players":[{"name":"Blue Cain","yr":"Jr","prpg":3.9,"usg":20.4,"bpm":7.4,"ortg":128.1,"efg":54.2,"ast":16.1,"blk":0.7,"stl":2.7,"orb":6.4,"drb":13.2},{"name":"Jeremiah Wilkinson","yr":"So","prpg":3.3,"usg":28.0,"bpm":5.4,"ortg":115.7,"efg":50.1,"ast":12.5,"blk":1.2,"stl":3.5,"orb":1.7,"drb":6.7},{"name":"Marcus Millender","yr":"Jr","prpg":3.3,"usg":21.3,"bpm":4.8,"ortg":123.3,"efg":56.5,"ast":25.6,"blk":0.0,"stl":1.9,"orb":2.6,"drb":8.6},{"name":"Somto Cyril","yr":"So","prpg":3.0,"usg":17.6,"bpm":7.2,"ortg":132.4,"efg":76.4,"ast":4.7,"blk":10.8,"stl":1.6,"orb":12.6,"drb":15.2},{"name":"Kanon Catchings","yr":"So","prpg":2.5,"usg":21.8,"bpm":4.8,"ortg":116.9,"efg":55.2,"ast":8.8,"blk":1.5,"stl":1.8,"orb":6.2,"drb":15.5},{"name":"Jordan Ross","yr":"Jr","prpg":1.7,"usg":16.1,"bpm":1.1,"ortg":118.9,"efg":46.2,"ast":17.1,"blk":0.2,"stl":1.7,"orb":2.5,"drb":10.2}]},{"rk":38,"team":"N.C. State","conf":"ACC","rec":"20\u201313","barthag":0.877,"adjOE":124.1,"adjDE":104.6,"netRtg":19.4,"efg":55.3,"efgD":53.0,"tov":13.1,"tovD":18.2,"oreb":28.5,"dreb":30.3,"pace":69.1,"exp":2.19,"talent":63.2,"sos":32.8,"hgt":77.8,"l10_bar":0.7597,"l10_oe":131.0,"l10_de":118.6,"l10_rec":"1\u20133","usgConc":0.332,"totalPrpg":19.7,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":0,"Sr":4},"players":[{"name":"Ven-Allen Lubin","yr":"Sr","prpg":5.0,"usg":19.3,"bpm":6.2,"ortg":138.9,"efg":67.4,"ast":5.9,"blk":4.0,"stl":1.0,"orb":11.8,"drb":17.1},{"name":"Paul McNeil, Jr.","yr":"So","prpg":4.1,"usg":18.2,"bpm":6.4,"ortg":131.3,"efg":59.7,"ast":5.2,"blk":1.7,"stl":1.2,"orb":3.2,"drb":11.0},{"name":"Quadir Copeland","yr":"Sr","prpg":4.1,"usg":28.1,"bpm":6.4,"ortg":116.2,"efg":53.0,"ast":41.8,"blk":0.6,"stl":3.6,"orb":2.4,"drb":11.9},{"name":"Darrion Williams","yr":"Sr","prpg":2.9,"usg":23.7,"bpm":4.0,"ortg":109.9,"efg":51.1,"ast":17.5,"blk":1.3,"stl":2.0,"orb":3.5,"drb":13.9},{"name":"Tre Holloman","yr":"Sr","prpg":2.0,"usg":17.5,"bpm":2.8,"ortg":114.1,"efg":53.9,"ast":13.9,"blk":1.4,"stl":2.1,"orb":1.0,"drb":7.2},{"name":"Matt Able","yr":"Fr","prpg":1.6,"usg":19.8,"bpm":3.3,"ortg":108.5,"efg":51.4,"ast":7.7,"blk":1.9,"stl":3.3,"orb":4.1,"drb":14.0}]},{"rk":39,"team":"Texas A&M","conf":"SEC","rec":"21\u201311","barthag":0.873,"adjOE":119.9,"adjDE":101.4,"netRtg":18.5,"efg":54.2,"efgD":50.8,"tov":14.6,"tovD":18.3,"oreb":32.3,"dreb":32.5,"pace":71.0,"exp":2.5,"talent":29.5,"sos":32.5,"hgt":77.1,"l10_bar":0.7465,"l10_oe":112.6,"l10_de":102.5,"l10_rec":"2\u20131","usgConc":0.267,"totalPrpg":16.4,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":1,"Sr":5},"players":[{"name":"Rashaun Agee","yr":"Sr","prpg":3.7,"usg":25.1,"bpm":8.3,"ortg":121.9,"efg":52.0,"ast":16.7,"blk":3.5,"stl":2.0,"orb":10.7,"drb":25.2},{"name":"Ruben Dominguez","yr":"So","prpg":2.8,"usg":15.9,"bpm":5.0,"ortg":131.8,"efg":57.9,"ast":10.2,"blk":0.6,"stl":1.0,"orb":1.7,"drb":9.3},{"name":"Rylan Griffen","yr":"Sr","prpg":2.7,"usg":19.2,"bpm":7.6,"ortg":120.4,"efg":59.2,"ast":17.4,"blk":2.0,"stl":3.4,"orb":3.0,"drb":8.8},{"name":"Marcus Hill","yr":"Sr","prpg":2.2,"usg":21.4,"bpm":3.1,"ortg":114.8,"efg":52.6,"ast":12.8,"blk":0.6,"stl":2.4,"orb":5.9,"drb":9.1},{"name":"Pop Isaacs","yr":"Jr","prpg":1.8,"usg":21.3,"bpm":3.7,"ortg":111.4,"efg":55.5,"ast":20.4,"blk":0.5,"stl":1.6,"orb":1.6,"drb":11.2},{"name":"Jacari Lane","yr":"Sr","prpg":1.7,"usg":17.7,"bpm":1.9,"ortg":118.9,"efg":48.4,"ast":25.8,"blk":0.2,"stl":1.6,"orb":4.4,"drb":5.3},{"name":"Zach Clemence","yr":"Sr","prpg":1.5,"usg":18.1,"bpm":3.0,"ortg":118.8,"efg":58.0,"ast":8.3,"blk":2.6,"stl":1.7,"orb":6.9,"drb":13.5}]},{"rk":40,"team":"Oklahoma","conf":"SEC","rec":"19\u201315","barthag":0.873,"adjOE":125.1,"adjDE":105.9,"netRtg":19.3,"efg":55.1,"efgD":51.2,"tov":14.4,"tovD":15.3,"oreb":33.6,"dreb":33.0,"pace":66.1,"exp":2.25,"talent":54.2,"sos":35.2,"hgt":77.4,"l10_bar":0.9612,"l10_oe":129.4,"l10_de":97.9,"l10_rec":"4\u20131","usgConc":0.196,"totalPrpg":18.7,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":1,"Sr":4},"players":[{"name":"Nijel Pack","yr":"Sr","prpg":4.3,"usg":23.9,"bpm":7.1,"ortg":123.1,"efg":60.8,"ast":19.9,"blk":1.0,"stl":1.3,"orb":2.0,"drb":9.5},{"name":"Xzayvier Brown","yr":"Jr","prpg":3.9,"usg":22.3,"bpm":4.7,"ortg":120.0,"efg":53.5,"ast":18.8,"blk":0.6,"stl":2.4,"orb":1.4,"drb":9.8},{"name":"Derrion Reid","yr":"So","prpg":3.4,"usg":19.2,"bpm":3.9,"ortg":124.7,"efg":56.7,"ast":7.1,"blk":1.1,"stl":1.0,"orb":6.9,"drb":12.3},{"name":"Tae Davis","yr":"Sr","prpg":2.9,"usg":22.9,"bpm":1.5,"ortg":113.2,"efg":51.7,"ast":14.1,"blk":0.7,"stl":1.2,"orb":8.4,"drb":13.8},{"name":"Mohamed Wague","yr":"Sr","prpg":2.7,"usg":18.2,"bpm":5.0,"ortg":126.9,"efg":61.6,"ast":9.7,"blk":7.4,"stl":1.7,"orb":17.5,"drb":17.7},{"name":"Jadon Jones","yr":"Sr","prpg":1.5,"usg":13.4,"bpm":6.2,"ortg":120.9,"efg":52.3,"ast":6.5,"blk":4.5,"stl":3.6,"orb":3.7,"drb":15.3}]},{"rk":41,"team":"Auburn","conf":"SEC","rec":"17\u201316","barthag":0.864,"adjOE":124.2,"adjDE":105.8,"netRtg":18.4,"efg":52.3,"efgD":53.6,"tov":14.7,"tovD":16.3,"oreb":37.6,"dreb":32.1,"pace":67.4,"exp":1.47,"talent":46.5,"sos":41.9,"hgt":78.3,"l10_bar":0.8657,"l10_oe":119.1,"l10_de":101.2,"l10_rec":"2\u20132","usgConc":0.369,"totalPrpg":21.7,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":2,"So":2,"Jr":1,"Sr":2},"players":[{"name":"Keyshawn Hall","yr":"Sr","prpg":5.6,"usg":26.8,"bpm":6.9,"ortg":122.1,"efg":51.8,"ast":14.8,"blk":2.3,"stl":1.2,"orb":6.1,"drb":17.3},{"name":"Kevin Overton","yr":"Jr","prpg":4.0,"usg":17.7,"bpm":4.0,"ortg":126.6,"efg":55.2,"ast":7.3,"blk":0.5,"stl":2.1,"orb":2.8,"drb":10.2},{"name":"KeShawn Murphy","yr":"Sr","prpg":3.8,"usg":20.0,"bpm":8.0,"ortg":130.2,"efg":58.9,"ast":10.6,"blk":4.6,"stl":2.3,"orb":12.5,"drb":20.5},{"name":"Tahaad Pettiford","yr":"So","prpg":3.3,"usg":25.2,"bpm":2.6,"ortg":109.4,"efg":47.0,"ast":22.1,"blk":2.0,"stl":1.9,"orb":1.7,"drb":9.6},{"name":"Elyjah Freeman","yr":"So","prpg":2.2,"usg":17.7,"bpm":3.8,"ortg":114.6,"efg":49.8,"ast":8.3,"blk":2.4,"stl":2.8,"orb":8.1,"drb":14.5},{"name":"Filip Jovic","yr":"Fr","prpg":1.7,"usg":15.5,"bpm":1.5,"ortg":121.5,"efg":63.1,"ast":4.6,"blk":2.3,"stl":1.9,"orb":12.8,"drb":13.0},{"name":"Sebastian Williams-Adams","yr":"Fr","prpg":1.1,"usg":14.1,"bpm":2.5,"ortg":107.0,"efg":51.6,"ast":9.1,"blk":3.5,"stl":2.5,"orb":6.3,"drb":9.0}]},{"rk":42,"team":"SMU","conf":"ACC","rec":"20\u201313","barthag":0.861,"adjOE":123.0,"adjDE":105.0,"netRtg":18.1,"efg":55.7,"efgD":51.4,"tov":15.9,"tovD":17.1,"oreb":35.4,"dreb":31.6,"pace":68.6,"exp":2.03,"talent":44.3,"sos":32.0,"hgt":78.1,"l10_bar":0.7925,"l10_oe":113.5,"l10_de":101.0,"l10_rec":"1\u20133","usgConc":0.226,"totalPrpg":19.5,"injCount":1,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":0,"Sr":4},"players":[{"name":"Boopie Miller","yr":"Sr","prpg":5.8,"usg":25.9,"bpm":7.0,"ortg":124.8,"efg":54.7,"ast":30.9,"blk":0.2,"stl":2.4,"orb":1.8,"drb":10.3},{"name":"B.J. Edwards","yr":"Sr","prpg":3.9,"usg":19.7,"bpm":7.3,"ortg":121.0,"efg":55.1,"ast":23.8,"blk":0.7,"stl":4.0,"orb":4.4,"drb":15.2,"inj":"Ankle","injStatus":"Game Time Decision"},{"name":"Jaron Pierre Jr.","yr":"Sr","prpg":3.6,"usg":23.4,"bpm":3.9,"ortg":113.7,"efg":54.5,"ast":10.8,"blk":1.7,"stl":1.6,"orb":2.7,"drb":13.7},{"name":"Corey Washington","yr":"Sr","prpg":3.3,"usg":17.4,"bpm":3.5,"ortg":125.0,"efg":57.4,"ast":4.7,"blk":2.2,"stl":1.9,"orb":8.1,"drb":11.8},{"name":"Samet Yigitoglu","yr":"So","prpg":2.9,"usg":19.2,"bpm":2.9,"ortg":117.0,"efg":62.4,"ast":9.2,"blk":5.6,"stl":1.0,"orb":14.5,"drb":16.1}]},{"rk":43,"team":"Saint Louis","conf":"A-10","rec":"27\u20135","barthag":0.858,"adjOE":119.6,"adjDE":102.2,"netRtg":17.3,"efg":59.7,"efgD":44.8,"tov":17.4,"tovD":16.1,"oreb":31.1,"dreb":27.0,"pace":71.0,"exp":1.94,"talent":21.9,"sos":15.9,"hgt":77.5,"l10_bar":0.5473,"l10_oe":113.6,"l10_de":111.8,"l10_rec":"2\u20132","usgConc":0.294,"totalPrpg":19.3,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":3,"Jr":3,"Sr":2},"players":[{"name":"Robbie Avila","yr":"Sr","prpg":3.8,"usg":22.2,"bpm":8.3,"ortg":128.0,"efg":61.2,"ast":26.1,"blk":2.1,"stl":1.4,"orb":3.0,"drb":14.9},{"name":"Trey Green","yr":"So","prpg":3.4,"usg":16.8,"bpm":7.3,"ortg":136.3,"efg":66.7,"ast":11.2,"blk":0.0,"stl":2.2,"orb":2.9,"drb":9.6},{"name":"Ishan Sharma","yr":"So","prpg":2.7,"usg":15.2,"bpm":4.6,"ortg":133.1,"efg":62.4,"ast":10.4,"blk":0.2,"stl":1.5,"orb":1.8,"drb":10.3},{"name":"Kellen Thames","yr":"Jr","prpg":2.5,"usg":25.0,"bpm":9.5,"ortg":122.6,"efg":64.5,"ast":20.1,"blk":1.1,"stl":4.3,"orb":10.1,"drb":18.2},{"name":"Dion Brown","yr":"Sr","prpg":2.2,"usg":20.5,"bpm":3.0,"ortg":116.4,"efg":64.2,"ast":11.5,"blk":1.5,"stl":1.8,"orb":7.4,"drb":17.3},{"name":"Quentin Jones","yr":"Jr","prpg":1.6,"usg":18.6,"bpm":2.2,"ortg":109.7,"efg":52.1,"ast":17.0,"blk":3.6,"stl":1.9,"orb":3.7,"drb":11.3},{"name":"Amari McCottry","yr":"So","prpg":1.6,"usg":26.0,"bpm":3.0,"ortg":103.5,"efg":54.5,"ast":21.8,"blk":3.0,"stl":2.8,"orb":5.6,"drb":18.5},{"name":"Brady Dunlap","yr":"Jr","prpg":1.5,"usg":16.5,"bpm":1.7,"ortg":121.6,"efg":59.6,"ast":7.7,"blk":0.2,"stl":1.1,"orb":3.6,"drb":9.3}]},{"rk":44,"team":"San Diego St.","conf":"MWC","rec":"21\u201311","barthag":0.856,"adjOE":112.2,"adjDE":96.1,"netRtg":16.1,"efg":52.7,"efgD":48.2,"tov":17.2,"tovD":20.3,"oreb":29.5,"dreb":31.1,"pace":68.6,"exp":1.76,"talent":51.7,"sos":27.2,"hgt":78.2,"l10_bar":0.75,"l10_oe":109.1,"l10_de":99.2,"l10_rec":"3\u20132","usgConc":0.144,"totalPrpg":7.8,"injCount":1,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":3,"Sr":1},"players":[{"name":"BJ Davis","yr":"Jr","prpg":2.7,"usg":23.2,"bpm":6.7,"ortg":118.4,"efg":50.6,"ast":18.7,"blk":0.8,"stl":2.8,"orb":2.9,"drb":13.1},{"name":"Reese Dixon-Waters","yr":"Sr","prpg":2.2,"usg":20.4,"bpm":2.1,"ortg":109.0,"efg":50.9,"ast":8.1,"blk":0.4,"stl":1.5,"orb":2.2,"drb":11.1},{"name":"Miles Byrd","yr":"Jr","prpg":1.4,"usg":21.2,"bpm":7.5,"ortg":102.0,"efg":48.2,"ast":17.5,"blk":6.0,"stl":4.0,"orb":2.3,"drb":16.4},{"name":"Miles Heide","yr":"Jr","prpg":1.1,"usg":16.0,"bpm":1.7,"ortg":111.1,"efg":60.3,"ast":8.0,"blk":4.1,"stl":1.6,"orb":12.9,"drb":14.9,"inj":"Wrist","injStatus":"Out"},{"name":"Taj DeGourville","yr":"So","prpg":0.4,"usg":20.6,"bpm":0.6,"ortg":94.3,"efg":42.9,"ast":26.0,"blk":0.9,"stl":2.5,"orb":2.6,"drb":13.4}]},{"rk":45,"team":"Texas","conf":"SEC","rec":"17\u201314","barthag":0.854,"adjOE":124.1,"adjDE":106.4,"netRtg":17.7,"efg":54.2,"efgD":51.2,"tov":15.3,"tovD":13.4,"oreb":35.7,"dreb":26.9,"pace":67.1,"exp":2.24,"talent":56.0,"sos":37.7,"hgt":78.1,"l10_bar":0.5654,"l10_oe":108.8,"l10_de":106.4,"l10_rec":"0\u20133","usgConc":0.398,"totalPrpg":20.8,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":3,"Sr":3},"players":[{"name":"Dailyn Swain","yr":"Jr","prpg":4.9,"usg":26.0,"bpm":9.8,"ortg":121.5,"efg":58.0,"ast":20.8,"blk":1.1,"stl":3.0,"orb":5.9,"drb":21.4},{"name":"Matas Vokietaitis","yr":"So","prpg":3.8,"usg":27.6,"bpm":3.3,"ortg":118.8,"efg":61.0,"ast":4.9,"blk":3.5,"stl":0.4,"orb":11.8,"drb":19.3},{"name":"Jordan Pope","yr":"Sr","prpg":3.3,"usg":20.1,"bpm":2.4,"ortg":120.8,"efg":50.5,"ast":10.9,"blk":0.2,"stl":0.9,"orb":2.2,"drb":6.5},{"name":"Tramon Mark","yr":"Sr","prpg":3.3,"usg":22.2,"bpm":5.0,"ortg":118.3,"efg":52.8,"ast":12.4,"blk":1.7,"stl":2.0,"orb":4.3,"drb":9.9},{"name":"Camden Heide","yr":"Jr","prpg":2.8,"usg":10.0,"bpm":3.3,"ortg":140.8,"efg":66.3,"ast":4.3,"blk":0.6,"stl":0.9,"orb":4.6,"drb":9.4},{"name":"Chendall Weaver","yr":"Sr","prpg":1.7,"usg":14.9,"bpm":3.1,"ortg":118.8,"efg":47.9,"ast":9.3,"blk":0.6,"stl":2.2,"orb":8.0,"drb":15.7},{"name":"Simeon Wilcher","yr":"Jr","prpg":1.0,"usg":17.4,"bpm":0.8,"ortg":106.0,"efg":45.9,"ast":15.9,"blk":1.7,"stl":2.0,"orb":2.1,"drb":8.9}]},{"rk":46,"team":"Missouri","conf":"SEC","rec":"20\u201312","barthag":0.851,"adjOE":119.9,"adjDE":103.0,"netRtg":16.9,"efg":55.3,"efgD":51.4,"tov":18.0,"tovD":16.6,"oreb":35.5,"dreb":31.4,"pace":66.4,"exp":2.28,"talent":66.4,"sos":34.0,"hgt":79.3,"l10_bar":0.6757,"l10_oe":111.0,"l10_de":104.1,"l10_rec":"0\u20133","usgConc":0.319,"totalPrpg":19.4,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":2,"Sr":4},"players":[{"name":"Mark Mitchell","yr":"Sr","prpg":4.9,"usg":25.8,"bpm":7.1,"ortg":121.8,"efg":57.3,"ast":20.9,"blk":1.6,"stl":1.1,"orb":6.5,"drb":11.9},{"name":"Jayden Stone","yr":"Sr","prpg":4.0,"usg":18.3,"bpm":7.0,"ortg":128.7,"efg":58.6,"ast":11.7,"blk":1.0,"stl":1.8,"orb":3.6,"drb":16.0},{"name":"Trent Pierce","yr":"Jr","prpg":3.4,"usg":14.8,"bpm":6.1,"ortg":128.4,"efg":61.7,"ast":6.6,"blk":1.3,"stl":2.2,"orb":4.8,"drb":10.8},{"name":"Jacob Crews","yr":"Sr","prpg":2.8,"usg":15.7,"bpm":4.3,"ortg":135.4,"efg":63.7,"ast":2.1,"blk":0.7,"stl":0.6,"orb":7.8,"drb":13.2},{"name":"T.O. Barrett","yr":"So","prpg":1.7,"usg":23.0,"bpm":2.6,"ortg":106.4,"efg":49.5,"ast":24.1,"blk":1.2,"stl":3.1,"orb":4.4,"drb":9.5},{"name":"Anthony Robinson II","yr":"Jr","prpg":1.6,"usg":19.3,"bpm":2.3,"ortg":106.4,"efg":47.1,"ast":18.3,"blk":1.4,"stl":3.5,"orb":3.7,"drb":9.6},{"name":"Shawn Phillips Jr.","yr":"Sr","prpg":1.0,"usg":20.0,"bpm":1.0,"ortg":102.5,"efg":69.1,"ast":6.1,"blk":8.8,"stl":0.8,"orb":9.9,"drb":19.7}]},{"rk":47,"team":"Baylor","conf":"Big 12","rec":"15\u201316","barthag":0.843,"adjOE":123.3,"adjDE":106.5,"netRtg":16.8,"efg":53.8,"efgD":52.5,"tov":16.5,"tovD":16.1,"oreb":37.5,"dreb":32.2,"pace":67.8,"exp":1.85,"talent":49.1,"sos":37.2,"hgt":77.3,"l10_bar":0.9123,"l10_oe":132.5,"l10_de":108.1,"l10_rec":"1\u20132","usgConc":0.276,"totalPrpg":22.3,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":2,"Jr":0,"Sr":4},"players":[{"name":"Cameron Carr","yr":"So","prpg":5.0,"usg":24.2,"bpm":8.2,"ortg":120.7,"efg":59.5,"ast":13.7,"blk":3.8,"stl":1.6,"orb":2.2,"drb":16.7},{"name":"Tounde Yessoufou","yr":"Fr","prpg":4.2,"usg":25.2,"bpm":5.0,"ortg":114.1,"efg":51.7,"ast":9.0,"blk":1.6,"stl":3.4,"orb":8.7,"drb":12.1},{"name":"Isaac Williams","yr":"So","prpg":3.1,"usg":19.9,"bpm":3.6,"ortg":120.2,"efg":60.5,"ast":23.7,"blk":2.1,"stl":1.7,"orb":2.0,"drb":8.6},{"name":"Caden Powell","yr":"Sr","prpg":3.0,"usg":14.3,"bpm":4.1,"ortg":130.3,"efg":67.0,"ast":9.0,"blk":3.4,"stl":1.2,"orb":13.7,"drb":15.5},{"name":"Obi Agbim","yr":"Sr","prpg":3.0,"usg":15.9,"bpm":1.4,"ortg":117.0,"efg":49.2,"ast":15.8,"blk":0.3,"stl":1.4,"orb":1.7,"drb":7.3},{"name":"Dan Skillings Jr.","yr":"Sr","prpg":2.3,"usg":20.0,"bpm":2.2,"ortg":110.8,"efg":47.3,"ast":12.6,"blk":0.6,"stl":2.2,"orb":9.7,"drb":16.3},{"name":"Michael Rataj","yr":"Sr","prpg":1.7,"usg":18.7,"bpm":-0.2,"ortg":106.8,"efg":45.1,"ast":12.7,"blk":1.6,"stl":1.2,"orb":10.1,"drb":12.2}]},{"rk":48,"team":"VCU","conf":"A-10","rec":"27\u20137","barthag":0.843,"adjOE":119.3,"adjDE":103.1,"netRtg":16.2,"efg":54.1,"efgD":48.9,"tov":15.2,"tovD":17.2,"oreb":32.3,"dreb":29.9,"pace":68.7,"exp":1.7,"talent":21.1,"sos":19.6,"hgt":77.7,"l10_bar":0.9055,"l10_oe":120.7,"l10_de":99.2,"l10_rec":"5\u20130","usgConc":0.243,"totalPrpg":16.0,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":2,"Jr":2,"Sr":2},"players":[{"name":"Terrence Hill Jr.","yr":"So","prpg":4.0,"usg":24.6,"bpm":6.9,"ortg":129.4,"efg":56.8,"ast":24.1,"blk":0.3,"stl":1.4,"orb":1.3,"drb":10.0},{"name":"Lazar Djokovic","yr":"Jr","prpg":3.3,"usg":22.2,"bpm":4.4,"ortg":121.6,"efg":55.4,"ast":7.2,"blk":4.6,"stl":1.2,"orb":8.0,"drb":14.0},{"name":"Nyk Lewis","yr":"Fr","prpg":2.2,"usg":18.3,"bpm":3.7,"ortg":118.4,"efg":51.0,"ast":12.3,"blk":0.1,"stl":2.7,"orb":7.3,"drb":13.7},{"name":"Brandon Jennings","yr":"So","prpg":2.0,"usg":18.2,"bpm":4.9,"ortg":116.1,"efg":49.8,"ast":15.7,"blk":3.5,"stl":3.9,"orb":4.1,"drb":11.6},{"name":"Michael Belle","yr":"Jr","prpg":1.6,"usg":16.2,"bpm":3.1,"ortg":116.8,"efg":59.9,"ast":8.7,"blk":3.4,"stl":1.8,"orb":7.6,"drb":17.7},{"name":"Jadrian Tracey","yr":"Sr","prpg":1.5,"usg":22.9,"bpm":1.7,"ortg":106.0,"efg":53.9,"ast":15.7,"blk":1.8,"stl":1.9,"orb":3.5,"drb":10.8},{"name":"Barry Evans","yr":"Sr","prpg":1.4,"usg":16.1,"bpm":2.8,"ortg":111.0,"efg":50.0,"ast":14.6,"blk":2.0,"stl":2.0,"orb":7.8,"drb":13.4}]},{"rk":49,"team":"TCU","conf":"Big 12","rec":"22\u201311","barthag":0.836,"adjOE":114.8,"adjDE":99.7,"netRtg":15.2,"efg":50.9,"efgD":51.0,"tov":15.5,"tovD":19.7,"oreb":34.4,"dreb":29.2,"pace":67.6,"exp":1.81,"talent":50.4,"sos":33.8,"hgt":76.4,"l10_bar":0.9303,"l10_oe":126.6,"l10_de":101.0,"l10_rec":"3\u20131","usgConc":0.339,"totalPrpg":15.8,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":2,"Jr":4,"Sr":1},"players":[{"name":"David Punch","yr":"So","prpg":3.1,"usg":23.6,"bpm":7.6,"ortg":112.2,"efg":53.2,"ast":14.1,"blk":7.4,"stl":2.6,"orb":7.7,"drb":19.0},{"name":"Xavier Edmonds","yr":"Jr","prpg":2.9,"usg":26.3,"bpm":6.7,"ortg":115.4,"efg":61.3,"ast":10.6,"blk":4.6,"stl":2.5,"orb":14.4,"drb":19.5},{"name":"Liutauras Lelevicius","yr":"Jr","prpg":2.6,"usg":13.3,"bpm":4.3,"ortg":130.1,"efg":60.0,"ast":5.2,"blk":0.6,"stl":1.1,"orb":3.4,"drb":13.3},{"name":"Jayden Pierre","yr":"Sr","prpg":2.1,"usg":17.0,"bpm":2.2,"ortg":112.2,"efg":51.9,"ast":16.6,"blk":1.0,"stl":1.9,"orb":1.3,"drb":7.5},{"name":"Micah Robinson","yr":"So","prpg":2.1,"usg":20.8,"bpm":3.6,"ortg":108.9,"efg":45.8,"ast":11.9,"blk":1.6,"stl":2.5,"orb":6.1,"drb":15.0},{"name":"Tanner Toolson","yr":"Jr","prpg":1.7,"usg":18.7,"bpm":2.8,"ortg":112.8,"efg":44.1,"ast":7.9,"blk":1.6,"stl":1.8,"orb":7.2,"drb":10.1},{"name":"Brock Harding","yr":"Jr","prpg":1.3,"usg":17.8,"bpm":2.0,"ortg":102.5,"efg":42.7,"ast":31.0,"blk":0.4,"stl":3.1,"orb":1.4,"drb":9.2}]},{"rk":50,"team":"South Florida","conf":"AAC","rec":"24\u20138","barthag":0.835,"adjOE":116.8,"adjDE":101.4,"netRtg":15.4,"efg":50.9,"efgD":48.4,"tov":15.2,"tovD":18.8,"oreb":38.2,"dreb":31.8,"pace":71.4,"exp":2.25,"talent":30.8,"sos":18.2,"hgt":77.1,"l10_bar":0.913,"l10_oe":116.9,"l10_de":95.3,"l10_rec":"5\u20130","usgConc":0.114,"totalPrpg":13.7,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":1,"Sr":3},"players":[{"name":"Izaiyah Nelson","yr":"Sr","prpg":3.8,"usg":23.6,"bpm":8.5,"ortg":126.5,"efg":56.7,"ast":8.9,"blk":5.7,"stl":3.3,"orb":14.5,"drb":21.2},{"name":"Wes Enis","yr":"Jr","prpg":3.0,"usg":20.4,"bpm":3.0,"ortg":115.6,"efg":52.4,"ast":13.3,"blk":0.2,"stl":1.7,"orb":1.7,"drb":9.3},{"name":"Joseph Pinion","yr":"Sr","prpg":2.7,"usg":20.6,"bpm":4.9,"ortg":116.0,"efg":52.9,"ast":14.0,"blk":0.9,"stl":2.9,"orb":4.8,"drb":8.3},{"name":"Josh Omojafo","yr":"Sr","prpg":2.6,"usg":18.1,"bpm":3.1,"ortg":122.1,"efg":50.5,"ast":10.8,"blk":0.6,"stl":1.7,"orb":7.4,"drb":12.5},{"name":"CJ Brown","yr":"So","prpg":1.6,"usg":23.7,"bpm":0.4,"ortg":103.8,"efg":38.9,"ast":30.0,"blk":1.1,"stl":2.0,"orb":2.8,"drb":11.5}]},{"rk":51,"team":"Florida St.","conf":"ACC","rec":"18\u201315","barthag":0.831,"adjOE":119.4,"adjDE":104.0,"netRtg":15.5,"efg":52.3,"efgD":52.2,"tov":15.2,"tovD":19.0,"oreb":30.8,"dreb":34.1,"pace":70.6,"exp":2.12,"talent":26.7,"sos":33.3,"hgt":78.3,"l10_bar":0.9586,"l10_oe":136.3,"l10_de":103.7,"l10_rec":"3\u20131","usgConc":0.644,"totalPrpg":16.0,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":0,"Sr":5},"players":[{"name":"Robert McCray V","yr":"Sr","prpg":3.5,"usg":32.3,"bpm":5.2,"ortg":106.7,"efg":51.5,"ast":43.8,"blk":2.1,"stl":2.5,"orb":3.3,"drb":11.4},{"name":"Chauncey Wiggins","yr":"Sr","prpg":3.3,"usg":18.4,"bpm":4.1,"ortg":123.3,"efg":59.5,"ast":6.3,"blk":0.9,"stl":0.6,"orb":3.6,"drb":11.8},{"name":"Lajae Jones","yr":"Sr","prpg":2.8,"usg":19.3,"bpm":4.5,"ortg":115.0,"efg":51.2,"ast":7.0,"blk":4.0,"stl":2.3,"orb":5.1,"drb":16.3},{"name":"Alex Steen","yr":"Sr","prpg":2.6,"usg":16.5,"bpm":4.2,"ortg":130.9,"efg":63.2,"ast":7.8,"blk":4.3,"stl":1.9,"orb":15.0,"drb":16.8},{"name":"Martin Somerville","yr":"So","prpg":1.7,"usg":16.3,"bpm":2.4,"ortg":111.2,"efg":46.9,"ast":15.3,"blk":0.1,"stl":3.2,"orb":3.1,"drb":9.4},{"name":"Kobe MaGee","yr":"Sr","prpg":1.5,"usg":18.6,"bpm":2.7,"ortg":110.7,"efg":50.2,"ast":7.4,"blk":0.2,"stl":2.4,"orb":4.3,"drb":11.4},{"name":"Thomas Bassong","yr":"Fr","prpg":0.6,"usg":16.1,"bpm":-1.4,"ortg":102.1,"efg":53.0,"ast":3.6,"blk":2.4,"stl":1.8,"orb":7.2,"drb":12.8}]},{"rk":52,"team":"Washington","conf":"Big Ten","rec":"16\u201317","barthag":0.823,"adjOE":116.8,"adjDE":102.2,"netRtg":14.6,"efg":51.2,"efgD":50.2,"tov":15.3,"tovD":14.3,"oreb":34.6,"dreb":28.5,"pace":67.1,"exp":1.34,"talent":72.9,"sos":35.0,"hgt":77.8,"l10_bar":0.7211,"l10_oe":119.6,"l10_de":110.1,"l10_rec":"2\u20132","usgConc":0.369,"totalPrpg":14.7,"injCount":1,"injStar":false,"yrBreakdown":{"Fr":1,"So":2,"Jr":0,"Sr":2},"players":[{"name":"Hannes Steinbach","yr":"Fr","prpg":5.6,"usg":24.4,"bpm":9.0,"ortg":125.9,"efg":60.2,"ast":9.1,"blk":3.9,"stl":1.8,"orb":14.3,"drb":25.0},{"name":"Zoom Diallo","yr":"So","prpg":3.8,"usg":28.5,"bpm":4.3,"ortg":112.5,"efg":51.7,"ast":30.3,"blk":0.0,"stl":1.3,"orb":3.6,"drb":11.7},{"name":"Quimari Peterson","yr":"Sr","prpg":2.3,"usg":14.5,"bpm":4.2,"ortg":117.3,"efg":52.3,"ast":12.0,"blk":0.6,"stl":2.5,"orb":2.4,"drb":8.1},{"name":"Wesley Yates III","yr":"So","prpg":1.8,"usg":21.4,"bpm":1.8,"ortg":102.5,"efg":45.6,"ast":7.4,"blk":0.9,"stl":2.8,"orb":3.3,"drb":8.6},{"name":"Franck Kepnang","yr":"Sr","prpg":1.2,"usg":15.3,"bpm":3.4,"ortg":110.5,"efg":51.5,"ast":1.7,"blk":9.9,"stl":1.5,"orb":13.0,"drb":18.9,"inj":"Leg","injStatus":"Game Time Decision"}]},{"rk":53,"team":"New Mexico","conf":"MWC","rec":"22\u201310","barthag":0.82,"adjOE":116.5,"adjDE":102.1,"netRtg":14.4,"efg":53.6,"efgD":49.6,"tov":15.3,"tovD":19.1,"oreb":30.3,"dreb":27.6,"pace":69.8,"exp":1.49,"talent":11.0,"sos":23.4,"hgt":77.2,"l10_bar":0.6972,"l10_oe":116.6,"l10_de":108.4,"l10_rec":"1\u20133","usgConc":0.283,"totalPrpg":14.8,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":3,"So":0,"Jr":1,"Sr":2},"players":[{"name":"Jake Hall","yr":"Fr","prpg":4.0,"usg":19.7,"bpm":6.2,"ortg":126.2,"efg":61.5,"ast":10.4,"blk":0.1,"stl":1.6,"orb":2.3,"drb":9.9},{"name":"Tomislav Buljan","yr":"Fr","prpg":3.1,"usg":25.9,"bpm":4.3,"ortg":114.0,"efg":54.4,"ast":10.0,"blk":2.7,"stl":2.3,"orb":18.4,"drb":27.3},{"name":"Uriah Tenette","yr":"Fr","prpg":2.5,"usg":19.6,"bpm":3.1,"ortg":115.4,"efg":46.9,"ast":17.9,"blk":0.3,"stl":2.9,"orb":3.7,"drb":7.5},{"name":"Deyton Albury","yr":"Sr","prpg":2.3,"usg":25.1,"bpm":3.7,"ortg":108.9,"efg":54.6,"ast":22.0,"blk":0.7,"stl":2.9,"orb":2.5,"drb":14.5},{"name":"Luke Haupt","yr":"Sr","prpg":1.8,"usg":16.5,"bpm":3.0,"ortg":112.4,"efg":50.0,"ast":17.1,"blk":0.9,"stl":2.8,"orb":5.1,"drb":13.5},{"name":"Antonio Chol","yr":"Jr","prpg":1.1,"usg":14.3,"bpm":1.4,"ortg":110.6,"efg":52.7,"ast":5.6,"blk":3.5,"stl":0.6,"orb":2.1,"drb":10.1}]},{"rk":54,"team":"Virginia Tech","conf":"ACC","rec":"19\u201313","barthag":0.82,"adjOE":117.6,"adjDE":103.1,"netRtg":14.5,"efg":52.2,"efgD":50.8,"tov":14.9,"tovD":17.2,"oreb":31.9,"dreb":32.6,"pace":67.2,"exp":1.44,"talent":57.9,"sos":31.2,"hgt":77.9,"l10_bar":0.8105,"l10_oe":120.7,"l10_de":106.4,"l10_rec":"1\u20132","usgConc":0.225,"totalPrpg":17.7,"injCount":1,"injStar":true,"yrBreakdown":{"Fr":2,"So":1,"Jr":2,"Sr":2},"players":[{"name":"Amani Hansberry","yr":"Jr","prpg":3.6,"usg":24.5,"bpm":7.0,"ortg":115.0,"efg":54.5,"ast":15.8,"blk":2.5,"stl":2.8,"orb":11.0,"drb":17.2,"inj":"Undisclosed","injStatus":"Game Time Decision"},{"name":"Ben Hammond","yr":"So","prpg":3.4,"usg":20.6,"bpm":5.7,"ortg":118.6,"efg":51.0,"ast":19.2,"blk":0.3,"stl":3.7,"orb":1.4,"drb":7.1},{"name":"Tobi Lawal","yr":"Sr","prpg":3.0,"usg":20.2,"bpm":2.8,"ortg":116.8,"efg":57.8,"ast":3.9,"blk":4.3,"stl":0.6,"orb":9.2,"drb":25.0},{"name":"Christian Gurdak","yr":"Fr","prpg":2.0,"usg":15.5,"bpm":2.9,"ortg":130.2,"efg":63.2,"ast":3.5,"blk":2.5,"stl":1.1,"orb":14.8,"drb":15.4},{"name":"Neoklis Avdalas","yr":"Fr","prpg":2.0,"usg":23.5,"bpm":1.7,"ortg":101.9,"efg":46.0,"ast":26.9,"blk":1.9,"stl":1.1,"orb":0.4,"drb":11.0},{"name":"Jailen Bedford","yr":"Sr","prpg":1.9,"usg":22.4,"bpm":0.9,"ortg":106.2,"efg":48.3,"ast":9.7,"blk":0.3,"stl":1.2,"orb":4.6,"drb":10.1},{"name":"Jaden Schutt","yr":"Jr","prpg":1.8,"usg":13.3,"bpm":1.9,"ortg":120.7,"efg":54.4,"ast":6.7,"blk":0.0,"stl":1.3,"orb":0.9,"drb":6.8}]},{"rk":55,"team":"Grand Canyon","conf":"MWC","rec":"20\u201312","barthag":0.817,"adjOE":111.1,"adjDE":97.5,"netRtg":13.6,"efg":51.7,"efgD":47.4,"tov":17.6,"tovD":17.3,"oreb":31.3,"dreb":25.3,"pace":68.0,"exp":2.32,"talent":43.9,"sos":21.6,"hgt":78.5,"l10_bar":0.9024,"l10_oe":120.4,"l10_de":99.2,"l10_rec":"2\u20131","usgConc":0.427,"totalPrpg":11.9,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":0,"Jr":2,"Sr":3},"players":[{"name":"Jaden Henley","yr":"Sr","prpg":3.0,"usg":29.0,"bpm":5.7,"ortg":107.0,"efg":50.6,"ast":20.1,"blk":0.9,"stl":2.9,"orb":2.4,"drb":18.5},{"name":"Makaih Williams","yr":"Jr","prpg":2.8,"usg":25.6,"bpm":5.1,"ortg":113.1,"efg":51.3,"ast":19.1,"blk":0.7,"stl":2.0,"orb":4.4,"drb":7.5},{"name":"Nana Owusu-Anane","yr":"Sr","prpg":2.0,"usg":15.3,"bpm":5.6,"ortg":115.7,"efg":52.1,"ast":10.1,"blk":2.7,"stl":2.5,"orb":8.7,"drb":22.0},{"name":"Efe Demirel","yr":"Fr","prpg":2.0,"usg":17.8,"bpm":3.0,"ortg":119.5,"efg":63.0,"ast":3.0,"blk":5.7,"stl":1.4,"orb":11.7,"drb":16.0},{"name":"Brian Moore Jr.","yr":"Sr","prpg":1.7,"usg":18.4,"bpm":0.9,"ortg":110.1,"efg":54.0,"ast":17.9,"blk":0.4,"stl":1.4,"orb":2.4,"drb":7.7},{"name":"Dusty Stromer","yr":"Jr","prpg":0.4,"usg":15.8,"bpm":-0.9,"ortg":101.3,"efg":45.7,"ast":8.5,"blk":0.5,"stl":1.2,"orb":3.5,"drb":10.4}]},{"rk":56,"team":"Boise St.","conf":"MWC","rec":"19\u201311","barthag":0.815,"adjOE":118.1,"adjDE":103.8,"netRtg":14.3,"efg":52.2,"efgD":52.7,"tov":16.9,"tovD":14.5,"oreb":33.2,"dreb":23.6,"pace":65.7,"exp":2.02,"talent":32.0,"sos":25.5,"hgt":78.9,"l10_bar":0.854,"l10_oe":125.1,"l10_de":107.3,"l10_rec":"2\u20131","usgConc":0.448,"totalPrpg":16.8,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":2,"Sr":4},"players":[{"name":"Javan Buchanan","yr":"Sr","prpg":3.5,"usg":22.8,"bpm":5.2,"ortg":120.4,"efg":48.1,"ast":11.7,"blk":0.7,"stl":1.5,"orb":8.5,"drb":14.5},{"name":"Drew Fielder","yr":"Jr","prpg":3.5,"usg":27.9,"bpm":7.0,"ortg":119.4,"efg":59.0,"ast":11.7,"blk":2.6,"stl":1.0,"orb":9.3,"drb":19.5},{"name":"Andrew Meadow","yr":"Jr","prpg":3.2,"usg":17.4,"bpm":4.2,"ortg":123.4,"efg":59.9,"ast":7.0,"blk":0.1,"stl":1.2,"orb":4.0,"drb":10.1},{"name":"Dylan Andrews","yr":"Sr","prpg":2.6,"usg":23.4,"bpm":2.2,"ortg":109.8,"efg":45.3,"ast":20.2,"blk":0.3,"stl":1.3,"orb":0.9,"drb":9.8},{"name":"Dominic Parolin","yr":"Sr","prpg":1.8,"usg":17.2,"bpm":4.5,"ortg":122.9,"efg":54.2,"ast":6.9,"blk":3.1,"stl":2.1,"orb":14.3,"drb":20.0},{"name":"Pearson Carmichael","yr":"So","prpg":1.4,"usg":20.2,"bpm":0.5,"ortg":109.2,"efg":50.8,"ast":7.4,"blk":0.6,"stl":0.9,"orb":3.4,"drb":16.8},{"name":"RJ Keene","yr":"Sr","prpg":1.1,"usg":8.6,"bpm":4.4,"ortg":121.7,"efg":49.3,"ast":14.4,"blk":1.7,"stl":1.7,"orb":7.3,"drb":19.2},{"name":"Aginaldo Neto","yr":"Fr","prpg":-0.3,"usg":16.6,"bpm":-3.9,"ortg":88.3,"efg":42.6,"ast":17.8,"blk":0.4,"stl":1.3,"orb":0.7,"drb":8.0}]},{"rk":57,"team":"UCF","conf":"Big 12","rec":"21\u201311","barthag":0.812,"adjOE":120.0,"adjDE":105.7,"netRtg":14.3,"efg":52.8,"efgD":52.4,"tov":15.7,"tovD":15.8,"oreb":34.4,"dreb":28.5,"pace":69.1,"exp":2.43,"talent":42.1,"sos":33.9,"hgt":78.7,"l10_bar":0.5724,"l10_oe":107.1,"l10_de":104.4,"l10_rec":"1\u20133","usgConc":0.291,"totalPrpg":16.0,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":1,"Sr":4},"players":[{"name":"Jamichael Stillwell","yr":"Sr","prpg":3.4,"usg":21.2,"bpm":5.4,"ortg":118.6,"efg":53.1,"ast":13.7,"blk":0.7,"stl":2.2,"orb":12.8,"drb":19.5},{"name":"Themus Fulks","yr":"Sr","prpg":3.4,"usg":25.9,"bpm":1.1,"ortg":107.5,"efg":49.2,"ast":36.1,"blk":0.1,"stl":1.3,"orb":2.2,"drb":8.4},{"name":"Jordan Burks","yr":"Jr","prpg":3.2,"usg":19.4,"bpm":5.7,"ortg":119.4,"efg":53.7,"ast":3.9,"blk":2.0,"stl":2.1,"orb":5.4,"drb":14.2},{"name":"Riley Kugel","yr":"Sr","prpg":2.9,"usg":24.5,"bpm":3.2,"ortg":108.7,"efg":49.3,"ast":16.0,"blk":0.9,"stl":2.0,"orb":3.6,"drb":8.6},{"name":"John Bol","yr":"So","prpg":1.7,"usg":14.4,"bpm":3.0,"ortg":120.3,"efg":72.7,"ast":2.8,"blk":6.3,"stl":0.9,"orb":11.1,"drb":22.9},{"name":"Devan Cambridge","yr":"Sr","prpg":1.4,"usg":15.0,"bpm":3.5,"ortg":117.3,"efg":51.2,"ast":7.7,"blk":3.8,"stl":1.7,"orb":6.6,"drb":16.4}]},{"rk":58,"team":"Minnesota","conf":"Big Ten","rec":"15\u201317","barthag":0.812,"adjOE":116.0,"adjDE":102.1,"netRtg":13.8,"efg":54.2,"efgD":51.9,"tov":16.6,"tovD":17.1,"oreb":27.2,"dreb":29.8,"pace":62.6,"exp":1.97,"talent":17.4,"sos":34.1,"hgt":77.8,"l10_bar":0.5864,"l10_oe":110.7,"l10_de":107.4,"l10_rec":"1\u20132","usgConc":0.243,"totalPrpg":15.6,"injCount":1,"injStar":false,"yrBreakdown":{"Fr":0,"So":2,"Jr":2,"Sr":2},"players":[{"name":"Cade Tyson","yr":"Sr","prpg":5.4,"usg":24.3,"bpm":5.9,"ortg":124.5,"efg":59.5,"ast":13.8,"blk":0.6,"stl":1.3,"orb":5.3,"drb":13.2},{"name":"Bobby Durkin","yr":"Jr","prpg":2.7,"usg":14.6,"bpm":3.7,"ortg":121.1,"efg":59.9,"ast":11.9,"blk":0.5,"stl":1.6,"orb":2.2,"drb":9.7},{"name":"Langston Reynolds","yr":"Sr","prpg":2.4,"usg":22.4,"bpm":0.7,"ortg":106.0,"efg":55.7,"ast":29.8,"blk":0.5,"stl":1.5,"orb":3.0,"drb":13.6},{"name":"Jaylen Crocker-Johnson","yr":"Jr","prpg":2.1,"usg":24.6,"bpm":1.6,"ortg":103.3,"efg":49.3,"ast":12.7,"blk":4.0,"stl":1.3,"orb":7.5,"drb":20.0,"inj":"Foot","injStatus":"Game Time Decision"},{"name":"Isaac Asuma","yr":"So","prpg":1.8,"usg":20.9,"bpm":2.0,"ortg":102.3,"efg":49.4,"ast":22.8,"blk":1.9,"stl":2.3,"orb":3.0,"drb":11.8},{"name":"Grayson Grove","yr":"So","prpg":1.2,"usg":11.9,"bpm":4.7,"ortg":118.6,"efg":63.6,"ast":16.3,"blk":4.0,"stl":3.3,"orb":5.5,"drb":13.9}]},{"rk":59,"team":"Stanford","conf":"ACC","rec":"20\u201312","barthag":0.801,"adjOE":117.0,"adjDE":103.7,"netRtg":13.4,"efg":51.7,"efgD":51.2,"tov":15.5,"tovD":18.3,"oreb":32.3,"dreb":30.1,"pace":67.0,"exp":1.75,"talent":31.3,"sos":27.6,"hgt":77.4,"l10_bar":0.8638,"l10_oe":127.5,"l10_de":108.6,"l10_rec":"2\u20131","usgConc":0.49,"totalPrpg":15.1,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":1,"Sr":3},"players":[{"name":"Ebuka Okorie","yr":"Fr","prpg":6.4,"usg":29.9,"bpm":9.6,"ortg":122.7,"efg":52.5,"ast":23.5,"blk":1.1,"stl":2.6,"orb":2.4,"drb":10.5},{"name":"Benny Gealer","yr":"Sr","prpg":4.0,"usg":15.2,"bpm":6.2,"ortg":134.0,"efg":61.0,"ast":11.2,"blk":0.2,"stl":3.3,"orb":1.6,"drb":8.5},{"name":"Aidan Cammann","yr":"So","prpg":1.6,"usg":16.9,"bpm":2.0,"ortg":112.6,"efg":51.2,"ast":12.0,"blk":2.1,"stl":2.8,"orb":7.5,"drb":13.7},{"name":"AJ Rohosy","yr":"Sr","prpg":1.5,"usg":20.9,"bpm":-0.9,"ortg":107.4,"efg":55.7,"ast":6.9,"blk":2.7,"stl":1.5,"orb":12.2,"drb":21.2},{"name":"Jeremy Dent-Smith","yr":"Sr","prpg":1.5,"usg":21.7,"bpm":1.3,"ortg":105.7,"efg":49.4,"ast":15.1,"blk":0.5,"stl":2.3,"orb":1.6,"drb":9.3},{"name":"Ryan Agarwal","yr":"Jr","prpg":0.1,"usg":15.8,"bpm":-1.5,"ortg":94.6,"efg":46.4,"ast":6.6,"blk":1.1,"stl":1.5,"orb":3.5,"drb":18.2}]},{"rk":60,"team":"Seton Hall","conf":"Big East","rec":"21\u201312","barthag":0.801,"adjOE":108.7,"adjDE":96.3,"netRtg":12.4,"efg":47.6,"efgD":47.3,"tov":16.7,"tovD":21.5,"oreb":35.6,"dreb":31.9,"pace":65.2,"exp":2.01,"talent":26.0,"sos":28.4,"hgt":76.3,"l10_bar":0.8322,"l10_oe":114.6,"l10_de":99.7,"l10_rec":"2\u20132","usgConc":0.328,"totalPrpg":11.5,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":2,"Sr":3},"players":[{"name":"Adam Clark","yr":"Jr","prpg":2.2,"usg":26.1,"bpm":2.6,"ortg":101.4,"efg":45.0,"ast":33.6,"blk":0.3,"stl":3.9,"orb":2.0,"drb":9.3},{"name":"A.J. Staton-McCray","yr":"Sr","prpg":2.0,"usg":21.6,"bpm":4.2,"ortg":106.7,"efg":47.7,"ast":10.2,"blk":2.8,"stl":3.3,"orb":2.6,"drb":10.9},{"name":"Najai Hines","yr":"Fr","prpg":2.0,"usg":17.8,"bpm":6.9,"ortg":122.7,"efg":60.2,"ast":6.6,"blk":16.3,"stl":1.3,"orb":15.3,"drb":19.9},{"name":"Tajuan Simpkins","yr":"So","prpg":1.8,"usg":19.2,"bpm":3.9,"ortg":109.7,"efg":47.9,"ast":9.3,"blk":2.4,"stl":2.6,"orb":2.3,"drb":10.4},{"name":"Stephon Payne III","yr":"Sr","prpg":1.5,"usg":16.9,"bpm":3.4,"ortg":113.0,"efg":52.4,"ast":5.5,"blk":7.9,"stl":2.5,"orb":15.6,"drb":21.4},{"name":"Elijah Fisher","yr":"Sr","prpg":1.1,"usg":17.0,"bpm":2.0,"ortg":107.5,"efg":48.0,"ast":7.1,"blk":3.5,"stl":2.6,"orb":5.5,"drb":10.6},{"name":"Mike Williams III","yr":"Jr","prpg":0.9,"usg":19.0,"bpm":2.1,"ortg":101.2,"efg":44.8,"ast":14.0,"blk":0.6,"stl":3.0,"orb":1.8,"drb":12.7}]},{"rk":61,"team":"Arizona St.","conf":"Big 12","rec":"17\u201316","barthag":0.796,"adjOE":115.2,"adjDE":102.4,"netRtg":12.9,"efg":51.1,"efgD":52.4,"tov":17.1,"tovD":18.5,"oreb":29.8,"dreb":34.9,"pace":69.2,"exp":1.91,"talent":16.1,"sos":38.1,"hgt":79.0,"l10_bar":0.796,"l10_oe":107.0,"l10_de":95.1,"l10_rec":"2\u20132","usgConc":0.399,"totalPrpg":15.0,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":3,"Sr":3},"players":[{"name":"Maurice Odum","yr":"Sr","prpg":3.7,"usg":26.6,"bpm":4.0,"ortg":108.9,"efg":51.3,"ast":34.0,"blk":0.3,"stl":2.3,"orb":1.5,"drb":8.9},{"name":"Massamba Diop","yr":"Fr","prpg":3.0,"usg":21.3,"bpm":4.9,"ortg":113.2,"efg":58.2,"ast":7.6,"blk":7.9,"stl":1.2,"orb":7.5,"drb":15.0},{"name":"Anthony Johnson","yr":"Sr","prpg":2.3,"usg":26.9,"bpm":3.4,"ortg":104.4,"efg":49.7,"ast":14.5,"blk":1.5,"stl":3.0,"orb":3.0,"drb":11.8},{"name":"Santiago Trouet","yr":"Jr","prpg":1.9,"usg":17.3,"bpm":1.9,"ortg":110.6,"efg":46.1,"ast":6.4,"blk":3.2,"stl":1.5,"orb":10.7,"drb":16.4},{"name":"Andrija Grbovic","yr":"Jr","prpg":1.2,"usg":15.8,"bpm":0.6,"ortg":110.4,"efg":51.9,"ast":3.5,"blk":1.0,"stl":1.3,"orb":4.6,"drb":11.9},{"name":"Allen Mukeba","yr":"Sr","prpg":1.0,"usg":18.1,"bpm":2.8,"ortg":106.7,"efg":56.1,"ast":10.1,"blk":5.4,"stl":2.8,"orb":9.1,"drb":15.1},{"name":"Noah Meeusen","yr":"So","prpg":1.0,"usg":13.0,"bpm":2.7,"ortg":107.1,"efg":49.0,"ast":16.7,"blk":1.0,"stl":2.8,"orb":2.7,"drb":10.5},{"name":"Bryce Ford","yr":"Jr","prpg":0.9,"usg":14.8,"bpm":-1.2,"ortg":105.5,"efg":47.3,"ast":6.7,"blk":0.4,"stl":1.1,"orb":1.4,"drb":6.9}]},{"rk":62,"team":"West Virginia","conf":"Big 12","rec":"18\u201314","barthag":0.792,"adjOE":108.5,"adjDE":96.6,"netRtg":11.9,"efg":51.1,"efgD":48.3,"tov":17.5,"tovD":18.1,"oreb":31.0,"dreb":29.0,"pace":62.5,"exp":2.47,"talent":23.5,"sos":31.2,"hgt":76.8,"l10_bar":0.7688,"l10_oe":100.0,"l10_de":90.1,"l10_rec":"1\u20132","usgConc":0.284,"totalPrpg":12.2,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":0,"Jr":0,"Sr":6},"players":[{"name":"Honor Huff","yr":"Sr","prpg":3.2,"usg":22.4,"bpm":3.5,"ortg":110.7,"efg":49.7,"ast":11.2,"blk":0.0,"stl":1.8,"orb":0.7,"drb":7.0},{"name":"Brenen Lorient","yr":"Sr","prpg":2.5,"usg":22.1,"bpm":5.8,"ortg":110.9,"efg":56.5,"ast":15.4,"blk":5.2,"stl":1.4,"orb":8.0,"drb":13.2},{"name":"Chance Moore","yr":"Sr","prpg":2.1,"usg":26.3,"bpm":5.3,"ortg":105.8,"efg":53.7,"ast":8.3,"blk":3.4,"stl":1.9,"orb":10.4,"drb":19.0},{"name":"DJ Thomas","yr":"Fr","prpg":1.2,"usg":19.7,"bpm":2.0,"ortg":109.8,"efg":54.7,"ast":7.2,"blk":0.7,"stl":1.2,"orb":7.5,"drb":7.9},{"name":"Jasper Floyd","yr":"Sr","prpg":1.1,"usg":17.0,"bpm":3.6,"ortg":104.0,"efg":55.2,"ast":22.7,"blk":0.1,"stl":4.3,"orb":2.4,"drb":14.0},{"name":"Treysen Eaglestaff","yr":"Sr","prpg":1.1,"usg":19.4,"bpm":2.2,"ortg":99.8,"efg":48.1,"ast":11.2,"blk":1.7,"stl":1.9,"orb":3.6,"drb":16.3},{"name":"Harlan Obioha","yr":"Sr","prpg":1.0,"usg":16.5,"bpm":1.0,"ortg":107.8,"efg":52.8,"ast":7.7,"blk":3.3,"stl":1.0,"orb":11.8,"drb":16.4}]},{"rk":63,"team":"Northwestern","conf":"Big Ten","rec":"15\u201319","barthag":0.79,"adjOE":116.5,"adjDE":103.8,"netRtg":12.7,"efg":51.7,"efgD":51.0,"tov":13.0,"tovD":17.5,"oreb":28.1,"dreb":34.7,"pace":65.1,"exp":1.46,"talent":40.8,"sos":38.1,"hgt":77.3,"l10_bar":0.831,"l10_oe":121.4,"l10_de":105.7,"l10_rec":"2\u20133","usgConc":0.502,"totalPrpg":15.9,"injCount":1,"injStar":false,"yrBreakdown":{"Fr":2,"So":1,"Jr":3,"Sr":1},"players":[{"name":"Nick Martinelli","yr":"Sr","prpg":6.1,"usg":29.4,"bpm":7.4,"ortg":120.9,"efg":55.2,"ast":13.2,"blk":1.2,"stl":1.4,"orb":7.8,"drb":13.5},{"name":"Arrinten Page","yr":"Jr","prpg":2.4,"usg":23.0,"bpm":7.0,"ortg":112.7,"efg":57.2,"ast":16.6,"blk":6.1,"stl":2.3,"orb":6.6,"drb":17.6,"inj":"Illness","injStatus":"Game Time Decision"},{"name":"Jayden Reid","yr":"Jr","prpg":2.3,"usg":25.9,"bpm":1.7,"ortg":104.8,"efg":44.5,"ast":37.4,"blk":0.7,"stl":2.4,"orb":1.4,"drb":5.3},{"name":"Angelo Ciaravino","yr":"So","prpg":1.7,"usg":14.7,"bpm":2.3,"ortg":117.6,"efg":54.6,"ast":10.5,"blk":3.4,"stl":1.0,"orb":6.0,"drb":15.7},{"name":"Tre Singleton","yr":"Fr","prpg":1.7,"usg":17.3,"bpm":1.1,"ortg":109.8,"efg":50.0,"ast":10.8,"blk":2.7,"stl":1.5,"orb":6.7,"drb":17.0},{"name":"Jake West","yr":"Fr","prpg":0.9,"usg":15.6,"bpm":0.1,"ortg":105.9,"efg":49.4,"ast":22.9,"blk":1.0,"stl":1.7,"orb":0.9,"drb":3.7},{"name":"Jordan Clayton","yr":"Jr","prpg":0.8,"usg":11.1,"bpm":1.0,"ortg":114.0,"efg":57.7,"ast":12.8,"blk":1.1,"stl":1.6,"orb":1.1,"drb":10.4}]},{"rk":64,"team":"Mississippi","conf":"SEC","rec":"15\u201320","barthag":0.789,"adjOE":114.1,"adjDE":101.7,"netRtg":12.4,"efg":50.4,"efgD":50.5,"tov":14.0,"tovD":16.4,"oreb":28.3,"dreb":32.6,"pace":66.1,"exp":1.96,"talent":47.4,"sos":37.0,"hgt":77.8,"l10_bar":0.9219,"l10_oe":113.6,"l10_de":91.7,"l10_rec":"3\u20133","usgConc":0.516,"totalPrpg":12.0,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":1,"So":1,"Jr":1,"Sr":3},"players":[{"name":"AJ Storr","yr":"Sr","prpg":2.9,"usg":29.3,"bpm":3.9,"ortg":107.9,"efg":49.5,"ast":16.0,"blk":0.7,"stl":2.0,"orb":3.0,"drb":10.4},{"name":"Patton Pinkins","yr":"Fr","prpg":2.8,"usg":15.3,"bpm":3.3,"ortg":128.5,"efg":55.9,"ast":6.6,"blk":0.4,"stl":1.1,"orb":3.0,"drb":5.6},{"name":"Malik Dia","yr":"Sr","prpg":2.4,"usg":31.5,"bpm":1.4,"ortg":102.8,"efg":47.8,"ast":7.7,"blk":4.2,"stl":1.4,"orb":8.8,"drb":17.9},{"name":"Ilias Kamardine","yr":"Sr","prpg":1.7,"usg":21.7,"bpm":2.1,"ortg":101.9,"efg":47.9,"ast":23.2,"blk":1.5,"stl":2.5,"orb":1.6,"drb":10.9},{"name":"James Scott","yr":"Jr","prpg":1.4,"usg":10.6,"bpm":4.8,"ortg":126.9,"efg":72.9,"ast":6.2,"blk":8.9,"stl":1.6,"orb":8.8,"drb":20.3},{"name":"Travis Perry","yr":"So","prpg":0.8,"usg":16.3,"bpm":2.8,"ortg":108.3,"efg":48.8,"ast":11.4,"blk":0.8,"stl":2.9,"orb":1.2,"drb":10.0}]},{"rk":65,"team":"Tulsa","conf":"AAC","rec":"24\u20137","barthag":0.782,"adjOE":121.0,"adjDE":108.3,"netRtg":12.7,"efg":56.5,"efgD":49.9,"tov":15.2,"tovD":15.5,"oreb":32.0,"dreb":29.0,"pace":67.8,"exp":2.07,"talent":2.9,"sos":14.0,"hgt":77.6,"l10_bar":0.6752,"l10_oe":116.8,"l10_de":109.6,"l10_rec":"3\u20131","usgConc":0.369,"totalPrpg":15.2,"injCount":1,"injStar":false,"yrBreakdown":{"Fr":0,"So":0,"Jr":3,"Sr":2},"players":[{"name":"Miles Barnstable","yr":"Sr","prpg":4.2,"usg":18.3,"bpm":5.1,"ortg":134.2,"efg":60.8,"ast":9.3,"blk":1.2,"stl":1.4,"orb":4.0,"drb":10.1},{"name":"David Green","yr":"Sr","prpg":3.6,"usg":25.3,"bpm":4.9,"ortg":121.4,"efg":58.9,"ast":13.0,"blk":2.7,"stl":1.5,"orb":4.8,"drb":13.8,"inj":"Undisclosed","injStatus":"Game Time Decision"},{"name":"Tylen Riley","yr":"Jr","prpg":3.4,"usg":29.0,"bpm":2.5,"ortg":114.8,"efg":49.2,"ast":30.4,"blk":0.5,"stl":2.0,"orb":2.7,"drb":12.8},{"name":"Tyler Behrend","yr":"Jr","prpg":2.1,"usg":16.6,"bpm":3.0,"ortg":125.6,"efg":60.3,"ast":16.0,"blk":1.8,"stl":1.6,"orb":10.7,"drb":16.1},{"name":"Ade Popoola","yr":"Jr","prpg":1.9,"usg":16.7,"bpm":3.5,"ortg":115.5,"efg":57.0,"ast":8.6,"blk":1.0,"stl":3.0,"orb":3.5,"drb":12.6}]},{"rk":66,"team":"USC","conf":"Big Ten","rec":"17\u201314","barthag":0.78,"adjOE":113.1,"adjDE":101.3,"netRtg":11.8,"efg":50.4,"efgD":49.7,"tov":17.4,"tovD":16.3,"oreb":32.4,"dreb":32.2,"pace":70.7,"exp":2.12,"talent":33.9,"sos":35.0,"hgt":78.9,"l10_bar":0.6024,"l10_oe":111.3,"l10_de":107.3,"l10_rec":"0\u20133","usgConc":0.278,"totalPrpg":10.6,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":0,"Sr":3},"players":[{"name":"Chad Baker-Mazara","yr":"Sr","prpg":3.9,"usg":27.6,"bpm":8.0,"ortg":114.1,"efg":53.5,"ast":19.8,"blk":4.7,"stl":1.4,"orb":2.1,"drb":13.4},{"name":"Ezra Ausar","yr":"Sr","prpg":3.4,"usg":23.4,"bpm":3.4,"ortg":114.5,"efg":57.6,"ast":11.7,"blk":1.6,"stl":1.9,"orb":9.9,"drb":15.1},{"name":"Jacob Cofie","yr":"So","prpg":1.8,"usg":16.9,"bpm":4.0,"ortg":108.8,"efg":54.3,"ast":12.2,"blk":6.2,"stl":1.7,"orb":7.8,"drb":17.5},{"name":"Kam Woods","yr":"Sr","prpg":1.5,"usg":18.5,"bpm":1.3,"ortg":100.4,"efg":45.5,"ast":23.6,"blk":0.4,"stl":2.9,"orb":4.1,"drb":10.8}]},{"rk":67,"team":"Wake Forest","conf":"ACC","rec":"17\u201316","barthag":0.779,"adjOE":117.9,"adjDE":105.6,"netRtg":12.2,"efg":52.6,"efgD":52.0,"tov":15.4,"tovD":17.8,"oreb":29.7,"dreb":32.9,"pace":68.3,"exp":1.97,"talent":37.7,"sos":32.7,"hgt":78.0,"l10_bar":0.7851,"l10_oe":118.7,"l10_de":106.0,"l10_rec":"2\u20132","usgConc":0.391,"totalPrpg":16.7,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":3,"Sr":3},"players":[{"name":"Juke Harris","yr":"So","prpg":4.9,"usg":27.3,"bpm":6.0,"ortg":117.0,"efg":52.7,"ast":10.8,"blk":0.8,"stl":2.1,"orb":4.1,"drb":17.8},{"name":"Tre'Von Spillers","yr":"Sr","prpg":2.9,"usg":17.7,"bpm":4.5,"ortg":119.4,"efg":56.8,"ast":12.0,"blk":6.5,"stl":2.0,"orb":6.1,"drb":16.9},{"name":"Nate Calmese","yr":"Sr","prpg":2.7,"usg":23.2,"bpm":5.7,"ortg":115.8,"efg":57.2,"ast":36.6,"blk":0.7,"stl":3.0,"orb":1.8,"drb":7.2},{"name":"Myles Colvin","yr":"Jr","prpg":2.2,"usg":21.8,"bpm":2.6,"ortg":108.6,"efg":50.2,"ast":9.0,"blk":1.6,"stl":2.6,"orb":5.7,"drb":13.9},{"name":"Mekhi Mason","yr":"Sr","prpg":1.4,"usg":20.1,"bpm":2.2,"ortg":106.7,"efg":50.7,"ast":12.0,"blk":1.6,"stl":2.7,"orb":4.6,"drb":11.0},{"name":"Cooper Schwieger","yr":"Jr","prpg":1.3,"usg":13.1,"bpm":1.3,"ortg":116.5,"efg":56.1,"ast":8.1,"blk":3.9,"stl":1.4,"orb":6.6,"drb":7.7},{"name":"Omaha Biliew","yr":"Jr","prpg":1.3,"usg":14.2,"bpm":0.1,"ortg":115.2,"efg":54.7,"ast":4.6,"blk":1.8,"stl":1.8,"orb":5.5,"drb":8.5}]},{"rk":68,"team":"California","conf":"ACC","rec":"20\u201311","barthag":0.776,"adjOE":113.8,"adjDE":102.1,"netRtg":11.6,"efg":52.2,"efgD":49.6,"tov":15.0,"tovD":16.1,"oreb":25.8,"dreb":30.3,"pace":67.9,"exp":2.25,"talent":60.1,"sos":26.8,"hgt":77.3,"l10_bar":0.6797,"l10_oe":112.7,"l10_de":105.5,"l10_rec":"1\u20132","usgConc":0.323,"totalPrpg":14.9,"injCount":0,"injStar":false,"yrBreakdown":{"Fr":0,"So":1,"Jr":1,"Sr":4},"players":[{"name":"John Camden","yr":"Sr","prpg":3.4,"usg":18.5,"bpm":4.9,"ortg":122.2,"efg":58.5,"ast":10.3,"blk":0.6,"stl":1.4,"orb":3.2,"drb":13.2},{"name":"Dai Dai Ames","yr":"Jr","prpg":3.1,"usg":25.3,"bpm":1.7,"ortg":110.1,"efg":53.1,"ast":14.8,"blk":0.6,"stl":1.2,"orb":0.8,"drb":6.0},{"name":"Justin Pippen","yr":"So","prpg":2.6,"usg":27.1,"bpm":5.6,"ortg":103.5,"efg":44.3,"ast":29.0,"blk":2.3,"stl":3.3,"orb":2.3,"drb":11.8},{"name":"Chris Bell","yr":"Sr","prpg":2.5,"usg":20.9,"bpm":3.3,"ortg":113.1,"efg":54.9,"ast":4.7,"blk":2.3,"stl":1.1,"orb":1.8,"drb":8.4},{"name":"Lee Dort","yr":"Sr","prpg":2.3,"usg":17.1,"bpm":3.7,"ortg":122.5,"efg":61.0,"ast":7.9,"blk":4.7,"stl":1.1,"orb":10.7,"drb":27.5},{"name":"Milos Ilic","yr":"Sr","prpg":1.0,"usg":14.0,"bpm":2.2,"ortg":114.9,"efg":55.3,"ast":14.4,"blk":1.5,"stl":1.8,"orb":9.7,"drb":18.9}]}];
+
+const CONF_PASE = {
+  'ACC':'+12.4','Big Ten':'+4.5','SEC':'+4.4','WCC':'+7.3','MVC':'+4.1',
+  'AAC':'+2.1','Big 12':'-15.9','MWC':'-15.6','Big East':'-7.3','A-10':'-5.8',
+  'CAA':'+3.2','Southland':'+1.1','Sun Belt':'+0.8'
+};
+
+// Populate dropdowns sorted by rank
+window.onload = () => {
+  ['selA','selB'].forEach(id => {
+    const sel = document.getElementById(id);
+    TEAMS.forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t.team;
+      opt.textContent = `#${t.rk} ${t.team} (${t.conf})`;
+      sel.appendChild(opt);
+    });
+  });
+  // Default: Duke vs Michigan
+  document.getElementById('selA').value = 'Duke';
+  document.getElementById('selB').value = 'Michigan';
+  render();
+};
+
+function swap() {
+  const a = document.getElementById('selA');
+  const b = document.getElementById('selB');
+  [a.value, b.value] = [b.value, a.value];
+  render();
+}
+
+function getTeam(name) { return TEAMS.find(t => t.team === name); }
+
+function bartColor(v) {
+  if (v >= 0.95) return '#4ade80';
+  if (v >= 0.90) return '#86efac';
+  if (v >= 0.85) return '#94a3b8';
+  if (v >= 0.80) return '#fbbf24';
+  return '#f87171';
+}
+
+function prpgColor(v) { return v >= 4 ? 'prpg-hi' : v >= 2 ? 'prpg-mid' : ''; }
+
+function yrBadge(yr) {
+  const map = {Fr:'yr-Fr',So:'yr-So',Jr:'yr-Jr',Sr:'yr-Sr'};
+  return `<span class="yr-badge ${map[yr]||''}">${yr||'?'}</span>`;
+}
+
+function injPill(p) {
+  if (!p.inj) return '';
+  const cls = (p.injStatus||'').includes('Game Time') ? 'inj-pill inj-gtd' : 'inj-pill';
+  const short = p.injStatus?.includes('Out For Season') ? 'OUT ∞' :
+                p.injStatus?.includes('Game Time') ? 'GTD' : 'OUT';
+  return `<span class="${cls}">${p.inj} · ${short}</span>`;
+}
+
+function usgBar(usg) {
+  const w = Math.min(usg / 36 * 40, 40);
+  return `<span class="usg-bar" style="width:${w}px"></span>`;
+}
+
+// Win/lose color for stat comparison
+function statColor(vA, vB, higherIsBetter=true) {
+  if (vA === vB) return ['tie','tie'];
+  if (higherIsBetter) return vA > vB ? ['win','lose'] : ['lose','win'];
+  return vA < vB ? ['win','lose'] : ['lose','win'];
+}
+
+// Render a stat comparison bar row
+function statRow(label, vA, vB, higherIsBetter=true, suffix='', decimals=1) {
+  const [ca, cb] = statColor(vA, vB, higherIsBetter);
+  const maxV = Math.max(Math.abs(vA), Math.abs(vB), 0.001);
+  const pctA = Math.min(Math.abs(vA)/maxV * 100, 100);
+  const pctB = Math.min(Math.abs(vB)/maxV * 100, 100);
+  const fmtA = typeof vA === 'number' ? vA.toFixed(decimals)+suffix : vA;
+  const fmtB = typeof vB === 'number' ? vB.toFixed(decimals)+suffix : vB;
+  const colorA = ca==='win' ? '#4ade80' : ca==='lose' ? '#f87171' : '#94a3b8';
+  const colorB = cb==='win' ? '#4ade80' : cb==='lose' ? '#f87171' : '#94a3b8';
+  return `<div class="srow">
+    <div class="srow-bar-wrap">
+      <span class="srow-val left ${ca}">${fmtA}</span>
+      <span class="srow-bar"><span class="srow-bar-fill" style="width:${pctA}%;background:${colorA};"></span></span>
+    </div>
+    <div class="srow-lbl">${label}</div>
+    <div class="srow-bar-wrap" style="flex-direction:row-reverse">
+      <span class="srow-val right ${cb}">${fmtB}</span>
+      <span class="srow-bar"><span class="srow-bar-fill" style="width:${pctB}%;background:${colorB};"></span></span>
+    </div>
+  </div>`;
+}
+
+function sectionHdr(tA, tB) {
+  return `<div class="srow-hdr">
+    <div class="srow-hdr-inner">
+      <div class="srow-hdr-name">${tA.team}</div>
+      <div></div>
+      <div class="srow-hdr-name right">${tB.team}</div>
+    </div>
+  </div>`;
+}
+
+function riskItems(t) {
+  const items = [];
+  const star = t.players[0];
+  if (t.injStar) {
+    items.push({icon:'🚨', title:'Injured Star Player', text:`${star.name} (${star.usg}% USG) — ${star.inj} · ${star.injStatus}`});
+  }
+  if (t.injCount >= 2) {
+    items.push({icon:'🏥', title:`${t.injCount} Players on Injury Report`, text:'Depth concern — multiple contributors potentially limited'});
+  } else if (t.injCount === 1 && !t.injStar) {
+    items.push({icon:'🩹', title:'1 Player on Injury Report', text:`${t.players.find(p=>p.inj)?.name||''} — monitor before tipoff`});
+  }
+  if (t.usgConc > 0.55) {
+    items.push({icon:'⚡', title:'High Star Dependency', text:`${star.name} carries ${star.usg}% usage — ${Math.round(t.usgConc*100)}% above team avg. Opponent can game-plan around one player.`});
+  }
+  if (t.barthag < 0.85) {
+    items.push({icon:'⚠️', title:'BARTHAG Danger Zone', text:`${t.barthag} — below 0.85 threshold. Seeds 5-8 in this range lose 61.4% of R1 games.`});
+  }
+  if (t.pace > 72) {
+    items.push({icon:'🔺', title:'Outside Trapezoid — Too Fast', text:`Pace ${t.pace} exceeds 72 adj. tempo threshold. Rule 17: Fast-tempo teams are vulnerable over 6-game runs.`});
+  }
+  if (t.exp < 1.0) {
+    items.push({icon:'🎓', title:'Young Roster', text:`Experience ${t.exp} — heavy freshmen/sophomore load increases tournament pressure risk.`});
+  }
+  const confPASE = CONF_PASE[t.conf];
+  if (confPASE && confPASE.startsWith('-')) {
+    items.push({icon:'📉', title:`${t.conf} Conference PASE ${confPASE}`, text:'Conference chronically overseeded by reputation — fade signal on seeds 5-8.'});
+  }
+  // l10 momentum drop
+  if (t.l10_bar > 0 && t.barthag - t.l10_bar > 0.05) {
+    items.push({icon:'❄️', title:'Cold Entering Tournament', text:`Season BARTHAG ${t.barthag} vs L10 BARTHAG ${t.l10_bar.toFixed(3)} — declining form.`});
+  }
+  return items;
+}
+
+function render() {
+  const nameA = document.getElementById('selA').value;
+  const nameB = document.getElementById('selB').value;
+  const main = document.getElementById('main');
+
+  if (!nameA || !nameB || nameA === nameB) {
+    main.innerHTML = `<div class="empty"><div class="empty-icon">🏀</div>${!nameA||!nameB ? 'Select two teams above to compare' : 'Select two <em>different</em> teams'}</div>`;
+    return;
+  }
+
+  const tA = getTeam(nameA);
+  const tB = getTeam(nameB);
+
+  // ── HERO ──
+  const heroA = `<div class="hc-team left">
+    <div class="hc-rk">#${tA.rk} · ${tA.conf}</div>
+    <div class="hc-name">${tA.team}</div>
+    <div class="hc-rec">${tA.rec}${tA.l10_rec ? ' · L10: '+tA.l10_rec : ''}</div>
+    <div class="hc-bar">
+      <div class="hc-bar-val" style="color:${bartColor(tA.barthag)}">${tA.barthag}</div>
+      <div class="hc-bar-lbl">BARTHAG</div>
+    </div>
+    ${tA.injStar ? '<div class="inj-flag">⚠ STAR INJURED</div>' : ''}
+  </div>`;
+
+  const heroB = `<div class="hc-team right">
+    <div class="hc-rk">#${tB.rk} · ${tB.conf}</div>
+    <div class="hc-name">${tB.team}</div>
+    <div class="hc-rec">${tB.rec}${tB.l10_rec ? ' · L10: '+tB.l10_rec : ''}</div>
+    <div class="hc-bar" style="justify-content:flex-end">
+      <div class="hc-bar-lbl">BARTHAG</div>
+      <div class="hc-bar-val" style="color:${bartColor(tB.barthag)}">${tB.barthag}</div>
+    </div>
+    ${tB.injStar ? '<div class="inj-flag" style="margin-left:auto">⚠ STAR INJURED</div>' : ''}
+  </div>`;
+
+  // ── EFFICIENCY STATS ──
+  const effRows = [
+    statRow('Adj. Offensive Eff.', tA.adjOE, tB.adjOE, true),
+    statRow('Adj. Defensive Eff.', tA.adjDE, tB.adjDE, false),
+    statRow('Net Rating', tA.netRtg, tB.netRtg, true),
+    statRow('eFG% (Off.)', tA.efg, tB.efg, true, '%'),
+    statRow('eFG% (Def.)', tA.efgD, tB.efgD, false, '%'),
+    statRow('Turnover% (Off.)', tA.tov, tB.tov, false, '%'),
+    statRow('Turnover% (Def.)', tA.tovD, tB.tovD, true, '%'),
+    statRow('Off. Rebound%', tA.oreb, tB.oreb, true, '%'),
+    statRow('Opp. OReb% Allowed', tA.dreb, tB.dreb, false, '%'),
+  ];
+
+  // ── ROSTER CONTEXT ──
+  const contextRows = [
+    statRow('Pace (Adj. Tempo)', tA.pace, tB.pace, true),
+    statRow('Experience', tA.exp, tB.exp, true, '', 2),
+    statRow('Talent Score', tA.talent, tB.talent, true),
+    statRow('Avg Height (in.)', tA.hgt, tB.hgt, true),
+    statRow('Elite SOS', tA.sos, tB.sos, true),
+  ];
+
+  // ── PLAYER DEPENDENCY ──
+  const makeDepBox = (t, side) => {
+    const star = t.players[0];
+    const [ca] = statColor(t.usgConc, 0.4, false); // lower conc is better
+    const concColor = t.usgConc > 0.5 ? '#f87171' : t.usgConc > 0.35 ? '#fbbf24' : '#4ade80';
+    const yr = t.yrBreakdown;
+    const align = side === 'right' ? 'text-align:right' : '';
+    return `<div class="dep-box" style="${align}">
+      <div class="dep-title">DEPENDENCY PROFILE</div>
+      <div class="dep-stat">
+        <span class="dep-stat-lbl">Star (${star.name})</span>
+        <span class="dep-stat-val" style="color:${star.usg>=30?'#f87171':star.usg>=25?'#fbbf24':'#94a3b8'}">${star.usg}% USG</span>
+      </div>
+      <div class="dep-stat">
+        <span class="dep-stat-lbl">Usage Concentration</span>
+        <span class="dep-stat-val" style="color:${concColor}">${Math.round(t.usgConc*100)}% above avg</span>
+      </div>
+      <div class="dep-stat">
+        <span class="dep-stat-lbl">Team PRPG Total</span>
+        <span class="dep-stat-val" style="color:var(--teal)">${t.totalPrpg}</span>
+      </div>
+      <div class="dep-stat">
+        <span class="dep-stat-lbl">Injuries</span>
+        <span class="dep-stat-val" style="color:${t.injCount>0?'#f87171':'#4ade80'}">${t.injCount > 0 ? t.injCount+' on report' : 'None'}</span>
+      </div>
+      <div style="margin-top:12px;font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);letter-spacing:1px;margin-bottom:6px;">EXPERIENCE BREAKDOWN</div>
+      <div class="yr-strip" style="${side==='right'?'justify-content:flex-end':''}">
+        ${yr.Fr>0 ? `<span class="yr-chip yr-Fr">${yr.Fr} Fr</span>` : ''}
+        ${yr.So>0 ? `<span class="yr-chip yr-So">${yr.So} So</span>` : ''}
+        ${yr.Jr>0 ? `<span class="yr-chip yr-Jr">${yr.Jr} Jr</span>` : ''}
+        ${yr.Sr>0 ? `<span class="yr-chip yr-Sr">${yr.Sr} Sr</span>` : ''}
+        <span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);padding:3px 0">Exp ${t.exp}</span>
+      </div>
+    </div>`;
+  };
+
+  // ── MOMENTUM ──
+  const makeMomBox = (t) => {
+    const trend = t.l10_bar > 0 ? t.l10_bar - t.barthag : 0;
+    const trendColor = trend > 0.01 ? '#4ade80' : trend < -0.01 ? '#f87171' : '#94a3b8';
+    const trendStr = trend > 0.01 ? `↑ +${(trend*1000|0)/10} pts HOT` :
+                     trend < -0.01 ? `↓ ${(trend*1000|0)/10} pts COLD` : '→ FLAT';
+    return `<div style="padding:14px 20px">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);letter-spacing:1px;margin-bottom:10px">LAST-10 MOMENTUM</div>
+      <div class="dep-stat">
+        <span class="dep-stat-lbl">Season BARTHAG</span>
+        <span class="dep-stat-val" style="color:${bartColor(t.barthag)}">${t.barthag}</span>
+      </div>
+      <div class="dep-stat">
+        <span class="dep-stat-lbl">L10 BARTHAG</span>
+        <span class="dep-stat-val" style="color:${bartColor(t.l10_bar)}">${t.l10_bar.toFixed(3)}</span>
+      </div>
+      <div class="dep-stat">
+        <span class="dep-stat-lbl">L10 Record</span>
+        <span class="dep-stat-val" style="color:var(--teal)">${t.l10_rec||'—'}</span>
+      </div>
+      <div class="dep-stat">
+        <span class="dep-stat-lbl">Trend</span>
+        <span class="dep-stat-val" style="color:${trendColor}">${trendStr}</span>
+      </div>
+      <div class="dep-stat">
+        <span class="dep-stat-lbl">L10 AdjOE</span>
+        <span class="dep-stat-val" style="color:var(--slate)">${t.l10_oe||'—'}</span>
+      </div>
+      <div class="dep-stat">
+        <span class="dep-stat-lbl">L10 AdjDE</span>
+        <span class="dep-stat-val" style="color:var(--slate)">${t.l10_de||'—'}</span>
+      </div>
+    </div>`;
+  };
+
+  // ── ROSTER ROWS ──
+  const makeRosterTable = (t) => {
+    const rows = t.players.map((p, i) => {
+      const isTop = i === 0;
+      const usgColor = p.usg >= 30 ? '#f87171' : p.usg >= 24 ? '#fbbf24' : 'var(--slate)';
+      return `<tr>
+        <td class="left">
+          <span class="p-name${isTop?' p-star':''}">${isTop?'★ ':''}${p.name}</span>
+          ${yrBadge(p.yr)}${injPill(p)}
+        </td>
+        <td class="${prpgColor(p.prpg)}">${p.prpg}</td>
+        <td style="color:${usgColor}">${p.usg}%${usgBar(p.usg)}</td>
+        <td style="color:${p.bpm>5?'#4ade80':p.bpm>0?'var(--slate)':'#f87171'}">${p.bpm>0?'+':''}${p.bpm}</td>
+        <td>${p.ortg}</td>
+        <td>${p.efg}%</td>
+        <td>${p.ast}%</td>
+        <td>${p.blk}</td>
+      </tr>`;
+    }).join('');
+    return `<table class="rtable">
+      <thead><tr>
+        <th class="left">Player</th>
+        <th>PRPG</th><th>USG</th><th>BPM</th>
+        <th>ORtg</th><th>eFG%</th><th>Ast%</th><th>Blk</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+  };
+
+  // ── RISK FACTORS ──
+  const makeRiskBox = (t) => {
+    const items = riskItems(t);
+    if (items.length === 0) return `<div class="risk-none">✅ No major risk flags identified.</div>`;
+    return items.map(r => `<div class="risk-item">
+      <div class="risk-icon">${r.icon}</div>
+      <div class="risk-text"><strong>${r.title}</strong>${r.text}</div>
+    </div>`).join('');
+  };
+
+  // ── VERDICT ──
+  const makeVerdict = (tA, tB) => {
+    const edges = {A:[], B:[], even:[]};
+    if (tA.barthag > tB.barthag + 0.01) edges.A.push('BARTHAG advantage');
+    else if (tB.barthag > tA.barthag + 0.01) edges.B.push('BARTHAG advantage');
+    else edges.even.push('BARTHAG essentially equal');
+
+    if (tA.adjOE > tB.adjOE + 2) edges.A.push('Offensive efficiency edge');
+    else if (tB.adjOE > tA.adjOE + 2) edges.B.push('Offensive efficiency edge');
+
+    if (tA.adjDE < tB.adjDE - 2) edges.A.push('Defensive efficiency edge');
+    else if (tB.adjDE < tA.adjDE - 2) edges.B.push('Defensive efficiency edge');
+
+    if (tA.exp > tB.exp + 0.3) edges.A.push('Roster experience advantage');
+    else if (tB.exp > tA.exp + 0.3) edges.B.push('Roster experience advantage');
+
+    const l10A = tA.l10_bar - tA.barthag;
+    const l10B = tB.l10_bar - tB.barthag;
+    if (l10A > l10B + 0.02) edges.A.push('Hotter entering tournament (L10)');
+    else if (l10B > l10A + 0.02) edges.B.push('Hotter entering tournament (L10)');
+
+    if (tA.usgConc < tB.usgConc - 0.1) edges.A.push('More balanced roster — lower star dependency');
+    else if (tB.usgConc < tA.usgConc - 0.1) edges.B.push('More balanced roster — lower star dependency');
+
+    if (tB.injStar && !tA.injStar) edges.A.push('Star player healthy');
+    else if (tA.injStar && !tB.injStar) edges.B.push('Star player healthy');
+    else if (tA.injStar && tB.injStar) { edges.A.push('Star injury concern'); edges.B.push('Star injury concern'); }
+
+    const paseA = CONF_PASE[tA.conf] || '0';
+    const paseB = CONF_PASE[tB.conf] || '0';
+    if (parseFloat(paseA) > 2 && parseFloat(paseB) <= 0) edges.A.push(`${tA.conf} PASE ${paseA} — underseeded conference`);
+    if (parseFloat(paseB) > 2 && parseFloat(paseA) <= 0) edges.B.push(`${tB.conf} PASE ${paseB} — underseeded conference`);
+
+    const overall = edges.A.length > edges.B.length ? 'A' : edges.B.length > edges.A.length ? 'B' : 'even';
+    const winTeam = overall === 'A' ? tA : overall === 'B' ? tB : null;
+
+    const edgeLbl = (t, isWinner) => isWinner ?
+      `<span class="verdict-edge edge-win">MODEL EDGE</span>` :
+      `<span class="verdict-edge edge-lose">UNDERDOG</span>`;
+
+    return `<div class="verdict-box">
+      <div class="verdict-header">
+        <h3>▶ MODEL VERDICT — EDGE SUMMARY</h3>
+      </div>
+      <div class="verdict-body">
+        <div class="verdict-team">
+          <h4 style="color:var(--teal)">${tA.team.toUpperCase()}</h4>
+          ${edges.A.length ? edges.A.map(e=>`<div>✅ ${e}</div>`).join('') : '<div style="color:var(--slate)">No clear edges identified</div>'}
+          ${edges.even.map(e=>`<div style="color:var(--slate)">— ${e}</div>`).join('')}
+          ${edgeLbl(tA, overall==='A')}
+        </div>
+        <div class="verdict-team">
+          <h4 style="color:var(--purple)">${tB.team.toUpperCase()}</h4>
+          ${edges.B.length ? edges.B.map(e=>`<div>✅ ${e}</div>`).join('') : '<div style="color:var(--slate)">No clear edges identified</div>'}
+          ${edgeLbl(tB, overall==='B')}
+        </div>
+      </div>
+    </div>`;
+  };
+
+  main.innerHTML = `
+    <div class="hero-compare">
+      ${heroA}
+      <div class="hc-divider"><div class="hc-divider-inner">VS</div></div>
+      ${heroB}
+    </div>
+
+    ${makeVerdict(tA, tB)}
+
+    <div class="sec-block">
+      <div class="sec">▶ Efficiency Comparison</div>
+      <div class="box">
+        ${sectionHdr(tA, tB)}
+        ${effRows.join('')}
+      </div>
+    </div>
+
+    <div class="compare-grid">
+      <div class="sec-block" style="margin-bottom:0">
+        <div class="sec">▶ Momentum — Last 10</div>
+        <div class="box">${makeMomBox(tA)}</div>
+      </div>
+      <div class="sec-block" style="margin-bottom:0">
+        <div class="sec">▶ Momentum — Last 10</div>
+        <div class="box">${makeMomBox(tB)}</div>
+      </div>
+    </div>
+
+    <div class="sec-block" style="margin-top:16px">
+      <div class="sec">▶ Roster Context</div>
+      <div class="box">
+        ${sectionHdr(tA, tB)}
+        ${contextRows.join('')}
+      </div>
+    </div>
+
+    <div class="dep-grid">
+      <div class="sec-block" style="margin-bottom:0">
+        <div class="sec">▶ Star Dependency · ${tA.team}</div>
+        <div class="box">${makeDepBox(tA,'left')}</div>
+      </div>
+      <div class="sec-block" style="margin-bottom:0">
+        <div class="sec">▶ Star Dependency · ${tB.team}</div>
+        <div class="box">${makeDepBox(tB,'right')}</div>
+      </div>
+    </div>
+
+    <div class="sec-block" style="margin-top:16px">
+      <div class="sec">▶ Roster · ${tA.team}</div>
+      <div class="box">${makeRosterTable(tA)}</div>
+    </div>
+
+    <div class="sec-block">
+      <div class="sec">▶ Roster · ${tB.team}</div>
+      <div class="box">${makeRosterTable(tB)}</div>
+    </div>
+
+    <div class="risk-grid">
+      <div class="sec-block" style="margin-bottom:0">
+        <div class="sec">▶ Risk Flags · ${tA.team}</div>
+        <div class="box">${makeRiskBox(tA)}</div>
+      </div>
+      <div class="sec-block" style="margin-bottom:0">
+        <div class="sec">▶ Risk Flags · ${tB.team}</div>
+        <div class="box">${makeRiskBox(tB)}</div>
+      </div>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
