@@ -28,7 +28,7 @@
   .kpi-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--border);}
   .kpi-cell{background:var(--navy);padding:18px 20px;}
   .kpi-num{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--red);line-height:1;}
-  .kpi-num.g{color:var(--green)}.kpi-num.o{color:var(--orange)}.kpi-num.s{color:var(--slate)}.kpi-num.b{color:var(--blue)}.kpi-num.t{color:var(--teal);}
+  .kpi-num.g{color:#22c55e;}.kpi-num.loss{color:#f43f5e;}.kpi-num.o{color:var(--orange)}.kpi-num.s{color:var(--slate)}.kpi-num.b{color:var(--blue)}.kpi-num.t{color:var(--teal);}
   .kpi-txt{font-size:10px;color:var(--slate);margin-top:6px;letter-spacing:0.5px;line-height:1.4;}
   .main{padding:40px;}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
@@ -41,15 +41,14 @@
   .row:last-child{border-bottom:none;}
   .row-hdr{background:rgba(255,255,255,0.03);font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);letter-spacing:1px;}
   .bold{font-weight:700;}.mono{font-family:'Space Mono',monospace;}
-  .up{color:var(--red)}.down{color:var(--green)}.flip{color:var(--gold)}.pos{color:var(--teal)}.neg{color:var(--red)}
-  .hi{color:var(--green)}.mid{color:var(--orange)}.lo{color:var(--slate);}
+  .up{color:var(--red)}.down{color:#22c55e}.flip{color:var(--gold)}.pos{color:var(--teal)}.neg{color:var(--red)}
+  .hi{color:#22c55e}.mid{color:var(--orange)}.lo{color:var(--slate);}
   .badge{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;padding:4px 10px;border-radius:3px;white-space:nowrap;}
   .bc{background:var(--red);color:white;}.bh{background:var(--orange);color:white;}.bm{background:#1e2d3d;color:var(--slate);}
   /* FILE CARDS */
   .file-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,transform .15s;text-decoration:none;color:inherit;}
   .file-card:hover{border-color:rgba(255,255,255,0.2);transform:translateY(-2px);}
   .file-card.bracket{border-color:rgba(240,165,0,0.5);background:linear-gradient(135deg,#1a2535,#1a1500);}
-  .file-card.betting{border-color:rgba(232,80,42,0.35);background:linear-gradient(135deg,#1a2535,#1a0a00);}
   .file-icon{font-size:28px;}
   .ftype{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--slate);text-transform:uppercase;}
   .ftitle{font-size:17px;font-weight:700;color:var(--text);line-height:1.3;}
@@ -77,7 +76,7 @@
 <body>
 
 <div class="hero">
-  <div class="eyebrow">▶ Intelligence Hub v4 · 2026 NCAA Tournament · Updated March 19, 2026 · R1 IN PROGRESS · Thu Early: 3-4 ATS</div>
+  <div class="eyebrow">▶ Intelligence Hub v5 · 2026 NCAA Tournament · March 19, 2026 · R1 In Progress · Thu early: 6-2 ATS</div>
   <h1>March Madness<br><em>Intelligence Hub</em></h1>
   <p class="lead">Data-driven bracket picks, betting analysis, and upset intelligence for the 2026 NCAA Tournament. Built on Barttorvik 2026, Warren Nolan NET, 17 years of PASE/BARTHAG data, real-time injury intelligence, sharp line movement, Kalshi prediction markets, and round-by-round win probabilities.</p>
   <div class="hero-meta">
@@ -90,24 +89,24 @@
     <span class="meta-pill new">KALSHI MARKETS</span>
     <span class="meta-pill new">WIN PROBABILITIES</span>
     <span class="meta-pill new">COACH ATS RECORDS</span>
-    <span class="meta-pill new">SITUATIONAL ATS</span>
     <span class="meta-pill new">LIVE LINES DASHBOARD</span>
     <span class="meta-pill new">PUBLIC BETTING %</span>
+    <span class="meta-pill new">LIVE RESULTS TRACKER</span>
   </div>
 </div>
 
 <div class="alert-bar">
-  <strong>⚠ CRITICAL INJURIES (v3 — all picks adjusted):</strong> Mikel Brown Jr. (Louisville) RULED OUT R1+R2 · Caleb Wilson (UNC) OUT season → VCU now fav · Braden Huff (Gonzaga) OUT R1 · Caleb Foster (Duke) OUT · Richie Saunders (BYU) OUT season · JT Toppin (Texas Tech) OUT season · <strong>Current lines: LOU -4.5 · OSU -2.5 · SJU -9.5 · USU -2.5 (flipped)</strong>
+  <strong>⚠ CRITICAL INJURIES (all picks adjusted):</strong> Mikel Brown Jr. (Louisville) OUT R1+R2 · Caleb Wilson (UNC) OUT season · Braden Huff (Gonzaga) OUT R1 · Caleb Foster (Duke) OUT · Richie Saunders (BYU) OUT season · JT Toppin (Texas Tech) OUT season
 </div>
 
 <div class="kpi-strip">
-  <div class="kpi-cell"><div class="kpi-num" style="color:var(--green);">3</div><div class="kpi-txt">ATS Wins<br>Thu early slate</div></div>
-  <div class="kpi-cell"><div class="kpi-num" style="color:#f43f5e;">4</div><div class="kpi-txt">ATS Losses<br>Thu early slate</div></div>
-  <div class="kpi-cell"><div class="kpi-num g">Michigan</div><div class="kpi-txt">Champion Pick<br>Rules 16+17</div></div>
-  <div class="kpi-cell"><div class="kpi-num" style="color:var(--gold)">2-4</div><div class="kpi-txt">Record (spread)<br>Thu complete games</div></div>
+  <div class="kpi-cell"><div class="kpi-num g">6</div><div class="kpi-txt">ATS Wins<br>Thu early slate</div></div>
+  <div class="kpi-cell"><div class="kpi-num loss">2</div><div class="kpi-txt">ATS Losses<br>Thu early slate</div></div>
+  <div class="kpi-cell"><div class="kpi-num" style="color:var(--gold)">6-2</div><div class="kpi-txt">Overall record<br>completed bets</div></div>
+  <div class="kpi-cell"><div class="kpi-num" style="color:#22c55e">Michigan</div><div class="kpi-txt">Champion Pick<br>Rules 16+17</div></div>
   <div class="kpi-cell"><div class="kpi-num s">6</div><div class="kpi-txt">Key Injuries<br>Confirmed out</div></div>
   <div class="kpi-cell"><div class="kpi-num b">22%</div><div class="kpi-txt">Michigan Champ%<br>Round-by-round</div></div>
-  <div class="kpi-cell"><div class="kpi-num t">32</div><div class="kpi-txt">Games w/ Public %<br>Lines Dashboard</div></div>
+  <div class="kpi-cell"><div class="kpi-num t">32</div><div class="kpi-txt">Games tracked<br>Lines Dashboard</div></div>
 </div>
 
 <div class="main">
@@ -119,11 +118,11 @@
   <div class="box">
     <h3 class="bh3-red">▶ UPSET ALERTS — INJURY + MODEL DRIVEN</h3>
     <div class="row" style="grid-template-columns:1fr auto;background:rgba(232,80,42,0.06);">
-      <div><div class="bold" style="margin-bottom:4px;">🔴 South Florida vs Louisville (#6)</div><div style="font-size:11px;color:var(--slate);">Brown RULED OUT R1+R2. 6-seed PASE -20.3. At-large 11-seed 64.1% win rate. SFU 5-0 L10. RLM: -6.5→-5.5.</div></div>
-      <span class="badge bc">TAKE SFU</span>
+      <div><div class="bold" style="margin-bottom:4px;">🔴 South Florida vs Louisville (#6)</div><div style="font-size:11px;color:var(--slate);">Brown RULED OUT R1+R2. 6-seed PASE -20.3. At-large 11-seed 64.1% win rate. SFU 5-0 L10. RLM: -7.5→-4.5. <strong style="color:#22c55e;">RESULT: SFU +4.5 ✅ WIN (lost by 4)</strong></div></div>
+      <span class="badge bc">COVERED</span>
     </div>
     <div class="row" style="grid-template-columns:1fr auto;background:rgba(232,80,42,0.06);">
-      <div><div class="bold" style="margin-bottom:4px;">🔴 VCU vs North Carolina (#6)</div><div style="font-size:11px;color:var(--slate);">Wilson OUT season. UNC 0-2 without him. VCU A-10 champs, 5-0 L10. Line trending VCU fav.</div></div>
+      <div><div class="bold" style="margin-bottom:4px;">🔴 VCU vs North Carolina (#6)</div><div style="font-size:11px;color:var(--slate);">Wilson OUT season. UNC 0-2 without him. VCU CAA champs, 5-0 L10. Line: NC -2.5.</div></div>
       <span class="badge bc">TAKE VCU</span>
     </div>
     <div class="row" style="grid-template-columns:1fr auto;background:rgba(220,111,26,0.04);">
@@ -143,7 +142,7 @@
       <span class="badge" style="background:#1a3a5c;color:#93c5fd;">ADVISORY</span>
     </div>
     <div class="row" style="grid-template-columns:1fr auto;">
-      <div><div class="bold" style="margin-bottom:4px;">⚡ Utah State vs Villanova — Sharp Flip</div><div style="font-size:11px;color:var(--slate);">VIL -1.5 open → USU -2.5. 4pt swing. USU 0.895 Barthag &gt; VIL 0.881.</div></div>
+      <div><div class="bold" style="margin-bottom:4px;">⚡ Utah State vs Villanova — Sharp Flip</div><div style="font-size:11px;color:var(--slate);">VIL -1.5 open → USU -2. 4pt swing. USU 0.895 Barthag &gt; VIL 0.881.</div></div>
       <span class="badge bm">SHARP FLIP</span>
     </div>
   </div>
@@ -157,19 +156,19 @@
       <span class="bold">Louisville vs SFU</span><span>-7.5</span><span class="mono bold">-4.5</span><span class="mono down">-3.0</span><span style="font-size:11px;">🔴 RLM — Brown OUT, 81% money</span>
     </div>
     <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;background:rgba(232,80,42,0.06);">
-      <span class="bold">NCarolina vs VCU</span><span>NC-2.5</span><span class="mono bold">VCU fav</span><span class="mono flip">FLIP</span><span style="font-size:11px;">🔴 Wilson OUT — line fully flipped</span>
+      <span class="bold">NCarolina vs VCU</span><span>NC-2.5</span><span class="mono bold">NC-2.5</span><span class="mono flip">FLIP</span><span style="font-size:11px;">🔴 Wilson OUT — line fully flipped</span>
     </div>
     <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span class="bold">Utah St vs Villanova</span><span>VIL-1.5</span><span class="mono bold">USU-2.5</span><span class="mono flip">FLIP</span><span style="font-size:11px;">🔄 4pt sharp flip confirmed</span>
+      <span class="bold">Utah St vs Villanova</span><span>VIL-1.5</span><span class="mono bold">USU-2</span><span class="mono flip">FLIP</span><span style="font-size:11px;">🔄 4pt sharp flip confirmed</span>
     </div>
     <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;background:rgba(45,212,191,0.04);">
-      <span class="bold" style="color:var(--teal);">MSU vs NDST (TOTAL)</span><span>154.5</span><span class="mono bold" style="color:var(--teal);">143.5</span><span class="mono down">-11.0</span><span style="font-size:11px;">🔥 Biggest sharp move on board</span>
+      <span class="bold" style="color:var(--teal);">MSU vs NDST (TOTAL)</span><span>154.5</span><span class="mono bold" style="color:var(--teal);">143</span><span class="mono down">-11.0</span><span style="font-size:11px;">🔥 Biggest sharp move on board</span>
     </div>
     <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
       <span class="bold">Ohio State vs TCU</span><span>-4.5</span><span class="mono bold">-2.5</span><span class="mono down">-2.0</span><span style="font-size:11px;">🔄 Sharp money on TCU confirmed</span>
     </div>
     <div class="row" style="grid-template-columns:1.4fr 0.5fr 0.6fr 0.5fr 1fr;">
-      <span class="bold">Wisconsin vs High Point</span><span>-12.5</span><span class="mono bold">-10.5</span><span class="mono down">-2.0</span><span style="font-size:11px;">🔄 Sharp dog — 65% handle on HP</span>
+      <span class="bold">Wisconsin vs High Point</span><span>-12.5</span><span class="mono bold">-10</span><span class="mono down">-2.0</span><span style="font-size:11px;">🔄 Sharp dog — 65% handle on HP</span>
     </div>
     <div style="padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
       <span style="font-size:11px;color:var(--slate);">All 32 games · current lines · public money% · pick tiers</span>
@@ -179,7 +178,7 @@
 </div>
 
 <!-- KALSHI + WIN PROBABILITIES -->
-<div class="sec">▶ New: Kalshi Markets + Win Probabilities</div>
+<div class="sec">▶ Kalshi Markets + Win Probabilities</div>
 <div class="grid">
 
   <div class="box" style="border-color:rgba(45,212,191,0.2);">
@@ -254,7 +253,7 @@
 </div>
 
 <!-- COACH + ATS -->
-<div class="sec">▶ New: Coach Records + Situational ATS</div>
+<div class="sec">▶ Coach Records + Situational ATS</div>
 <div class="grid">
   <div class="box" style="border-color:rgba(220,111,26,0.2);">
     <h3 class="bh3-orange">▶ COACH NCAA TOURNAMENT RECORDS</h3>
@@ -262,25 +261,25 @@
       <span>COACH</span><span>SCHOOL</span><span>W-L</span><span>WIN%</span><span>TITLES</span><span>SIGNAL</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Dan Hurley</span><span>UConn</span><span class="mono">15-5</span><span class="mono">.750</span><span class="mono">2</span><span style="font-size:11px;color:var(--green);">✅ Elite</span>
+      <span class="bold">Dan Hurley</span><span>UConn</span><span class="mono">15-5</span><span class="mono">.750</span><span class="mono">2</span><span style="font-size:11px;color:var(--teal);">✅ Elite</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Dusty May</span><span>Michigan</span><span class="mono">11-4</span><span class="mono">.733</span><span class="mono">0</span><span style="font-size:11px;color:var(--green);">✅ Strong</span>
+      <span class="bold">Dusty May</span><span>Michigan</span><span class="mono">11-4</span><span class="mono">.733</span><span class="mono">0</span><span style="font-size:11px;color:var(--teal);">✅ Strong</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Tom Izzo</span><span>Michigan St.</span><span class="mono">59-26</span><span class="mono">.694</span><span class="mono">1</span><span style="font-size:11px;color:var(--green);">✅ Mr. March</span>
+      <span class="bold">Tom Izzo</span><span>Michigan St.</span><span class="mono">59-26</span><span class="mono">.694</span><span class="mono">1</span><span style="font-size:11px;color:var(--teal);">✅ Mr. March</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Todd Golden</span><span>Florida</span><span class="mono">7-2</span><span class="mono">.778</span><span class="mono">1</span><span style="font-size:11px;color:var(--green);">✅ Def. champ</span>
+      <span class="bold">Todd Golden</span><span>Florida</span><span class="mono">7-2</span><span class="mono">.778</span><span class="mono">1</span><span style="font-size:11px;color:var(--teal);">✅ Def. champ</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Bill Self</span><span>Kansas</span><span class="mono">57-24</span><span class="mono">.704</span><span class="mono">2</span><span style="font-size:11px;color:var(--green);">✅ Proven</span>
+      <span class="bold">Bill Self</span><span>Kansas</span><span class="mono">57-24</span><span class="mono">.704</span><span class="mono">2</span><span style="font-size:11px;color:var(--teal);">✅ Proven</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Rick Pitino</span><span>St. Johns</span><span class="mono">55-25</span><span class="mono">.688</span><span class="mono">2</span><span style="font-size:11px;color:var(--green);">✅ Elite clutch</span>
+      <span class="bold">Rick Pitino</span><span>St. Johns</span><span class="mono">55-25</span><span class="mono">.688</span><span class="mono">2</span><span style="font-size:11px;color:var(--teal);">✅ Elite clutch</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
-      <span class="bold">Kelvin Sampson</span><span>Houston</span><span class="mono">26-19</span><span class="mono">.578</span><span class="mono">0</span><span style="font-size:11px;color:var(--green);">✅ F4 builder</span>
+      <span class="bold">Kelvin Sampson</span><span>Houston</span><span class="mono">26-19</span><span class="mono">.578</span><span class="mono">0</span><span style="font-size:11px;color:var(--teal);">✅ F4 builder</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.9fr;">
       <span class="bold">John Calipari</span><span>Arkansas</span><span class="mono">59-22</span><span class="mono">.728</span><span class="mono">1</span><span style="font-size:11px;color:var(--orange);">⚠ 1 win since '19</span>
@@ -299,19 +298,19 @@
       <span>TEAM</span><span>SPREAD</span><span>TOTAL</span><span>REST</span><span>RATING</span><span>NOTE</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;background:rgba(34,197,94,0.06);">
-      <span class="bold" style="color:var(--green);">Houston ★</span><span class="mono">-23.5</span><span class="mono">138.5</span><span class="mono">4d</span>
-      <span class="mono bold" style="color:var(--green);">A+</span><span style="font-size:11px;color:var(--slate);">Steam +4 · near home</span>
+      <span class="bold" style="color:#22c55e;">Houston ★</span><span class="mono">-23.5</span><span class="mono">138.5</span><span class="mono">4d</span>
+      <span class="mono bold" style="color:#22c55e;">A+</span><span style="font-size:11px;color:var(--slate);">Steam +4 · near home</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;background:rgba(34,197,94,0.04);">
-      <span class="bold" style="color:var(--green);">Virginia ★</span><span class="mono">-18.5</span><span class="mono">145.5</span><span class="mono">5d</span>
-      <span class="mono bold" style="color:var(--green);">A</span><span style="font-size:11px;color:var(--slate);">4-1 L10 · pack-line</span>
+      <span class="bold" style="color:#22c55e;">Virginia ★</span><span class="mono">-18.5</span><span class="mono">145</span><span class="mono">5d</span>
+      <span class="mono bold" style="color:#22c55e;">A</span><span style="font-size:11px;color:var(--slate);">Pack-line defense</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;background:rgba(34,197,94,0.04);">
-      <span class="bold" style="color:var(--green);">Michigan St. ★</span><span class="mono">-16.5</span><span class="mono">143.5</span><span class="mono">4d</span>
-      <span class="mono bold" style="color:var(--green);">A</span><span style="font-size:11px;color:var(--slate);">11pt total drop = sharp under</span>
+      <span class="bold" style="color:#22c55e;">Michigan St. ★</span><span class="mono">-16</span><span class="mono">143</span><span class="mono">4d</span>
+      <span class="mono bold" style="color:#22c55e;">A</span><span style="font-size:11px;color:var(--slate);">11pt total drop = sharp under</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;">
-      <span class="bold">Duke</span><span class="mono">-28.5</span><span class="mono">135.5</span><span class="mono">4d</span>
+      <span class="bold">Duke</span><span class="mono">-27.5</span><span class="mono">136</span><span class="mono">4d</span>
       <span class="mono bold" style="color:var(--blue);">B</span><span style="font-size:11px;color:var(--slate);">Spread size + Foster OUT</span>
     </div>
     <div class="row" style="grid-template-columns:1.2fr 0.6fr 0.6fr 0.6fr 0.5fr 1.2fr;">
@@ -319,56 +318,26 @@
       <span class="mono bold" style="color:var(--blue);">B</span><span style="font-size:11px;color:var(--slate);">Big East PASE -7.3</span>
     </div>
     <div style="padding:14px 20px;border-top:1px solid var(--border);">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);letter-spacing:1px;margin-bottom:8px;">▶ SITUATIONAL ATS SPOTS</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);letter-spacing:1px;margin-bottom:8px;">▶ SITUATIONAL ATS SPOTS (FRI)</div>
       <div style="font-size:12px;color:var(--slate);line-height:1.8;">
-        SMU: <strong style="color:#f1f5f9;">8-12 ATS as favorite</strong> — avoid SMU spread<br>
-        Miami OH: <strong style="color:#f1f5f9;">4-0 ATS as underdog</strong> — back Miami OH +7.5<br>
-        Prairie View: <strong style="color:#f1f5f9;">1-9 UNDER</strong> last 10 — back under 142.5<br>
-        Lehigh: <strong style="color:#f1f5f9;">0-3 UNDER</strong> all tournament games<br>
-        Iowa St.: <strong style="color:#f1f5f9;">Steam -23.5→-25.5</strong> — cover confirmed
+        Iowa St.: <strong style="color:#f1f5f9;">Steam -23→-24.5</strong> — cover confirmed<br>
+        Illinois: <strong style="color:#f1f5f9;">RLM -22.5→-25.5</strong> — sharps on ILL<br>
+        Arizona: <strong style="color:#f1f5f9;">Steam -29.5→-31</strong> — structural blowout
       </div>
     </div>
   </div>
 </div>
 
 <!-- FILES -->
-<div class="sec">▶ Repository Files</div>
+<div class="sec">▶ Tools & Files</div>
 
-<!-- RESULTS — new v4, full width, prominent -->
-<div style="margin-bottom:20px;">
-  <a href="results.html" class="file-card" style="max-width:100%;border-color:rgba(34,197,94,0.5);background:linear-gradient(135deg,#1a2535,#001a0a);">
-    <div style="display:flex;align-items:center;gap:16px;">
-      <div class="file-icon">🎯</div>
-      <div>
-        <div class="ftype">HTML · Live Results Tracker · New v4</div>
-        <div class="ftitle">Betting Results — All Picks Tracked ATS</div>
-      </div>
-      <div style="margin-left:auto;text-align:right;">
-        <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--green);">6 WINS</div>
-        <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:#f43f5e;">2 LOSSES</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);">THU EARLY SLATE</div>
-      </div>
-    </div>
-    <div class="tags">
-      <span class="tag tg">LIVE RESULTS</span>
-      <span class="tag tr">ATS TRACKING</span>
-      <span class="tag tt">1H UNDERS</span>
-      <span class="tag to">TOTALS</span>
-      <span class="tag tn">FILTERABLE</span>
-      <span class="tag tp">PENDING / WIN / LOSS</span>
-    </div>
-    <div class="fdesc">Every bet from the lines dashboard, betting picks PDF, and 1H unders tool tracked in one place. Results updated as games complete. Filter by result (Win/Loss/Pending), bet type (Spread/Total/1H), or day. Current: TCU +2.5 ✅ · HP +10 ✅ · McNeese +12 ✅ · SFU +4.5 ❌ · Duke 1H Under ❌ · 14 games still pending Thursday.</div>
-    <span class="flink">↗ OPEN RESULTS TRACKER</span>
-  </a>
-</div>
-
-<!-- LINES DASHBOARD — new v3, full width prominent -->
+<!-- LINES DASHBOARD — top card -->
 <div style="margin-bottom:20px;">
   <a href="lines_dashboard.html" class="file-card" style="max-width:100%;border-color:rgba(45,212,191,0.5);background:linear-gradient(135deg,#1a2535,#001a14);">
     <div style="display:flex;align-items:center;gap:16px;">
       <div class="file-icon">📡</div>
       <div>
-        <div class="ftype">HTML · Live Dashboard · New v3</div>
+        <div class="ftype">HTML · Live Dashboard</div>
         <div class="ftitle">Live Lines & Picks Dashboard — All 32 First Round Games</div>
       </div>
       <div style="margin-left:auto;text-align:right;">
@@ -384,23 +353,49 @@
       <span class="tag tt">FILTERABLE BY DAY + TIER</span>
       <span class="tag tt">LINE MOVEMENT</span>
     </div>
-    <div class="fdesc">Every first-round game with opening vs current spread, public money% and bets%, pick recommendation, tier badge (A / B / Total / Lean / Watch / Skip), and key signal in one scannable table. Filter by Thursday/Friday or by tier. The go-to reference during games today — all 32 matchups, current as of March 19 tip-off.</div>
+    <div class="fdesc">Every first-round game with opening vs current spread, public money% and bets%, pick recommendation, and tier badge. 5 Tier A · 7 Tier B · 7 Totals · 4 Lean. The go-to for all pending games — use alongside the results tracker.</div>
     <span class="flink">↗ OPEN LINES DASHBOARD</span>
   </a>
 </div>
 
-<!-- BRACKET — full width, prominent -->
+<!-- RESULTS TRACKER -->
+<div style="margin-bottom:20px;">
+  <a href="results.html" class="file-card" style="max-width:100%;border-color:rgba(34,197,94,0.5);background:linear-gradient(135deg,#1a2535,#001a0a);">
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="file-icon">🎯</div>
+      <div>
+        <div class="ftype">HTML · Live Results Tracker</div>
+        <div class="ftitle">Betting Results — All Picks Tracked ATS</div>
+      </div>
+      <div style="margin-left:auto;text-align:right;">
+        <div style="font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#22c55e;">6-2</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);">THU EARLY · COMPLETED</div>
+      </div>
+    </div>
+    <div class="tags">
+      <span class="tag tg">6 WINS</span>
+      <span class="tag tr">2 LOSSES</span>
+      <span class="tag tt">SPREADS + TOTALS + 1H</span>
+      <span class="tag tn">FILTERABLE</span>
+      <span class="tag tp">WIN / LOSS / PENDING</span>
+    </div>
+    <div class="fdesc">Every bet from every source tracked in one place — spreads, totals, and 1H unders. Completed Thu early: TCU +2.5 ✅ · SFU +4.5 ✅ · HP +10 ✅ · McNeese +12 ✅ · SFU 1H U76 ✅ · TCU/OSU 1H U65.5 ✅ · Duke 1H U64 ❌ · McNeese 1H U69 ❌. All pending Thursday and Friday games shown live.</div>
+    <span class="flink">↗ OPEN RESULTS TRACKER</span>
+  </a>
+</div>
+
+<!-- BRACKET — full width -->
 <div style="margin-bottom:20px;">
   <a href="2026_FINAL_POOL_BRACKET.pdf" class="file-card bracket" style="max-width:100%;">
     <div style="display:flex;align-items:center;gap:16px;">
       <div class="file-icon">🏆</div>
       <div>
-        <div class="ftype">PDF · The Bracket — One Definitive Submission</div>
+        <div class="ftype">PDF · The Bracket</div>
         <div class="ftitle">2026 Final Pool Bracket — Michigan over Duke 73-68</div>
       </div>
       <div style="margin-left:auto;text-align:right;">
         <div style="font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:var(--gold);">11</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);">R1 UPSETS</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--slate);">R1 UPSETS PICKED</div>
       </div>
     </div>
     <div class="tags">
@@ -411,45 +406,13 @@
       <span class="tag tp">WIN PROBS INTEGRATED</span>
       <span class="tag tn">INJURY-ADJUSTED</span>
     </div>
-    <div class="fdesc">All 17 rules applied. 11 R1 upsets: SFU, Utah State, Texas, Missouri, Saint Louis, Akron, Santa Clara, Iowa, VCU, McNeese, Texas A&M. R32: Akron over Alabama (Rule 17). S16: Purdue over Gonzaga. F4: Michigan, Duke, Arizona, Houston. Arizona exits to Michigan (Rule 16 — 31yr drought). Michigan over Duke 73-68 in Indianapolis. This is the only bracket you need.</div>
+    <div class="fdesc">All 17 rules applied. 11 R1 upsets: SFU, Utah State, Texas, Missouri, Saint Louis, Akron, Santa Clara, Iowa, VCU, McNeese, Texas A&M. R32: Akron over Alabama (Rule 17). S16: Purdue over Gonzaga. F4: Michigan, Duke, Arizona, Houston. Michigan over Duke 73-68 in Indianapolis.</div>
     <span class="flink">↗ OPEN PDF</span>
   </a>
 </div>
 
-<!-- ANALYSIS + TOOLS -->
-<div class="grid">
-  <a href="2026_March_Madness_Betting_Picks.pdf" class="file-card betting">
-    <div class="file-icon">📊</div>
-    <div class="ftype">PDF · Betting Picks · v3 Rebuilt March 19</div>
-    <div class="ftitle">2026 Betting Picks — Spreads, Totals & Sharp Plays</div>
-    <div class="tags">
-      <span class="tag tr">5 TIER-A PLAYS</span>
-      <span class="tag tt">KALSHI CROSSCHECK</span>
-      <span class="tag to">SITUATIONAL ATS</span>
-      <span class="tag tn">23-5 ATS TREND</span>
-      <span class="tag tt">PUBLIC % ADDED</span>
-      <span class="tag tr">LINES UPDATED</span>
-    </div>
-    <div class="fdesc">Fully rebuilt v3 with today's current lines throughout. LOU now -4.5 (was -6.5), VCU now slight fav, Akron improved to +8.5. Public betting % column added to every Tier A pick. Two new Tier B plays: TCU +2.5 and High Point +10.5. Full rationale paragraphs, Kalshi crosscheck, 23-5 ATS trend, games to skip. Permanent analytical record to complement the live dashboard.</div>
-    <span class="flink">↗ OPEN PDF</span>
-  </a>
-
-  <a href="2026_Upset_Analysis_Deep_Dive.pdf" class="file-card">
-    <div class="file-icon">📈</div>
-    <div class="ftype">PDF · Deep Dive Analysis</div>
-    <div class="ftitle">2026 Upset Analysis — Deep Dive</div>
-    <div class="tags">
-      <span class="tag tr">PASE / BARTHAG</span>
-      <span class="tag to">CONF ANALYSIS</span>
-      <span class="tag tp">WIN PROBABILITIES</span>
-      <span class="tag tt">KALSHI + COACH RECORDS</span>
-    </div>
-    <div class="fdesc">8 sections: injury alerts, line movement, Kalshi divergences, win probabilities by round, PASE/BARTHAG game-by-game, coach records, conference PASE, historical upset totals. The analytical backbone for all picks.</div>
-    <span class="flink">↗ OPEN PDF</span>
-  </a>
-</div>
-
-<div class="grid">
+<!-- SECONDARY TOOLS — 3 across -->
+<div class="grid-3">
   <a href="march_madness_1h_unders.html" class="file-card">
     <div class="file-icon">⏱️</div>
     <div class="ftype">HTML · Interactive Tool</div>
@@ -458,36 +421,34 @@
       <span class="tag tr">INTERACTIVE</span>
       <span class="tag tg">ALL 30 R64 GAMES</span>
       <span class="tag tgo">6 BOOKS</span>
-      <span class="tag tn">INJURY-ADJUSTED</span>
     </div>
-    <div class="fdesc">Real 1H lines from 6 books. A/B/C ratings for all 30 R64 games. Filterable by day, rating, skip. Top plays: Iowa/Clemson, N. Iowa/SJU, Akron/TTU (Toppin OUT), Louisville/SFU (Brown OUT).</div>
+    <div class="fdesc">Real 1H lines from 6 books. A/B/C ratings for all 30 R64 games. Filterable by day and rating. Top A-rated plays: Iowa/Clemson U59.5, N. Iowa/SJU U61, Akron/TTU U72.</div>
     <span class="flink">↗ OPEN TOOL</span>
   </a>
 
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-    <a href="BRACKET_RULES.md" class="file-card">
-      <div class="file-icon">📋</div>
-      <div class="ftype">Markdown</div>
-      <div class="ftitle">The 17 Bracket Rules</div>
-      <div class="tags"><span class="tag tn">2008-2025</span><span class="tag tr">RULES 16+17</span></div>
-      <div class="fdesc">All 17 rules with statistics, data backing, and 2026 applications.</div>
-      <span class="flink">↗ OPEN MD</span>
-    </a>
-    <a href="UPSET_INTELLIGENCE.md" class="file-card">
-      <div class="file-icon">🔍</div>
-      <div class="ftype">Markdown</div>
-      <div class="ftitle">Upset Intelligence</div>
-      <div class="tags"><span class="tag tn">HISTORICAL</span><span class="tag tr">2026 ADDENDUM</span></div>
-      <div class="fdesc">Complete upset trend data + 2026 intelligence with Kalshi divergences and win probabilities.</div>
-      <span class="flink">↗ OPEN MD</span>
-    </a>
-  </div>
+  <a href="BRACKET_RULES.md" class="file-card">
+    <div class="file-icon">📋</div>
+    <div class="ftype">Markdown · Reference</div>
+    <div class="ftitle">The 17 Bracket Rules</div>
+    <div class="tags"><span class="tag tn">2008-2025</span><span class="tag tr">RULES 16+17</span></div>
+    <div class="fdesc">All 17 rules with full statistics, data backing, and 2026 applications. The complete analytical framework behind every pick.</div>
+    <span class="flink">↗ OPEN MD</span>
+  </a>
+
+  <a href="UPSET_INTELLIGENCE.md" class="file-card">
+    <div class="file-icon">🔍</div>
+    <div class="ftype">Markdown · Reference</div>
+    <div class="ftitle">Upset Intelligence Report</div>
+    <div class="tags"><span class="tag tn">HISTORICAL</span><span class="tag tr">2026 ADDENDUM</span></div>
+    <div class="fdesc">Complete upset trend data + 2026 live addendum with Kalshi divergences, win probabilities, coach records, and sharp line movement.</div>
+    <span class="flink">↗ OPEN MD</span>
+  </a>
 </div>
 
 <div class="sec">▶ Team Comparison Tool</div>
 <a href="team_comparison.html" class="file-card" style="border-color:rgba(45,212,191,0.4);background:linear-gradient(135deg,#1a2535,#001a1a);margin-bottom:20px;">
   <div class="file-icon">⚔️</div>
-  <div class="ftype">HTML · Interactive Tool · New</div>
+  <div class="ftype">HTML · Interactive Tool</div>
   <div class="ftitle">Head-to-Head Team Comparison</div>
   <div class="tags">
     <span class="tag tt">ALL 68 TEAMS</span>
@@ -503,7 +464,7 @@
 
 <!-- SOURCES -->
 <div class="sources">
-  <h3>▶ DATA SOURCES & METHODOLOGY — v2</h3>
+  <h3>▶ DATA SOURCES & METHODOLOGY</h3>
   <div class="sg">
     <div class="si"><strong>Barttorvik 2026</strong>Full season Barthag, AdjOE/DE, Four Factors, Last10, Last30 CSVs</div>
     <div class="si"><strong>Warren Nolan NET</strong>NET rankings, Q1/Q2 records, SOS, conference performance</div>
@@ -512,13 +473,12 @@
     <div class="si ns"><strong>Kalshi Prediction Markets</strong>CFTC-regulated. Championship + per-round probabilities. No vig distortion.</div>
     <div class="si ns"><strong>Win Probability Model</strong>Round-by-round % for all 68 teams — BARTHAG + BPI + Kalshi + draw</div>
     <div class="si ns"><strong>Coach ATS Database</strong>Full NCAA tournament W-L record for all 68 coaches in the field</div>
-    <div class="si ns"><strong>Situational ATS Splits</strong>ATS by game situation per team — applied to betting pick ratings</div>
     <div class="si"><strong>Sharp Line Movement</strong>Opening vs current across BetMGM, FanDuel, DK, Pinnacle, Circa, Bovada</div>
     <div class="si"><strong>1H Lines — 6 Books</strong>First-half totals for all 30 R64 games across 6 sportsbooks</div>
     <div class="si"><strong>ESPN BPI</strong>Independent efficiency model crosscheck</div>
     <div class="si"><strong>Rule 17 — Trapezoid</strong>Ryan Hammer (@ryanhammer09) — Net Rating vs Pace championship filter</div>
     <div class="si ns"><strong>Barttorvik Player Data</strong>2,275 players · PRPG, BPM, Usage%, eFG, ORtg, rebounding — all 68 teams</div>
-    <div class="si ns"><strong>Public Betting % — v3</strong>SportsGeek · handle% and bets% for all 32 first-round games as of March 19</div>
+    <div class="si ns"><strong>Public Betting % — v5</strong>SportsGeek · handle% and bets% for all 32 first-round games as of March 19</div>
     <div class="si ns"><strong>VegasInsider Lines</strong>Current consensus spread, total, ML across bet365, BetMGM, DK, Caesars, FanDuel</div>
   </div>
 </div>
@@ -526,7 +486,7 @@
 </div>
 
 <footer>
-  2026 MARCH MADNESS INTELLIGENCE HUB v4 · bbeem1031 · Updated March 19, 2026 · R1 In Progress — Thu early 3-4 ATS<br>
+  2026 MARCH MADNESS INTELLIGENCE HUB v5 · bbeem1031 · Updated March 19, 2026 · R1 In Progress — Thu early 6-2 ATS<br>
   Data: Barttorvik · Warren Nolan · KenPom · ESPN BPI · Kalshi · SportsGeek · VegasInsider · AP Poll Archive · 2008-2025 historical (2020 excluded)<br>
   Lines as of March 19, 2026 — verify before wagering · FOR ENTERTAINMENT PURPOSES ONLY · GAMBLING INVOLVES RISK
 </footer>

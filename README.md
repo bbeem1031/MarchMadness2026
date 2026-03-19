@@ -1,28 +1,26 @@
 # 🏀 2026 March Madness Analytics Hub
 
-**Data-Driven · 2008–2025 · 17 Tournaments · 1,147 Team-Seasons · Updated March 19, 2026 · v4 · R1 IN PROGRESS**
+**Data-Driven · 2008–2025 · 17 Tournaments · 1,147 Team-Seasons · Updated March 19, 2026 · v5 · R1 IN PROGRESS**
 
 > **🏆 Model Champion Pick: Michigan over Duke 73-68**  
 > Rules 16 + 17 confirmed · Veteran depth (Exp 1.95) · Indianapolis = Big Ten country
 
-> **🎯 v4 Update:** Betting Results Tracker added · All picks tracked ATS live · Thu early slate: 6W-2L · TCU ✅ HP ✅ McNeese ✅ · SFU ❌ Duke 1H ❌ McNeese 1H ❌
-
-> **📡 v3 Update:** Live Lines & Picks Dashboard added · All 32 games with current lines, public betting %, pick tiers · Betting Picks PDF rebuilt with today's lines
+> **🎯 v5 Update:** Betting Picks PDF removed — fully superseded by the live Lines Dashboard and Results Tracker. No redundant static documents.
 
 ---
 
-## 📊 Live Betting Results — Thu Early Slate
+## 📊 Live Betting Results — Thu Early Slate (6-2)
 
 | Pick | Tier | Result | Score | Notes |
 |------|------|--------|-------|-------|
 | TCU +2.5 | B | ✅ WIN | TCU 66, OSU 64 | TCU won outright |
-| HP +10 | B | ✅ WIN | HP 83, WIS 82 | HP won outright — upset! |
-| McNeese +12 | B | ✅ WIN | VAN 78, MCN 68 | Vandy won by 10, not 12 |
 | SFU +4.5 | A | ✅ WIN | LOU 83, SFU 79 | Lost by 4 — covers +4.5 ✓ |
-| SFU 1H U 76 | 1H-A | ✅ WIN | LOU 37, SFU 27 HT | 64 combined, crushed under |
-| TCU/OSU 1H U 65.5 | 1H-B | ✅ WIN | TCU 39, OSU 26 HT | 65 combined ✓ |
-| Duke 1H U 64 | 1H-A | ❌ LOSS | SIE 43, DUK 32 HT | 75 combined at half |
-| McNeese 1H U 69 | 1H-A | ❌ LOSS | VAN 38, MCN 35 HT | 73 combined at half |
+| HP +10 | B | ✅ WIN | HP 83, WIS 82 | HP won outright — upset! |
+| McNeese +12 | B | ✅ WIN | VAN 78, MCN 68 | Vandy won by 10, needed -12 |
+| SFU 1H U76 | 1H-A | ✅ WIN | LOU 37, SFU 27 HT | 64 combined — crushed under |
+| TCU/OSU 1H U65.5 | 1H-B | ✅ WIN | TCU 39, OSU 26 HT | 65 combined ✓ |
+| Duke 1H U64 | 1H-A | ❌ LOSS | SIE 43, DUK 32 HT | 75 combined at half |
+| McNeese 1H U69 | 1H-A | ❌ LOSS | VAN 38, MCN 35 HT | 73 combined at half |
 
 **Current record: 6W-2L · Spreads: 4-0 · 1H Unders: 2-2**
 
@@ -33,11 +31,10 @@
 | File | Type | Description |
 |------|------|-------------|
 | [`index.html`](index.html) | Hub | **Main dashboard** — all tools, KPIs, live intelligence |
-| [`results.html`](results.html) | Interactive Tool | **NEW v4 — Betting Results Tracker** — all picks tracked ATS, live results, filterable by Win/Loss/Pending/Type/Day |
+| [`results.html`](results.html) | Interactive Tool | **Betting Results Tracker** — all picks tracked ATS live, filterable by Win/Loss/Pending/Type/Day |
 | [`lines_dashboard.html`](lines_dashboard.html) | Interactive Tool | **Live Lines & Picks** — all 32 games, current lines, public %, pick tiers, filterable |
 | [`team_comparison.html`](team_comparison.html) | Interactive Tool | **Head-to-head comparison** — any two teams, full player + efficiency breakdown |
 | [`2026_FINAL_POOL_BRACKET.pdf`](2026_FINAL_POOL_BRACKET.pdf) | PDF | **The bracket** — all 17 rules, 11 R1 upsets, Michigan champion |
-| [`2026_March_Madness_Betting_Picks.pdf`](2026_March_Madness_Betting_Picks.pdf) | PDF | **v3 rebuilt** — picks with current lines, public %, 2 new plays (TCU, High Point) |
 | [`2026_Upset_Analysis_Deep_Dive.pdf`](2026_Upset_Analysis_Deep_Dive.pdf) | PDF | Full PASE/BARTHAG framework + win probabilities + coach records |
 | [`march_madness_1h_unders.html`](march_madness_1h_unders.html) | Interactive Tool | First-half under tracker — all 30 R64 games, 6 books |
 | [`BRACKET_RULES.md`](BRACKET_RULES.md) | Reference | All 17 bracket rules with full data and 2026 applications |
@@ -45,116 +42,41 @@
 
 ---
 
-## 📡 Lines & Picks Dashboard — New v3
+## 🔄 What Changed in v5
 
-[`lines_dashboard.html`](lines_dashboard.html) — The real-time reference for game day. All 32 first-round games in one filterable table.
+The **Betting Picks PDF** has been removed. It was a static document that duplicated the lines dashboard while showing stale lines — a source of confusion rather than value. Everything it contained is now covered better by live tools:
 
-**What's inside:**
-- **Current lines** — opening spread vs current spread with visual move indicators (▼ favorable, ▲ unfavorable, ⇄ flip)
-- **Public betting %** — handle% and bets% side by side for every game, with sharp signal flags where handle >> tickets
-- **Pick + tier every game** — Tier A, B, Total, Lean, Watch, Skip, or no opinion with a 1-line signal reason
-- **Left-border color coding** — scan instantly by tier without reading every row
-- **Dual filters** — filter by day (Thursday/Friday) and by tier simultaneously
-- **Sharp tags** — games with confirmed sharp money signals are flagged inline
+| What the PDF had | Where it lives now |
+|---|---|
+| Tier A/B spread picks with rationale | Lines Dashboard (filterable, live lines) + Results Tracker (with outcomes) |
+| Kalshi crosscheck table | Index page (inline) |
+| 23-5 ATS situational trend | Index page (inline) |
+| Games to skip | Lines Dashboard (SKIP tier filter) |
+| Public betting % | Lines Dashboard (every game) |
 
-**Pick distribution:** 5 Tier A · 7 Tier B · 7 Totals · 4 Lean · 4 Watch · 4 Skip · 1 No opinion
-
----
-
-## ⚔️ Team Comparison Tool
-
-[`team_comparison.html`](team_comparison.html) — Select any two tournament teams for a full head-to-head breakdown.
-
-**What's inside:**
-- **Model Verdict** — auto-generated edge summary across BARTHAG, offense, defense, experience, momentum, roster balance, injuries, and conference PASE
-- **Efficiency comparison** — AdjOE, AdjDE, Net Rating, eFG%, Defensive eFG%, TOV%, OReb% side-by-side with winner/loser color coding
-- **Last-10 momentum** — season vs L10 BARTHAG trend for each team with hot/cold/flat signal
-- **Roster context** — Pace, Experience, Talent Score, Height, Elite SOS head-to-head
-- **Star dependency** — star player usage%, usage concentration index, total team PRPG, injury count
-- **Full roster tables** — every player with PRPG, Usage%, BPM, ORtg, eFG%, Ast%, Blk, year badges, and injury flags
-- **Experience breakdown** — Fr/So/Jr/Sr count per team with overall Exp score
-- **Risk flags** — auto-generated: injured star, BARTHAG < 0.85, Trapezoid violation, young roster, cold streak, negative conference PASE
-
-Covers all 68 tournament teams. Powered by Barttorvik 2026 player data (2,275 players).
+The repo is now six interactive/live files plus two reference PDFs and two markdown docs — every file pulls its weight.
 
 ---
 
-## 🤖 Model Architecture — v3
+## 🛠️ Tool Descriptions
 
-### Core Data Sources
+### Betting Results Tracker — `results.html`
+The primary game-day reference once games are underway. Every pick from every source (lines dashboard, 1H unders tool) tracked in one place with live scores and ATS outcomes. Filterable by result (Win/Loss/Pending), bet type (Spread/Total/1H Under), and day (Thu/Fri).
 
-| Dataset | Details | Key Metrics |
-|---------|---------|-------------|
-| `Barttorvik_dataset_for_2026.xlsx` | 365 teams, 42 cols | BARTHAG, AdjOE, AdjDE, NetRating, Tempo, Exp |
-| `Barttorvik_2026_Last10.csv` | 732 rows | Full re-ranking on last 10 games |
-| `Barttorvik_2026_Last30.csv` | 732 rows | Full re-ranking on last 30 games |
-| `Barttorvik_FourFactors_2026.xlsx` | All teams | EFG%, TOV%, OREB%, FTR + defensive equivalents |
-| `Barttorvik_Player_Data.xlsx` | 2,275 players · 68 teams | PRPG, BPM, Usage%, eFG, ORtg, rebounding, assists, defense |
-| `WarrenNolan.xlsx` | All teams | NET rankings, Q1/Q2/Q3/Q4 records, SOS |
-| `collegebasketballinjuryreport.csv` | 414 players | Player, Team, Pos, Status, Est. Return |
-| `First_half_lines.xlsx` | 30 games | 1H totals across 6 books |
-| Historical tournament data | 17 years | 2008–2025, 1,147 team-seasons, 38 sources |
-| SportsGeek public betting % | 32 R64 games | Handle% and bets% as of March 19 tip-off |
-| VegasInsider / ESPN / DraftKings | 32 R64 games | Current lines, opening lines, line movement |
+### Live Lines & Picks Dashboard — `lines_dashboard.html`
+All 32 first-round games in one filterable table. Opening vs current spread, public money% and bets%, pick recommendation, and tier badge (A/B/Total/Lean/Watch/Skip) for every game. The pre-game reference; use alongside the results tracker during games.
 
-### New in v4
+### Team Comparison Tool — `team_comparison.html`
+Select any two tournament teams for a full head-to-head breakdown. Covers efficiency stats, full rosters with PRPG/Usage%/BPM, star dependency scoring, injury flags, experience breakdown, and last-10 momentum. Powered by Barttorvik 2026 player data (2,275 players, all 68 teams).
 
-**Betting Results Tracker** — `results.html` tracks every pick from all three sources (lines dashboard, betting picks PDF, 1H unders tool) in one live-updating page. Each bet row shows the pick, line, tier, final score, and result badge (WIN / LOSS / PUSH / PENDING). Filterable by result type, bet type (spread/total/1H), and day. Updated as Thursday games complete.
-
-**Current Thursday early record:** 4W-4L · Spreads 3-1 (TCU +2.5 ✅, HP +10 ✅, McNeese +12 ✅, SFU +4.5 ❌) · 1H Unders 1-3 (TCU/OSU 65.5 ✅, Duke 64 ❌, McNeese 69 ❌, SFU 76 ❌)
-
-### New in v3
-
-**Live Lines & Picks Dashboard** — `lines_dashboard.html` covers all 32 first-round games with current lines, opening-to-current movement, public money% and bets%, pick recommendation, and tier badge for every game. Filterable by day and tier.
-
-**Betting Picks PDF rebuilt** — v3 update with current lines throughout (LOU now -4.5, VCU flipped to slight fav, Akron improved to +8.5, Santa Clara weakened to +3.5). Public betting % column added to all Tier A picks. Two new Tier B plays added: TCU +2.5 and High Point +10.5.
-
-### New in v2
-
-**Kalshi Prediction Market Integration** — CFTC-regulated, no vig. When Kalshi% diverges from book implied%, that gap is actionable signal.
-
-| Team | Kalshi% | Book Implied | Gap | Signal |
-|------|---------|-------------|-----|--------|
-| Duke | 19% | 25.0% | -6.0% | Market fading Duke |
-| Michigan | 18% | 22.2% | -4.2% | Market fading Michigan |
-| Arizona ⛔ | 17% | 20.0% | -3.0% | Market fading Arizona |
-| Florida | 9% | 11.8% | -2.8% | Market fading Florida |
-| **Purdue ★** | **5%** | **2.8%** | **+2.2%** | **VALUE — only positive gap** |
-
-**Round-by-Round Win Probabilities** — BARTHAG + BPI + Kalshi + draw analysis.
-
-| Team | R64 | R32 | S16 | E8 | F4 | Champ |
-|------|-----|-----|-----|----|----|-------|
-| Michigan 🏆 | 99% | 92% | 80% | 66% | 50% | **22%** |
-| Duke | 99% | 88% | 72% | 58% | 38% | **21%** |
-| Arizona ⛔ | 99% | 91% | 77% | 63% | 40% | **19%** |
-| Houston | 99% | 82% | 62% | 44% | 28% | **10%** |
-| Florida | 98% | 80% | 58% | 38% | 22% | **9%** |
-| Iowa State | 99% | 78% | 55% | 36% | 22% | **8%** |
-| Purdue ★ | 98% | 72% | 48% | 33% | 18% | **6%** |
-| UConn | 97% | 62% | 40% | 27% | 14% | **5%** |
-
-**Coach Tournament Records** — full W-L for all 68 coaches in field.
-
-| Coach | School | W-L | Win% | Titles | Signal |
-|-------|--------|-----|------|--------|--------|
-| Dan Hurley | UConn | 15-5 | .750 | 2 | ✅ Elite |
-| Dusty May | Michigan | 11-4 | .733 | 0 | ✅ Strong sample |
-| Tom Izzo | Michigan St. | 59-26 | .694 | 1 | ✅ Mr. March |
-| Todd Golden | Florida | 7-2 | .778 | 1 | ✅ Defending champ |
-| John Calipari | Arkansas | 59-22 | .728 | 1 | ⚠ 1 win since 2019 |
-| Tommy Lloyd | Arizona | 10-6 | .625 | 0 | ⚠ Never past S16 |
-
-**Situational ATS Splits** — ATS record by situation per team, applied to betting pick ratings.
-
-**Player-Level Intelligence** — Barttorvik 2026 player data integrated into team comparison tool. Star dependency scoring, usage concentration index, injury cross-referencing, and experience breakdown for all 68 teams.
+### First Half Unders Tracker — `march_madness_1h_unders.html`
+Real 1H lines from 6 books for all 30 R64 games. A/B/C ratings based on pace, injury impact, and defensive identity. Filterable by day and rating. Top A-rated plays for Friday: Iowa/Clemson U59.5, N. Iowa/SJU U61, Akron/TTU U72.
 
 ---
 
-## 📋 The 17 Rules
+## 📋 The 17 Rules (Quick Reference)
 
-### MUST DO — Rules 1-5
-
+### MUST DO — Rules 1–5
 | # | Rule | Stat |
 |---|------|------|
 | 1 | Pick ≥1 eleven-seed to advance | At-large 11s: **64.1%** win rate |
@@ -163,8 +85,7 @@ Covers all 68 tournament teams. Powered by Barttorvik 2026 player data (2,275 pl
 | 4 | Fade any favorite traveling >1,000 miles | **38.5%** favorite loss rate |
 | 5 | East Coast team in West = upset pick | **54.5%** fav loss rate crossing 2TZ |
 
-### STRONGLY RECOMMENDED — Rules 6-10
-
+### STRONGLY RECOMMENDED — Rules 6–10
 | # | Rule | Stat |
 |---|------|------|
 | 6 | Never blindly pick a 6-seed to the Sweet 16 | **-20.3 PASE** worst of any seed |
@@ -173,8 +94,7 @@ Covers all 68 tournament teams. Powered by Barttorvik 2026 player data (2,275 pl
 | 9 | Fade Big 12 and Mountain West seeds | **-15.9 / -15.6** PASE |
 | 10 | Cinderella must clear KP rank 60 + BARTHAG 0.79 | Floor for any deep run |
 
-### ADVISORY — Rules 11-15
-
+### ADVISORY — Rules 11–15
 | # | Rule | Stat |
 |---|------|------|
 | 11 | For 12-seeds: defense > offense | KADJ D is key differentiator |
@@ -183,41 +103,11 @@ Covers all 68 tournament teams. Powered by Barttorvik 2026 player data (2,275 pl
 | 14 | Watch host state | CA **38.9%**, OH **37.5%** underdog win rate |
 | 15 | Respect MVC and CAA mid-majors | **4x** Final Fours as 11-seeds |
 
-### NEW 2026 — Rules 16-17
-
+### NEW 2026 — Rules 16–17
 | # | Rule | Detail |
 |---|------|--------|
-| 16 | **HARD: No west of Mississippi champion** | UCLA 1995 was last — 31-year drought. Arizona hard-faded from championship. |
+| 16 | **HARD: No west of Mississippi champion** | UCLA 1995 was last — 31-year drought. Arizona hard-faded. |
 | 17 | **Trapezoid of Excellence** | Pace 63-72 + Net Rating 28+ = championship zone. Alabama (73.1 pace) OUTSIDE. Credit: Ryan Hammer (@ryanhammer09) |
-
----
-
-## 🏥 Critical 2026 Injuries
-
-| Player | Team | Status | Bracket Action |
-|--------|------|--------|----------------|
-| Mikel Brown Jr. | Louisville #6 | **OUT R1+R2** | Take South Florida |
-| Caleb Wilson | UNC #6 | **OUT season** | Take VCU |
-| Braden Huff | Gonzaga #3 | **OUT R1** | Fade Gonzaga spread |
-| Caleb Foster | Duke #1 | **OUT** | Monitor total |
-| Richie Saunders | BYU #6 | **OUT season** | Take Texas |
-| JT Toppin | Texas Tech #5 | **OUT season** | Take Akron |
-
----
-
-## 📈 Sharp Line Movement — Updated March 19, 2026
-
-| Game | Open | Current | Move | Signal |
-|------|------|---------|------|--------|
-| Louisville vs SFU | -7.5 | **-4.5** | **-3.0** | 🔴 RLM — Brown OUT R1+R2, 81% money on SFU |
-| NCarolina vs VCU | NC -2.5 | **VCU fav** | **FLIP** | 🔴 Wilson OUT season — line fully flipped |
-| Utah St vs Villanova | VIL -1.5 | **USU -2.5** | **FLIP +4** | 🔄 Sharp identification — USU undervalued |
-| Ohio State vs TCU | -4.5 | **-2.5** | **-2.0** | 🔄 Sharp money on TCU — DK director confirmed |
-| Wisconsin vs High Point | -12.5 | **-10.5** | **-2.0** | 🔄 Sharp dog — 65% handle on High Point |
-| MSU vs NDSU (TOTAL) | 154.5 | **143.5** | **-11.0** | 🔥 Biggest move on board — sharpest under signal |
-| Houston vs Idaho | -19.5 | **-23.5** | **+4.0** | 🔥 Steam — ATS trend A+ qualifier |
-| Iowa State vs T.State | -23.5 | **-25.5** | **+2.0** | 🔥 Steam — ISU #1 nationally L10 |
-| Illinois vs Penn | -22.5 | **-24.5** | **+2.0** | ⚠ Reverse line move — sharps on Illinois |
 
 ---
 
@@ -226,7 +116,7 @@ Covers all 68 tournament teams. Powered by Barttorvik 2026 player data (2,275 pl
 **Champion: Michigan Wolverines**  
 BARTHAG 0.980 · Net Rating +36.6 · Pace 71.2 · Exp 1.947 · Rule 16 ✅ · Rule 17 ✅
 
-**Michigan's path:** Howard → Saint Louis → Akron → Iowa State → Arizona (⛔ R16) → **Duke (CHAMP)**
+**Michigan's path:** Howard → Saint Louis → Akron → Iowa State → Arizona (⛔ Rule 16) → **Duke (CHAMP)**
 
 ### Final Four
 | Team | Region | Note |
@@ -236,58 +126,63 @@ BARTHAG 0.980 · Net Rating +36.6 · Pace 71.2 · Exp 1.947 · Rule 16 ✅ · Ru
 | **Michigan 🏆** | Midwest | Champion |
 | Houston | South | Near-home Elite Eight win |
 
-### R1 Upsets (11 total)
-
-| Upset Pick | Over | Key Rule(s) |
-|------------|------|------------|
-| South Florida | Louisville | Rule 1+6 + Brown OUT |
-| Utah State 🔒 | Villanova | LOCK: BARTHAG 0.895 > 0.881 |
-| Texas | BYU | Rule 1+6+9 + Saunders OUT |
-| Missouri | Miami FL | Rule 4+5: 2TZ travel |
+### R1 Upsets Picked (11 total)
+| Upset | Over | Key Rule(s) |
+|-------|------|-------------|
+| South Florida | Louisville | Rules 1+6 + Brown OUT |
+| Utah State | Villanova | LOCK: BARTHAG 0.895 > 0.881 |
+| Texas | BYU | Rules 1+6+9 + Saunders OUT |
+| Missouri | Miami FL | Rules 4+5: 2TZ travel |
 | Saint Louis | Georgia | Rule 7: AP-ranked |
-| Akron | Texas Tech | Rule 2+9 + Toppin OUT |
-| Santa Clara 🔒 | Kentucky | LOCK: BARTHAG 0.895 > 0.890 |
-| Iowa 🔒 | Clemson | LOCK: BARTHAG 0.907 > 0.892 |
-| VCU | North Carolina | Rule 1+6 + Wilson OUT |
+| Akron | Texas Tech | Rules 2+9 + Toppin OUT |
+| Santa Clara | Kentucky | LOCK: BARTHAG 0.895 > 0.890 |
+| Iowa | Clemson | LOCK: BARTHAG 0.907 > 0.892 |
+| VCU | North Carolina | Rules 1+6 + Wilson OUT |
 | McNeese | Vanderbilt | Rule 2 + 3-0 L10 |
-| Texas A&M | Saint Marys | Rule 4+5: 3TZ travel |
-
-### Later Round Upsets
-- R32: Akron over Alabama (Rule 17 — outside trapezoid, pace 73.1)
-- S16: Purdue over Gonzaga (double-injured + Rule 16 tiebreaker)
-- E8: Houston over Florida (at home in South region)
+| Texas A&M | Saint Mary's | Rules 4+5: 3TZ travel |
 
 ---
 
-## 🎰 ATS Trend — 23-5 (Top-3 Seed + Total <148 + 4+ Days Rest)
+## 🏥 Critical 2026 Injuries
 
-| Team | Spread | Total | Rest | Rating |
-|------|--------|-------|------|--------|
-| **Houston** | -23.5 | 138.5 | 4d | **A+** |
-| **Virginia** | -18.5 | 145.5 | 5d | **A** |
-| **Michigan St.** | -16.5 | 143.5 | 4d | **A** (11pt total drop) |
-| Duke | -28.5 | 135.5 | 4d | **B** |
-| UConn | -20.5 | 136.5 | 5d | **B** |
-
----
-
-## 📊 Conference PASE
-
-| Conference | PASE | Direction |
-|------------|------|-----------|
-| ACC | +12.4 | ✅ Trust |
-| Pac-12 | +7.3 | ✅ Trust |
-| Big Ten | +4.5 | ✅ Trust |
-| SEC | +4.4 | ✅ Trust |
-| MVC | +4.1 | ✅ Mid-major value |
-| A-10 | -5.8 | ⚠ Fade |
-| Big East | -7.3 | ⚠ Brand inflates seeds |
-| MWC | -15.6 | ❌ Hard fade |
-| Big 12 | -15.9 | ❌ Hard fade (worst PASE) |
+| Player | Team | Status | Pick Impact |
+|--------|------|--------|-------------|
+| Mikel Brown Jr. | Louisville #6 | **OUT R1+R2** | SFU +4.5 ✅ (covered) |
+| Caleb Wilson | UNC #6 | **OUT season** | VCU +2.5 (pending) |
+| Braden Huff | Gonzaga #3 | **OUT R1** | Fade Gonzaga spread |
+| Caleb Foster | Duke #1 | **OUT** | Monitor total |
+| Richie Saunders | BYU #6 | **OUT season** | Texas +2.5 (pending) |
+| JT Toppin | Texas Tech #5 | **OUT season** | Akron +7.5 (pending) |
 
 ---
 
-## ⚠ Disclaimer
-All analysis is for entertainment and educational purposes only. Past performance does not guarantee future results. Please gamble responsibly.
+## 🌊 Kalshi Prediction Market Divergences
 
-**Data:** Barttorvik · KenPom · Warren Nolan NET · ESPN BPI · Kalshi · SportsGeek · VegasInsider · DraftKings · AP Poll Archive · 38 sources · 2008–2025 (2020 excluded) · Lines and public % as of March 19, 2026
+| Team | Kalshi % | Book Implied | Gap | Signal |
+|------|----------|-------------|-----|--------|
+| Duke (#1 East) | 19% | 25.0% | -6.0% | Market fading Duke |
+| Michigan (#1 Mid) 🏆 | 18% | 22.2% | -4.2% | Book overpriced |
+| Arizona (#1 West) ⛔ | 17% | 20.0% | -3.0% | Kalshi + Rule 16 both fade |
+| Florida (#1 South) | 9% | 11.8% | -2.8% | Market fading Florida |
+| **Purdue (#2 West) ★** | **5%** | **2.8%** | **+2.2%** | **VALUE — only positive gap** |
+
+---
+
+## 🗂️ Core Data Sources
+
+| Dataset | Details | Key Metrics |
+|---------|---------|-------------|
+| `Barttorvik_dataset_for_2026.xlsx` | 365 teams, 42 cols | BARTHAG, AdjOE, AdjDE, NetRating, Tempo, Exp |
+| `Barttorvik_2026_Last10.csv` | 732 rows | Full re-ranking on last 10 games |
+| `Barttorvik_2026_Last30.csv` | 732 rows | Full re-ranking on last 30 games |
+| `Barttorvik_FourFactors_2026.xlsx` | All teams | EFG%, TOV%, OREB%, FTR + defensive equivalents |
+| `Barttorvik_Player_Data.xlsx` | 2,275 players · 68 teams | PRPG, BPM, Usage%, eFG, ORtg |
+| `WarrenNolan.xlsx` | All teams | NET rankings, Q1/Q2/Q3/Q4 records, SOS |
+| `collegebasketballinjuryreport.csv` | 414 players | Player, Team, Pos, Status, Est. Return |
+| Historical tournament data | 17 years | 2008–2025, 1,147 team-seasons, 38 sources |
+
+---
+
+⚠️ *All analysis is for entertainment and educational purposes only. Past performance does not guarantee future results. Please gamble responsibly.*
+
+**Data:** Barttorvik · KenPom · Warren Nolan NET · ESPN BPI · Kalshi · SportsGeek · VegasInsider · DraftKings · AP Poll Archive · 38 sources · 2008-2025 (2020 excluded) · Lines and public % as of March 19, 2026
