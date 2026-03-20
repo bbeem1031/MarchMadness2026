@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 March Madness — Bracket Results</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #070d12;
+  --surface: #0b1520;
+  --card: #0f1e2d;
+  --border: #172538;
+  --border2: #1e3348;
+  --win: #22c55e;
+  --win-bg: rgba(34,197,94,0.08);
+  --win-border: rgba(34,197,94,0.25);
+  --loss: #f43f5e;
+  --loss-bg: rgba(244,63,94,0.08);
+  --loss-border: rgba(244,63,94,0.25);
+  --pending: #60a5fa;
+  --text: #edf4ff;
+  --muted: #6a8faa;
+  --dim: #2e4a62;
+  --red: #e8502a;
+  --orange: #dc6f1a;
+  --teal: #2dd4bf;
+  --gold: #f0a500;
+  --green: #22c55e;
+  --slate: #94a3b8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* HEADER */
+.hdr{
+  padding:36px 40px 28px;
+  background:var(--surface);
+  border-bottom:2px solid var(--border2);
+  display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+.hdr-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--teal);text-transform:uppercase;margin-bottom:8px;}
+.hdr-title{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;letter-spacing:-0.5px;line-height:1;}
+.hdr-sub{font-size:12px;color:var(--muted);margin-top:6px;font-family:'IBM Plex Mono',monospace;}
+.back-link{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--teal);text-decoration:none;letter-spacing:1px;border:1px solid rgba(45,212,191,.3);padding:6px 14px;border-radius:3px;}
+.back-link:hover{background:rgba(45,212,191,.08);}
+
+/* SCOREBOARD */
+.scoreboard{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--border2);
+  border-bottom:2px solid var(--border2);
+}
+.sb-cell{background:var(--surface);padding:18px 24px;text-align:center;}
+.sb-num{font-family:'IBM Plex Mono',monospace;font-size:32px;font-weight:700;line-height:1;}
+.sb-lbl{font-size:9px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-top:4px;font-family:'IBM Plex Mono',monospace;}
+
+/* FILTER */
+.filter-bar{
+  padding:14px 40px;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+}
+.fl{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--dim);margin-right:4px;}
+.fbtn{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1px;
+  padding:5px 14px;border-radius:3px;cursor:pointer;border:1px solid var(--border2);
+  background:transparent;color:var(--muted);transition:all .15s;
+}
+.fbtn:hover{border-color:var(--teal);color:var(--teal);}
+.fbtn.on{background:var(--teal);color:#000;border-color:var(--teal);}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:24px 40px 60px;}
+
+/* ROUND HEADER */
+.round-hdr{
+  display:flex;align-items:center;gap:16px;
+  padding:12px 20px;
+  background:rgba(45,212,191,.06);
+  border:1px solid rgba(45,212,191,.2);
+  border-radius:6px;
+  margin:24px 0 8px;
+}
+.round-hdr.pending{
+  background:rgba(96,165,250,.05);
+  border-color:rgba(96,165,250,.15);
+}
+.round-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--teal);}
+.round-label.pending{color:var(--pending);}
+.round-record{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700;color:var(--teal);}
+.round-record.pending{color:var(--pending);font-size:14px;}
+.round-note{font-size:11px;color:var(--muted);}
+
+/* GAME ROWS */
+.brk-row{
+  display:grid;
+  grid-template-columns:1fr 1fr 120px 80px;
+  gap:0;
+  align-items:center;
+  padding:11px 20px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  transition:background .1s;
+  border-left:2px solid transparent;
+}
+.brk-row:hover{background:rgba(255,255,255,0.02);}
+.brk-row.hit{border-left-color:rgba(34,197,94,.4);}
+.brk-row.miss{border-left-color:rgba(244,63,94,.3);}
+.brk-row.tbd{border-left-color:rgba(96,165,250,.2);opacity:.7;}
+.brk-game{font-size:13px;font-weight:600;color:var(--text);}
+.brk-game .seeds{font-size:10px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-top:2px;}
+.brk-pick{font-family:'IBM Plex Mono',monospace;font-size:11px;}
+.brk-pick.hit{color:var(--win);}
+.brk-pick.miss{color:var(--loss);}
+.brk-pick.tbd{color:var(--pending);}
+.brk-actual{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);}
+.brk-badge{
+  text-align:center;font-family:'IBM Plex Mono',monospace;
+  font-size:9px;font-weight:700;letter-spacing:1px;
+  padding:4px 10px;border-radius:3px;
+}
+.brk-badge.win{background:rgba(34,197,94,.15);color:var(--win);border:1px solid rgba(34,197,94,.3);}
+.brk-badge.loss{background:rgba(244,63,94,.12);color:var(--loss);border:1px solid rgba(244,63,94,.25);}
+.brk-badge.tbd{background:rgba(96,165,250,.08);color:var(--pending);border:1px solid rgba(96,165,250,.2);}
+.brk-badge.upset{background:rgba(240,165,0,.12);color:var(--gold);border:1px solid rgba(240,165,0,.3);}
+.hide{display:none!important;}
+
+/* FOOTER */
+.footer{
+  text-align:center;padding:28px 40px;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;
+  color:var(--dim);letter-spacing:.5px;line-height:1.8;
+  border-top:1px solid var(--border);
+}
+
+@media(max-width:640px){
+  .hdr{padding:24px 20px 20px;}
+  .main{padding:16px 20px 40px;}
+  .scoreboard{grid-template-columns:repeat(2,1fr);}
+  .brk-row{grid-template-columns:1fr 80px;gap:4px;}
+  .brk-actual,.brk-pick{display:none;}
+  .filter-bar{padding:12px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div>
+    <div class="hdr-eyebrow">▶ 2026 NCAA Tournament · Bracket Tracking · bbeem1031</div>
+    <div class="hdr-title">Bracket Results</div>
+    <div class="hdr-sub">Pick vs actual winner · every R64 game · Champion: Michigan over Duke 73-68</div>
+  </div>
+  <a href="index.html" class="back-link">← BACK TO HUB</a>
+</div>
+
+<!-- SCOREBOARD -->
+<div class="scoreboard">
+  <div class="sb-cell">
+    <div class="sb-num" style="color:var(--win);">12</div>
+    <div class="sb-lbl">Hits<br>R1 Thu</div>
+  </div>
+  <div class="sb-cell">
+    <div class="sb-num" style="color:var(--loss);">4</div>
+    <div class="sb-lbl">Misses<br>R1 Thu</div>
+  </div>
+  <div class="sb-cell">
+    <div class="sb-num" style="color:var(--gold);">12-4</div>
+    <div class="sb-lbl">Record<br>R1 Thu final</div>
+  </div>
+  <div class="sb-cell">
+    <div class="sb-num" style="color:var(--pending);">16</div>
+    <div class="sb-lbl">Pending<br>R1 Fri</div>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filter-bar">
+  <span class="fl">FILTER</span>
+  <button class="fbtn on" onclick="filterRound('all',this)">ALL</button>
+  <button class="fbtn" onclick="filterRound('hit',this)">HITS</button>
+  <button class="fbtn" onclick="filterRound('miss',this)">MISSES</button>
+  <button class="fbtn" onclick="filterRound('upset',this)">UPSETS PICKED</button>
+  <button class="fbtn" onclick="filterRound('tbd',this)">PENDING</button>
+</div>
+
+<div class="main">
+
+<!-- ══ R1 THURSDAY ══ -->
+<div class="round-hdr">
+  <div class="round-label">R1 THURSDAY · MARCH 19</div>
+  <div class="round-record">12-4</div>
+  <div class="round-note">3 upsets hit (VCU, Texas, TXAM) · 4 misses: OSU chalk, Wisconsin chalk, SFU upset, McNeese upset</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="no">
+  <div class="brk-game">Ohio State vs TCU<div class="seeds">#8 vs #9 · Greenville SC</div></div>
+  <div class="brk-pick miss">Ohio State ← picked</div>
+  <div class="brk-actual">TCU 66–64</div>
+  <div class="brk-badge loss">MISS</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="no">
+  <div class="brk-game">Nebraska vs Troy<div class="seeds">#4 vs #13 · OKC OK</div></div>
+  <div class="brk-pick hit">Nebraska ✓</div>
+  <div class="brk-actual">NEB 76–47</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row miss" data-result="miss" data-round="thu" data-upset="yes">
+  <div class="brk-game">Louisville vs South Florida<div class="seeds">#6 vs #11 · Tampa FL</div></div>
+  <div class="brk-pick miss">South Florida (upset) ← picked</div>
+  <div class="brk-actual">LOU 83–79</div>
+  <div class="brk-badge loss">MISS</div>
+</div>
+
+<div class="brk-row miss" data-result="miss" data-round="thu" data-upset="no">
+  <div class="brk-game">Wisconsin vs High Point<div class="seeds">#5 vs #12 · Portland OR</div></div>
+  <div class="brk-pick miss">Wisconsin ← picked</div>
+  <div class="brk-actual">HP 83–82</div>
+  <div class="brk-badge loss">MISS</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="no">
+  <div class="brk-game">Duke vs Siena<div class="seeds">#1 vs #16 · Greenville SC</div></div>
+  <div class="brk-pick hit">Duke ✓</div>
+  <div class="brk-actual">DUK 71–65</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row miss" data-result="miss" data-round="thu" data-upset="yes">
+  <div class="brk-game">Vanderbilt vs McNeese<div class="seeds">#5 vs #12 · OKC OK</div></div>
+  <div class="brk-pick miss">McNeese (upset) ← picked</div>
+  <div class="brk-actual">VAN 78–68</div>
+  <div class="brk-badge loss">MISS</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="no">
+  <div class="brk-game">Michigan State vs NDSU<div class="seeds">#3 vs #14 · Buffalo NY</div></div>
+  <div class="brk-pick hit">Michigan State ✓</div>
+  <div class="brk-actual">MSU 92–67</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="no">
+  <div class="brk-game">Arkansas vs Hawaii<div class="seeds">#4 vs #13 · Tampa FL</div></div>
+  <div class="brk-pick hit">Arkansas ✓</div>
+  <div class="brk-actual">ARK 97–78</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="yes">
+  <div class="brk-game">North Carolina vs VCU<div class="seeds">#6 vs #11 · Greenville SC</div></div>
+  <div class="brk-pick hit">VCU (upset) ✓</div>
+  <div class="brk-actual">VCU 82–78 OT</div>
+  <div class="brk-badge upset">UPSET ✓</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="no">
+  <div class="brk-game">Michigan vs Howard<div class="seeds">#1 vs #16 · Memphis TN</div></div>
+  <div class="brk-pick hit">Michigan ✓</div>
+  <div class="brk-actual">MICH 101–80</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="yes">
+  <div class="brk-game">BYU vs Texas<div class="seeds">#6 vs #11 · Portland OR</div></div>
+  <div class="brk-pick hit">Texas (upset) ✓</div>
+  <div class="brk-actual">TEX 79–71</div>
+  <div class="brk-badge upset">UPSET ✓</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="yes">
+  <div class="brk-game">Saint Mary's vs Texas A&amp;M<div class="seeds">#7 vs #10 · Philadelphia PA</div></div>
+  <div class="brk-pick hit">Texas A&amp;M (upset) ✓</div>
+  <div class="brk-actual">TXAM 63–50</div>
+  <div class="brk-badge upset">UPSET ✓</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="no">
+  <div class="brk-game">Illinois vs Penn<div class="seeds">#3 vs #14 · Greenville SC</div></div>
+  <div class="brk-pick hit">Illinois ✓</div>
+  <div class="brk-actual">ILL 105–70</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="yes">
+  <div class="brk-game">Georgia vs Saint Louis<div class="seeds">#8 vs #9 · Buffalo NY</div></div>
+  <div class="brk-pick hit">Saint Louis (upset) ✓</div>
+  <div class="brk-actual">SLU 102–77</div>
+  <div class="brk-badge upset">UPSET ✓</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="no">
+  <div class="brk-game">Gonzaga vs Kennesaw State<div class="seeds">#3 vs #14 · Portland OR</div></div>
+  <div class="brk-pick hit">Gonzaga ✓</div>
+  <div class="brk-actual">GON 73–64</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="thu" data-upset="no">
+  <div class="brk-game">Houston vs Idaho<div class="seeds">#2 vs #15 · OKC OK</div></div>
+  <div class="brk-pick hit">Houston ✓</div>
+  <div class="brk-actual">HOU 78–47</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<!-- ══ R1 FRIDAY ══ -->
+<div class="round-hdr pending" style="margin-top:32px;">
+  <div class="round-label pending">R1 FRIDAY · MARCH 20</div>
+  <div class="round-record pending">0-0 · IN PROGRESS</div>
+  <div class="round-note">16 games · results update after each tip</div>
+</div>
+
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Kentucky vs Santa Clara<div class="seeds">#7 vs #10 · St. Louis MO</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Texas Tech vs Akron<div class="seeds">#5 vs #12 · Tampa FL</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Arizona vs Long Island<div class="seeds">#1 vs #16 · San Diego CA</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Virginia vs Wright State<div class="seeds">#4 vs #13 · Memphis TN</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Iowa State vs Tennessee State<div class="seeds">#2 vs #15 · Memphis TN</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Alabama vs Hofstra<div class="seeds">#4 vs #13 · Tampa FL</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Utah State vs Villanova<div class="seeds">#9 vs #8 · Raleigh NC</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Tennessee vs Miami (OH)<div class="seeds">#6 vs #11 · Philadelphia PA</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Iowa vs Clemson<div class="seeds">#8 vs #9 · Raleigh NC</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">St. John's vs N. Iowa<div class="seeds">#7 vs #10 · Raleigh NC</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">UCLA vs UCF<div class="seeds">#6 vs #11 · San Diego CA</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Purdue vs Queens<div class="seeds">#2 vs #15 · St. Louis MO</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Florida vs Prairie View A&amp;M<div class="seeds">#1 vs #16 · Raleigh NC</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Missouri vs Miami FL<div class="seeds">#10 vs #7 · San Diego CA</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">UConn vs Furman<div class="seeds">#2 vs #15 · Memphis TN</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="fri" data-upset="no">
+  <div class="brk-game">Kansas vs N. Illinois<div class="seeds">#5 vs #12 · San Diego CA</div></div>
+  <div class="brk-pick tbd">— pending</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  2026 MARCH MADNESS BRACKET RESULTS · bbeem1031 · Champion pick: Michigan over Duke 73-68<br>
+  Picks from 2026_FINAL_POOL_BRACKET.pdf · Updated after each game · FOR ENTERTAINMENT PURPOSES ONLY
+</div>
+
+<script>
+function filterRound(type, btn) {
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.brk-row').forEach(row => {
+    let show = true;
+    if (type === 'hit'   && row.dataset.result !== 'hit')  show = false;
+    if (type === 'miss'  && row.dataset.result !== 'miss') show = false;
+    if (type === 'tbd'   && row.dataset.result !== 'tbd')  show = false;
+    if (type === 'upset' && row.dataset.upset  !== 'yes')  show = false;
+    row.classList.toggle('hide', !show);
+  });
+}
+</script>
+</body>
+</html>
