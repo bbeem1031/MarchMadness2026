@@ -90,7 +90,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 /* SCOREBOARD STRIP */
 .scoreboard {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   border-bottom: 1px solid var(--border2);
 }
 .sb-cell {
@@ -311,7 +311,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 @media(max-width:1000px){
   .bet-row{grid-template-columns:150px 1fr 80px 80px 90px 100px;}
-  .scoreboard{grid-template-columns:repeat(3,1fr);}
+  .scoreboard{grid-template-columns:repeat(2,1fr);}
   .summary-grid{grid-template-columns:1fr;}
   .main{padding:20px;}
   .hdr{padding:24px 20px 20px;}
@@ -354,20 +354,12 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="sb-lbl">Losses (ATS)<br>completed bets</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" style="color:var(--push);">0</div>
-    <div class="sb-lbl">Pushes<br>completed bets</div>
-  </div>
-  <div class="sb-cell">
     <div class="sb-num" style="color:var(--pending);">4</div>
     <div class="sb-lbl">Pending<br>Thu late + all Fri</div>
   </div>
   <div class="sb-cell">
     <div class="sb-num" style="color:var(--gold);">11-3</div>
     <div class="sb-lbl">Record<br>Thu complete + late</div>
-  </div>
-  <div class="sb-cell">
-    <div class="sb-num" style="color:var(--muted);">—</div>
-    <div class="sb-lbl">Units P&L<br>updated at close</div>
   </div>
 </div>
 
