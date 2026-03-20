@@ -13,7 +13,7 @@
   --red:#e8502a; --orange:#dc6f1a; --gold:#f0a500;
   --green:#2a7a4b; --teal:#2dd4bf; --blue:#60a5fa; --purple:#a78bfa;
   --text:#f0f6ff; --muted:#7a9ab8; --dim:#3d5a75;
-  --tier-a:#e8502a; --tier-b:#dc6f1a; --tier-tot:#a78bfa;
+  --tier-a:#e8502a; --tier-b:#dc6f1a; --tier-skip:#3d5a75; --tier-watch:#f0a500; --tier-lean:#2a7a4b;
   --tier-skip:#3d5a75; --tier-watch:#f0a500; --tier-lean:#2a7a4b;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -60,7 +60,6 @@ td{padding:9px 10px;font-size:12px;vertical-align:middle;}
 /* row accent by tier */
 tr.tier-a{border-left:2px solid var(--tier-a);}
 tr.tier-b{border-left:2px solid var(--tier-b);}
-tr.tier-tot{border-left:2px solid var(--tier-tot);}
 tr.tier-skip{border-left:2px solid var(--tier-skip);opacity:.65;}
 tr.tier-watch{border-left:2px solid var(--tier-watch);}
 tr.tier-lean{border-left:2px solid var(--tier-lean);}
@@ -84,7 +83,6 @@ tr.tier-none{border-left:2px solid transparent;}
 .tier{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:2px;letter-spacing:.5px;white-space:nowrap;}
 .t-a{background:var(--tier-a);color:#fff;}
 .t-b{background:rgba(220,111,26,.2);color:var(--orange);border:1px solid var(--orange);}
-.t-tot{background:rgba(167,139,250,.15);color:var(--purple);border:1px solid var(--purple);}
 .t-lean{background:rgba(42,122,75,.2);color:#4ade80;border:1px solid var(--green);}
 .t-watch{background:rgba(240,165,0,.15);color:var(--gold);border:1px solid var(--gold);}
 .t-skip{background:rgba(61,90,117,.15);color:var(--dim);border:1px solid var(--border2);}
@@ -139,18 +137,16 @@ tr.tier-none{border-left:2px solid transparent;}
 </div>
 
 <div class="kpi-strip">
-  <div class="kpi"><div class="kpi-num" style="color:var(--red);">5</div><div class="kpi-lbl">Tier A plays<br>highest conviction</div></div>
-  <div class="kpi"><div class="kpi-num" style="color:var(--orange);">7</div><div class="kpi-lbl">Tier B plays<br>strong edge</div></div>
-  <div class="kpi"><div class="kpi-num" style="color:var(--purple);">7</div><div class="kpi-lbl">Totals plays<br>A &amp; B rated</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--red);">7</div><div class="kpi-lbl">Tier A plays<br>spreads + totals</div></div>
+  <div class="kpi"><div class="kpi-num" style="color:var(--orange);">10</div><div class="kpi-lbl">Tier B plays<br>spreads + totals</div></div>
   <div class="kpi"><div class="kpi-num" style="color:var(--dim);">4</div><div class="kpi-lbl">Skip games<br>no edge</div></div>
   <div class="kpi"><div class="kpi-num" style="color:var(--gold);">4</div><div class="kpi-lbl">Watch games<br>monitor only</div></div>
   <div class="kpi"><div class="kpi-num" style="color:var(--teal);">81%</div><div class="kpi-lbl">SFU money %<br>top public signal</div></div>
 </div>
 
 <div class="legend">
-  <div class="leg-item"><div class="leg-dot" style="background:var(--tier-a);"></div>Tier A — highest conviction</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--orange);"></div>Tier B — strong play</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--purple);"></div>Total play</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--tier-a);"></div>Tier A — highest conviction (spreads + totals)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--orange);"></div>Tier B — strong play (spreads + totals)</div>
   <div class="leg-item"><div class="leg-dot" style="background:var(--green);"></div>Lean — mild edge</div>
   <div class="leg-item"><div class="leg-dot" style="background:var(--gold);"></div>Watch — monitor</div>
   <div class="leg-item"><div class="leg-dot" style="background:var(--dim);"></div>Skip — no edge</div>
@@ -166,7 +162,6 @@ tr.tier-none{border-left:2px solid transparent;}
   <button class="btn active" onclick="filterTier('all',this)">ALL</button>
   <button class="btn" onclick="filterTier('a',this)">TIER A</button>
   <button class="btn" onclick="filterTier('b',this)">TIER B</button>
-  <button class="btn" onclick="filterTier('tot',this)">TOTALS</button>
   <button class="btn" onclick="filterTier('lean',this)">LEAN</button>
   <button class="btn" onclick="filterTier('watch',this)">WATCH</button>
   <button class="btn" onclick="filterTier('skip',this)">SKIP</button>
@@ -278,7 +273,7 @@ tr.tier-none{border-left:2px solid transparent;}
 </tr>
 
 <!-- Michigan State vs NDSU -->
-<tr class="tier-tot" data-day="thu" data-tier="tot">
+<tr class="tier-a" data-day="thu" data-tier="a">
   <td><div class="game-name">Michigan State vs NDSU</div><div class="game-time">4:05 ET · Buffalo NY</div></td>
   <td><div class="seeds">#3 vs #14</div></td>
   <td><span class="mono">-16.5 → <b>-16</b></span></td>
@@ -286,8 +281,8 @@ tr.tier-none{border-left:2px solid transparent;}
   <td><span class="mono">MSU -1800<br>NDSU +1000</span></td>
   <td style="text-align:center;"><div class="pub pub-lo">MSU: 60% MON</div><div class="pub pub-lo">70% bets</div></td>
   <td style="text-align:center;"><span class="move-dn" style="font-size:10px;">▼ -11 TOTAL</span></td>
-  <td><div class="pick-side" style="color:var(--purple);">UNDER 143</div><div class="pick-reason">Biggest sharp move on board</div></td>
-  <td style="text-align:center;"><span class="tier t-tot">TOT-A</span></td>
+  <td><div class="pick-side" style="color:var(--tier-a);">UNDER 143</div><div class="pick-reason">Biggest sharp move on board</div></td>
+  <td style="text-align:center;"><span class="tier t-a">TOTAL-A</span></td>
   <td style="font-size:11px;color:var(--muted);">Total dropped 11pts — sharpest move in field<span class="sharp">SHARP</span></td>
 </tr>
 
@@ -390,7 +385,7 @@ tr.tier-none{border-left:2px solid transparent;}
 </tr>
 
 <!-- Houston vs Idaho -->
-<tr class="tier-tot" data-day="thu" data-tier="tot">
+<tr class="tier-b" data-day="thu" data-tier="b">
   <td><div class="game-name">Houston vs Idaho</div><div class="game-time">10:10 ET · Tampa FL</div></td>
   <td><div class="seeds">#1 vs #16</div></td>
   <td><span class="mono">-19.5 → <b>-23½</b></span></td>
@@ -398,8 +393,8 @@ tr.tier-none{border-left:2px solid transparent;}
   <td><span class="mono">HOU -3000<br>IDH +1500</span></td>
   <td style="text-align:center;"><div class="pub pub-lo">HOU: 72% MON</div><div class="pub pub-lo">60% bets</div></td>
   <td style="text-align:center;"><span class="move-up">▲ +4.0</span></td>
-  <td><div class="pick-side" style="color:var(--purple);">UNDER 1H</div><div class="pick-reason">Blowout → garbage time kills over</div></td>
-  <td style="text-align:center;"><span class="tier t-tot">TOT-B</span></td>
+  <td><div class="pick-side" style="color:var(--orange);">UNDER 1H</div><div class="pick-reason">Blowout → garbage time kills over</div></td>
+  <td style="text-align:center;"><span class="tier t-b">TOTAL-B</span></td>
   <td style="font-size:11px;color:var(--muted);">+4pt steam, ATS trend A+ qualifier</td>
 </tr>
 
@@ -449,7 +444,7 @@ tr.tier-none{border-left:2px solid transparent;}
 </tr>
 
 <!-- Virginia vs Wright State -->
-<tr class="tier-tot" data-day="fri" data-tier="tot">
+<tr class="tier-a" data-day="fri" data-tier="a">
   <td><div class="game-name">Virginia vs Wright State</div><div class="game-time">12:50 ET · Memphis TN</div></td>
   <td><div class="seeds">#4 vs #13</div></td>
   <td><span class="mono">-18.5 → <b>-18½</b></span></td>
@@ -457,13 +452,13 @@ tr.tier-none{border-left:2px solid transparent;}
   <td><span class="mono">UVA -4000<br>WST +1800</span></td>
   <td style="text-align:center;"><div class="pub pub-lo">UVA: 51% MON</div><div class="pub pub-lo">56% bets</div></td>
   <td style="text-align:center;"><span class="move-none">—</span></td>
-  <td><div class="pick-side" style="color:var(--purple);">Virginia -18.5</div><div class="pick-reason">23-5 ATS trend qualifier (A-rated)</div></td>
-  <td style="text-align:center;"><span class="tier t-tot">TOT-A</span></td>
+  <td><div class="pick-side" style="color:var(--tier-a);">Virginia -18.5</div><div class="pick-reason">23-5 ATS trend qualifier (A-rated)</div></td>
+  <td style="text-align:center;"><span class="tier t-a">TOTAL-A</span></td>
   <td style="font-size:11px;color:var(--muted);">Top-3 seed + total &lt;148 + 5 days rest</td>
 </tr>
 
 <!-- Iowa State vs Tennessee State -->
-<tr class="tier-tot" data-day="fri" data-tier="tot">
+<tr class="tier-b" data-day="fri" data-tier="b">
   <td><div class="game-name">Iowa State vs Tenn St</div><div class="game-time">1:50 ET · Memphis TN</div></td>
   <td><div class="seeds">#2 vs #15</div></td>
   <td><span class="mono">-23 → <b>-24½</b></span></td>
@@ -471,8 +466,8 @@ tr.tier-none{border-left:2px solid transparent;}
   <td><span class="mono">ISU -6000<br>TNST +3000</span></td>
   <td style="text-align:center;"><div class="pub pub-lo">ISU: 68% MON</div><div class="pub pub-lo">85% bets</div></td>
   <td style="text-align:center;"><span class="move-up">▲ +2.0</span></td>
-  <td><div class="pick-side" style="color:var(--purple);">OVER 1H</div><div class="pick-reason">ISU #1 nationally L10, T.State overmatched</div></td>
-  <td style="text-align:center;"><span class="tier t-tot">TOT-B</span></td>
+  <td><div class="pick-side" style="color:var(--orange);">OVER 1H</div><div class="pick-reason">ISU #1 nationally L10, T.State overmatched</div></td>
+  <td style="text-align:center;"><span class="tier t-b">TOTAL-B</span></td>
   <td style="font-size:11px;color:var(--muted);">Steam +2, ISU explosive offense early</td>
 </tr>
 
@@ -617,7 +612,7 @@ tr.tier-none{border-left:2px solid transparent;}
 </tr>
 
 <!-- UConn vs Furman -->
-<tr class="tier-tot" data-day="fri" data-tier="tot">
+<tr class="tier-b" data-day="fri" data-tier="b">
   <td><div class="game-name">UConn vs Furman</div><div class="game-time">9:00 ET · Memphis TN</div></td>
   <td><div class="seeds">#2 vs #15</div></td>
   <td><span class="mono">-18.5 → <b>-20½</b></span></td>
@@ -625,8 +620,8 @@ tr.tier-none{border-left:2px solid transparent;}
   <td><span class="mono">UCONN -5000<br>FUR +2500</span></td>
   <td style="text-align:center;"><div class="pub pub-lo">CON: 62% MON</div><div class="pub pub-lo">76% bets</div></td>
   <td style="text-align:center;"><span class="move-up">▲ +2.0</span></td>
-  <td><div class="pick-side" style="color:var(--purple);">UConn -20½</div><div class="pick-reason">23-5 ATS trend · Hurley .750 tourney</div></td>
-  <td style="text-align:center;"><span class="tier t-tot">TOT-B</span></td>
+  <td><div class="pick-side" style="color:var(--orange);">UConn -20½</div><div class="pick-reason">23-5 ATS trend · Hurley .750 tourney</div></td>
+  <td style="text-align:center;"><span class="tier t-b">TOTAL-B</span></td>
   <td style="font-size:11px;color:var(--muted);">ATS trend qualifier, public pushed line up</td>
 </tr>
 
