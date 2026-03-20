@@ -350,7 +350,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="sb-lbl">Wins (ATS)<br>completed bets</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" id="losses-count" style="color:var(--loss);">3</div>
+    <div class="sb-num" id="losses-count" style="color:var(--loss);">4</div>
     <div class="sb-lbl">Losses (ATS)<br>completed bets</div>
   </div>
   <div class="sb-cell">
@@ -358,7 +358,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="sb-lbl">Pending<br>Thu late + all Fri</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" style="color:var(--gold);">11-3</div>
+    <div class="sb-num" style="color:var(--gold);">11-4</div>
     <div class="sb-lbl">Record<br>Thu complete + late</div>
   </div>
 </div>
@@ -760,7 +760,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="section-hdr">
   <span class="section-title">▶ Thursday R1 — Totals & 1H Unders</span>
   <span class="section-line"></span>
-  <span class="section-record">3-3 completed · 2 pending</span>
+  <span class="section-record">3-4 completed · 2 pending</span>
 </div>
 
 <!-- Duke vs Siena 1H Under 64 ❌ LOSS: Siena led 43-32 at half = 75 total -->
@@ -920,8 +920,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
 </div>
 
-<!-- Nebraska/Troy 1H Under 63.5 — B-rated -->
-<div class="bet-row pending" data-result="pending" data-type="total" data-day="thu">
+<!-- Nebraska/Troy 1H Under 63.5 ❌ LOSS: NEB 41, Troy 25 = 66 combined -->
+<div class="bet-row loss" data-result="loss" data-type="total" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">Nebraska vs Troy · 1H</div>
     <div class="br-game-seed">#4 vs #13 · OKC OK</div>
@@ -936,10 +936,15 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
   <div class="br-tier"><span class="tier-badge t-tot">1H · B</span></div>
   <div class="br-score">
-    <div class="br-score-lbl">Final (game)</div>
-    <div class="br-score-val">NEB 76, Troy 47<br>1H score N/A</div>
+    <div class="br-score-lbl">1H Score</div>
+    <div class="br-score-val" style="color:var(--loss);">NEB 41, Troy 25<br>= 66 combined</div>
   </div>
-  <div class="br-result"><div class="r-pending" style="font-size:9px;">1H SCORE<br>NEEDED</div></div>
+  <div class="br-result">
+    <div>
+      <div class="result-badge r-loss">LOSS</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--loss);text-align:center;margin-top:2px;">66 at half<br>needed &lt;63.5</div>
+    </div>
+  </div>
 </div>
 
 <!-- TCU/OSU 1H Under 65.5 — B-rated, game final 66-64 = 130, 1H was 39-24 = 63 -->
