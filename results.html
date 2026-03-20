@@ -346,11 +346,11 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <!-- SCOREBOARD STRIP -->
 <div class="scoreboard">
   <div class="sb-cell">
-    <div class="sb-num" id="wins-count" style="color:var(--win);">6</div>
+    <div class="sb-num" id="wins-count" style="color:var(--win);">11</div>
     <div class="sb-lbl">Wins (ATS)<br>completed bets</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" id="losses-count" style="color:var(--loss);">2</div>
+    <div class="sb-num" id="losses-count" style="color:var(--loss);">3</div>
     <div class="sb-lbl">Losses (ATS)<br>completed bets</div>
   </div>
   <div class="sb-cell">
@@ -358,12 +358,12 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="sb-lbl">Pushes<br>completed bets</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" id="pending-count" style="color:var(--pending);">14+</div>
-    <div class="sb-lbl">Pending<br>Thu still live</div>
+    <div class="sb-num" style="color:var(--pending);">4</div>
+    <div class="sb-lbl">Pending<br>Thu late + all Fri</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" style="color:var(--gold);">6-2</div>
-    <div class="sb-lbl">Record<br>Thu early slate</div>
+    <div class="sb-num" style="color:var(--gold);">11-3</div>
+    <div class="sb-lbl">Record<br>Thu complete + late</div>
   </div>
   <div class="sb-cell">
     <div class="sb-num" style="color:var(--muted);">—</div>
@@ -401,7 +401,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="section-hdr">
   <span class="section-title">▶ Thursday R1 — Spread & ML Picks</span>
   <span class="section-line"></span>
-  <span class="section-record" id="thu-spread-record">2-3 completed</span>
+  <span class="section-record" id="thu-spread-record">8-2 completed · 2 pending</span>
 </div>
 
 <!-- TCU +2.5 ✅ WIN: TCU 66, OSU 64 -->
@@ -595,11 +595,11 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="br-result"><div class="r-pending">⏳<br>LIVE</div></div>
 </div>
 
-<!-- VCU +2.5 — PENDING -->
-<div class="bet-row pending" data-result="pending" data-type="spread" data-day="thu">
+<!-- VCU +2.5 ✅ WIN: VCU 82, UNC 78 OT (VCU won outright!) -->
+<div class="bet-row win" data-result="win" data-type="spread" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">North Carolina vs VCU</div>
-    <div class="br-game-seed">#6 vs #11 · 6:50 ET · Greenville SC</div>
+    <div class="br-game-seed">#6 vs #11 · Greenville SC</div>
   </div>
   <div class="br-pick">
     <div class="br-pick-val" style="color:var(--red);">VCU +2.5</div>
@@ -611,10 +611,15 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
   <div class="br-tier"><span class="tier-badge t-a">TIER A</span></div>
   <div class="br-score">
-    <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">6:50 ET</div>
+    <div class="br-score-lbl">Final (OT)</div>
+    <div class="br-score-val" style="color:var(--win);">VCU 82<br>UNC 78</div>
   </div>
-  <div class="br-result"><div class="r-pending">⏳<br>UPCOMING</div></div>
+  <div class="br-result">
+    <div>
+      <div class="result-badge r-win">WIN</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--win);text-align:center;margin-top:2px;">Won outright<br>19pt comeback!</div>
+    </div>
+  </div>
 </div>
 
 <!-- Michigan vs Howard — NO BET on spread -->
@@ -639,11 +644,11 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="br-result"><div class="r-pending">UPCOMING</div></div>
 </div>
 
-<!-- BYU vs Texas +2.5 — PENDING -->
-<div class="bet-row pending" data-result="pending" data-type="spread" data-day="thu">
+<!-- BYU vs Texas +2.5 ✅ WIN: Texas 79, BYU 71 (Texas won outright!) -->
+<div class="bet-row win" data-result="win" data-type="spread" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">BYU vs Texas</div>
-    <div class="br-game-seed">#6 vs #11 · 7:10 ET · Portland OR</div>
+    <div class="br-game-seed">#6 vs #11 · Portland OR</div>
   </div>
   <div class="br-pick">
     <div class="br-pick-val" style="color:var(--red);">Texas +2.5</div>
@@ -655,17 +660,22 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
   <div class="br-tier"><span class="tier-badge t-a">TIER A</span></div>
   <div class="br-score">
-    <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">7:10 ET</div>
+    <div class="br-score-lbl">Final</div>
+    <div class="br-score-val" style="color:var(--win);">TEX 79<br>BYU 71</div>
   </div>
-  <div class="br-result"><div class="r-pending">⏳<br>UPCOMING</div></div>
+  <div class="br-result">
+    <div>
+      <div class="result-badge r-win">WIN</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--win);text-align:center;margin-top:2px;">Won outright<br>First Four→R32</div>
+    </div>
+  </div>
 </div>
 
-<!-- TXAM +3 — PENDING -->
-<div class="bet-row pending" data-result="pending" data-type="spread" data-day="thu">
+<!-- TXAM +3 ✅ WIN: Texas A&M 63, Saint Mary's 50 (won outright!) -->
+<div class="bet-row win" data-result="win" data-type="spread" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">Saint Mary's vs Tex A&amp;M</div>
-    <div class="br-game-seed">#7 vs #10 · 7:10 ET · Philadelphia PA</div>
+    <div class="br-game-seed">#7 vs #10 · Philadelphia PA</div>
   </div>
   <div class="br-pick">
     <div class="br-pick-val" style="color:var(--win);">TXAM +3</div>
@@ -677,10 +687,15 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
   <div class="br-tier"><span class="tier-badge t-lean">LEAN</span></div>
   <div class="br-score">
-    <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">7:10 ET</div>
+    <div class="br-score-lbl">Final</div>
+    <div class="br-score-val" style="color:var(--win);">TXAM 63<br>SMC 50</div>
   </div>
-  <div class="br-result"><div class="r-pending">⏳<br>UPCOMING</div></div>
+  <div class="br-result">
+    <div>
+      <div class="result-badge r-win">WIN</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--win);text-align:center;margin-top:2px;">Won outright<br>3TZ rule hit</div>
+    </div>
+  </div>
 </div>
 
 <!-- Illinois -25.5 — PENDING -->
@@ -700,7 +715,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="br-tier"><span class="tier-badge t-lean">LEAN</span></div>
   <div class="br-score">
     <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">9:25 ET</div>
+    <div class="br-score-val" style="color:var(--pending);">🔴 LIVE</div>
   </div>
   <div class="br-result"><div class="r-pending">⏳<br>UPCOMING</div></div>
 </div>
@@ -722,7 +737,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="br-tier"><span class="tier-badge" style="background:var(--dim);color:var(--muted);border:1px solid var(--dim);">SKIP</span></div>
   <div class="br-score">
     <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">9:45 ET</div>
+    <div class="br-score-val" style="color:var(--pending);">🔴 LIVE</div>
   </div>
   <div class="br-result"><div class="r-pending">UPCOMING</div></div>
 </div>
@@ -744,7 +759,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="br-tier"><span class="tier-badge" style="background:rgba(240,165,0,.15);color:var(--gold);border:1px solid var(--gold);">WATCH</span></div>
   <div class="br-score">
     <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">10:00 ET</div>
+    <div class="br-score-val" style="color:var(--pending);">🔴 LIVE</div>
   </div>
   <div class="br-result"><div class="r-pending">UPCOMING</div></div>
 </div>
@@ -753,7 +768,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="section-hdr">
   <span class="section-title">▶ Thursday R1 — Totals & 1H Unders</span>
   <span class="section-line"></span>
-  <span class="section-record">0-1 completed · more pending</span>
+  <span class="section-record">3-3 completed · 2 pending</span>
 </div>
 
 <!-- Duke vs Siena 1H Under 64 ❌ LOSS: Siena led 43-32 at half = 75 total -->
@@ -810,11 +825,11 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
 </div>
 
-<!-- VCU/UNC UNDER 70 — PENDING -->
-<div class="bet-row pending" data-result="pending" data-type="total" data-day="thu">
+<!-- VCU/UNC UNDER 70 ✅ WIN: UNC 39, VCU 28 at half = 67 combined -->
+<div class="bet-row win" data-result="win" data-type="total" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">VCU vs North Carolina · 1H</div>
-    <div class="br-game-seed">#11 vs #6 · 6:50 ET · Greenville SC</div>
+    <div class="br-game-seed">#11 vs #6 · Greenville SC</div>
   </div>
   <div class="br-pick">
     <div class="br-pick-val" style="color:var(--purple);">UNDER 70 1H</div>
@@ -826,17 +841,22 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
   <div class="br-tier"><span class="tier-badge t-tot">1H · A</span></div>
   <div class="br-score">
-    <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">6:50 ET</div>
+    <div class="br-score-lbl">1H Score</div>
+    <div class="br-score-val" style="color:var(--win);">UNC 39, VCU 28<br>= 67 ✓</div>
   </div>
-  <div class="br-result"><div class="r-pending">⏳<br>UPCOMING</div></div>
+  <div class="br-result">
+    <div>
+      <div class="result-badge r-win">WIN</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--win);text-align:center;margin-top:2px;">67 at half<br>needed &lt;70</div>
+    </div>
+  </div>
 </div>
 
-<!-- MSU/NDSU UNDER 143 — PENDING -->
-<div class="bet-row pending" data-result="pending" data-type="total" data-day="thu">
+<!-- MSU/NDSU UNDER 143 ❌ LOSS: MSU 92, NDSU 67 = 159 total — way over -->
+<div class="bet-row loss" data-result="loss" data-type="total" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">Michigan State vs NDSU</div>
-    <div class="br-game-seed">#3 vs #14 · 4:05 ET · Buffalo NY</div>
+    <div class="br-game-seed">#3 vs #14 · Buffalo NY</div>
   </div>
   <div class="br-pick">
     <div class="br-pick-val" style="color:var(--purple);">UNDER 143</div>
@@ -848,10 +868,15 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
   <div class="br-tier"><span class="tier-badge t-tot">TOT · A</span></div>
   <div class="br-score">
-    <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">In Progress</div>
+    <div class="br-score-lbl">Final</div>
+    <div class="br-score-val" style="color:var(--loss);">MSU 92<br>NDSU 67 = 159</div>
   </div>
-  <div class="br-result"><div class="r-pending">⏳<br>LIVE</div></div>
+  <div class="br-result">
+    <div>
+      <div class="result-badge r-loss">LOSS</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--loss);text-align:center;margin-top:2px;">159 total<br>needed &lt;143</div>
+    </div>
+  </div>
 </div>
 
 <!-- Houston/Idaho UNDER 1H — PENDING -->
@@ -871,7 +896,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="br-tier"><span class="tier-badge t-tot">TOT · B</span></div>
   <div class="br-score">
     <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">10:10 ET</div>
+    <div class="br-score-val" style="color:var(--pending);">🔴 LIVE</div>
   </div>
   <div class="br-result"><div class="r-pending">⏳<br>UPCOMING</div></div>
 </div>
@@ -956,7 +981,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="section-hdr">
   <span class="section-title">▶ Thursday — Situational ATS (23-5 Trend)</span>
   <span class="section-line"></span>
-  <span class="section-record">0-0 completed · all upcoming</span>
+  <span class="section-record">1-0 completed · 1 pending</span>
 </div>
 
 <!-- Houston A+ -->
@@ -976,16 +1001,16 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="br-tier"><span class="tier-badge t-sit">SIT A+</span></div>
   <div class="br-score">
     <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">10:10 ET</div>
+    <div class="br-score-val" style="color:var(--pending);">🔴 LIVE</div>
   </div>
   <div class="br-result"><div class="r-pending">⏳<br>UPCOMING</div></div>
 </div>
 
-<!-- MSU A -->
-<div class="bet-row pending" data-result="pending" data-type="spread" data-day="thu">
+<!-- MSU A ✅ WIN: MSU 92, NDSU 67 — won by 25, covered -16 -->
+<div class="bet-row win" data-result="win" data-type="spread" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">Michigan State vs NDSU</div>
-    <div class="br-game-seed">#3 vs #14 · 4:05 ET · Buffalo NY</div>
+    <div class="br-game-seed">#3 vs #14 · Buffalo NY</div>
   </div>
   <div class="br-pick">
     <div class="br-pick-val" style="color:var(--win);">MSU -16</div>
@@ -997,10 +1022,15 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
   <div class="br-tier"><span class="tier-badge t-sit">SIT A</span></div>
   <div class="br-score">
-    <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">In Progress</div>
+    <div class="br-score-lbl">Final</div>
+    <div class="br-score-val" style="color:var(--win);">MSU 92<br>NDSU 67</div>
   </div>
-  <div class="br-result"><div class="r-pending">⏳<br>LIVE</div></div>
+  <div class="br-result">
+    <div>
+      <div class="result-badge r-win">WIN</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--win);text-align:center;margin-top:2px;">Won by 25<br>covered -16 ✓</div>
+    </div>
+  </div>
 </div>
 
 <!-- ══════════════ FRIDAY PICKS ══════════════ -->
