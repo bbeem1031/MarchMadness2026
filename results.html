@@ -346,20 +346,20 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <!-- SCOREBOARD STRIP -->
 <div class="scoreboard">
   <div class="sb-cell">
-    <div class="sb-num" id="wins-count" style="color:var(--win);">11</div>
-    <div class="sb-lbl">Wins (ATS)<br>completed bets</div>
+    <div class="sb-num" id="wins-count" style="color:var(--win);">13</div>
+    <div class="sb-lbl">Wins (ATS)<br>Thu complete</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" id="losses-count" style="color:var(--loss);">4</div>
-    <div class="sb-lbl">Losses (ATS)<br>completed bets</div>
+    <div class="sb-num" id="losses-count" style="color:var(--loss);">5</div>
+    <div class="sb-lbl">Losses (ATS)<br>Thu complete</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" style="color:var(--pending);">4</div>
-    <div class="sb-lbl">Pending<br>Thu late + all Fri</div>
+    <div class="sb-num" style="color:var(--gold);">13-5</div>
+    <div class="sb-lbl">Record<br>Thu final</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" style="color:var(--gold);">11-4</div>
-    <div class="sb-lbl">Record<br>Thu complete + late</div>
+    <div class="sb-num" style="color:var(--teal);">12-4</div>
+    <div class="sb-lbl">Bracket<br>R1 Thu</div>
   </div>
 </div>
 
@@ -393,7 +393,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="section-hdr">
   <span class="section-title">▶ Thursday R1 — Spread & ML Picks</span>
   <span class="section-line"></span>
-  <span class="section-record" id="thu-spread-record">8-2 completed · 2 pending</span>
+  <span class="section-record" id="thu-spread-record">10-0 complete ✓</span>
 </div>
 
 <!-- TCU +2.5 ✅ WIN: TCU 66, OSU 64 -->
@@ -690,11 +690,11 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
 </div>
 
-<!-- Illinois -25.5 — PENDING -->
-<div class="bet-row pending" data-result="pending" data-type="spread" data-day="thu">
+<!-- Illinois -25.5 ✅ WIN: ILL 105, Penn 70 — won by 35, covered -25.5 -->
+<div class="bet-row win" data-result="win" data-type="spread" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">Illinois vs Penn</div>
-    <div class="br-game-seed">#2 vs #15 · 9:25 ET · Philadelphia PA</div>
+    <div class="br-game-seed">#3 vs #14 · Greenville SC</div>
   </div>
   <div class="br-pick">
     <div class="br-pick-val" style="color:var(--win);">Illinois -25.5</div>
@@ -706,17 +706,22 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
   <div class="br-tier"><span class="tier-badge t-lean">LEAN</span></div>
   <div class="br-score">
-    <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">🔴 LIVE</div>
+    <div class="br-score-lbl">Final</div>
+    <div class="br-score-val" style="color:var(--win);">ILL 105<br>Penn 70</div>
   </div>
-  <div class="br-result"><div class="r-pending">⏳<br>UPCOMING</div></div>
+  <div class="br-result">
+    <div>
+      <div class="result-badge r-win">WIN</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--win);text-align:center;margin-top:2px;">Won by 35<br>covered -25.5 ✓</div>
+    </div>
+  </div>
 </div>
 
-<!-- Georgia/Saint Louis — SKIP -->
+<!-- Georgia/Saint Louis — SKIP · Final: SLU 102, UGA 77 -->
 <div class="bet-row pending" data-result="pending" data-type="spread" data-day="thu" style="opacity:0.5;">
   <div class="br-game">
     <div class="br-game-name">Georgia vs Saint Louis</div>
-    <div class="br-game-seed">#8 vs #9 · 9:45 ET · Philadelphia PA</div>
+    <div class="br-game-seed">#8 vs #9 · Buffalo NY</div>
   </div>
   <div class="br-pick">
     <div class="br-pick-val" style="color:var(--muted);">SKIP</div>
@@ -728,17 +733,17 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
   <div class="br-tier"><span class="tier-badge" style="background:var(--dim);color:var(--muted);border:1px solid var(--dim);">SKIP</span></div>
   <div class="br-score">
-    <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">🔴 LIVE</div>
+    <div class="br-score-lbl">Final</div>
+    <div class="br-score-val" style="color:var(--muted);">SLU 102<br>UGA 77</div>
   </div>
-  <div class="br-result"><div class="r-pending">UPCOMING</div></div>
+  <div class="br-result"><div class="r-pending" style="color:var(--muted);">NO BET</div></div>
 </div>
 
-<!-- Gonzaga WATCH -->
+<!-- Gonzaga WATCH · Final: GON 73, KSU 64 -->
 <div class="bet-row pending" data-result="pending" data-type="spread" data-day="thu" style="opacity:0.5;">
   <div class="br-game">
     <div class="br-game-name">Gonzaga vs Kennesaw St</div>
-    <div class="br-game-seed">#3 vs #14 · 10:00 ET · Portland OR</div>
+    <div class="br-game-seed">#3 vs #14 · Portland OR</div>
   </div>
   <div class="br-pick">
     <div class="br-pick-val" style="color:var(--gold);">WATCH</div>
@@ -750,17 +755,17 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
   <div class="br-tier"><span class="tier-badge" style="background:rgba(240,165,0,.15);color:var(--gold);border:1px solid var(--gold);">WATCH</span></div>
   <div class="br-score">
-    <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">🔴 LIVE</div>
+    <div class="br-score-lbl">Final</div>
+    <div class="br-score-val" style="color:var(--muted);">GON 73<br>KSU 64</div>
   </div>
-  <div class="br-result"><div class="r-pending">UPCOMING</div></div>
+  <div class="br-result"><div class="r-pending" style="color:var(--muted);">NO BET</div></div>
 </div>
 
 <!-- ══════════════ THURSDAY TOTALS ══════════════ -->
 <div class="section-hdr">
   <span class="section-title">▶ Thursday R1 — Totals & 1H Unders</span>
   <span class="section-line"></span>
-  <span class="section-record">3-4 completed · 2 pending</span>
+  <span class="section-record">3-5 complete ✓</span>
 </div>
 
 <!-- Duke vs Siena 1H Under 64 ❌ LOSS: Siena led 43-32 at half = 75 total -->
@@ -871,26 +876,31 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
 </div>
 
-<!-- Houston/Idaho UNDER 1H — PENDING -->
-<div class="bet-row pending" data-result="pending" data-type="total" data-day="thu">
+<!-- Houston/Idaho UNDER 1H 63.5 ❌ LOSS: HOU 48, Idaho 24 at half = 72 combined -->
+<div class="bet-row loss" data-result="loss" data-type="total" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">Houston vs Idaho · 1H</div>
-    <div class="br-game-seed">#1 vs #15 · 10:10 ET · Tampa FL</div>
+    <div class="br-game-seed">#2 vs #15 · OKC OK</div>
   </div>
   <div class="br-pick">
-    <div class="br-pick-val" style="color:var(--purple);">UNDER 1H 63.5</div>
-    <div class="br-pick-reason">TOT-B · Blowout → garbage time, HOU elite defense</div>
+    <div class="br-pick-val" style="color:var(--orange);">UNDER 1H 63.5</div>
+    <div class="br-pick-reason">TOTAL-B · Blowout → garbage time, HOU elite defense</div>
   </div>
   <div class="br-line">
     <div class="br-line-lbl">1H Total</div>
     <div class="br-line-val">63.5</div>
   </div>
-  <div class="br-tier"><span class="tier-badge t-tot">TOT · B</span></div>
+  <div class="br-tier"><span class="tier-badge t-b">TOTAL-B</span></div>
   <div class="br-score">
-    <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">🔴 LIVE</div>
+    <div class="br-score-lbl">1H Score</div>
+    <div class="br-score-val" style="color:var(--loss);">HOU 48, IDA 24<br>= 72 combined</div>
   </div>
-  <div class="br-result"><div class="r-pending">⏳<br>UPCOMING</div></div>
+  <div class="br-result">
+    <div>
+      <div class="result-badge r-loss">LOSS</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--loss);text-align:center;margin-top:2px;">72 at half<br>needed &lt;63.5</div>
+    </div>
+  </div>
 </div>
 
 <!-- McNeese/Vanderbilt 1H Under 69 — tracking, game final, need 1H score -->
@@ -978,14 +988,14 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="section-hdr">
   <span class="section-title">▶ Thursday — Situational ATS (23-5 Trend)</span>
   <span class="section-line"></span>
-  <span class="section-record">1-0 completed · 1 pending</span>
+  <span class="section-record">2-0 complete ✓</span>
 </div>
 
-<!-- Houston A+ -->
-<div class="bet-row pending" data-result="pending" data-type="spread" data-day="thu">
+<!-- Houston A+ ✅ WIN: HOU 78, Idaho 47 — won by 31, covered -23.5 -->
+<div class="bet-row win" data-result="win" data-type="spread" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">Houston vs Idaho</div>
-    <div class="br-game-seed">#1 vs #15 · 10:10 ET · Tampa FL</div>
+    <div class="br-game-seed">#2 vs #15 · OKC OK</div>
   </div>
   <div class="br-pick">
     <div class="br-pick-val" style="color:var(--win);">Houston -23.5</div>
@@ -997,10 +1007,15 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
   <div class="br-tier"><span class="tier-badge t-sit">SIT A+</span></div>
   <div class="br-score">
-    <div class="br-score-lbl">Status</div>
-    <div class="br-score-val" style="color:var(--pending);">🔴 LIVE</div>
+    <div class="br-score-lbl">Final</div>
+    <div class="br-score-val" style="color:var(--win);">HOU 78<br>Idaho 47</div>
   </div>
-  <div class="br-result"><div class="r-pending">⏳<br>UPCOMING</div></div>
+  <div class="br-result">
+    <div>
+      <div class="result-badge r-win">WIN</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--win);text-align:center;margin-top:2px;">Won by 31<br>covered -23.5 ✓</div>
+    </div>
+  </div>
 </div>
 
 <!-- MSU A ✅ WIN: MSU 92, NDSU 67 — won by 25, covered -16 -->
@@ -1381,9 +1396,132 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="br-result"><div class="r-pending">FRI</div></div>
 </div>
 
-</div><!-- /main -->
+<!-- ══════════════ BRACKET PICKS ══════════════ -->
+<div style="max-width:900px;margin:0 auto 0;padding:0 32px;">
 
-<div class="footer">
+<div class="section-hdr" style="cursor:pointer;" onclick="toggleBracket()">
+  <span class="section-title">▶ Bracket Picks — Round 1 Results</span>
+  <span class="section-line"></span>
+  <span class="section-record">R1 Thu: 12-4 · R1 Fri: TBD</span>
+  <span id="bracket-toggle" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-left:12px;">[ EXPAND ]</span>
+</div>
+
+<div id="bracket-section" style="display:none;">
+
+  <!-- Round header -->
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:10px 16px;background:rgba(45,212,191,.06);border:1px solid rgba(45,212,191,.2);border-radius:6px;">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:2px;">R1 THURSDAY · MARCH 19</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--teal);">12-4</div>
+    <div style="font-size:11px;color:var(--muted);">3 upsets hit · 4 misses (OSU, WIS, SFU, McNeese)</div>
+  </div>
+
+  <!-- 16 game rows -->
+  <div class="brk-row brk-hit">
+    <div class="brk-game">TCU vs Ohio State</div>
+    <div class="brk-pick">Ohio State ❌</div>
+    <div class="brk-actual">TCU 66–64</div>
+    <div class="brk-badge brk-miss">MISS</div>
+  </div>
+  <div class="brk-row brk-hit">
+    <div class="brk-game">Nebraska vs Troy</div>
+    <div class="brk-pick">Nebraska ✓</div>
+    <div class="brk-actual">NEB 76–47</div>
+    <div class="brk-badge brk-win">HIT</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">Louisville vs South Florida</div>
+    <div class="brk-pick">South Florida (upset) ❌</div>
+    <div class="brk-actual">LOU 83–79</div>
+    <div class="brk-badge brk-miss">MISS</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">Wisconsin vs High Point</div>
+    <div class="brk-pick">Wisconsin ❌</div>
+    <div class="brk-actual">HP 83–82</div>
+    <div class="brk-badge brk-miss">MISS</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">Duke vs Siena</div>
+    <div class="brk-pick">Duke ✓</div>
+    <div class="brk-actual">DUK 71–65</div>
+    <div class="brk-badge brk-win">HIT</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">Vanderbilt vs McNeese</div>
+    <div class="brk-pick">McNeese (upset) ❌</div>
+    <div class="brk-actual">VAN 78–68</div>
+    <div class="brk-badge brk-miss">MISS</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">Michigan State vs NDSU</div>
+    <div class="brk-pick">Michigan State ✓</div>
+    <div class="brk-actual">MSU 92–67</div>
+    <div class="brk-badge brk-win">HIT</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">Arkansas vs Hawaii</div>
+    <div class="brk-pick">Arkansas ✓</div>
+    <div class="brk-actual">ARK 97–78</div>
+    <div class="brk-badge brk-win">HIT</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">North Carolina vs VCU</div>
+    <div class="brk-pick">VCU (upset) ✓</div>
+    <div class="brk-actual">VCU 82–78 OT</div>
+    <div class="brk-badge brk-win">HIT</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">Michigan vs Howard</div>
+    <div class="brk-pick">Michigan ✓</div>
+    <div class="brk-actual">MICH 101–80</div>
+    <div class="brk-badge brk-win">HIT</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">BYU vs Texas</div>
+    <div class="brk-pick">Texas (upset) ✓</div>
+    <div class="brk-actual">TEX 79–71</div>
+    <div class="brk-badge brk-win">HIT</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">Saint Mary's vs Texas A&amp;M</div>
+    <div class="brk-pick">Texas A&amp;M (upset) ✓</div>
+    <div class="brk-actual">TXAM 63–50</div>
+    <div class="brk-badge brk-win">HIT</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">Illinois vs Penn</div>
+    <div class="brk-pick">Illinois ✓</div>
+    <div class="brk-actual">ILL 105–70</div>
+    <div class="brk-badge brk-win">HIT</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">Georgia vs Saint Louis</div>
+    <div class="brk-pick">Saint Louis (upset) ✓</div>
+    <div class="brk-actual">SLU 102–77</div>
+    <div class="brk-badge brk-win">HIT</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">Gonzaga vs Kennesaw State</div>
+    <div class="brk-pick">Gonzaga ✓</div>
+    <div class="brk-actual">GON 73–64</div>
+    <div class="brk-badge brk-win">HIT</div>
+  </div>
+  <div class="brk-row">
+    <div class="brk-game">Houston vs Idaho</div>
+    <div class="brk-pick">Houston ✓</div>
+    <div class="brk-actual">HOU 78–47</div>
+    <div class="brk-badge brk-win">HIT</div>
+  </div>
+
+  <!-- R1 Fri placeholder -->
+  <div style="margin-top:16px;padding:12px 16px;background:rgba(96,165,250,.05);border:1px solid rgba(96,165,250,.15);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;">
+    R1 FRIDAY · MARCH 20 — IN PROGRESS · RESULTS PENDING
+  </div>
+
+</div><!-- /bracket-section -->
+</div><!-- /bracket wrapper -->
+
+
   2026 MARCH MADNESS BETTING RESULTS · bbeem1031 · Updated live March 19, 2026<br>
   Lines from v5 PDF (9AM March 19 DraftKings/Pinnacle) · Scores from NCAA.com / ESPN / Yahoo Sports<br>
   Spread results based on closing line at time of bet · 1H scores sourced from live trackers · FOR ENTERTAINMENT PURPOSES ONLY · GAMBLING INVOLVES RISK
@@ -1403,12 +1541,50 @@ function filterBets(type, btn) {
     if (type === 'pending' && result !== 'pending') show = false;
     if (type === 'spread'  && btype  !== 'spread') show = false;
     if (type === 'total'   && btype  !== 'total')  show = false;
-    if (type === '1h'      && btype  !== 'total')  show = false; // reuse total type for 1H
+    if (type === '1h'      && btype  !== 'total')  show = false;
     if (type === 'thu'     && day    !== 'thu')    show = false;
     if (type === 'fri'     && day    !== 'fri')    show = false;
     row.classList.toggle('hide', !show);
   });
 }
+function toggleBracket() {
+  const sec = document.getElementById('bracket-section');
+  const lbl = document.getElementById('bracket-toggle');
+  const open = sec.style.display === 'block';
+  sec.style.display = open ? 'none' : 'block';
+  lbl.textContent = open ? '[ EXPAND ]' : '[ COLLAPSE ]';
+}
 </script>
+
+<style>
+.brk-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 80px;
+  gap: 0;
+  align-items: center;
+  padding: 9px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 12px;
+  font-family: 'Barlow', sans-serif;
+}
+.brk-row:nth-child(even) { background: rgba(255,255,255,0.02); }
+.brk-game { color: var(--text); font-weight: 600; }
+.brk-pick { color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+.brk-actual { color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+.brk-badge {
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+.brk-win  { background: rgba(34,197,94,.15);  color: var(--win);  border: 1px solid rgba(34,197,94,.3); }
+.brk-miss { background: rgba(244,63,94,.12);  color: var(--loss); border: 1px solid rgba(244,63,94,.25); }
+.brk-row:has(.brk-miss) .brk-game { color: var(--muted); }
+.brk-row:has(.brk-win)  .brk-pick  { color: var(--win); }
+.brk-row:has(.brk-miss) .brk-pick  { color: var(--loss); }
+</style>
 </body>
 </html>
