@@ -87,27 +87,40 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 }
 .injury-bar strong { color: #fca5a5; }
 
-/* SCOREBOARD STRIP */
+/* SCOREBOARD BANNER */
 .scoreboard {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-bottom: 1px solid var(--border2);
+  display: flex;
+  align-items: stretch;
+  border-bottom: 2px solid var(--border2);
+  background: var(--surface);
 }
 .sb-cell {
-  padding: 16px 20px;
+  padding: 22px 32px;
   border-right: 1px solid var(--border);
-  background: var(--card);
+  flex: 1;
 }
 .sb-cell:last-child { border-right: none; }
+.sb-divider {
+  width: 1px;
+  background: var(--border);
+  margin: 12px 0;
+}
 .sb-num {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 36px; line-height: 1;
+  font-size: 48px; line-height: 1;
+  letter-spacing: -1px;
 }
 .sb-lbl {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 9px; color: var(--muted);
-  letter-spacing: 1px; margin-top: 4px;
-  text-transform: uppercase; line-height: 1.3;
+  letter-spacing: 2px; margin-top: 6px;
+  text-transform: uppercase; line-height: 1.5;
+}
+.sb-sublbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px; color: var(--dim);
+  letter-spacing: 1px; margin-top: 2px;
+  text-transform: uppercase;
 }
 
 /* FILTERS */
@@ -311,7 +324,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 @media(max-width:1000px){
   .bet-row{grid-template-columns:150px 1fr 80px 80px 90px 100px;}
-  .scoreboard{grid-template-columns:repeat(2,1fr);}
+  .scoreboard{flex-wrap:wrap;} .sb-cell{min-width:50%;}
   .summary-grid{grid-template-columns:1fr;}
   .main{padding:20px;}
   .hdr{padding:24px 20px 20px;}
@@ -343,21 +356,28 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   Brown (Louisville) OUT R1+R2 → SFU +4.5 · Wilson (UNC) OUT season → VCU +2.5 · Toppin (Texas Tech) OUT season → Akron +7.5 · Saunders (BYU) OUT season → Texas +2.5
 </div>
 
-<!-- SCOREBOARD STRIP -->
+<!-- SCOREBOARD BANNER -->
 <div class="scoreboard">
   <div class="sb-cell">
-    <div class="sb-num" id="wins-count" style="color:var(--win);">13</div>
-    <div class="sb-lbl">Wins (ATS)<br>Thu complete</div>
+    <div class="sb-num" style="color:var(--gold);">19-14</div>
+    <div class="sb-lbl">Overall Record</div>
+    <div class="sb-sublbl">R1 Complete</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" id="losses-count" style="color:var(--loss);">5</div>
-    <div class="sb-lbl">Losses (ATS)<br>Thu complete</div>
+    <div class="sb-num" style="color:var(--win);">14-5</div>
+    <div class="sb-lbl">ATS</div>
+    <div class="sb-sublbl">Spreads only</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" style="color:var(--gold);">24-18</div>
-    <div class="sb-lbl">Record<br>Thu final</div>
+    <div class="sb-num" style="color:var(--teal);">5-9</div>
+    <div class="sb-lbl">Totals</div>
+    <div class="sb-sublbl">1H + Game totals</div>
   </div>
-  
+  <div class="sb-cell">
+    <div class="sb-num" style="color:var(--pending);">—</div>
+    <div class="sb-lbl">Round 2</div>
+    <div class="sb-sublbl">Pending · Mar 21-22</div>
+  </div>
 </div>
 
 <!-- TIER BREAKDOWN STRIP -->
@@ -819,7 +839,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--teal);padding:20px 0 10px;text-transform:uppercase;opacity:0.6;">· · · Totals &amp; 1H Unders</div>
 
 <!-- Duke vs Siena 1H Under 64 ❌ LOSS: Siena led 43-32 at half = 75 total -->
-<div class="bet-row loss" data-result="loss" data-type="total" data-day="thu">
+<div class="bet-row loss" data-result="loss" data-type="1h" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">Duke vs Siena · 1H</div>
     <div class="br-game-seed">#1 vs #16 · Greenville SC</div>
@@ -846,7 +866,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 
 <!-- SFU vs Louisville 1H Under 76 ✅ WIN: Louisville led 37-27 at half = 64 combined -->
-<div class="bet-row win" data-result="win" data-type="total" data-day="thu">
+<div class="bet-row win" data-result="win" data-type="1h" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">Louisville vs SFU · 1H</div>
     <div class="br-game-seed">#6 vs #11 · Buffalo NY</div>
@@ -873,7 +893,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 
 <!-- VCU/UNC UNDER 70 ✅ WIN: UNC 39, VCU 28 at half = 67 combined -->
-<div class="bet-row win" data-result="win" data-type="total" data-day="thu">
+<div class="bet-row win" data-result="win" data-type="1h" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">VCU vs North Carolina · 1H</div>
     <div class="br-game-seed">#11 vs #6 · Greenville SC</div>
@@ -927,7 +947,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 
 <!-- Houston/Idaho UNDER 1H 63.5 ❌ LOSS: HOU 48, Idaho 24 at half = 72 combined -->
-<div class="bet-row loss" data-result="loss" data-type="total" data-day="thu">
+<div class="bet-row loss" data-result="loss" data-type="1h" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">Houston vs Idaho · 1H</div>
     <div class="br-game-seed">#2 vs #15 · OKC OK</div>
@@ -954,7 +974,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 
 <!-- McNeese/Vanderbilt 1H Under 69 — tracking, game final, need 1H score -->
-<div class="bet-row loss" data-result="loss" data-type="total" data-day="thu">
+<div class="bet-row loss" data-result="loss" data-type="1h" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">McNeese vs Vanderbilt · 1H</div>
     <div class="br-game-seed">#12 vs #5 · OKC OK</div>
@@ -981,7 +1001,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 
 <!-- Nebraska/Troy 1H Under 63.5 ❌ LOSS: NEB 41, Troy 25 = 66 combined -->
-<div class="bet-row loss" data-result="loss" data-type="total" data-day="thu">
+<div class="bet-row loss" data-result="loss" data-type="1h" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">Nebraska vs Troy · 1H</div>
     <div class="br-game-seed">#4 vs #13 · OKC OK</div>
@@ -1008,7 +1028,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 
 <!-- TCU/OSU 1H Under 65.5 — B-rated, game final 66-64 = 130, 1H was 39-24 = 63 -->
-<div class="bet-row win" data-result="win" data-type="total" data-day="thu">
+<div class="bet-row win" data-result="win" data-type="1h" data-day="thu">
   <div class="br-game">
     <div class="br-game-name">TCU vs Ohio State · 1H</div>
     <div class="br-game-seed">#9 vs #8 · Greenville SC</div>
@@ -1296,7 +1316,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 
 <!-- Iowa/Clemson 1H U59.5 WIN -->
-<div class="bet-row win" data-result="win" data-type="total" data-day="fri">
+<div class="bet-row win" data-result="win" data-type="1h" data-day="fri">
   <div class="br-game">
     <div class="br-game-name">Iowa vs Clemson · 1H</div>
     <div class="br-game-seed">#9 vs #8 · San Diego CA</div>
@@ -1318,7 +1338,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 
 <!-- NI/SJU 1H U61 LOSS -->
-<div class="bet-row loss" data-result="loss" data-type="total" data-day="fri">
+<div class="bet-row loss" data-result="loss" data-type="1h" data-day="fri">
   <div class="br-game">
     <div class="br-game-name">Northern Iowa vs St. John's · 1H</div>
     <div class="br-game-seed">#12 vs #5 · San Diego CA</div>
@@ -1340,7 +1360,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 
 <!-- Akron/TTU 1H U72 LOSS -->
-<div class="bet-row loss" data-result="loss" data-type="total" data-day="fri">
+<div class="bet-row loss" data-result="loss" data-type="1h" data-day="fri">
   <div class="br-game">
     <div class="br-game-name">Akron vs Texas Tech · 1H</div>
     <div class="br-game-seed">#12 vs #5 · Tampa FL</div>
@@ -1362,7 +1382,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 
 <!-- ISU 1H OVER 70 WIN -->
-<div class="bet-row win" data-result="win" data-type="total" data-day="fri">
+<div class="bet-row win" data-result="win" data-type="1h" data-day="fri">
   <div class="br-game">
     <div class="br-game-name">Iowa State vs Tenn St · 1H</div>
     <div class="br-game-seed">#2 vs #15 · Memphis TN</div>
