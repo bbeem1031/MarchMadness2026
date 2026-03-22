@@ -146,6 +146,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .main { padding: 28px 40px 60px; }
 
 /* SECTION HEADER */
+.round-block { display: block; }
+
 .section-hdr {
   display: flex; align-items: baseline; gap: 14px;
   margin-bottom: 12px; margin-top: 32px;
@@ -358,55 +360,99 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <!-- SCOREBOARD BANNER -->
 <div class="scoreboard">
+
+  <!-- Overall -->
   <div class="sb-cell">
-    <div class="sb-num" style="color:var(--gold);">19-14</div>
+    <div class="sb-num" style="color:var(--gold);">29-20</div>
     <div class="sb-lbl">Overall Record</div>
-    <div class="sb-sublbl">R1 Complete</div>
+    <div class="sb-sublbl">R1 + R2 Sat · 59%</div>
+    <div style="margin-top:12px;display:flex;flex-direction:column;gap:4px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;">
+        <span style="color:var(--red);letter-spacing:1px;">TIER A</span>
+        <span style="color:var(--win);font-weight:700;">13-8</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;">
+        <span style="color:var(--orange);letter-spacing:1px;">TIER B</span>
+        <span style="color:var(--muted);">12-10</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;">
+        <span style="color:#4ade80;letter-spacing:1px;">LEAN</span>
+        <span style="color:var(--muted);">3-2</span>
+      </div>
+    </div>
   </div>
+
+  <!-- ATS -->
   <div class="sb-cell">
-    <div class="sb-num" style="color:var(--win);">14-5</div>
-    <div class="sb-lbl">ATS</div>
-    <div class="sb-sublbl">Spreads only</div>
+    <div class="sb-num" style="color:var(--win);">19-8</div>
+    <div class="sb-lbl">ATS · Spreads</div>
+    <div class="sb-sublbl">70% win rate</div>
+    <div style="margin-top:12px;display:flex;flex-direction:column;gap:4px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;">
+        <span style="color:var(--red);letter-spacing:1px;">TIER A</span>
+        <span style="color:var(--win);font-weight:700;">10-1</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;">
+        <span style="color:var(--orange);letter-spacing:1px;">TIER B</span>
+        <span style="color:var(--muted);">5-6</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;">
+        <span style="color:#4ade80;letter-spacing:1px;">LEAN</span>
+        <span style="color:var(--muted);">3-1</span>
+      </div>
+    </div>
   </div>
+
+  <!-- Totals -->
   <div class="sb-cell">
-    <div class="sb-num" style="color:var(--teal);">5-9</div>
-    <div class="sb-lbl">Totals</div>
-    <div class="sb-sublbl">1H + Game totals</div>
+    <div class="sb-num" style="color:var(--teal);">10-12</div>
+    <div class="sb-lbl">Totals · 1H+Game</div>
+    <div class="sb-sublbl">45% win rate</div>
+    <div style="margin-top:12px;display:flex;flex-direction:column;gap:4px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;">
+        <span style="color:var(--red);letter-spacing:1px;">TIER A</span>
+        <span style="color:var(--muted);">3-7</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;">
+        <span style="color:var(--orange);letter-spacing:1px;">TIER B</span>
+        <span style="color:var(--win);font-weight:700;">7-4</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;">
+        <span style="color:#4ade80;letter-spacing:1px;">LEAN</span>
+        <span style="color:var(--muted);">0-1</span>
+      </div>
+    </div>
   </div>
-  <div class="sb-cell">
-    <div class="sb-num" style="color:var(--pending);">—</div>
-    <div class="sb-lbl">Round 2</div>
-    <div class="sb-sublbl">Pending · Mar 21-22</div>
-  </div>
+
 </div>
 
 <!-- TIER BREAKDOWN STRIP -->
 <div style="border-bottom:1px solid var(--border2);background:var(--surface);">
-  <div style="padding:8px 40px 4px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--dim);text-transform:uppercase;">▶ Results by Tier — Thursday Complete · Friday Complete · R1 Done</div>
+  <div style="padding:8px 40px 4px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--dim);text-transform:uppercase;">▶ Results by Tier — R1 Complete · R2 Sat Complete · R2 Sun Pending</div>
   <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border2);">
 
     <!-- Tier A -->
     <div style="background:var(--surface);padding:14px 20px;text-align:center;border-left:3px solid var(--red);">
       <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:var(--red);margin-bottom:6px;">TIER A</div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700;color:var(--win);line-height:1;">10-8</div>
-      <div style="font-size:9px;color:var(--muted);margin-top:3px;font-family:'IBM Plex Mono',monospace;">Thu 7-3 · Fri 3-5</div>
-      <div style="font-size:9px;color:var(--muted);margin-top:2px;font-family:'IBM Plex Mono',monospace;">R1 complete</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700;color:var(--win);line-height:1;">14-9</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:3px;font-family:'IBM Plex Mono',monospace;">R1 10-8 · R2 4-1</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:2px;font-family:'IBM Plex Mono',monospace;">R2 Sun pending</div>
     </div>
 
     <!-- Tier B -->
     <div style="background:var(--surface);padding:14px 20px;text-align:center;border-left:3px solid var(--orange);">
       <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:var(--orange);margin-bottom:6px;">TIER B</div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700;color:var(--win);line-height:1;">8-8</div>
-      <div style="font-size:9px;color:var(--muted);margin-top:3px;font-family:'IBM Plex Mono',monospace;">Thu 4-2 · Fri 4-6</div>
-      <div style="font-size:9px;color:var(--muted);margin-top:2px;font-family:'IBM Plex Mono',monospace;">R1 complete</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700;color:var(--win);line-height:1;">12-12</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:3px;font-family:'IBM Plex Mono',monospace;">R1 8-8 · R2 4-4</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:2px;font-family:'IBM Plex Mono',monospace;">R2 Sun pending</div>
     </div>
 
     <!-- Lean -->
     <div style="background:var(--surface);padding:14px 20px;text-align:center;border-left:3px solid #2a7a4b;">
       <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#4ade80;margin-bottom:6px;">LEAN</div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700;color:var(--win);line-height:1;">3-2</div>
-      <div style="font-size:9px;color:var(--muted);margin-top:3px;font-family:'IBM Plex Mono',monospace;">Thu 2-0 · Fri 1-2</div>
-      <div style="font-size:9px;color:var(--muted);margin-top:2px;font-family:'IBM Plex Mono',monospace;">R1 complete</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700;color:var(--win);line-height:1;">3-3</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:3px;font-family:'IBM Plex Mono',monospace;">R1 3-2 · R2 0-1</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:2px;font-family:'IBM Plex Mono',monospace;">R2 Sun pending</div>
     </div>
 
     <!-- Skip -->
@@ -462,13 +508,14 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="leg"><div class="leg-dot" style="background:var(--pending);"></div>PENDING — game in progress or upcoming</div>
 </div>
 
+<div class="round-block" id="round-r1">
 <!-- R1 ALL PICKS -->
-<div class="section-hdr">
+<div class="section-hdr" data-round="r1">
   <span class="section-title">▶ Round 1 — All Picks · March 19–20</span>
   <span class="section-line"></span>
-  <span class="section-record">24-18 complete ✓</span>
+  <span class="section-record">19-14 complete ✓</span>
 </div>
-<div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--dim);padding:4px 0 14px;text-transform:uppercase;">▸ Thursday March 19</div>
+<div data-round="r1" style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--dim);padding:4px 0 14px;text-transform:uppercase;">▸ Thursday March 19</div>
 
 <!-- TCU +2.5 ✅ WIN: TCU 66, OSU 64 -->
 <div class="bet-row win" data-result="win" data-type="spread" data-day="thu">
@@ -1112,7 +1159,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
 </div>
 
-<div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--dim);padding:16px 0 10px;text-transform:uppercase;border-top:1px solid var(--border2);margin-top:12px;">▸ Friday March 20</div>
+<div data-round="r1" style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--dim);padding:16px 0 10px;text-transform:uppercase;border-top:1px solid var(--border2);margin-top:12px;">▸ Friday March 20</div>
 
 <!-- Utah State -2 Tier A -->
 <div class="bet-row win" data-result="win" data-type="spread" data-day="fri">
@@ -1427,64 +1474,207 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <!-- Virginia ATS trend -->
 <!-- Friday ATS continues R1 -->
-<div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--dim);padding:16px 0 10px;text-transform:uppercase;border-top:1px solid var(--border2);margin-top:12px;">▸ Friday March 20</div>
 
 
 
 
 
-<!-- ══════════════ R2 — ROUND OF 32 ══════════════ -->
-<div class="section-hdr" style="margin-top:40px;">
-  <span class="section-title">▶ Round 2 — Round of 32</span>
+
+</div><!-- /round-r1 -->
+
+<div class="round-block" id="round-r2">
+<!-- ══════════════ R2 SATURDAY PICKS ══════════════ -->
+<div class="section-hdr" data-round="r2" style="margin-top:40px;">
+  <span class="section-title">▶ Round 2 — Saturday Picks · March 21</span>
+  <span class="section-line"></span>
+  <span class="section-record">10-6 complete ✓</span>
+</div>
+<div data-round="r2" style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--dim);padding:4px 0 14px;text-transform:uppercase;">▸ Saturday March 21 · Full Game Spreads</div>
+
+<!-- Michigan -12.5 WIN -->
+<div class="bet-row win" data-result="win" data-type="spread" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Michigan vs Saint Louis</div><div class="br-game-seed">#1 vs #9 · Buffalo NY · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--red);">Michigan -12.5</div><div class="br-pick-reason">0.980 vs 0.858 BARTHAG · #1 defense · Exp 1.95 · champion path</div></div>
+  <div class="br-line"><div class="br-line-lbl">Line</div><div class="br-line-val">MICH -12.5 DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-a">TIER A</span></div>
+  <div class="br-score"><div class="br-score-lbl">Final</div><div class="br-score-val">MICH 95 · SLU 72</div></div>
+  <div class="br-result"><div class="r-win">WIN +10.5</div></div>
+</div>
+
+<!-- MSU -4.5 WIN -->
+<div class="bet-row win" data-result="win" data-type="spread" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Michigan State vs Louisville</div><div class="br-game-seed">#3 vs #6 · Buffalo NY · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--red);">MSU -4.5</div><div class="br-pick-reason">Brown OUT · 2pt steam · Izzo 22-3 in R32 · Big Ten PASE</div></div>
+  <div class="br-line"><div class="br-line-lbl">Line</div><div class="br-line-val">MSU -4.5 DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-a">TIER A</span></div>
+  <div class="br-score"><div class="br-score-lbl">Final</div><div class="br-score-val">MSU 77 · LOU 69</div></div>
+  <div class="br-result"><div class="r-win">WIN +3.5</div></div>
+</div>
+
+<!-- Duke -11.5 WIN -->
+<div class="bet-row win" data-result="win" data-type="spread" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Duke vs TCU</div><div class="br-game-seed">#1 vs #9 · Greenville SC · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--orange);">Duke -11.5</div><div class="br-pick-reason">0.981 vs 0.836 BARTHAG · gap 0.145 · Tier B on Foster OUT</div></div>
+  <div class="br-line"><div class="br-line-lbl">Line</div><div class="br-line-val">DUKE -11.5 DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-b">TIER B</span></div>
+  <div class="br-score"><div class="br-score-lbl">Final</div><div class="br-score-val">DUKE 81 · TCU 58</div></div>
+  <div class="br-result"><div class="r-win">WIN +11.5</div></div>
+</div>
+
+<!-- Houston -10.5 WIN -->
+<div class="bet-row win" data-result="win" data-type="spread" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Houston vs Texas A&amp;M</div><div class="br-game-seed">#2 vs #10 · Memphis TN · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--red);">Houston -10.5</div><div class="br-pick-reason">Pace 63.3 vs 71.0 · near home · TXAM L10 0.747 · 2 OUT</div></div>
+  <div class="br-line"><div class="br-line-lbl">Line</div><div class="br-line-val">HOU -10.5 DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-a">TIER A</span></div>
+  <div class="br-score"><div class="br-score-lbl">Final</div><div class="br-score-val">HOU 88 · TXAM 57</div></div>
+  <div class="br-result"><div class="r-win">WIN +20.5</div></div>
+</div>
+
+<!-- Illinois -11.5 WIN -->
+<div class="bet-row win" data-result="win" data-type="spread" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Illinois vs VCU</div><div class="br-game-seed">#3 vs #11 · Memphis TN · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--red);">Illinois -11.5</div><div class="br-pick-reason">0.968 vs 0.843 · #1 offense · VCU 2 Fs OUT · line moved ILL</div></div>
+  <div class="br-line"><div class="br-line-lbl">Line</div><div class="br-line-val">ILL -11.5 DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-a">TIER A</span></div>
+  <div class="br-score"><div class="br-score-lbl">Final</div><div class="br-score-val">ILL 76 · VCU 55</div></div>
+  <div class="br-result"><div class="r-win">WIN +9.5</div></div>
+</div>
+
+<!-- Gonzaga -6 LOSS -->
+<div class="bet-row loss" data-result="loss" data-type="spread" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Gonzaga vs Texas</div><div class="br-game-seed">#3 vs #11 · Portland OR · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--orange);">Gonzaga -6</div><div class="br-pick-reason">TEX L10 0.565 dead cold · Huff OUT tempers to B · RLM toward TEX noted</div></div>
+  <div class="br-line"><div class="br-line-lbl">Line</div><div class="br-line-val">GON -6 DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-b">TIER B</span></div>
+  <div class="br-score"><div class="br-score-lbl">Final</div><div class="br-score-val">TEX 74 · GON 68</div></div>
+  <div class="br-result"><div class="r-loss">LOSS -6</div></div>
+</div>
+
+<!-- Vanderbilt -1.5 LOSS -->
+<div class="bet-row loss" data-result="loss" data-type="spread" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Vanderbilt vs Nebraska</div><div class="br-game-seed">#5 vs #4 · OKC OK · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--orange);">Vanderbilt -1.5</div><div class="br-pick-reason">0.946 > 0.931 BARTHAG · VAN L10 0.971 · NEB 3 OUT · RLM tempered to B</div></div>
+  <div class="br-line"><div class="br-line-lbl">Line</div><div class="br-line-val">VAN -1.5 DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-b">TIER B</span></div>
+  <div class="br-score"><div class="br-score-lbl">Final</div><div class="br-score-val">NEB 74 · VAN 72</div></div>
+  <div class="br-result"><div class="r-loss">LOSS -2</div></div>
+</div>
+
+<!-- Arkansas -11.5 LOSS -->
+<div class="bet-row loss" data-result="loss" data-type="spread" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Arkansas vs High Point</div><div class="br-game-seed">#4 vs #12 · Portland OR · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--orange);">Arkansas -11.5</div><div class="br-pick-reason">HP 0.699 below Cinderella floor · ARK L10 0.951</div></div>
+  <div class="br-line"><div class="br-line-lbl">Line</div><div class="br-line-val">ARK -11.5 DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-b">TIER B</span></div>
+  <div class="br-score"><div class="br-score-lbl">Final</div><div class="br-score-val">ARK 94 · HP 88</div></div>
+  <div class="br-result"><div class="r-loss">LOSS -5.5</div></div>
+</div>
+
+<div data-round="r2" style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--dim);padding:16px 0 10px;text-transform:uppercase;border-top:1px solid var(--border2);margin-top:8px;">▸ Saturday March 21 · 1H Picks</div>
+
+<!-- HOU/TXAM U66.5 1H LOSS (Tier A) -->
+<div class="bet-row loss" data-result="loss" data-type="1h" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Houston vs Texas A&amp;M · 1H</div><div class="br-game-seed">#2 vs #10 · Memphis TN · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--purple);">UNDER 66½ 1H</div><div class="br-pick-reason">HOU pace 63.3 · TXAM cold offense · elite D from tip</div></div>
+  <div class="br-line"><div class="br-line-lbl">1H Total</div><div class="br-line-val">U66½ -120 DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-a">1H · A</span></div>
+  <div class="br-score"><div class="br-score-lbl">HT Score</div><div class="br-score-val">HOU 46 · TXAM 28 = 74</div></div>
+  <div class="br-result"><div class="r-loss">LOSS +7.5</div></div>
+</div>
+
+<!-- HOU -6.5 1H spread WIN (Tier B) -->
+<div class="bet-row win" data-result="win" data-type="1h" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Houston vs Texas A&amp;M · 1H Spread</div><div class="br-game-seed">#2 vs #10 · Memphis TN · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--purple);">Houston -6.5 1H</div><div class="br-pick-reason">HOU dominates from tip · TXAM cold + depleted · pace mismatch</div></div>
+  <div class="br-line"><div class="br-line-lbl">1H Spread</div><div class="br-line-val">HOU -6½ DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-b">1H · B</span></div>
+  <div class="br-score"><div class="br-score-lbl">HT Score</div><div class="br-score-val">HOU 46 · TXAM 28</div></div>
+  <div class="br-result"><div class="r-win">WIN +11.5</div></div>
+</div>
+
+<!-- GON -3.5 1H spread WIN (Tier B) -->
+<div class="bet-row win" data-result="win" data-type="1h" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Gonzaga vs Texas · 1H Spread</div><div class="br-game-seed">#3 vs #11 · Portland OR · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--purple);">Gonzaga -3.5 1H</div><div class="br-pick-reason">TEX offense dead L10 · GON defensive identity from tip</div></div>
+  <div class="br-line"><div class="br-line-lbl">1H Spread</div><div class="br-line-val">GON -3½ DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-b">1H · B</span></div>
+  <div class="br-score"><div class="br-score-lbl">HT Score</div><div class="br-score-val">GON 23 · TEX 19</div></div>
+  <div class="br-result"><div class="r-win">WIN +0.5</div></div>
+</div>
+
+<!-- GON/TEX U69.5 1H WIN (Tier B) -->
+<div class="bet-row win" data-result="win" data-type="1h" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Gonzaga vs Texas · 1H Under</div><div class="br-game-seed">#3 vs #11 · Portland OR · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--purple);">UNDER 69½ 1H</div><div class="br-pick-reason">TEX L10 0.565 offense dead · GON D identity · fatigue factor</div></div>
+  <div class="br-line"><div class="br-line-lbl">1H Total</div><div class="br-line-val">U69½ DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-b">1H · B</span></div>
+  <div class="br-score"><div class="br-score-lbl">HT Score</div><div class="br-score-val">GON 23 · TEX 19 = 42</div></div>
+  <div class="br-result"><div class="r-win">WIN -27.5</div></div>
+</div>
+
+<!-- ILL/VCU U71.5 1H WIN (Tier B) -->
+<div class="bet-row win" data-result="win" data-type="1h" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Illinois vs VCU · 1H Under</div><div class="br-game-seed">#3 vs #11 · Memphis TN · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--purple);">UNDER 71½ 1H</div><div class="br-pick-reason">ILL pace 65.7 · VCU depleted · methodical grind</div></div>
+  <div class="br-line"><div class="br-line-lbl">1H Total</div><div class="br-line-val">U71½ DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-b">1H · B</span></div>
+  <div class="br-score"><div class="br-score-lbl">HT Score</div><div class="br-score-val">ILL 35 · VCU 28 = 63</div></div>
+  <div class="br-result"><div class="r-win">WIN -8.5</div></div>
+</div>
+
+<!-- NEB/VAN OVER 68.5 1H WIN (Tier B) -->
+<div class="bet-row win" data-result="win" data-type="1h" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Vanderbilt vs Nebraska · 1H Over</div><div class="br-game-seed">#5 vs #4 · OKC OK · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--purple);">OVER 68½ 1H</div><div class="br-pick-reason">VAN L10 137 AdjOE · NEB depleted D · DK moved to OVER</div></div>
+  <div class="br-line"><div class="br-line-lbl">1H Total</div><div class="br-line-val">OVER 68½ DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-b">1H · B</span></div>
+  <div class="br-score"><div class="br-score-lbl">HT Score</div><div class="br-score-val">NEB 39 · VAN 32 = 71</div></div>
+  <div class="br-result"><div class="r-win">WIN +2.5</div></div>
+</div>
+
+<!-- MICH/SLU U76.5 1H LOSS (Lean) -->
+<div class="bet-row loss" data-result="loss" data-type="1h" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Michigan vs Saint Louis · 1H Under</div><div class="br-game-seed">#1 vs #9 · Buffalo NY · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--win);">UNDER 76½ 1H</div><div class="br-pick-reason">Michigan #1 D suppresses early · steep juice -125 tempers to lean</div></div>
+  <div class="br-line"><div class="br-line-lbl">1H Total</div><div class="br-line-val">U76½ -125 DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-lean">1H · LEAN</span></div>
+  <div class="br-score"><div class="br-score-lbl">HT Score</div><div class="br-score-val">MICH 48 · SLU 39 = 87</div></div>
+  <div class="br-result"><div class="r-loss">LOSS +10.5</div></div>
+</div>
+
+<!-- ARK -6.5 1H spread LOSS (Tier B) -->
+<div class="bet-row loss" data-result="loss" data-type="1h" data-day="r2">
+  <div class="br-game"><div class="br-game-name">Arkansas vs High Point · 1H Spread</div><div class="br-game-seed">#4 vs #12 · Portland OR · R2</div></div>
+  <div class="br-pick"><div class="br-pick-val" style="color:var(--purple);">Arkansas -6.5 1H</div><div class="br-pick-reason">ARK dominant from opening · HP no defensive identity</div></div>
+  <div class="br-line"><div class="br-line-lbl">1H Spread</div><div class="br-line-val">ARK -6½ DK</div></div>
+  <div class="br-tier"><span class="tier-badge t-b">1H · B</span></div>
+  <div class="br-score"><div class="br-score-lbl">HT Score</div><div class="br-score-val">ARK 43 · HP 42</div></div>
+  <div class="br-result"><div class="r-loss">LOSS -5.5</div></div>
+</div>
+
+<!-- ══ R2 SUNDAY PENDING ══ -->
+<div class="section-hdr" data-round="r2" style="margin-top:40px;">
+  <span class="section-title">▶ Round 2 — Sunday Picks · March 22</span>
   <span class="section-line"></span>
   <span class="section-record" style="color:var(--pending);">pending</span>
 </div>
-<div style="padding:24px 16px;text-align:center;color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;border:1px dashed var(--border2);border-radius:6px;margin-bottom:8px;">
-  NO PICKS YET · SAT-SUN MARCH 21-22
-</div>
-
-<!-- ══════════════ R3 — SWEET 16 ══════════════ -->
-<div class="section-hdr" style="margin-top:32px;">
-  <span class="section-title">▶ Round 3 — Sweet 16</span>
-  <span class="section-line"></span>
-  <span class="section-record" style="color:var(--pending);">pending</span>
-</div>
-<div style="padding:24px 16px;text-align:center;color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;border:1px dashed var(--border2);border-radius:6px;margin-bottom:8px;">
-  NO PICKS YET · THU-FRI MARCH 26-27
-</div>
-
-<!-- ══════════════ R4 — ELITE EIGHT ══════════════ -->
-<div class="section-hdr" style="margin-top:32px;">
-  <span class="section-title">▶ Round 4 — Elite Eight</span>
-  <span class="section-line"></span>
-  <span class="section-record" style="color:var(--pending);">pending</span>
-</div>
-<div style="padding:24px 16px;text-align:center;color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;border:1px dashed var(--border2);border-radius:6px;margin-bottom:8px;">
-  NO PICKS YET · SAT-SUN MARCH 28-29
-</div>
-
-<!-- ══════════════ R5 — FINAL FOUR ══════════════ -->
-<div class="section-hdr" style="margin-top:32px;">
-  <span class="section-title">▶ Round 5 — Final Four</span>
-  <span class="section-line"></span>
-  <span class="section-record" style="color:var(--pending);">pending</span>
-</div>
-<div style="padding:24px 16px;text-align:center;color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;border:1px dashed var(--border2);border-radius:6px;margin-bottom:8px;">
-  NO PICKS YET · SAT APRIL 4 · LUCAS OIL · INDIANAPOLIS
-</div>
-
-<!-- ══════════════ R6 — CHAMPIONSHIP ══════════════ -->
-<div class="section-hdr" style="margin-top:32px;">
-  <span class="section-title">▶ Round 6 — National Championship</span>
-  <span class="section-line"></span>
-  <span class="section-record" style="color:var(--pending);">pending</span>
-</div>
-<div style="padding:24px 16px;text-align:center;color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;border:1px dashed var(--border2);border-radius:6px;margin-bottom:8px;">
-  NO PICKS YET · MON APRIL 6 · LUCAS OIL · INDIANAPOLIS
-</div>
 
 
-  2026 MARCH MADNESS BETTING RESULTS · bbeem1031 · Updated live March 19, 2026<br>
+
+
+
+
+
+
+
+
+
+
+</div><!-- /round-r2 -->
+
+
+  2026 MARCH MADNESS BETTING RESULTS · bbeem1031 · Updated March 22, 2026<br>
   Lines from v5 PDF (9AM March 19 DraftKings/Pinnacle) · Scores from NCAA.com / ESPN / Yahoo Sports<br>
   Spread results based on closing line at time of bet · 1H scores sourced from live trackers · FOR ENTERTAINMENT PURPOSES ONLY · GAMBLING INVOLVES RISK
 </div>
@@ -1493,23 +1683,41 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 function filterBets(type, btn) {
   document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
+
+  const roundMap = {
+    'r1': ['round-r1'],
+    'r2': ['round-r2'],
+    'r3': ['round-r3'],
+    'r4': ['round-r4'],
+    'r5': ['round-r5'],
+    'r6': ['round-r6'],
+  };
+  const isRoundFilter = type in roundMap;
+
+  // Show/hide entire round blocks
+  document.querySelectorAll('.round-block').forEach(block => {
+    if (!isRoundFilter) {
+      block.style.display = '';
+    } else {
+      block.style.display = roundMap[type].includes(block.id) ? '' : 'none';
+    }
+  });
+
+  // Within visible blocks, filter individual bet rows by result type
   document.querySelectorAll('.bet-row').forEach(row => {
+    if (isRoundFilter) {
+      row.classList.remove('hide');
+      return;
+    }
     const result = row.dataset.result;
-    const btype  = row.dataset.type;
-    const day    = row.dataset.day;
     let show = true;
-    if (type === 'win'     && result !== 'win')    show = false;
-    if (type === 'loss'    && result !== 'loss')   show = false;
+    if (type === 'win'     && result !== 'win')     show = false;
+    if (type === 'loss'    && result !== 'loss')    show = false;
     if (type === 'pending' && result !== 'pending') show = false;
-    if (type === 'r1' && day !== 'thu' && day !== 'fri') show = false;
-    if (type === 'r2' && day !== 'r2') show = false;
-    if (type === 'r3' && day !== 'r3') show = false;
-    if (type === 'r4' && day !== 'r4') show = false;
-    if (type === 'r5' && day !== 'r5') show = false;
-    if (type === 'r6' && day !== 'r6') show = false;
     row.classList.toggle('hide', !show);
   });
 }
+
 
 </script>
 
