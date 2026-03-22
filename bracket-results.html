@@ -162,20 +162,20 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <!-- SCOREBOARD -->
 <div class="scoreboard">
   <div class="sb-cell">
-    <div class="sb-num" style="color:var(--win);">24</div>
-    <div class="sb-lbl">Hits<br>R1 Total</div>
+    <div class="sb-num" style="color:var(--win);">31</div>
+    <div class="sb-lbl">Hits<br>R1+R2 Sat</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" style="color:var(--loss);">8</div>
-    <div class="sb-lbl">Misses<br>R1 Total</div>
+    <div class="sb-num" style="color:var(--loss);">9</div>
+    <div class="sb-lbl">Misses<br>R1+R2 Sat</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" style="color:var(--gold);">24-8</div>
-    <div class="sb-lbl">Record<br>R1 Complete</div>
+    <div class="sb-num" style="color:var(--gold);">31-9</div>
+    <div class="sb-lbl">Record<br>R1+R2 Sat</div>
   </div>
   <div class="sb-cell">
     <div class="sb-num" style="color:var(--teal);">4</div>
-    <div class="sb-lbl">Upsets<br>Hit R1</div>
+    <div class="sb-lbl">Upsets<br>Hit R1 (R2 1 miss)</div>
   </div>
 </div>
 
@@ -186,6 +186,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <button class="fbtn" onclick="filterRound('hit',this)">HITS</button>
   <button class="fbtn" onclick="filterRound('miss',this)">MISSES</button>
   <button class="fbtn" onclick="filterRound('upset',this)">UPSETS PICKED</button>
+  <button class="fbtn" onclick="filterRound('r2',this)">R2 SAT</button>
   <button class="fbtn" onclick="filterRound('tbd',this)">PENDING</button>
 </div>
 
@@ -414,6 +415,126 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="brk-badge win">HIT</div>
 </div>
 
+
+<!-- ══ R2 SATURDAY ══ -->
+<div class="round-hdr" style="margin-top:32px;">
+  <div class="round-label">R2 SATURDAY · MARCH 21</div>
+  <div class="round-record">7-1</div>
+  <div class="round-note">1 upset miss: Texas over Gonzaga · 7 chalk picks correct</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="r2" data-upset="no">
+  <div class="brk-game">Michigan vs Saint Louis<div class="seeds">#1 vs #9 · Buffalo NY</div></div>
+  <div class="brk-pick hit">Michigan ✓</div>
+  <div class="brk-actual">MICH 95–72</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="r2" data-upset="no">
+  <div class="brk-game">Michigan State vs Louisville<div class="seeds">#3 vs #6 · Buffalo NY</div></div>
+  <div class="brk-pick hit">Michigan State ✓</div>
+  <div class="brk-actual">MSU 77–69</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="r2" data-upset="no">
+  <div class="brk-game">Duke vs TCU<div class="seeds">#1 vs #9 · Greenville SC</div></div>
+  <div class="brk-pick hit">Duke ✓</div>
+  <div class="brk-actual">DUKE 81–58</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="r2" data-upset="no">
+  <div class="brk-game">Houston vs Texas A&amp;M<div class="seeds">#2 vs #10 · Memphis TN</div></div>
+  <div class="brk-pick hit">Houston ✓</div>
+  <div class="brk-actual">HOU 88–57</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row miss" data-result="miss" data-round="r2" data-upset="yes">
+  <div class="brk-game">Gonzaga vs Texas<div class="seeds">#3 vs #11 · Portland OR</div></div>
+  <div class="brk-pick miss">Gonzaga ← picked</div>
+  <div class="brk-actual">TEX 74–68</div>
+  <div class="brk-badge loss">MISS</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="r2" data-upset="no">
+  <div class="brk-game">Illinois vs VCU<div class="seeds">#3 vs #11 · Memphis TN</div></div>
+  <div class="brk-pick hit">Illinois ✓</div>
+  <div class="brk-actual">ILL 76–55</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="r2" data-upset="no">
+  <div class="brk-game">Nebraska vs Vanderbilt<div class="seeds">#4 vs #5 · OKC OK</div></div>
+  <div class="brk-pick hit">Nebraska ✓</div>
+  <div class="brk-actual">NEB 74–72</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<div class="brk-row hit" data-result="hit" data-round="r2" data-upset="no">
+  <div class="brk-game">Arkansas vs High Point<div class="seeds">#4 vs #12 · Portland OR</div></div>
+  <div class="brk-pick hit">Arkansas ✓</div>
+  <div class="brk-actual">ARK 94–88</div>
+  <div class="brk-badge win">HIT</div>
+</div>
+
+<!-- ══ R2 SUNDAY PENDING ══ -->
+<div class="round-hdr pending" style="margin-top:32px;">
+  <div class="round-label pending">R2 SUNDAY · MARCH 22</div>
+  <div class="round-record pending">0-0 · UPCOMING</div>
+  <div class="round-note">8 games · Purdue · Florida · St. John's · Arizona · Alabama/TTU · ISU/Kentucky · Tennessee/Virginia · UConn/UCLA</div>
+</div>
+
+<div class="brk-row tbd" data-result="tbd" data-round="r2sun" data-upset="no">
+  <div class="brk-game">Purdue vs Miami FL<div class="seeds">#2 vs #7 · St. Louis MO</div></div>
+  <div class="brk-pick tbd">Purdue</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="r2sun" data-upset="no">
+  <div class="brk-game">Florida vs Iowa<div class="seeds">#1 vs #9 · Tampa FL</div></div>
+  <div class="brk-pick tbd">Florida</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="r2sun" data-upset="no">
+  <div class="brk-game">St. John's vs Kansas<div class="seeds">#5 vs #4 · San Diego CA</div></div>
+  <div class="brk-pick tbd">St. John's</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="r2sun" data-upset="no">
+  <div class="brk-game">Arizona vs Utah State<div class="seeds">#1 vs #9 · San Diego CA</div></div>
+  <div class="brk-pick tbd">Arizona</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="r2sun" data-upset="yes">
+  <div class="brk-game">Alabama vs Texas Tech<div class="seeds">#4 vs #5 · Tampa FL</div></div>
+  <div class="brk-pick tbd">Akron (upset · R17) ← R32 pick</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="r2sun" data-upset="no">
+  <div class="brk-game">Iowa State vs Kentucky<div class="seeds">#2 vs #7 · St. Louis MO</div></div>
+  <div class="brk-pick tbd">Iowa State</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="r2sun" data-upset="no">
+  <div class="brk-game">Tennessee vs Virginia<div class="seeds">#6 vs #3 · Philadelphia PA</div></div>
+  <div class="brk-pick tbd">Virginia</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+<div class="brk-row tbd" data-result="tbd" data-round="r2sun" data-upset="no">
+  <div class="brk-game">UConn vs UCLA<div class="seeds">#2 vs #7 · Philadelphia PA</div></div>
+  <div class="brk-pick tbd">UConn</div>
+  <div class="brk-actual">—</div>
+  <div class="brk-badge tbd">TBD</div>
+</div>
+
 </div><!-- /main -->
 
 <div class="footer">
@@ -431,6 +552,7 @@ function filterRound(type, btn) {
     if (type === 'miss'  && row.dataset.result !== 'miss') show = false;
     if (type === 'tbd'   && row.dataset.result !== 'tbd')  show = false;
     if (type === 'upset' && row.dataset.upset  !== 'yes')  show = false;
+    if (type === 'r2'    && row.dataset.round  !== 'r2')   show = false;
     row.classList.toggle('hide', !show);
   });
 }
