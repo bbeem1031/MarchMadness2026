@@ -196,10 +196,10 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div>
     <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">▶ ESPN Bracket Score</div>
     <div style="display:flex;align-items:baseline;gap:10px;">
-      <div style="font-size:52px;font-weight:900;color:var(--gold);line-height:1;font-family:'IBM Plex Mono',monospace;">480</div>
+      <div style="font-size:52px;font-weight:900;color:var(--gold);line-height:1;font-family:'IBM Plex Mono',monospace;">560</div>
       <div style="font-size:18px;color:rgba(255,255,255,0.3);font-family:'IBM Plex Mono',monospace;">/ 1920</div>
     </div>
-    <div style="font-size:11px;color:var(--muted);margin-top:4px;font-family:'IBM Plex Mono',monospace;">Max still achievable: 1,720 pts</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:4px;font-family:'IBM Plex Mono',monospace;">Max still achievable: 1,760 pts</div>
   </div>
 
   <!-- Middle: round breakdown -->
@@ -214,10 +214,10 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
       <div style="font-size:9px;color:var(--muted);letter-spacing:1px;margin-top:2px;">R2 · 20pts</div>
       <div style="font-size:9px;color:var(--win);">12 hits · complete ✓</div>
     </div>
-    <div style="text-align:center;background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 14px;min-width:60px;opacity:0.4;">
-      <div style="font-size:18px;font-weight:900;color:var(--muted);font-family:'IBM Plex Mono',monospace;">—</div>
+    <div style="text-align:center;background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 14px;min-width:60px;">
+      <div style="font-size:18px;font-weight:900;color:var(--gold);font-family:'IBM Plex Mono',monospace;">80</div>
       <div style="font-size:9px;color:var(--muted);letter-spacing:1px;margin-top:2px;">R3 · 40pts</div>
-      <div style="font-size:9px;color:var(--muted);">pending</div>
+      <div style="font-size:9px;color:var(--gold);">2 hits · 4 pending</div>
     </div>
     <div style="text-align:center;background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 14px;min-width:60px;opacity:0.4;">
       <div style="font-size:18px;font-weight:900;color:var(--muted);font-family:'IBM Plex Mono',monospace;">—</div>
@@ -602,34 +602,34 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 
 <!-- ══ R3 PENDING ══ -->
-<div class="round-hdr pending" data-round="r3" style="margin-top:32px;">
-  <div class="round-label pending">R3 · SWEET 16 · MARCH 26–27</div>
-  <div class="round-record pending">PENDING</div>
-  <div class="round-note">8 games · Houston TX · San Jose CA · Chicago IL · Washington DC</div>
+<div class="round-hdr" data-round="r3" style="margin-top:32px;">
+  <div class="round-label">R3 · SWEET 16 · MARCH 26–27</div>
+  <div class="round-record">2-2 · Thu complete · Fri pending</div>
+  <div class="round-note">Thu: ILL 65–55 · IOWA 77–71 · PUR 79–77 · ARIZ 109–88 · Fri: 4 games pending</div>
 </div>
-<div class="brk-row tbd" data-result="tbd" data-round="r3" data-upset="no">
+<div class="brk-row miss" data-result="miss" data-round="r3" data-upset="yes">
   <div class="brk-game">Illinois vs Houston<div class="seeds">#3 vs #2 · South · Houston TX</div></div>
-  <div class="brk-pick tbd">—</div>
-  <div class="brk-actual">—</div>
-  <div class="brk-badge tbd">PENDING</div>
+  <div class="brk-pick miss">Houston ← picked</div>
+  <div class="brk-actual">ILL 65–55</div>
+  <div class="brk-badge loss">MISS</div>
 </div>
-<div class="brk-row tbd" data-result="tbd" data-round="r3" data-upset="no">
-  <div class="brk-game">Iowa vs Nebraska<div class="seeds">#9 vs #4 · West · San Jose CA</div></div>
-  <div class="brk-pick tbd">—</div>
-  <div class="brk-actual">—</div>
-  <div class="brk-badge tbd">PENDING</div>
+<div class="brk-row miss" data-result="miss" data-round="r3" data-upset="yes">
+  <div class="brk-game">Iowa vs Nebraska<div class="seeds">#9 vs #4 · South · Houston TX</div></div>
+  <div class="brk-pick miss">Nebraska ← picked</div>
+  <div class="brk-actual">IOWA 77–71</div>
+  <div class="brk-badge loss">MISS</div>
 </div>
-<div class="brk-row tbd" data-result="tbd" data-round="r3" data-upset="no">
+<div class="brk-row hit" data-result="hit" data-round="r3" data-upset="no">
   <div class="brk-game">Texas vs Purdue<div class="seeds">#11 vs #2 · West · San Jose CA</div></div>
-  <div class="brk-pick tbd">—</div>
-  <div class="brk-actual">—</div>
-  <div class="brk-badge tbd">PENDING</div>
+  <div class="brk-pick hit">Purdue ✓</div>
+  <div class="brk-actual">PUR 79–77</div>
+  <div class="brk-badge win">HIT</div>
 </div>
-<div class="brk-row tbd" data-result="tbd" data-round="r3" data-upset="no">
-  <div class="brk-game">Arkansas vs Arizona<div class="seeds">#4 vs #1 · South · Houston TX</div></div>
-  <div class="brk-pick tbd">—</div>
-  <div class="brk-actual">—</div>
-  <div class="brk-badge tbd">PENDING</div>
+<div class="brk-row hit" data-result="hit" data-round="r3" data-upset="no">
+  <div class="brk-game">Arkansas vs Arizona<div class="seeds">#4 vs #1 · West · San Jose CA</div></div>
+  <div class="brk-pick hit">Arizona ✓</div>
+  <div class="brk-actual">ARIZ 109–88</div>
+  <div class="brk-badge win">HIT</div>
 </div>
 <div class="brk-row tbd" data-result="tbd" data-round="r3" data-upset="no">
   <div class="brk-game">St. John's vs Duke<div class="seeds">#5 vs #1 · East · Washington DC</div></div>
@@ -722,7 +722,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <div class="footer">
   2026 MARCH MADNESS BRACKET RESULTS · bbeem1031 · Champion pick: Michigan over Duke 73-68<br>
-  Picks from 2026_FINAL_POOL_BRACKET.pdf · Updated March 23, 2026 · R2 Complete · R3 Pending · FOR ENTERTAINMENT PURPOSES ONLY
+  Picks from 2026_FINAL_POOL_BRACKET.pdf · Updated March 27, 2026 · R3 Thu Complete (2-2) · R3 Fri Pending · FOR ENTERTAINMENT PURPOSES ONLY
 </div>
 
 <script>
@@ -730,12 +730,12 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 const roundRecords = {
   r1: { hits: 24, misses: 8,  record: '24-8',  upsets: 6, lbl: 'Round 1' },
   r2: { hits: 12, misses: 4,  record: '12-4',  upsets: 1, lbl: 'Round 2' },
-  r3: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Round 3' },
+  r3: { hits: 2,  misses: 2,  record: '2-2',   upsets: 0, lbl: 'Round 3' },
   r4: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Round 4' },
   r5: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Round 5' },
   r6: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Champ'   },
 };
-const allRecord = { hits: 36, misses: 12, record: '36-12', upsets: 5, lbl: 'All Rounds' };
+const allRecord = { hits: 38, misses: 14, record: '38-14', upsets: 5, lbl: 'All Rounds' };
 
 function updateScoreboard(type) {
   const rounds = ['r1','r2','r3','r4','r5','r6'];
