@@ -196,7 +196,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div>
     <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">▶ ESPN Bracket Score</div>
     <div style="display:flex;align-items:baseline;gap:10px;">
-      <div style="font-size:52px;font-weight:900;color:var(--gold);line-height:1;font-family:'IBM Plex Mono',monospace;">680</div>
+      <div style="font-size:52px;font-weight:900;color:var(--gold);line-height:1;font-family:'IBM Plex Mono',monospace;">840</div>
       <div style="font-size:18px;color:rgba(255,255,255,0.3);font-family:'IBM Plex Mono',monospace;">/ 1920</div>
     </div>
     <div style="font-size:11px;color:var(--muted);margin-top:4px;font-family:'IBM Plex Mono',monospace;">Max still achievable: 1,640 pts</div>
@@ -220,9 +220,9 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
       <div style="font-size:9px;color:var(--win);">5 hits · complete ✓</div>
     </div>
     <div style="text-align:center;background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 14px;min-width:60px;opacity:0.4;">
-      <div style="font-size:18px;font-weight:900;color:var(--muted);font-family:'IBM Plex Mono',monospace;">—</div>
+      <div style="font-size:18px;font-weight:900;color:var(--gold);font-family:'IBM Plex Mono',monospace;">160</div>
       <div style="font-size:9px;color:var(--muted);letter-spacing:1px;margin-top:2px;">R4 · 80pts</div>
-      <div style="font-size:9px;color:var(--muted);">pending</div>
+      <div style="font-size:9px;color:var(--gold);">2 hits · 2 pending</div>
     </div>
     <div style="text-align:center;background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 14px;min-width:60px;opacity:0.4;">
       <div style="font-size:18px;font-weight:900;color:var(--muted);font-family:'IBM Plex Mono',monospace;">—</div>
@@ -659,20 +659,20 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <!-- ══ R4 PENDING ══ -->
 <div class="round-hdr pending" data-round="r4" style="margin-top:32px;">
   <div class="round-label pending">R4 · ELITE EIGHT · MARCH 28–29</div>
-  <div class="round-record pending">PENDING</div>
-  <div class="round-note">4 games · Regional Finals</div>
+  <div class="round-record">2-0 · Sat complete · Sun pending</div>
+  <div class="round-note">Sat: ILL 71–59 · ARIZ 79–64 · Sun: Duke/UConn · Mich/Tenn pending</div>
 </div>
-<div class="brk-row tbd" data-result="tbd" data-round="r4" data-upset="no">
-  <div class="brk-game">Elite Eight · South Regional<div class="seeds">Houston TX</div></div>
-  <div class="brk-pick tbd">—</div>
-  <div class="brk-actual">—</div>
-  <div class="brk-badge tbd">PENDING</div>
+<div class="brk-row hit" data-result="hit" data-round="r4" data-upset="no">
+  <div class="brk-game">Illinois vs Iowa<div class="seeds">#3 vs #9 · Houston TX · South Final</div></div>
+  <div class="brk-pick hit">Illinois ✓</div>
+  <div class="brk-actual">ILL 71–59</div>
+  <div class="brk-badge win">HIT</div>
 </div>
-<div class="brk-row tbd" data-result="tbd" data-round="r4" data-upset="no">
-  <div class="brk-game">Elite Eight · West Regional<div class="seeds">San Jose CA</div></div>
-  <div class="brk-pick tbd">—</div>
-  <div class="brk-actual">—</div>
-  <div class="brk-badge tbd">PENDING</div>
+<div class="brk-row hit" data-result="hit" data-round="r4" data-upset="no">
+  <div class="brk-game">Purdue vs Arizona<div class="seeds">#2 vs #1 · San Jose CA · West Final</div></div>
+  <div class="brk-pick hit">Arizona ✓</div>
+  <div class="brk-actual">ARIZ 79–64</div>
+  <div class="brk-badge win">HIT</div>
 </div>
 <div class="brk-row tbd" data-result="tbd" data-round="r4" data-upset="no">
   <div class="brk-game">Elite Eight · Midwest Regional<div class="seeds">Chicago IL</div></div>
@@ -722,7 +722,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <div class="footer">
   2026 MARCH MADNESS BRACKET RESULTS · bbeem1031 · Champion pick: Michigan over Duke 73-68<br>
-  Picks from 2026_FINAL_POOL_BRACKET.pdf · Updated March 28, 2026 · R3 Complete (5-3) · R4 Pending · FOR ENTERTAINMENT PURPOSES ONLY
+  Picks from 2026_FINAL_POOL_BRACKET.pdf · Updated March 29, 2026 · R4 Sat Complete (2-0) · Sun Pending · FOR ENTERTAINMENT PURPOSES ONLY
 </div>
 
 <script>
@@ -731,11 +731,11 @@ const roundRecords = {
   r1: { hits: 24, misses: 8,  record: '24-8',  upsets: 6, lbl: 'Round 1' },
   r2: { hits: 12, misses: 4,  record: '12-4',  upsets: 1, lbl: 'Round 2' },
   r3: { hits: 5,  misses: 3,  record: '5-3',   upsets: 0, lbl: 'Round 3' },
-  r4: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Round 4' },
+  r4: { hits: 2,  misses: 0,  record: '2-0',   upsets: 0, lbl: 'Round 4' },
   r5: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Round 5' },
   r6: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Champ'   },
 };
-const allRecord = { hits: 41, misses: 15, record: '41-15', upsets: 5, lbl: 'All Rounds' };
+const allRecord = { hits: 43, misses: 15, record: '43-15', upsets: 5, lbl: 'All Rounds' };
 
 function updateScoreboard(type) {
   const rounds = ['r1','r2','r3','r4','r5','r6'];
