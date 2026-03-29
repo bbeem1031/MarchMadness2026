@@ -196,7 +196,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div>
     <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">▶ ESPN Bracket Score</div>
     <div style="display:flex;align-items:baseline;gap:10px;">
-      <div style="font-size:52px;font-weight:900;color:var(--gold);line-height:1;font-family:'IBM Plex Mono',monospace;">840</div>
+      <div style="font-size:52px;font-weight:900;color:var(--gold);line-height:1;font-family:'IBM Plex Mono',monospace;">760</div>
       <div style="font-size:18px;color:rgba(255,255,255,0.3);font-family:'IBM Plex Mono',monospace;">/ 1920</div>
     </div>
     <div style="font-size:11px;color:var(--muted);margin-top:4px;font-family:'IBM Plex Mono',monospace;">Max still achievable: 1,640 pts</div>
@@ -662,11 +662,11 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="round-record">2-0 · Sat complete · Sun pending</div>
   <div class="round-note">Sat: ILL 71–59 · ARIZ 79–64 · Sun: Duke/UConn · Mich/Tenn pending</div>
 </div>
-<div class="brk-row hit" data-result="hit" data-round="r4" data-upset="no">
+<div class="brk-row miss" data-result="miss" data-round="r4" data-upset="no">
   <div class="brk-game">Illinois vs Iowa<div class="seeds">#3 vs #9 · Houston TX · South Final</div></div>
-  <div class="brk-pick hit">Illinois ✓</div>
+  <div class="brk-pick miss">Houston ← picked (lost R3)</div>
   <div class="brk-actual">ILL 71–59</div>
-  <div class="brk-badge win">HIT</div>
+  <div class="brk-badge loss">MISS</div>
 </div>
 <div class="brk-row hit" data-result="hit" data-round="r4" data-upset="no">
   <div class="brk-game">Purdue vs Arizona<div class="seeds">#2 vs #1 · San Jose CA · West Final</div></div>
@@ -722,7 +722,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <div class="footer">
   2026 MARCH MADNESS BRACKET RESULTS · bbeem1031 · Champion pick: Michigan over Duke 73-68<br>
-  Picks from 2026_FINAL_POOL_BRACKET.pdf · Updated March 29, 2026 · R4 Sat Complete (2-0) · Sun Pending · FOR ENTERTAINMENT PURPOSES ONLY
+  Picks from 2026_FINAL_POOL_BRACKET.pdf · Updated March 29, 2026 · R4 Sat Complete (1-1) · Sun Pending · FOR ENTERTAINMENT PURPOSES ONLY
 </div>
 
 <script>
@@ -731,11 +731,11 @@ const roundRecords = {
   r1: { hits: 24, misses: 8,  record: '24-8',  upsets: 6, lbl: 'Round 1' },
   r2: { hits: 12, misses: 4,  record: '12-4',  upsets: 1, lbl: 'Round 2' },
   r3: { hits: 5,  misses: 3,  record: '5-3',   upsets: 0, lbl: 'Round 3' },
-  r4: { hits: 2,  misses: 0,  record: '2-0',   upsets: 0, lbl: 'Round 4' },
+  r4: { hits: 1,  misses: 1,  record: '1-1',   upsets: 0, lbl: 'Round 4' },
   r5: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Round 5' },
   r6: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Champ'   },
 };
-const allRecord = { hits: 43, misses: 15, record: '43-15', upsets: 5, lbl: 'All Rounds' };
+const allRecord = { hits: 42, misses: 16, record: '42-16', upsets: 5, lbl: 'All Rounds' };
 
 function updateScoreboard(type) {
   const rounds = ['r1','r2','r3','r4','r5','r6'];
