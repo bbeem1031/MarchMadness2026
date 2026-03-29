@@ -196,7 +196,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div>
     <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">▶ ESPN Bracket Score</div>
     <div style="display:flex;align-items:baseline;gap:10px;">
-      <div style="font-size:52px;font-weight:900;color:var(--gold);line-height:1;font-family:'IBM Plex Mono',monospace;">760</div>
+      <div style="font-size:52px;font-weight:900;color:var(--gold);line-height:1;font-family:'IBM Plex Mono',monospace;">740</div>
       <div style="font-size:18px;color:rgba(255,255,255,0.3);font-family:'IBM Plex Mono',monospace;">/ 1920</div>
     </div>
     <div style="font-size:11px;color:var(--muted);margin-top:4px;font-family:'IBM Plex Mono',monospace;">Max still achievable: 1,640 pts</div>
@@ -210,9 +210,9 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
       <div style="font-size:9px;color:var(--muted);">24 hits</div>
     </div>
     <div style="text-align:center;background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 14px;min-width:60px;">
-      <div style="font-size:18px;font-weight:900;color:var(--gold);font-family:'IBM Plex Mono',monospace;">240</div>
+      <div style="font-size:18px;font-weight:900;color:var(--gold);font-family:'IBM Plex Mono',monospace;">220</div>
       <div style="font-size:9px;color:var(--muted);letter-spacing:1px;margin-top:2px;">R2 · 20pts</div>
-      <div style="font-size:9px;color:var(--win);">12 hits · complete ✓</div>
+      <div style="font-size:9px;color:var(--muted);">11 hits · complete ✓</div>
     </div>
     <div style="text-align:center;background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 14px;min-width:60px;">
       <div style="font-size:18px;font-weight:900;color:var(--win);font-family:'IBM Plex Mono',monospace;">200</div>
@@ -222,7 +222,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
     <div style="text-align:center;background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 14px;min-width:60px;opacity:0.4;">
       <div style="font-size:18px;font-weight:900;color:var(--gold);font-family:'IBM Plex Mono',monospace;">160</div>
       <div style="font-size:9px;color:var(--muted);letter-spacing:1px;margin-top:2px;">R4 · 80pts</div>
-      <div style="font-size:9px;color:var(--gold);">2 hits · 2 pending</div>
+      <div style="font-size:9px;color:var(--gold);">1 hit · 2 pending</div>
     </div>
     <div style="text-align:center;background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 14px;min-width:60px;opacity:0.4;">
       <div style="font-size:18px;font-weight:900;color:var(--muted);font-family:'IBM Plex Mono',monospace;">—</div>
@@ -488,8 +488,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <!-- ══ R2 ══ -->
 <div class="round-hdr" data-round="r2" style="margin-top:32px;">
   <div class="round-label">R2 · ROUND OF 32 · MARCH 21–22</div>
-  <div class="round-record">12-4</div>
-  <div class="round-note">16 games complete · Misses: Texas (upset) · Florida (upset) · Virginia (upset) · ALA/Akron (dead pick)</div>
+  <div class="round-record">11-5</div>
+  <div class="round-note">16 games complete · Misses: Texas (upset) · Florida (upset) · Virginia (upset) · ALA/Akron (dead pick) · Kansas (SJU upset)</div>
 </div>
 <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--dim);padding:14px 20px 6px;text-transform:uppercase;" data-round="r2">▸ Saturday March 21</div>
 
@@ -563,11 +563,11 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="brk-actual">IOWA 73–72</div>
   <div class="brk-badge loss">MISS</div>
 </div>
-<div class="brk-row hit" data-result="hit" data-round="r2" data-upset="no">
+<div class="brk-row miss" data-result="miss" data-round="r2" data-upset="yes">
   <div class="brk-game">St. John's vs Kansas<div class="seeds">#5 vs #4 · San Diego CA</div></div>
-  <div class="brk-pick hit">St. John's ✓</div>
+  <div class="brk-pick miss">Kansas ← picked (SJU upset)</div>
   <div class="brk-actual">SJU 67–65</div>
-  <div class="brk-badge win">HIT</div>
+  <div class="brk-badge loss">MISS</div>
 </div>
 <div class="brk-row hit" data-result="hit" data-round="r2" data-upset="no">
   <div class="brk-game">Arizona vs Utah State<div class="seeds">#1 vs #9 · San Diego CA</div></div>
@@ -729,13 +729,13 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 // Round records — static per round, never change
 const roundRecords = {
   r1: { hits: 24, misses: 8,  record: '24-8',  upsets: 6, lbl: 'Round 1' },
-  r2: { hits: 12, misses: 4,  record: '12-4',  upsets: 1, lbl: 'Round 2' },
+  r2: { hits: 11, misses: 5,  record: '11-5',  upsets: 2, lbl: 'Round 2' },
   r3: { hits: 5,  misses: 3,  record: '5-3',   upsets: 0, lbl: 'Round 3' },
   r4: { hits: 1,  misses: 1,  record: '1-1',   upsets: 0, lbl: 'Round 4' },
   r5: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Round 5' },
   r6: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Champ'   },
 };
-const allRecord = { hits: 42, misses: 16, record: '42-16', upsets: 5, lbl: 'All Rounds' };
+const allRecord = { hits: 41, misses: 17, record: '41-17', upsets: 6, lbl: 'All Rounds' };
 
 function updateScoreboard(type) {
   const rounds = ['r1','r2','r3','r4','r5','r6'];
