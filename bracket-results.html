@@ -174,7 +174,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="sb-lbl" id="sb-record-lbl">Overall Record<br>All Rounds</div>
   </div>
   <div class="sb-cell">
-    <div class="sb-num" id="sb-upsets" style="color:var(--teal);">7</div>
+    <div class="sb-num" id="sb-upsets" style="color:var(--teal);">6</div>
     <div class="sb-lbl" id="sb-upsets-lbl">Upsets Hit<br>All Rounds</div>
   </div>
 </div>
@@ -731,11 +731,11 @@ const roundRecords = {
   r1: { hits: 24, misses: 8,  record: '24-8',  upsets: 6, lbl: 'Round 1' },
   r2: { hits: 11, misses: 5,  record: '11-5',  upsets: 2, lbl: 'Round 2' },
   r3: { hits: 5,  misses: 3,  record: '5-3',   upsets: 0, lbl: 'Round 3' },
-  r4: { hits: 2,  misses: 2,  record: '2-2',   upsets: 1, lbl: 'Round 4' },
+  r4: { hits: 2,  misses: 2,  record: '2-2',   upsets: 0, lbl: 'Round 4' },
   r5: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Round 5' },
   r6: { hits: 0,  misses: 0,  record: 'TBD',   upsets: 0, lbl: 'Champ'   },
 };
-const allRecord = { hits: 42, misses: 18, record: '42-18', upsets: 7, lbl: 'All Rounds' };
+const allRecord = { hits: 42, misses: 18, record: '42-18', upsets: 6, lbl: 'All Rounds' };
 
 function updateScoreboard(type) {
   const rounds = ['r1','r2','r3','r4','r5','r6'];
